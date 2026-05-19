@@ -1,0 +1,7 @@
+.next
+.history
+.husky
+node_modules
+public
+components.json
+bun.lockb

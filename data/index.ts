@@ -1,0 +1,5 @@
+export * from './types'
+export * from './categories'
+export * from './blocks'
+export * from './block-helpers'
+export type { BlockDefinition, BlockRegistryEntry } from '@/registry/types'
