@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "footer-section-two",
+  "title": "Footer Section Two",
+  "description": "Footer Section Two — Footer block.",
+  "dependencies": [
+    "@tabler/icons-react"
+  ],
+  "files": [
+    {
+      "path": "components/blocks/footer/footer-section-two.tsx",
+      "content": "import { IconHexagonFilled } from \"@tabler/icons-react\";\nimport {\n  IconBrandLinkedin,\n  IconBrandGithub,\n  IconBrandX,\n  IconMail,\n} from \"@tabler/icons-react\";\nimport Link from \"next/link\";\n\nconst links = [\n  { title: \"Features\", href: \"#\" },\n  { title: \"Solutions\", href: \"#\" },\n  { title: \"Customers\", href: \"#\" },\n  { title: \"Pricing\", href: \"#\" },\n  { title: \"Help\", href: \"#\" },\n];\n\nconst socials = [\n  {\n    title: \"LinkedIn\",\n    href: \"#\",\n    icon: IconBrandLinkedin,\n  },\n  {\n    title: \"GitHub\",\n    href: \"#\",\n    icon: IconBrandGithub,\n  },\n  {\n    title: \"Twitter\",\n    href: \"#\",\n    icon: IconBrandX,\n  },\n  {\n    title: \"Email\",\n    href: \"#\",\n    icon: IconMail,\n  },\n];\n\nexport default function FooterSectionTwo() {\n  return (\n    <footer className=\"py-40\">\n      <div className=\"mx-auto max-w-6xl \">\n        <div className=\"flex items-center justify-between \">\n          <div className=\"flex flex-col gap-3\">\n            <div className=\"flex items-center gap-1\">\n              <IconHexagonFilled className=\"size-7 shrink-0 fill-neutral-900 stroke-1 stroke-gray-300 dark:fill-neutral-100 dark:stroke-neutral-600\" />\n              <span className=\"text-lg font-semibold text-neutral-900 dark:text-neutral-100\">\n                Hex UI\n              </span>\n            </div>\n          </div>\n\n          <div className=\"flex items-center gap-4\">\n            {links.map((item) => (\n              <Link\n                href={item.href}\n                key={item.title}\n                className=\"text-sm font-normal hover:text-black text-neutral-600 duration-200 transition\"\n              >\n                {item.title}\n              </Link>\n            ))}\n          </div>\n        </div>\n\n        <div className=\"flex flex-col items-center justify-between gap-4 border-t border-neutral-200 border-dashed  py-6 mt-8 dark:border-neutral-800 sm:flex-row\">\n          <span className=\"text-center text-sm text-muted-foreground sm:text-left\">\n            © {new Date().getFullYear()} Hex UI, All rights reserved\n          </span>\n          <ul className=\"flex items-center gap-5\">\n            {socials.map((item) => {\n              const Icon = item.icon;\n              return (\n                <li key={item.title}>\n                  <a\n                    href={item.href}\n                    aria-label={item.title}\n                    className=\"text-neutral-700 transition-colors hover:text-neutral-900 dark:hover:text-neutral-100\"\n                  >\n                    <Icon className=\"size-5\" />\n                  </a>\n                </li>\n              );\n            })}\n          </ul>\n        </div>\n      </div>\n    </footer>\n  );\n}\n",
+      "type": "registry:component",
+      "target": "@components/blocks/footer/footer-section-two.tsx"
+    }
+  ],
+  "categories": [
+    "footer"
+  ],
+  "type": "registry:block"
+}

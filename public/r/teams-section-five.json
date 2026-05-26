@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "teams-section-five",
+  "title": "Teams Section Five",
+  "description": "Teams Section Five — Teams block.",
+  "registryDependencies": [
+    "badge"
+  ],
+  "files": [
+    {
+      "path": "components/blocks/teams/teams-section-five.tsx",
+      "content": "import { Badge } from \"@/components/ui/badge\";\n\nconst members = [\n  {\n    name: \"Liam Brown\",\n    role: \"Founder - CEO\",\n    avatar: \"/teams/avatar5.jpg\",\n    link: \"#\",\n  },\n  {\n    name: \"Elijah Jones\",\n    role: \"Co-Founder - CTO\",\n    avatar: \"/teams/avatar6.jpg\",\n    link: \"#\",\n  },\n  {\n    name: \"Isabella Garcia\",\n    role: \"Sales Manager\",\n    avatar: \"/teams/avatar3.jpg\",\n    link: \"#\",\n  },\n  {\n    name: \"Henry Lee\",\n    role: \"UX Engeneer\",\n    avatar: \"/teams/avatar4.jpg\",\n    link: \"#\",\n  },\n];\n\nexport default function TeamSectionFive() {\n  return (\n    <section className=\"bg-gray-50 py-16 md:py-32 dark:bg-transparent\">\n      <div className=\"mx-auto max-w-6xl px-4\">\n        <div className=\"mb-12 md:mb-16 flex flex-col items-start gap-4\">\n          <Badge\n            variant=\"ghost\"\n            className=\"uppercase text-sm text-muted-foreground\"\n          >\n            The Team\n          </Badge>\n\n          <div className=\"grid grid-cols-1 md:grid-cols-2 gap-6\">\n            <h1 className=\"text-2xl md:text-4xl font-medium max-w-[22ch]\">\n              Join a global team dedicated to their craft\n            </h1>\n            <p className=\"md:mt-6 text-left text-muted-foreground max-w-lg\">\n              We work with incredible talent from all around the world, each\n              offering unique skills and perspectives. Joining us means\n              you&apos;ll collaborate with industry leaders, learn from the\n              best, and continuously grow.\n            </p>\n          </div>\n        </div>\n\n        <div className=\"grid grid-cols-2 md:grid-cols-4 gap-6\">\n          {members.map((member, index) => (\n            <div\n              key={index}\n              className=\"group relative overflow-hidden rounded-xl\n                         aspect-3/4 md:aspect-2/3\"\n            >\n              <img\n                src={member.avatar}\n                alt={member.name}\n                className=\"absolute inset-0 h-full w-full object-cover object-top\n                           grayscale transition duration-500 group-hover:grayscale-0 group-hover:scale-103\"\n              />\n\n              <div className=\"absolute inset-0 bg-linear-to-t from-black/60 via-black/10 to-transparent\" />\n\n              <div className=\"absolute bottom-0 left-0 right-0 p-4 z-10\">\n                <h3 className=\"text-white font-medium\">{member.name}</h3>\n                <p className=\"text-white/80 text-sm\">{member.role}</p>\n              </div>\n            </div>\n          ))}\n        </div>\n      </div>\n    </section>\n  );\n}\n",
+      "type": "registry:component",
+      "target": "@components/blocks/teams/teams-section-five.tsx"
+    }
+  ],
+  "categories": [
+    "teams"
+  ],
+  "type": "registry:block"
+}

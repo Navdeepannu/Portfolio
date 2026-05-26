@@ -95,7 +95,7 @@ export default function HeroSectionTwo() {
       <HeaderTwo />
 
       {/* hero section two*/}
-      <section className="min-h-screen bg-neutral-900">
+      <section className="bg-neutral-900">
         <Spotlight />
 
         <div className="mx-auto flex max-w-4xl flex-col items-center justify-center gap-5 px-4 pt-20 text-center sm:pt-24">

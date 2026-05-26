@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "teams-section-four",
+  "title": "Teams Section Four",
+  "description": "Teams Section Four — Teams block.",
+  "registryDependencies": [
+    "badge"
+  ],
+  "files": [
+    {
+      "path": "components/blocks/teams/teams-section-four.tsx",
+      "content": "import { Badge } from \"@/components/ui/badge\";\n\nconst members = [\n  {\n    name: \"Arjun Patel\",\n    role: \"Founder - CEO\",\n    avatar: \"/teams/team4.jpg\",\n    link: \"\",\n  },\n  {\n    name: \"Daniel Kim\",\n    role: \"Co-Founder - CTO\",\n    avatar: \"/teams/team2.jpg\",\n    link: \"\",\n  },\n  {\n    name: \"Sofia Martinez\",\n    role: \"Sales Manager\",\n    avatar: \"/teams/team3.jpg\",\n    link: \"\",\n  },\n  {\n    name: \"Ethan Chen\",\n    role: \"UX Engineer\",\n    avatar: \"/teams/team1.jpg\",\n    link: \"\",\n  },\n];\n\nexport default function TeamSectionFour() {\n  return (\n    <section className=\"bg-gray-50 py-16 md:py-32 dark:bg-transparent\">\n      <div className=\"mx-auto max-w-6xl px-4\">\n        <div className=\"md:mb-16 mb-12 flex items-start gap-4 flex-col\">\n          <Badge\n            variant=\"ghost\"\n            className=\"uppercase text-sm text-muted-foreground\"\n          >\n            The Team\n          </Badge>\n\n          <div className=\"grid grid-cols-1 md:grid-cols-2 gap-6\">\n            <h1 className=\"text-xl md:text-4xl\">\n              Join a global team dedicated to their craft\n            </h1>\n            <p className=\"md:mt-6 mt-0 text-left text-muted-foreground\">\n              We work with incredible talent from all around the world, each\n              offering unique skills and perspectives. Joining us means\n              you&apos;ll collaborate with industry leaders, learn from the\n              best, and continuously grow.\n            </p>\n          </div>\n        </div>\n\n        <div className=\"grid grid-cols-1 md:grid-cols-4 md:grid-rows-3 gap-6\">\n          {members.map((member, index) => {\n            const bentoSpans = [\n              \"md:col-span-2 md:row-span-2\",\n              \"md:col-span-2 md:row-span-1\",\n              \"md:col-span-1 md:row-span-1\",\n            ];\n\n            return (\n              <div\n                key={index}\n                className={`group relative overflow-hidden rounded-xl ring-1 ring-border bg-muted ${bentoSpans[index]}`}\n              >\n                <img\n                  src={member.avatar}\n                  alt={member.name}\n                  className=\"h-full w-full object-cover  object-top grayscale transition duration-500 ease-in-out group-hover:grayscale-0\"\n                />\n              </div>\n            );\n          })}\n        </div>\n      </div>\n    </section>\n  );\n}\n",
+      "type": "registry:component",
+      "target": "@components/blocks/teams/teams-section-four.tsx"
+    }
+  ],
+  "categories": [
+    "teams"
+  ],
+  "type": "registry:block"
+}

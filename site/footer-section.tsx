@@ -1,0 +1,60 @@
+import Link from 'next/link'
+import { IconBrandGithub, IconBrandX, IconBrandLinkedin } from '@tabler/icons-react'
+import { Logo } from './logo'
+
+const links = [
+  { label: 'Blocks', href: '#' },
+  { label: 'Projects', href: '#' },
+  { label: 'Pages', href: '#' },
+  { label: 'Illustrations', href: '#' },
+  { label: 'Blog', href: '#' },
+  { label: 'Contact', href: '#' },
+]
+
+const social = [
+  { icon: IconBrandX, href: '#', label: 'Twitter' },
+  { icon: IconBrandGithub, href: '#', label: 'GitHub' },
+  { icon: IconBrandLinkedin, href: '#', label: 'LinkedIn' },
+]
+
+export default function FooterSection() {
+  const date = new Date().getFullYear()
+
+  return (
+    <footer className="@container bg-background py-12">
+      <div className="mx-auto max-w-2xl px-6">
+        <div className="flex flex-col items-center text-center">
+          <Link href="/" className="flex items-center gap-4">
+            <div className="size-8 rounded-full bg-linear-to-b from-black via-emerald-700 to-neutral-50 shadow-sm shadow-black/80"></div>
+
+            <Logo />
+          </Link>
+          <nav className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2">
+            {links.map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+          <div className="mt-8 flex gap-4">
+            {social.map((item) => (
+              <Link
+                key={item.label}
+                href={item.href}
+                className="size-8 rounded-full text-muted-foreground transition-colors hover:text-foreground"
+                aria-label={item.label}
+              >
+                <item.icon className="size-4" />
+              </Link>
+            ))}
+          </div>
+          <p className="mt-8 text-xs text-muted-foreground">&copy; {date} Navdeep Singh.</p>
+        </div>
+      </div>
+    </footer>
+  )
+}

@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
 import { cn } from '@/lib/utils'
 
@@ -7,14 +8,10 @@ export type LandigBentoGridProps = {
   title: string
   id: string
   description?: string
-  /** When filtering by category, pass count to show a line like "5 hero-sections". */
   count?: number
-  /**
-   * Plural fragment after the number when `count` is set.
-   * Example: `count={5}` and `countLabel="hero-sections"` → "5 hero-sections".
-   */
   countLabel?: string
   className?: string
+  href?: string
 }
 
 export function LandingBentoGrid({
@@ -25,19 +22,12 @@ export function LandingBentoGrid({
   count,
   countLabel = 'blocks',
   className,
+  href,
 }: LandigBentoGridProps) {
   const showCount = count != null && count >= 0
 
-  return (
-    <article
-      data-category={id}
-      className={cn(
-        'mb-4 break-inside-avoid',
-        'rounded-xl border bg-neutral-50 p-2 shadow-md ring-1 ring-gray-200 dark:border-neutral-700 dark:bg-neutral-800/60 dark:ring-neutral-600',
-        'transition-shadow motion-reduce:transition-none hover:shadow-lg hover:ring-gray-300 dark:hover:ring-neutral-500',
-        className,
-      )}
-    >
+  const content = (
+    <>
       <h2 className="text-base font-medium text-muted-foreground">{title}</h2>
       {showCount ? (
         <p className="text-sm font-normal text-neutral-500 dark:text-neutral-400">
@@ -59,6 +49,32 @@ export function LandingBentoGrid({
           />
         </div>
       ) : null}
+    </>
+  )
+
+  const baseClass = cn(
+    'mb-4 block break-inside-avoid',
+    'rounded-xl border bg-neutral-50 p-2 shadow-md ring-1 ring-gray-200 dark:border-neutral-700 dark:bg-neutral-800/60 dark:ring-neutral-600',
+    'transition-shadow hover:shadow-lg hover:ring-gray-300 motion-reduce:transition-none dark:hover:ring-neutral-500',
+    className,
+  )
+
+  if (href) {
+    return (
+      <Link
+        href={href}
+        data-category={id}
+        aria-label={title}
+        className={cn(baseClass, 'focus-visible:outline-2 focus-visible:outline-ring')}
+      >
+        {content}
+      </Link>
+    )
+  }
+
+  return (
+    <article data-category={id} className={baseClass}>
+      {content}
     </article>
   )
 }

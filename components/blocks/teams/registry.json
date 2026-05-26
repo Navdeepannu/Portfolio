@@ -1,0 +1,99 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "teams-section-five",
+      "type": "registry:block",
+      "title": "Teams Section Five",
+      "description": "Teams Section Five — Teams block.",
+      "categories": [
+        "teams"
+      ],
+      "registryDependencies": [
+        "badge"
+      ],
+      "files": [
+        {
+          "path": "teams-section-five.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/teams/teams-section-five.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "teams-section-four",
+      "type": "registry:block",
+      "title": "Teams Section Four",
+      "description": "Teams Section Four — Teams block.",
+      "categories": [
+        "teams"
+      ],
+      "registryDependencies": [
+        "badge"
+      ],
+      "files": [
+        {
+          "path": "teams-section-four.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/teams/teams-section-four.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "teams-section-one",
+      "type": "registry:block",
+      "title": "Teams Section One",
+      "description": "Teams Section One — Teams block.",
+      "categories": [
+        "teams"
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "files": [
+        {
+          "path": "teams-section-one.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/teams/teams-section-one.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "teams-section-three",
+      "type": "registry:block",
+      "title": "Teams Section Three",
+      "description": "Teams Section Three — Teams block.",
+      "categories": [
+        "teams"
+      ],
+      "files": [
+        {
+          "path": "teams-section-three.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/teams/teams-section-three.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "teams-section-two",
+      "type": "registry:block",
+      "title": "Teams Section Two",
+      "description": "Teams Section Two — Teams block.",
+      "categories": [
+        "teams"
+      ],
+      "files": [
+        {
+          "path": "teams-section-two.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/teams/teams-section-two.tsx"
+        }
+      ]
+    }
+  ]
+}

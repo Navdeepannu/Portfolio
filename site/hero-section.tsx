@@ -56,7 +56,7 @@ export function HeroSection() {
           <div className="mt-4 flex items-center gap-2">
             <Button
               asChild
-              className="shadow-xl transition-all duration-300 ease-in-out text-shadow-2xs text-shadow-black/50"
+              className="shadow-xl transition-all duration-300 ease-in-out text-shadow-2xs text-shadow-black/50 dark:text-shadow-white/50"
               variant="default"
             >
               <Link href="/blocks">Explore UI kits</Link>

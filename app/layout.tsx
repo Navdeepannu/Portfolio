@@ -1,7 +1,9 @@
+import type { Viewport } from 'next'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Geist, Geist_Mono, Inter, Schibsted_Grotesk, Caveat } from 'next/font/google'
 
+import { GlobalBottomBlur } from '@/components/global-bottom-blur'
 import { SiteJsonLd } from '@/components/site-json-ld'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { Toaster } from '@/components/ui/sonner'
@@ -36,6 +38,14 @@ const schibsted = Schibsted_Grotesk({
 
 export const metadata = rootMetadata
 
+export const viewport: Viewport = {
+  colorScheme: 'light dark',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#0a0a0a' },
+  ],
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -53,6 +63,7 @@ export default function RootLayout({
           <TooltipProvider>
             <Toaster />
             {children}
+            <GlobalBottomBlur />
           </TooltipProvider>
         </ThemeProvider>
         <Analytics />

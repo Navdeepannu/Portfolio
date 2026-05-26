@@ -13,10 +13,8 @@ export const LandingProjects: React.FC<LandingProjectsProps> = () => {
       id="projects"
       className="scrollbar-hide relative w-full overflow-hidden mask-b-from-95% py-8 2xl:mx-auto 2xl:max-w-7xl"
     >
-      <div className="absolute inset-0 bg-linear-to-t from-muted via-muted/40 to-muted/10"></div>
-      {/* Container that hides overflow on mobile/tablet */}
-      <div className="min-h-0 w-full overflow-hidden lg:overflow-visible">
-        {/* Bento Grid Layout - centered on mobile/tablet with partial visibility on sides */}
+      <div className="absolute inset-0 bg-linear-to-t from-muted/50 via-muted/40 to-muted/10 dark:from-muted/30 dark:to-transparent"></div>
+      <div className="min-h-0 w-full overflow-hidden mask-b-from-90% lg:overflow-visible">
         <div className="relative lg:block">
           <div className="grid w-[140vw] max-w-none translate-x-[-20vw] grid-flow-dense grid-cols-3 gap-3 p-0 pr-0 md:w-[130vw] md:translate-x-[-15vw] md:grid-cols-3 lg:w-auto lg:translate-x-0 lg:grid-cols-4 lg:p-3 lg:*:first:mt-56 lg:*:nth-2:mt-24 lg:*:nth-3:mt-44">
             <Column offset="mt-0 md:mt-0 lg:mt-0">
@@ -67,7 +65,6 @@ const Card = ({ src, alt, className }: { src: string; alt: string; className?: s
   return (
     <div className="py-2">
       <div className="relative block min-w-0 overflow-hidden rounded-lg shadow-lg ring-1 ring-ring/20 dark:shadow-neutral-950/50">
-        {/* Image drives card size: full image visible, natural aspect ratio — same logic as work page showcase */}
         <Image
           src={src}
           alt={alt}

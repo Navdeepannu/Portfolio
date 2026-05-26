@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "teams-section-two",
+  "title": "Teams Section Two",
+  "description": "Teams Section Two — Teams block.",
+  "files": [
+    {
+      "path": "components/blocks/teams/teams-section-two.tsx",
+      "content": "const members = [\n  {\n    name: \"Liam Brown\",\n    role: \"Founder - CEO\",\n    avatar: \"/teams/avatar1.jpg\",\n    link: \"#\",\n  },\n  {\n    name: \"Elijah Jones\",\n    role: \"Co-Founder - CTO\",\n    avatar: \"/teams/avatar2.jpg\",\n    link: \"#\",\n  },\n  {\n    name: \"Isabella Garcia\",\n    role: \"Sales Manager\",\n    avatar: \"/teams/avatar3.jpg\",\n    link: \"#\",\n  },\n  {\n    name: \"Henry Lee\",\n    role: \"UX Engeneer\",\n    avatar: \"/teams/avatar4.jpg\",\n    link: \"#\",\n  },\n  {\n    name: \"Ava Williams\",\n    role: \"Interaction Designer\",\n    avatar: \"/teams/avatar5.jpg\",\n    link: \"#\",\n  },\n  {\n    name: \"Olivia Miller\",\n    role: \"Visual Designer\",\n    avatar: \"/teams/avatar6.jpg\",\n    link: \"#\",\n  },\n];\n\nexport default function TeamSectionTwo() {\n  return (\n    <section className=\"bg-gray-50 py-16 md:py-32 dark:bg-transparent\">\n      <div className=\"mx-auto max-w-6xl px-6\">\n        <div className=\"md:mb-16 mb-12 pb-4\">\n          <h1 className=\"sm:text-5xl text-4xl font-times-heading\">Our team</h1>\n        </div>\n\n        <div className=\"grid grid-cols-1 sm:grid-cols-3 gap-8\">\n          {members.map((member, index) => (\n            <div key={index} className=\"group overflow-hidden\">\n              <img\n                src={member.avatar}\n                alt={member.name}\n                className=\"h-80 w-full rounded-md object-cover object-top\"\n              />\n\n              <div className=\"pt-3\">\n                <div className=\"flex justify-between\">\n                  <h3 className=\"text-sm font-medium\">{member.name}</h3>\n                </div>\n\n                <div className=\"mt-1 flex items-center justify-between\">\n                  <span className=\"text-sm text-muted-foreground\">\n                    {member.role}\n                  </span>\n                </div>\n              </div>\n            </div>\n          ))}\n        </div>\n      </div>\n    </section>\n  );\n}\n",
+      "type": "registry:component",
+      "target": "@components/blocks/teams/teams-section-two.tsx"
+    }
+  ],
+  "categories": [
+    "teams"
+  ],
+  "type": "registry:block"
+}

@@ -1,1 +1,1 @@
-export { blockDefinitions as blocks } from '@/registry'
+export { blockDefinitions as blocks } from '@/registry/index'

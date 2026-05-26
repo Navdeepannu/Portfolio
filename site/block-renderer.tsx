@@ -1,5 +1,5 @@
 import type { BlockDefinition } from '@/registry/types'
-import { getBlockComponent } from '@/registry'
+import { getBlockComponent } from '@/registry/index'
 import { loadBlockCodeFiles } from '@/lib/block-source'
 import BlockCode from '@/site/block-code'
 import BlockTabs from '@/site/block-tabs'
@@ -18,16 +18,6 @@ export default async function BlockRenderer({ block }: { block: BlockDefinition 
 
   return (
     <article className="flex scroll-mt-24 flex-col gap-4" id={block.slug}>
-      <header className="space-y-1">
-        <h2 className="text-lg font-semibold tracking-tight text-foreground md:text-xl">
-          {block.title} 
-        </h2>
-        {block.description ? (
-          <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">
-            {block.description}
-          </p>
-        ) : null}
-      </header>
       <BlockTabs
         slug={block.slug}
         title={block.title}

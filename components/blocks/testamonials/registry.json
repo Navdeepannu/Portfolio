@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "testamonial-section-one",
+      "type": "registry:block",
+      "title": "Testamonial Section One",
+      "description": "Testamonial Section One — Testamonials block.",
+      "categories": [
+        "testimonials"
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "badge",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "testamonial-section-one.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/testamonials/testamonial-section-one.tsx"
+        }
+      ]
+    }
+  ]
+}

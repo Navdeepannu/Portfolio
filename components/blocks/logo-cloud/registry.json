@@ -1,0 +1,59 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "logo-cloud-one",
+      "type": "registry:block",
+      "title": "Logo Cloud One",
+      "description": "Logo Cloud One — Logo Cloud block.",
+      "categories": [
+        "logo-cloud"
+      ],
+      "files": [
+        {
+          "path": "logo-cloud-one.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/logo-cloud/logo-cloud-one.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "logo-cloud-three",
+      "type": "registry:block",
+      "title": "Logo Cloud Three",
+      "description": "Logo Cloud Three — Logo Cloud block.",
+      "categories": [
+        "logo-cloud"
+      ],
+      "files": [
+        {
+          "path": "logo-cloud-three.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/logo-cloud/logo-cloud-three.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "logo-cloud-two",
+      "type": "registry:block",
+      "title": "Logo Cloud Two",
+      "description": "Logo Cloud Two — Logo Cloud block.",
+      "categories": [
+        "logo-cloud"
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "files": [
+        {
+          "path": "logo-cloud-two.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/logo-cloud/logo-cloud-two.tsx"
+        }
+      ]
+    }
+  ]
+}

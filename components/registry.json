@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "brand-logo",
+      "type": "registry:component",
+      "title": "Brand Logo",
+      "description": "Shared brand mark used across auth and marketing blocks.",
+      "files": [
+        {
+          "path": "brand-logo.tsx",
+          "type": "registry:component",
+          "target": "@components/brand-logo.tsx"
+        }
+      ]
+    }
+  ]
+}

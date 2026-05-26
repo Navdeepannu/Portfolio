@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "brand-logo",
+  "title": "Brand Logo",
+  "description": "Shared brand mark used across auth and marketing blocks.",
+  "files": [
+    {
+      "path": "components/brand-logo.tsx",
+      "content": "import { Hexagon } from 'lucide-react'\n\nimport { cn } from '@/lib/utils'\n\nexport function Logo({ className }: { className?: string }) {\n  return (\n    <Hexagon\n      className={cn('size-8 stroke-current stroke-2', className)}\n      aria-hidden\n    />\n  )\n}\n",
+      "type": "registry:component",
+      "target": "@components/brand-logo.tsx"
+    }
+  ],
+  "type": "registry:component"
+}

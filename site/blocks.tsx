@@ -1,8 +1,18 @@
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import { blocks } from '@/data'
+import { blocks, getCategoryHref } from '@/data'
 
 import { LandingBentoGrid } from '@/site/landing-bento-showcase'
+
+const PREVIEW_IMAGES = [
+  '/sections/design1.png',
+  '/sections/design2.png',
+  '/sections/design3.png',
+  '/sections/design4.png',
+  '/sections/design5.png',
+  '/sections/design6.png',
+  '/sections/design7.png',
+]
 
 export default function Blocks() {
   return (
@@ -45,13 +55,15 @@ export default function Blocks() {
                 'masonry-cols-1 sm:masonry-cols-2 xl:masonry-cols-3',
               )}
             >
-              {blocks.slice(0, 3).map((item) => (
+              {blocks.slice(0, 3).map((item, index) => (
                 <LandingBentoGrid
+                  image={PREVIEW_IMAGES[index % PREVIEW_IMAGES.length]}
                   id={item.slug}
                   key={item.slug}
                   title={item.title}
                   description={item.description}
                   countLabel={item.category}
+                  href={`${getCategoryHref(item.category)}#${item.slug}`}
                 />
               ))}
             </div>

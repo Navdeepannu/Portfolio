@@ -24,7 +24,7 @@ export default function BlocksList({
 
   return (
     <div className="mx-auto w-full px-4 py-8 md:px-6">
-      <div className="flex flex-col gap-12">
+      <div className="flex flex-col gap-24">
         {blocks.map((block) => (
           <BlockRenderer key={block.slug} block={block} />
         ))}

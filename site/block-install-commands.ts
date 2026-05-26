@@ -1,12 +1,15 @@
 export type PackageManagerId = 'npm' | 'bun' | 'pnpm' | 'yarn'
 
-/** Extract `@scope/pkg` from an existing install line, or fall back to `@blocks/<slug>`. */
+/** Namespace registered in the consumer's `components.json` and matching the root `registry.json` `name`. */
+export const REGISTRY_NAMESPACE = '@nav'
+
+/** Extract `@scope/pkg` from an existing install line, or fall back to `@nav/<slug>`. */
 export function getShadcnAddSpec(cli: string | undefined, slug: string): string {
   if (cli) {
     const m = cli.match(/add\s+(@\S+)/)
     if (m) return m[1]
   }
-  return `@blocks/${slug}`
+  return `${REGISTRY_NAMESPACE}/${slug}`
 }
 
 export function getInstallCommands(spec: string): Record<PackageManagerId, string> {

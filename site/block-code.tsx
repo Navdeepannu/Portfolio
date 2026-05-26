@@ -89,7 +89,7 @@ export default function BlockCode({ files }: BlockCodeProps) {
         <CodeBlockCopyButton />
       </CodeBlockHeader>
 
-      <CodeBlockBody className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain rounded-lg shadow-sm [-webkit-overflow-scrolling:touch]">
+      <CodeBlockBody className="min-h-0 flex-1 overflow-y-auto overscroll-y-auto rounded-lg shadow-sm [-webkit-overflow-scrolling:touch]">
         {(item) => (
           <CodeBlockItem key={item.filename} lineNumbers value={item.filename}>
             <CodeBlockContent language={item.language as BundledLanguage}>

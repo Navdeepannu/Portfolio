@@ -59,7 +59,7 @@ export default function ProjectsSection() {
   return (
     <section
       id="projects"
-      className="relative overflow-x-clip py-24 font-schibsted max-md:py-16 md:py-24"
+      className="relative overflow-x-clip py-24 font-schibsted selection:bg-emerald-200/60 max-md:py-16 md:py-24"
     >
       <div className="mx-auto max-w-6xl px-8">
         <span className="mb-4 block font-mono text-xs text-emerald-600 dark:text-emerald-400/80">

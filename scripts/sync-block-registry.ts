@@ -96,7 +96,7 @@ function renderFile(blocks: DiscoveredBlock[]): string {
       category: '${b.category}',
       tags: ['${b.folder}', '${b.category}'],
       sourceFiles: [{ path: '${b.sourcePath}', language: 'tsx' }],
-      cli: 'bunx --bun shadcn add @blocks/${b.slug}',
+      cli: 'bunx --bun shadcn@latest add @nav/${b.slug}',
     }),
     ${b.importName},
   ),`

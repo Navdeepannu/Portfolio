@@ -1,0 +1,542 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "nav",
+  "homepage": "http://localhost:3000",
+  "items": [
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "brand-logo",
+      "title": "Brand Logo",
+      "description": "Shared brand mark used across auth and marketing blocks.",
+      "files": [
+        {
+          "path": "components/brand-logo.tsx",
+          "type": "registry:component",
+          "target": "@components/brand-logo.tsx"
+        }
+      ],
+      "type": "registry:component"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "animated-group",
+      "title": "Animated Group",
+      "description": "Motion-powered staggered animation container.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "components/ui/custom/animated-group.tsx",
+          "type": "registry:ui",
+          "target": "@ui/custom/animated-group.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "text-effect",
+      "title": "Text Effect",
+      "description": "Motion-based per-character / per-word text animation.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "components/ui/custom/text-effect.tsx",
+          "type": "registry:ui",
+          "target": "@ui/custom/text-effect.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "forgot-password-one",
+      "title": "Forgot Password One",
+      "description": "Forgot Password One — Auth block.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "input",
+        "label"
+      ],
+      "files": [
+        {
+          "path": "components/blocks/auth/forgot-password-one.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/auth/forgot-password-one.tsx"
+        }
+      ],
+      "categories": [
+        "auth"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "forgot-password-three",
+      "title": "Forgot Password Three",
+      "description": "Forgot Password Three — Auth block.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "input",
+        "label"
+      ],
+      "files": [
+        {
+          "path": "components/blocks/auth/forgot-password-three.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/auth/forgot-password-three.tsx"
+        }
+      ],
+      "categories": [
+        "auth"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "forgot-password-two",
+      "title": "Forgot Password Two",
+      "description": "Forgot Password Two — Auth block.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "input",
+        "label"
+      ],
+      "files": [
+        {
+          "path": "components/blocks/auth/forgot-password-two.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/auth/forgot-password-two.tsx"
+        }
+      ],
+      "categories": [
+        "auth"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "sign-up-one",
+      "title": "Sign Up One",
+      "description": "Sign Up One — Auth block.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "input",
+        "label",
+        "@nav/brand-logo"
+      ],
+      "files": [
+        {
+          "path": "components/blocks/auth/sign-up-one.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/auth/sign-up-one.tsx"
+        }
+      ],
+      "categories": [
+        "auth"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "sign-up-two",
+      "title": "Sign Up Two",
+      "description": "Sign Up Two — Auth block.",
+      "dependencies": [
+        "lucide-react",
+        "shaders"
+      ],
+      "registryDependencies": [
+        "button",
+        "input",
+        "label",
+        "@nav/brand-logo"
+      ],
+      "files": [
+        {
+          "path": "components/blocks/auth/sign-up-two.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/auth/sign-up-two.tsx"
+        }
+      ],
+      "categories": [
+        "auth"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "footer-section-one",
+      "title": "Footer Section One",
+      "description": "Footer Section One — Footer block.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "components/blocks/footer/footer-section-one.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/footer/footer-section-one.tsx"
+        }
+      ],
+      "categories": [
+        "footer"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "footer-section-two",
+      "title": "Footer Section Two",
+      "description": "Footer Section Two — Footer block.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "files": [
+        {
+          "path": "components/blocks/footer/footer-section-two.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/footer/footer-section-two.tsx"
+        }
+      ],
+      "categories": [
+        "footer"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "header-one",
+      "title": "Header One",
+      "description": "Header One — Header block.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "components/blocks/header/header-one.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/header/header-one.tsx"
+        }
+      ],
+      "categories": [
+        "header"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "header-two",
+      "title": "Header Two",
+      "description": "Header Two — Header block.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "components/blocks/header/header-two.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/header/header-two.tsx"
+        }
+      ],
+      "categories": [
+        "header"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "hero-section-four",
+      "title": "Hero Section Four",
+      "description": "Hero Section Four — Hero Section block.",
+      "dependencies": [
+        "@tabler/icons-react",
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "components/blocks/hero-section/hero-section-four.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/hero-section/hero-section-four.tsx"
+        }
+      ],
+      "categories": [
+        "hero"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "hero-section-one",
+      "title": "Hero Section One",
+      "description": "Hero Section One — Hero Section block.",
+      "dependencies": [
+        "@tabler/icons-react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "badge",
+        "button",
+        "@nav/header-one"
+      ],
+      "files": [
+        {
+          "path": "components/blocks/hero-section/hero-section-one.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/hero-section/hero-section-one.tsx"
+        }
+      ],
+      "categories": [
+        "hero"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "hero-section-three",
+      "title": "Hero Section Three",
+      "description": "Hero Section Three — Hero Section block.",
+      "dependencies": [
+        "@tabler/icons-react",
+        "shaders"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "components/blocks/hero-section/hero-section-three.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/hero-section/hero-section-three.tsx"
+        }
+      ],
+      "categories": [
+        "hero"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "hero-section-two",
+      "title": "Hero Section Two",
+      "description": "Hero Section Two — Hero Section block.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "@nav/header-two",
+        "@nav/animated-group",
+        "@nav/text-effect"
+      ],
+      "files": [
+        {
+          "path": "components/blocks/hero-section/hero-section-two.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/hero-section/hero-section-two.tsx"
+        }
+      ],
+      "categories": [
+        "hero"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "logo-cloud-one",
+      "title": "Logo Cloud One",
+      "description": "Logo Cloud One — Logo Cloud block.",
+      "files": [
+        {
+          "path": "components/blocks/logo-cloud/logo-cloud-one.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/logo-cloud/logo-cloud-one.tsx"
+        }
+      ],
+      "categories": [
+        "logo-cloud"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "logo-cloud-three",
+      "title": "Logo Cloud Three",
+      "description": "Logo Cloud Three — Logo Cloud block.",
+      "files": [
+        {
+          "path": "components/blocks/logo-cloud/logo-cloud-three.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/logo-cloud/logo-cloud-three.tsx"
+        }
+      ],
+      "categories": [
+        "logo-cloud"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "logo-cloud-two",
+      "title": "Logo Cloud Two",
+      "description": "Logo Cloud Two — Logo Cloud block.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "files": [
+        {
+          "path": "components/blocks/logo-cloud/logo-cloud-two.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/logo-cloud/logo-cloud-two.tsx"
+        }
+      ],
+      "categories": [
+        "logo-cloud"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "teams-section-five",
+      "title": "Teams Section Five",
+      "description": "Teams Section Five — Teams block.",
+      "registryDependencies": [
+        "badge"
+      ],
+      "files": [
+        {
+          "path": "components/blocks/teams/teams-section-five.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/teams/teams-section-five.tsx"
+        }
+      ],
+      "categories": [
+        "teams"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "teams-section-four",
+      "title": "Teams Section Four",
+      "description": "Teams Section Four — Teams block.",
+      "registryDependencies": [
+        "badge"
+      ],
+      "files": [
+        {
+          "path": "components/blocks/teams/teams-section-four.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/teams/teams-section-four.tsx"
+        }
+      ],
+      "categories": [
+        "teams"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "teams-section-one",
+      "title": "Teams Section One",
+      "description": "Teams Section One — Teams block.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "files": [
+        {
+          "path": "components/blocks/teams/teams-section-one.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/teams/teams-section-one.tsx"
+        }
+      ],
+      "categories": [
+        "teams"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "teams-section-three",
+      "title": "Teams Section Three",
+      "description": "Teams Section Three — Teams block.",
+      "files": [
+        {
+          "path": "components/blocks/teams/teams-section-three.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/teams/teams-section-three.tsx"
+        }
+      ],
+      "categories": [
+        "teams"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "teams-section-two",
+      "title": "Teams Section Two",
+      "description": "Teams Section Two — Teams block.",
+      "files": [
+        {
+          "path": "components/blocks/teams/teams-section-two.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/teams/teams-section-two.tsx"
+        }
+      ],
+      "categories": [
+        "teams"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "testamonial-section-one",
+      "title": "Testamonial Section One",
+      "description": "Testamonial Section One — Testamonials block.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "badge",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "components/blocks/testamonials/testamonial-section-one.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/testamonials/testamonial-section-one.tsx"
+        }
+      ],
+      "categories": [
+        "testimonials"
+      ],
+      "type": "registry:block"
+    }
+  ]
+}

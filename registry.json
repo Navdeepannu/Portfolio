@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "nav",
+  "homepage": "http://localhost:3000",
+  "include": [
+    "components/registry.json",
+    "components/ui/custom/registry.json",
+    "components/blocks/auth/registry.json",
+    "components/blocks/footer/registry.json",
+    "components/blocks/header/registry.json",
+    "components/blocks/hero-section/registry.json",
+    "components/blocks/logo-cloud/registry.json",
+    "components/blocks/teams/registry.json",
+    "components/blocks/testamonials/registry.json"
+  ]
+}

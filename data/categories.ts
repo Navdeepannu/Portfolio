@@ -1,4 +1,4 @@
-import { blockDefinitions } from '@/registry'
+import { blockDefinitions } from '@/registry/index'
 import type { BlockDefinition } from '@/registry/types'
 
 import type { BlockCategory, BlockCategoryId } from './types'

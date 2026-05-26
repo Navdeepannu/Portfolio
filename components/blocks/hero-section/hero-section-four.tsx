@@ -1,6 +1,5 @@
 'use client'
 
-import { Geist } from 'next/font/google'
 import {
   IconCircle0,
   IconEye,
@@ -9,11 +8,6 @@ import {
   IconFlagFilled,
 } from '@tabler/icons-react'
 import { motion, Variants } from 'motion/react'
-
-const geist = Geist({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-})
 
 interface CapsuleCustom {
   x: number
@@ -73,7 +67,7 @@ const Header = () => {
 
 export default function HeroSectionFour() {
   return (
-    <section className={`${geist.className} px-6`}>
+    <section className="font-geist px-6">
       <Header />
       <div className="flex flex-col items-center justify-start gap-3 py-24 text-center">
         <div className="relative inline-block">

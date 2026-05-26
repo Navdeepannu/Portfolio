@@ -1,0 +1,35 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "animated-group",
+      "type": "registry:ui",
+      "title": "Animated Group",
+      "description": "Motion-powered staggered animation container.",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "animated-group.tsx",
+          "type": "registry:ui",
+          "target": "@ui/custom/animated-group.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "text-effect",
+      "type": "registry:ui",
+      "title": "Text Effect",
+      "description": "Motion-based per-character / per-word text animation.",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "text-effect.tsx",
+          "type": "registry:ui",
+          "target": "@ui/custom/text-effect.tsx"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "hero-section-four",
+      "type": "registry:block",
+      "title": "Hero Section Four",
+      "description": "Hero Section Four — Hero Section block.",
+      "categories": ["hero"],
+      "dependencies": ["@tabler/icons-react", "motion"],
+      "files": [
+        {
+          "path": "hero-section-four.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/hero-section/hero-section-four.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "hero-section-one",
+      "type": "registry:block",
+      "title": "Hero Section One",
+      "description": "Hero Section One — Hero Section block.",
+      "categories": ["hero"],
+      "dependencies": ["@tabler/icons-react", "lucide-react"],
+      "registryDependencies": ["badge", "button", "@nav/header-one"],
+      "files": [
+        {
+          "path": "hero-section-one.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/hero-section/hero-section-one.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "hero-section-three",
+      "type": "registry:block",
+      "title": "Hero Section Three",
+      "description": "Hero Section Three — Hero Section block.",
+      "categories": ["hero"],
+      "dependencies": ["@tabler/icons-react", "shaders"],
+      "registryDependencies": ["button"],
+      "files": [
+        {
+          "path": "hero-section-three.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/hero-section/hero-section-three.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "hero-section-two",
+      "type": "registry:block",
+      "title": "Hero Section Two",
+      "description": "Hero Section Two — Hero Section block.",
+      "categories": ["hero"],
+      "dependencies": ["motion"],
+      "registryDependencies": [
+        "@nav/header-two",
+        "@nav/animated-group",
+        "@nav/text-effect"
+      ],
+      "files": [
+        {
+          "path": "hero-section-two.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/hero-section/hero-section-two.tsx"
+        }
+      ]
+    }
+  ]
+}

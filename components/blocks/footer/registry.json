@@ -1,0 +1,48 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "footer-section-one",
+      "type": "registry:block",
+      "title": "Footer Section One",
+      "description": "Footer Section One — Footer block.",
+      "categories": [
+        "footer"
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "footer-section-one.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/footer/footer-section-one.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "footer-section-two",
+      "type": "registry:block",
+      "title": "Footer Section Two",
+      "description": "Footer Section Two — Footer block.",
+      "categories": [
+        "footer"
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "files": [
+        {
+          "path": "footer-section-two.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/footer/footer-section-two.tsx"
+        }
+      ]
+    }
+  ]
+}

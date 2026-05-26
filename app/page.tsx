@@ -1,4 +1,5 @@
 import Blocks from '@/site/blocks'
+import FooterSection from '@/site/footer-section'
 import { HeroSection } from '@/site/hero-section'
 import { LandingProjects } from '@/site/landing-design'
 import ProjectsSection from '@/site/landing-project'
@@ -12,6 +13,7 @@ export default function Home() {
       <LandingProjects />
       <ProjectsSection />
       <Blocks />
+      <FooterSection />
     </div>
   )
 }

@@ -1,0 +1,90 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "forgot-password-one",
+      "type": "registry:block",
+      "title": "Forgot Password One",
+      "description": "Forgot Password One — Auth block.",
+      "categories": ["auth"],
+      "dependencies": ["@tabler/icons-react"],
+      "registryDependencies": ["button", "input", "label"],
+      "files": [
+        {
+          "path": "forgot-password-one.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/auth/forgot-password-one.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "forgot-password-three",
+      "type": "registry:block",
+      "title": "Forgot Password Three",
+      "description": "Forgot Password Three — Auth block.",
+      "categories": ["auth"],
+      "dependencies": ["@tabler/icons-react"],
+      "registryDependencies": ["button", "input", "label"],
+      "files": [
+        {
+          "path": "forgot-password-three.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/auth/forgot-password-three.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "forgot-password-two",
+      "type": "registry:block",
+      "title": "Forgot Password Two",
+      "description": "Forgot Password Two — Auth block.",
+      "categories": ["auth"],
+      "dependencies": ["@tabler/icons-react"],
+      "registryDependencies": ["button", "input", "label"],
+      "files": [
+        {
+          "path": "forgot-password-two.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/auth/forgot-password-two.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "sign-up-one",
+      "type": "registry:block",
+      "title": "Sign Up One",
+      "description": "Sign Up One — Auth block.",
+      "categories": ["auth"],
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button", "input", "label", "@nav/brand-logo"],
+      "files": [
+        {
+          "path": "sign-up-one.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/auth/sign-up-one.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "sign-up-two",
+      "type": "registry:block",
+      "title": "Sign Up Two",
+      "description": "Sign Up Two — Auth block.",
+      "categories": ["auth"],
+      "dependencies": ["lucide-react", "shaders"],
+      "registryDependencies": ["button", "input", "label", "@nav/brand-logo"],
+      "files": [
+        {
+          "path": "sign-up-two.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/auth/sign-up-two.tsx"
+        }
+      ]
+    }
+  ]
+}
