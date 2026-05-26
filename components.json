@@ -23,6 +23,7 @@
   },
   "registries": {
     "@skiper-ui": "https://skiper-ui.com/registry/{name}.json",
-    "@kibo-ui": "https://www.kibo-ui.com/r/{name}.json"
+    "@kibo-ui": "https://www.kibo-ui.com/r/{name}.json",
+    "@nav": "https://www.navdeepsingh.dev/r/{name}.json"
   }
 }

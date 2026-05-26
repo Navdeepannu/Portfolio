@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function Layout({ children }: { children: ReactNode }) {
   return (
     <main className="bg-muted/50">
-      <div className="mx-auto flex min-h-screen w-full max-w-360 flex-col bg-card shadow-inner">
+      <div className="mx-auto flex min-h-screen w-full max-w-360 flex-col bg-card shadow-sm">
         <Navbar fullWidth={true} className="border-x border-black/5 dark:border-white/10" />
         <div className="flex flex-col border-x border-black/5 dark:border-white/10">
           <CategoryNav />

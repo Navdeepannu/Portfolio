@@ -17,7 +17,7 @@ export default function CategoryNav() {
   })()
 
   return (
-    <nav className="bg-muted/50 dark:border-white/10">
+    <nav className="bg-muted/60 dark:border-white/10">
       <div className="scrollbar-gutter-stable relative scrollbar-thin flex h-10 min-w-0 items-center gap-1 overflow-x-auto scroll-smooth mask-x-from-98% px-4 scrollbar-thumb-muted-foreground/50">
         {blockCategories.map((category) => {
           const isActive = category.id === activeCategoryId

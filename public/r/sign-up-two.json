@@ -11,7 +11,7 @@
     "button",
     "input",
     "label",
-    "@nav/brand-logo"
+    "http://localhost:3000/r/brand-logo.json"
   ],
   "files": [
     {

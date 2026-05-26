@@ -1,22 +1,29 @@
 export type PackageManagerId = 'npm' | 'bun' | 'pnpm' | 'yarn'
 
-/** Namespace registered in the consumer's `components.json` and matching the root `registry.json` `name`. */
-export const REGISTRY_NAMESPACE = '@nav'
-
-/** Extract `@scope/pkg` from an existing install line, or fall back to `@nav/<slug>`. */
-export function getShadcnAddSpec(cli: string | undefined, slug: string): string {
-  if (cli) {
-    const m = cli.match(/add\s+(@\S+)/)
-    if (m) return m[1]
-  }
-  return `${REGISTRY_NAMESPACE}/${slug}`
+/**
+ * Build the absolute URL of a registry item served from this app
+ * (`<origin>/r/<slug>.json`). Falls back to a relative URL if `origin`
+ * is empty (e.g. during the very first SSR paint).
+ */
+export function getRegistryItemUrl(slug: string, origin: string): string {
+  const base = origin.replace(/\/+$/, '')
+  return base ? `${base}/r/${slug}.json` : `/r/${slug}.json`
 }
 
-export function getInstallCommands(spec: string): Record<PackageManagerId, string> {
+/**
+ * Build the URL-based shadcn install commands shown in the showcase UI.
+ * Consumers paste these directly — no `@scope` namespace registration
+ * is required on their side.
+ */
+export function getInstallCommands(
+  slug: string,
+  origin: string,
+): Record<PackageManagerId, string> {
+  const url = getRegistryItemUrl(slug, origin)
   return {
-    npm: `npx shadcn@latest add ${spec}`,
-    bun: `bunx --bun shadcn@latest add ${spec}`,
-    pnpm: `pnpm dlx shadcn@latest add ${spec}`,
-    yarn: `yarn dlx shadcn@latest add ${spec}`,
+    npm: `npx shadcn@latest add ${url}`,
+    bun: `bunx --bun shadcn@latest add ${url}`,
+    pnpm: `pnpm dlx shadcn@latest add ${url}`,
+    yarn: `yarn dlx shadcn@latest add ${url}`,
   }
 }

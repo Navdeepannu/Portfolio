@@ -18,12 +18,7 @@ export default async function BlockRenderer({ block }: { block: BlockDefinition 
 
   return (
     <article className="flex scroll-mt-24 flex-col gap-4" id={block.slug}>
-      <BlockTabs
-        slug={block.slug}
-        title={block.title}
-        cli={block.cli}
-        code={<BlockCode files={files} />}
-      />
+      <BlockTabs slug={block.slug} title={block.title} code={<BlockCode files={files} />} />
     </article>
   )
 }

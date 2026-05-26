@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { blocks, getCategoryHref } from '@/data'
-
+import Link from 'next/link'
 import { LandingBentoGrid } from '@/site/landing-bento-showcase'
 
 const PREVIEW_IMAGES = [
@@ -38,7 +38,7 @@ export default function Blocks() {
             </p>
 
             <Button className="mt-4" variant="outline" size="sm">
-              Explore Blocks
+              <Link href="/blocks">Explore Blocks</Link>
             </Button>
           </div>
         </div>

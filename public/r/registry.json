@@ -138,7 +138,7 @@
         "button",
         "input",
         "label",
-        "@nav/brand-logo"
+        "http://localhost:3000/r/brand-logo.json"
       ],
       "files": [
         {
@@ -165,7 +165,7 @@
         "button",
         "input",
         "label",
-        "@nav/brand-logo"
+        "http://localhost:3000/r/brand-logo.json"
       ],
       "files": [
         {
@@ -303,7 +303,7 @@
       "registryDependencies": [
         "badge",
         "button",
-        "@nav/header-one"
+        "http://localhost:3000/r/header-one.json"
       ],
       "files": [
         {
@@ -350,9 +350,9 @@
         "motion"
       ],
       "registryDependencies": [
-        "@nav/header-two",
-        "@nav/animated-group",
-        "@nav/text-effect"
+        "http://localhost:3000/r/header-two.json",
+        "http://localhost:3000/r/animated-group.json",
+        "http://localhost:3000/r/text-effect.json"
       ],
       "files": [
         {

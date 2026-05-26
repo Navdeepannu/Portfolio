@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore, type ReactNode } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import type { IconType } from 'react-icons'
 
@@ -15,27 +15,29 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { cn } from '@/lib/utils'
 import BlockIframe from '@/site/block-iframe'
-import {
-  getInstallCommands,
-  getShadcnAddSpec,
-  type PackageManagerId,
-} from '@/site/block-install-commands'
+import { getInstallCommands, type PackageManagerId } from '@/site/block-install-commands'
 import { blockShowcaseCodeViewportClassName } from '@/site/block-showcase-viewport'
-import { IconCheck } from '@tabler/icons-react'
+import { IconCheck, IconCopy } from '@tabler/icons-react'
+
+const subscribeNoop = () => () => {}
+const getOriginSnapshot = (): string =>
+  typeof window === 'undefined' ? '' : window.location.origin
+const getOriginServerSnapshot = (): string => ''
 
 const TOOLBAR_SEGMENT_SHELL =
-  'rounded-lg border border-border/50 bg-muted/70 shadow-inner dark:bg-muted/40'
+  'rounded-lg border border-border/60 shadow-sm ring-1 ring-foreground/6.5 dark:bg-background/50'
 
 const TOOLBAR_TAB_STRIP =
-  'inline-flex h-8 min-h-8 w-fit shrink-0 items-stretch gap-0.5 ' + TOOLBAR_SEGMENT_SHELL
+  'inline-flex h-9 min-h-9 w-fit shrink-0 items-stretch gap-0.5 overflow-hidden' +
+  TOOLBAR_SEGMENT_SHELL
 
 const TOOLBAR_TAB_TRIGGER =
-  'h-full min-h-0 w-auto flex-none shrink-0 items-center justify-center gap-0 rounded-lg border border-transparent px-1.5 py-0 text-sm font-medium leading-none whitespace-nowrap text-muted-foreground/80 shadow-none transition-[color,background-color,border-color,box-shadow] duration-200 ease-out hover:text-foreground/75 data-[state=active]:border-border/60 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm md:gap-1.5 md:px-2'
+  'h-full min-h-0 w-auto flex-none shrink-0 items-center justify-center gap-1.5 rounded-md border border-transparent px-2 py-0 text-sm font-medium leading-none whitespace-nowrap text-muted-foreground/80 shadow-none transition-[color,background-color,border-color,box-shadow] duration-200 ease-out hover:bg-muted/60 hover:text-foreground/75 dark:hover:bg-input/40  data-[state=active]:bg-background bg-muted  data-[state=active]:text-foreground dark:data-[state=active]:bg-background'
 
 const TOOLBAR_OPEN_PREVIEW_CHROME =
-  'inline-flex h-8 min-h-8 w-8 shrink-0 items-stretch ' + TOOLBAR_SEGMENT_SHELL
+  'inline-flex h-9 min-h-9 w-9 shrink-0 items-stretch overflow-hidden ' + TOOLBAR_SEGMENT_SHELL
 const TOOLBAR_OPEN_PREVIEW_BUTTON =
-  'flex size-full min-h-0 items-center justify-center gap-0 rounded-md border-0 bg-transparent p-0 shadow-none hover:bg-background/85 dark:hover:bg-background/60 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*="size-"])]:size-4'
+  'flex size-full min-h-0 items-center justify-center gap-0 rounded-none border-0 bg-transparent p-0 shadow-none hover:bg-muted/60 dark:hover:bg-input/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*="size-"])]:size-4'
 
 const IconBun = () => {
   return (
@@ -199,6 +201,38 @@ const PACKAGE_MANAGERS: readonly {
   { id: 'bun', name: 'Bun', Icon: IconBun },
 ] as const
 
+function CopyIconSlot({ copied }: { copied: boolean }) {
+  return (
+    <span className="relative flex size-4 shrink-0 items-center justify-center" aria-hidden>
+      <AnimatePresence initial={false} mode="wait">
+        {copied ? (
+          <motion.span
+            key="check"
+            className="absolute inset-0 flex items-center justify-center"
+            initial={{ opacity: 0, filter: 'blur(5px)', scale: 0.88 }}
+            animate={{ opacity: 1, filter: 'blur(0px)', scale: 1 }}
+            exit={{ opacity: 0, filter: 'blur(5px)', scale: 0.88 }}
+            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <IconCheck className="size-4 shrink-0 text-emerald-800 dark:text-emerald-400" />
+          </motion.span>
+        ) : (
+          <motion.span
+            key="copy"
+            className="absolute inset-0 flex items-center justify-center"
+            initial={{ opacity: 0, filter: 'blur(4px)', scale: 0.88 }}
+            animate={{ opacity: 1, filter: 'blur(0px)', scale: 1 }}
+            exit={{ opacity: 0, filter: 'blur(4px)', scale: 0.88 }}
+            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <IconCopy className="size-4 shrink-0 text-muted-foreground" />
+          </motion.span>
+        )}
+      </AnimatePresence>
+    </span>
+  )
+}
+
 function InstallPmIconSlot({ copied, SelectedIcon }: { copied: boolean; SelectedIcon: IconType }) {
   return (
     <span
@@ -238,12 +272,10 @@ export default function BlockTabs({
   slug,
   title,
   code,
-  cli,
 }: {
   slug: string
   title: string
   code: ReactNode
-  cli?: string
 }) {
   const [reloadKey, setReloadKey] = useState(0)
   const [selectedPm, setSelectedPm] = useState<PackageManagerId>('bun')
@@ -253,6 +285,11 @@ export default function BlockTabs({
   const copyToastTimeoutRef = useRef<number | null>(null)
   const copyPulseTimeoutRef = useRef<number | null>(null)
 
+  // SSR-safe origin: returns '' on both server render and first client render
+  // (hydration), then swaps to `window.location.origin` after hydration.
+  // Avoids the SSR/CSR mismatch that a lazy useState reading window would cause.
+  const origin = useSyncExternalStore(subscribeNoop, getOriginSnapshot, getOriginServerSnapshot)
+
   useEffect(() => {
     return () => {
       if (copyPulseTimeoutRef.current != null) {
@@ -261,8 +298,7 @@ export default function BlockTabs({
     }
   }, [])
 
-  const spec = useMemo(() => getShadcnAddSpec(cli, slug), [cli, slug])
-  const commands = useMemo(() => getInstallCommands(spec), [spec])
+  const commands = useMemo(() => getInstallCommands(slug, origin), [slug, origin])
 
   const onReload = () => setReloadKey((k) => k + 1)
 
@@ -346,7 +382,7 @@ export default function BlockTabs({
                   fill="currentColor"
                 />
               </svg>
-              <span className="hidden md:inline">Preview</span>
+              <span className="inline">Preview</span>
             </TabsTrigger>
             <TabsTrigger
               value="code"
@@ -375,7 +411,7 @@ export default function BlockTabs({
                   fill="currentColor"
                 />
               </svg>
-              <span className="hidden md:inline">Code</span>
+              <span className="inline">Code</span>
             </TabsTrigger>
           </TabsList>
 
@@ -415,40 +451,88 @@ export default function BlockTabs({
               </Link>
             </Button>
           </div>
-
-          <motion.div
-            className="md:hidden"
-            animate={
-              copyPulse
-                ? { scale: [1, 0.987, 1], filter: ['blur(0px)', 'blur(1.25px)', 'blur(0px)'] }
-                : { scale: 1, filter: 'blur(0px)' }
-            }
-            transition={copyPulse ? { duration: 0.44, ease: [0.22, 1, 0.36, 1] } : { duration: 0 }}
-            style={{ transformOrigin: 'center' }}
-          >
-            <Button
-              type="button"
-              variant="outline"
-              className={cn(
-                'inline-flex h-9 w-9 shrink-0 items-center justify-center gap-0 rounded-lg border border-border/60 bg-background/80 p-0 shadow-sm dark:bg-background/50',
-              )}
-              aria-label="Copy install command"
-              title="Install command"
-              onClick={() => void copyCurrentToClipboard()}
-            >
-              <InstallPmIconSlot copied={copied} SelectedIcon={SelectedPmIcon} />
-            </Button>
-          </motion.div>
         </div>
 
         <div className="flex min-h-9 shrink-0 items-center gap-2">
+          <DropdownMenu modal={false}>
+            <motion.div
+              className="flex h-9 shrink-0 items-stretch overflow-hidden rounded-lg border border-border/60 bg-background/80 shadow-sm ring-1 ring-foreground/6.5 md:hidden dark:bg-background/50"
+              animate={
+                copyPulse
+                  ? { scale: [1, 0.987, 1], filter: ['blur(0px)', 'blur(1.25px)', 'blur(0px)'] }
+                  : { scale: 1, filter: 'blur(0px)' }
+              }
+              transition={
+                copyPulse ? { duration: 0.44, ease: [0.22, 1, 0.36, 1] } : { duration: 0 }
+              }
+              style={{ transformOrigin: 'center' }}
+            >
+              <DropdownMenuTrigger asChild>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  className="inline-flex h-full min-h-0 shrink-0 cursor-pointer items-center justify-center gap-1 rounded-none border-0 bg-transparent px-2 shadow-none hover:bg-muted/60 dark:hover:bg-input/40"
+                  aria-label="Choose package manager"
+                  title="Package manager"
+                >
+                  <SelectedPmIcon className="size-4.5 shrink-0" aria-hidden />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="size-3.5 shrink-0 opacity-50"
+                    aria-hidden="true"
+                  >
+                    <path d="m7 15 5 5 5-5"></path>
+                    <path d="m7 9 5-5 5 5"></path>
+                  </svg>
+                </Button>
+              </DropdownMenuTrigger>
+              <span aria-hidden className="my-1.5 w-px self-stretch bg-border/60" />
+              <Button
+                type="button"
+                variant="ghost"
+                className="inline-flex h-full min-h-0 w-9 shrink-0 cursor-pointer items-center justify-center rounded-none border-0 bg-transparent p-0 shadow-none hover:bg-muted/60 dark:hover:bg-input/40"
+                aria-label="Copy install command"
+                title="Copy install command"
+                onClick={() => void copyCurrentToClipboard()}
+              >
+                <CopyIconSlot copied={copied} />
+              </Button>
+            </motion.div>
+            <DropdownMenuContent
+              sideOffset={6}
+              align="end"
+              className="max-h-[min(var(--radix-dropdown-menu-content-available-height),320px)] min-w-40 border-border/80 md:hidden"
+            >
+              {PACKAGE_MANAGERS.map((pm) => {
+                const PmIcon = pm.Icon
+                return (
+                  <DropdownMenuItem
+                    key={pm.id}
+                    className="gap-2.5 px-2 py-2 text-sm data-highlighted:bg-accent data-highlighted:text-accent-foreground"
+                    onSelect={() => {
+                      setSelectedPm(pm.id)
+                    }}
+                  >
+                    <PmIcon className="size-4.5 shrink-0" aria-hidden />
+                    <span className="min-w-0 flex-1">{pm.name}</span>
+                  </DropdownMenuItem>
+                )
+              })}
+            </DropdownMenuContent>
+          </DropdownMenu>
           <div className="hidden md:flex">
             <DropdownMenu modal={false}>
               <motion.div
-                className="flex h-8 w-80 shrink-0 items-center overflow-hidden rounded-lg border border-border/50 text-sm leading-none font-medium text-foreground shadow-inner will-change-transform dark:bg-muted/40"
+                className="flex h-9 w-80 shrink-0 items-stretch overflow-hidden rounded-lg border border-border/60 bg-background/80 text-sm leading-none font-medium text-foreground shadow-sm ring-1 ring-foreground/6.5 will-change-transform dark:bg-background/50"
                 animate={
                   copyPulse
-                    ? { scale: [1, 0.987, 1], filter: ['blur(0px)', 'blur(1.25px)', 'blur(0px)'] }
+                    ? { scale: [1, 0.987, 1], filter: ['blur(0px)', 'blur(1.7px)', 'blur(0px)'] }
                     : { scale: 1, filter: 'blur(0px)' }
                 }
                 transition={
@@ -460,39 +544,40 @@ export default function BlockTabs({
                   <Button
                     type="button"
                     variant="ghost"
-                    className="inline-flex shrink-0 cursor-pointer items-center justify-center gap-1 rounded-none border-0 bg-muted/70 shadow-none hover:bg-muted/60 dark:hover:bg-input/40"
+                    className="inline-flex h-full min-h-0 shrink-0 cursor-pointer items-center justify-center gap-1 rounded-none border-0 bg-transparent px-2 shadow-none hover:bg-muted/60 dark:hover:bg-input/40"
                     aria-label="Choose package manager"
                     title="Package manager"
                   >
                     <InstallPmIconSlot copied={copied} SelectedIcon={SelectedPmIcon} />
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className="size-4 opacity-50"
+                      className="size-4 shrink-0 opacity-50"
                       aria-hidden="true"
-                      data-slot="select-icon"
                     >
                       <path d="m7 15 5 5 5-5"></path>
                       <path d="m7 9 5-5 5 5"></path>
                     </svg>
                   </Button>
                 </DropdownMenuTrigger>
-                <button
+                <span aria-hidden className="my-1.5 w-px self-stretch bg-border/60" />
+                <Button
                   type="button"
-                  className="flex h-9 min-h-9 min-w-0 flex-1 items-center truncate px-2.5 text-left font-mono text-xs leading-none text-foreground outline-none select-none hover:bg-muted/40 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 dark:hover:bg-input/30"
+                  variant="ghost"
+                  className="inline-flex h-full min-h-0 min-w-0 flex-1 cursor-pointer items-center justify-start rounded-none border-0 bg-transparent px-2.5 leading-none shadow-none outline-none select-none hover:bg-muted/60 focus-visible:bg-muted/60 dark:hover:bg-input/40 dark:focus-visible:bg-input/40"
                   aria-label="Copy install command"
                   title={commands[selectedPm]}
                   onClick={() => void copyCurrentToClipboard()}
                 >
-                  {commands[selectedPm]}
-                </button>
+                  <span className="block min-w-0 truncate overflow-hidden text-left font-mono text-xs text-ellipsis whitespace-nowrap text-muted-foreground dark:text-card-foreground">
+                    {commands[selectedPm]}
+                  </span>
+                </Button>
               </motion.div>
               <DropdownMenuContent
                 sideOffset={6}
@@ -521,32 +606,34 @@ export default function BlockTabs({
             </DropdownMenu>
           </div>
 
-          <Button
-            type="button"
-            variant="ghost"
-            className={cn('rounded-lg border bg-muted/70 shadow-inner')}
-            onClick={onReload}
-            aria-label="Reload preview"
-            title="Reload preview"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="1000px"
-              height="1000px"
-              viewBox="0 0 24 24"
-              fill="none"
+          <div className={TOOLBAR_OPEN_PREVIEW_CHROME}>
+            <Button
+              type="button"
+              variant="ghost"
+              className={cn(TOOLBAR_OPEN_PREVIEW_BUTTON)}
+              onClick={onReload}
+              aria-label="Reload preview"
+              title="Reload preview"
             >
-              <path
-                d="M12.0789 2.25C7.2854 2.25 3.34478 5.913 2.96055 10.5833H2.00002C1.69614 10.5833 1.42229 10.7667 1.30655 11.0477C1.19081 11.3287 1.25606 11.6517 1.47178 11.8657L3.15159 13.5324C3.444 13.8225 3.91567 13.8225 4.20808 13.5324L5.88789 11.8657C6.10361 11.6517 6.16886 11.3287 6.05312 11.0477C5.93738 10.7667 5.66353 10.5833 5.35965 10.5833H4.4668C4.84652 6.75167 8.10479 3.75 12.0789 3.75C14.8484 3.75 17.2727 5.20845 18.6156 7.39279C18.8325 7.74565 19.2944 7.85585 19.6473 7.63892C20.0002 7.42199 20.1104 6.96007 19.8934 6.60721C18.2871 3.99427 15.3873 2.25 12.0789 2.25Z"
-                fill="currentColor"
-              />
-              <path
-                opacity="0.5"
-                d="M20.8412 10.4666C20.5491 10.1778 20.0789 10.1778 19.7868 10.4666L18.1005 12.1333C17.8842 12.3471 17.8185 12.6703 17.934 12.9517C18.0496 13.233 18.3236 13.4167 18.6278 13.4167H19.5269C19.1456 17.2462 15.876 20.25 11.8828 20.25C9.10034 20.25 6.66595 18.7903 5.31804 16.6061C5.10051 16.2536 4.63841 16.1442 4.28591 16.3618C3.93342 16.5793 3.82401 17.0414 4.04154 17.3939C5.65416 20.007 8.56414 21.75 11.8828 21.75C16.6907 21.75 20.6476 18.0892 21.0332 13.4167H22.0002C22.3044 13.4167 22.5784 13.233 22.694 12.9517C22.8096 12.6703 22.7438 12.3471 22.5275 12.1333L20.8412 10.4666Z"
-                fill="currentColor"
-              />
-            </svg>
-          </Button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true"
+                className="size-4 shrink-0"
+              >
+                <path
+                  d="M12.0789 2.25C7.2854 2.25 3.34478 5.913 2.96055 10.5833H2.00002C1.69614 10.5833 1.42229 10.7667 1.30655 11.0477C1.19081 11.3287 1.25606 11.6517 1.47178 11.8657L3.15159 13.5324C3.444 13.8225 3.91567 13.8225 4.20808 13.5324L5.88789 11.8657C6.10361 11.6517 6.16886 11.3287 6.05312 11.0477C5.93738 10.7667 5.66353 10.5833 5.35965 10.5833H4.4668C4.84652 6.75167 8.10479 3.75 12.0789 3.75C14.8484 3.75 17.2727 5.20845 18.6156 7.39279C18.8325 7.74565 19.2944 7.85585 19.6473 7.63892C20.0002 7.42199 20.1104 6.96007 19.8934 6.60721C18.2871 3.99427 15.3873 2.25 12.0789 2.25Z"
+                  fill="currentColor"
+                />
+                <path
+                  opacity="0.5"
+                  d="M20.8412 10.4666C20.5491 10.1778 20.0789 10.1778 19.7868 10.4666L18.1005 12.1333C17.8842 12.3471 17.8185 12.6703 17.934 12.9517C18.0496 13.233 18.3236 13.4167 18.6278 13.4167H19.5269C19.1456 17.2462 15.876 20.25 11.8828 20.25C9.10034 20.25 6.66595 18.7903 5.31804 16.6061C5.10051 16.2536 4.63841 16.1442 4.28591 16.3618C3.93342 16.5793 3.82401 17.0414 4.04154 17.3939C5.65416 20.007 8.56414 21.75 11.8828 21.75C16.6907 21.75 20.6476 18.0892 21.0332 13.4167H22.0002C22.3044 13.4167 22.5784 13.233 22.694 12.9517C22.8096 12.6703 22.7438 12.3471 22.5275 12.1333L20.8412 10.4666Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </Button>
+          </div>
         </div>
       </div>
 
