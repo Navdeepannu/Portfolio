@@ -9,6 +9,8 @@ import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Kbd } from '@/components/ui/kbd'
 import { cn } from '@/lib/utils'
+import { useCommandMenu } from '@/hooks/use-command-menu'
+import { CommandMenu } from '@/site/command/command-menu'
 
 const menuItems = [
   { name: 'Home', href: '/' },
@@ -25,6 +27,7 @@ export function Navbar({
 }) {
   const { theme, setTheme } = useTheme()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const { open: commandOpen, setOpen: setCommandOpen } = useCommandMenu()
 
   const mounted = useSyncExternalStore(
     () => () => {},
@@ -104,7 +107,12 @@ export function Navbar({
           <div className="flex-1" />
 
           <div className="flex items-center justify-between gap-4">
-            <Button variant="ghost" className="hover:bg-muted/40">
+            <Button
+              variant="ghost"
+              className="hover:bg-muted/40"
+              onClick={() => setCommandOpen(true)}
+              aria-label="Open command menu"
+            >
               <Search className="size-4" />
               <Kbd>⌘</Kbd>
               <Kbd>K</Kbd>
@@ -155,6 +163,8 @@ export function Navbar({
           </div>
         </div>
       </nav>
+
+      <CommandMenu open={commandOpen} onOpenChange={setCommandOpen} />
 
       <AnimatePresence>
         {mobileMenuOpen ? (
