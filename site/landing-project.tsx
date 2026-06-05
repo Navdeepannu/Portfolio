@@ -4,6 +4,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
+import { getPortfolioContent } from '@/site/portfolio-config'
+import { usePortfolioMode } from '@/site/portfolio-mode-provider'
 
 import { SiNextdotjs, SiReact, SiTailwindcss, SiPostgresql, SiExpress } from 'react-icons/si'
 
@@ -56,6 +58,9 @@ const projectsData: Project[] = [
 ]
 
 export default function ProjectsSection() {
+  const { mode } = usePortfolioMode()
+  const { projects: copy } = getPortfolioContent(mode)
+
   return (
     <section
       id="projects"
@@ -63,23 +68,20 @@ export default function ProjectsSection() {
     >
       <div className="mx-auto max-w-6xl px-8">
         <span className="mb-4 block font-mono text-xs text-emerald-600 dark:text-emerald-400/80">
-          Projects
+          {copy.eyebrow}
         </span>
         <div className="grid items-start gap-4 lg:grid-cols-2 lg:gap-12">
           <div className="max-w-md text-left text-balance">
             <h2 className="font-times-heading font-normal tracking-tight text-neutral-900 md:text-xl dark:text-neutral-200">
-              Full Stack Projects that I worked
+              {copy.title}
             </h2>
           </div>
 
           <div className="mx-auto max-w-md pt-6 text-xs font-medium text-foreground/70">
-            <p>
-              Reusable, production-grade UI blocks you can drop directly into real
-              applications.{' '}
-            </p>
+            <p>{copy.description}</p>
 
-            <Button className="mt-4" variant="outline" size="sm">
-              View Projects
+            <Button className="mt-4" variant="outline" size="sm" asChild>
+              <Link href={copy.cta.href}>{copy.cta.label}</Link>
             </Button>
           </div>
         </div>

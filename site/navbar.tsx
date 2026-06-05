@@ -1,22 +1,28 @@
 'use client'
 
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { Menu, Moon, Search, Sun, X } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
 import { useEffect, useState, useSyncExternalStore } from 'react'
 import { useTheme } from 'next-themes'
-import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Kbd } from '@/components/ui/kbd'
 import { cn } from '@/lib/utils'
 import { useCommandMenu } from '@/hooks/use-command-menu'
 import { CommandMenu } from '@/site/command/command-menu'
+import Character from './character'
 
 const menuItems = [
-  { name: 'Home', href: '/' },
+  { name: 'Components', href: '/components' },
   { name: 'Blocks', href: '/blocks' },
-  { name: 'Pages', href: '/pages' },
-]
+  { name: 'Projects', href: '/projects' },
+] as const
+
+function isNavItemActive(pathname: string, href: string) {
+  if (href === '/') return pathname === '/'
+  return pathname === href || pathname.startsWith(`${href}/`)
+}
 
 export function Navbar({
   fullWidth = false,
@@ -25,6 +31,7 @@ export function Navbar({
   className?: string
   fullWidth?: boolean
 }) {
+  const pathname = usePathname()
   const { theme, setTheme } = useTheme()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const { open: commandOpen, setOpen: setCommandOpen } = useCommandMenu()
@@ -70,8 +77,6 @@ export function Navbar({
     return () => document.removeEventListener('keydown', onKeyDown)
   }, [theme, setTheme])
 
-  const router = useRouter()
-
   useEffect(() => {
     if (!mobileMenuOpen) return
 
@@ -92,18 +97,15 @@ export function Navbar({
 
   return (
     <>
-      <nav className="border-b border-black/5 bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/75 dark:border-white/10">
+      <nav className="sticky top-0 z-20 border-b border-black/5 bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/55 dark:border-white/10">
         <div
           className={cn(
-            `flex h-12 w-full items-center font-schibsted ${className} ${
+            `flex h-14 w-full items-center font-schibsted ${className} ${
               fullWidth ? 'md:px-4 lg:px-6' : 'mx-auto max-w-6xl px-2'
             }`,
           )}
         >
-          <span
-            onClick={() => router.push('/')}
-            className="ml-4 size-7 cursor-pointer rounded-full bg-linear-to-b from-black via-emerald-700 to-neutral-50 shadow-sm shadow-black/80 md:hidden"
-          ></span>
+          <Character />
           <div className="flex-1" />
 
           <div className="flex items-center justify-between gap-4">
@@ -119,16 +121,24 @@ export function Navbar({
             </Button>
 
             <ul className="hidden items-center gap-6 md:flex">
-              {menuItems.map((item) => (
-                <li key={item.name}>
-                  <Link
-                    href={item.href}
-                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    {item.name}
-                  </Link>
-                </li>
-              ))}
+              {menuItems.map((item) => {
+                const isActive = isNavItemActive(pathname, item.href)
+
+                return (
+                  <li key={item.name}>
+                    <Link
+                      href={item.href}
+                      aria-current={isActive ? 'page' : undefined}
+                      className={cn(
+                        'text-sm transition-colors hover:text-foreground',
+                        isActive ? 'font-medium text-primary' : 'text-muted-foreground',
+                      )}
+                    >
+                      {item.name}
+                    </Link>
+                  </li>
+                )
+              })}
             </ul>
 
             <Button variant="ghost" size="icon-sm" asChild>
@@ -191,12 +201,7 @@ export function Navbar({
               transition={{ type: 'spring', damping: 28, stiffness: 320 }}
             >
               <div className="mb-6 flex items-center justify-between gap-3">
-                <button
-                  type="button"
-                  onClick={() => router.push('/')}
-                  className="size-8 shrink-0 rounded-full bg-linear-to-b from-black via-emerald-700 to-neutral-50 shadow-sm shadow-black/80"
-                  aria-label="Go to home"
-                />
+                <Character />
                 <Button
                   variant="ghost"
                   size="icon-sm"
@@ -209,18 +214,29 @@ export function Navbar({
               </div>
 
               <nav className="flex flex-1 flex-col gap-1.5">
-                {menuItems.map((item) => (
-                  <Button
-                    key={item.name}
-                    variant="ghost"
-                    className="h-11 w-full justify-start rounded-lg px-3 text-base font-normal"
-                    asChild
-                  >
-                    <Link href={item.href} onClick={() => setMobileMenuOpen(false)}>
-                      {item.name}
-                    </Link>
-                  </Button>
-                ))}
+                {menuItems.map((item) => {
+                  const isActive = isNavItemActive(pathname, item.href)
+
+                  return (
+                    <Button
+                      key={item.name}
+                      variant="ghost"
+                      className={cn(
+                        'h-11 w-full justify-start rounded-lg px-3 text-base font-normal',
+                        isActive ? 'text-foreground' : 'text-muted-foreground',
+                      )}
+                      asChild
+                    >
+                      <Link
+                        href={item.href}
+                        aria-current={isActive ? 'page' : undefined}
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        {item.name}
+                      </Link>
+                    </Button>
+                  )
+                })}
               </nav>
             </motion.aside>
           </>

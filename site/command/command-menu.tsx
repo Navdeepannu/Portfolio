@@ -20,8 +20,6 @@ export function CommandMenu({ open, onOpenChange }: CommandMenuProps) {
   const groups = React.useMemo(() => getSearchGroups(), [])
   const [query, setQuery] = React.useState('')
 
-  // Reset the query in the same handler that closes the dialog so we never
-  // mirror props into state via an effect.
   const handleOpenChange = React.useCallback(
     (next: boolean) => {
       if (!next) setQuery('')
@@ -176,10 +174,10 @@ function CommandRow({
       onSelect={() => onSelect(item)}
       className={cn(
         'group relative flex cursor-default items-center gap-2.5 rounded-lg px-2.5 py-2',
-        'text-sm text-foreground/85 transition-colors outline-none select-none',
+        'text-sm text-foreground/75 transition-colors outline-none select-none',
         'data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50',
-        'data-selected:bg-muted/80 data-selected:text-foreground',
-        'dark:data-selected:bg-foreground/6',
+        'data-selected:bg-muted/90 data-selected:text-foreground',
+        'dark:data-selected:bg-foreground',
         '[&_svg]:pointer-events-none [&_svg]:shrink-0',
       )}
     >

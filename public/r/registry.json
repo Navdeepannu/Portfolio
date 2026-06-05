@@ -53,6 +53,24 @@
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "segment-spotlight",
+      "title": "Segment Spotlight",
+      "description": "Interactive segmented headline with animated focus states and contextual labels.",
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/ui/custom/segment-spotlight.tsx",
+          "type": "registry:ui",
+          "target": "@ui/custom/segment-spotlight.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "forgot-password-one",
       "title": "Forgot Password One",
       "description": "Forgot Password One — Auth block.",

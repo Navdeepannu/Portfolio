@@ -26,11 +26,15 @@ export function SiteJsonLd() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(person) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(person).replace(/</g, '\\u003c'),
+        }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(website) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(website).replace(/</g, '\\u003c'),
+        }}
       />
     </>
   )

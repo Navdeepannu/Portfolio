@@ -3,42 +3,78 @@
 import React from 'react'
 import Image from 'next/image'
 
+import { getPortfolioContent } from '@/site/portfolio-config'
+import { usePortfolioMode } from '@/site/portfolio-mode-provider'
+import Masonry from './masonry-grid'
+
 interface LandingProjectsProps {
   showAll?: boolean
 }
 
+const items = [
+  {
+    id: '1',
+    img: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlwnc9sHT0Ebck1dTslf49q5rag7XIHeMz6Sj3',
+    url: 'https://www.navdeepsingh.dev/blocks/auth',
+    height: 500,
+  },
+  {
+    id: '2',
+    img: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlzyCwl1GLxvDQCGptolAdz7ghSeXqVYN9E24H',
+    url: 'https://www.navdeepsingh.dev/blocks/hero',
+    height: 800,
+  },
+  {
+    id: '3',
+    img: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTltgWg2wAncYx8GiQaPmyboup14RwlrMzW3IA9',
+    url: 'https://www.navdeepsingh.dev/blocks/logo-cloud',
+
+    height: 300,
+  },
+  {
+    id: '4',
+    img: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlQICKERjBWY7XQAxMKNls4T6nZb0U2pHvfS9G',
+    url: 'https://www.navdeepsingh.dev/blocks/footer',
+    height: 300,
+  },
+  {
+    id: '5',
+    img: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlNP5cqDeJIMXrF35vasVbLAD0jBGhUEyeltu8',
+    url: 'https://www.navdeepsingh.dev/blocks/logo-cloud',
+
+    height: 300,
+  },
+  {
+    id: '6',
+    img: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlVinCr1kua1nwvRWLo6bCcepS4YzPXjuFMh7T',
+    url: 'https://www.navdeepsingh.dev/blocks/hero',
+    height: 800,
+  },
+  {
+    id: '7',
+    img: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlNTMZnKeJIMXrF35vasVbLAD0jBGhUEyeltu8',
+    url: 'https://www.navdeepsingh.dev/blocks/teams',
+    height: 500,
+  },
+]
+
 export const LandingProjects: React.FC<LandingProjectsProps> = () => {
+  const { mode } = usePortfolioMode()
+  const { showcase } = getPortfolioContent(mode)
+
   return (
-    <section
-      id="projects"
-      className="scrollbar-hide relative w-full overflow-hidden mask-b-from-95% py-8 2xl:mx-auto 2xl:max-w-7xl"
-    >
-      <div className="absolute inset-0 bg-linear-to-t from-muted/50 via-muted/40 to-muted/10 dark:from-muted/30 dark:to-transparent"></div>
-      <div className="min-h-0 w-full overflow-hidden mask-b-from-90% lg:overflow-visible">
-        <div className="relative lg:block">
-          <div className="grid w-[140vw] max-w-none translate-x-[-20vw] grid-flow-dense grid-cols-3 gap-3 p-0 pr-0 md:w-[130vw] md:translate-x-[-15vw] md:grid-cols-3 lg:w-auto lg:translate-x-0 lg:grid-cols-4 lg:p-3 lg:*:first:mt-56 lg:*:nth-2:mt-24 lg:*:nth-3:mt-44">
-            <Column offset="mt-0 md:mt-0 lg:mt-0">
-              <Card src="/sections/design1.png" alt="Project 1" className="" />
-              <Card src="/sections/design2.png" alt="Project 3" className="" />
-            </Column>
-
-            <Column offset="mt-12 md:mt-14 lg:mt-12">
-              <Card src="/sections/design3.png" alt="Project 4" className="" />
-              <Card src="/sections/design4.png" alt="Project 5" className="" />
-            </Column>
-
-            <Column offset="mt-6 md:mt-8 lg:mt-6">
-              <Card src="/sections/design5.png" alt="Project 7" className="" />
-              <Card src="/sections/design6.png" alt="Project 8" className="" />
-            </Column>
-
-            <Column offset="mt-16 md:mt-24 lg:mt-16" hideOnMobile={true}>
-              <Card src="/sections/design7.png" alt="Project 9" className="" />
-              <Card src="/sections/design8.png" alt="Project 6" className="" />
-            </Column>
-          </div>
-        </div>
-      </div>
+    <section id="showcase" className="mx-auto max-w-360 pt-24 pb-12">
+      <Masonry
+        items={items}
+        ease="power3.out"
+        duration={0.6}
+        stagger={0.05}
+        animateFrom="bottom"
+        scaleOnHover
+        hoverScale={0.98}
+        blurToFocus
+        colorShiftOnHover={false}
+      />
     </section>
   )
 }

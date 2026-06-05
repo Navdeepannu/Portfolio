@@ -6,43 +6,37 @@ const members = [
   {
     name: 'Liam Brown',
     role: 'Founder - CEO',
-    avatar: '/teams/avatar1.jpg',
+    avatar: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlH4NUrIqHjv3VPCtBSMksEJOn7pmfxyc9IoU5',
     link: '#',
   },
   {
     name: 'Elijah Jones',
     role: 'Co-Founder - CTO',
-    avatar: '/teams/avatar2.jpg',
+    avatar: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTl81tMhO4dwU2oJkmKaujTg9FMAr3QiGROq5bE',
     link: '#',
   },
   {
     name: 'Isabella Garcia',
     role: 'Sales Manager',
-    avatar: '/teams/avatar3.jpg',
+    avatar: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlnj8ad4LL1RTlFOStU5Vx6bKDsZupeXgyGkhM',
     link: '#',
   },
   {
     name: 'Henry Lee',
     role: 'UX Engeneer',
-    avatar: '/teams/avatar4.jpg',
+    avatar: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlKywRt8Sa4eSEgVXynrIRWAk3NL9mFjvOTM0B',
     link: '#',
   },
   {
-    name: 'Isabella Garcia',
-    role: 'Sales Manager',
-    avatar: '/teams/avatar5.jpg',
+    name: 'Ava Williams',
+    role: 'Interaction Designer',
+    avatar: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlh433XXK0RlaETPbLcZQjyfg2StNvuB13w8rI',
     link: '#',
   },
   {
-    name: 'Henry Lee',
-    role: 'UX Engeneer',
-    avatar: '/teams/avatar6.jpg',
-    link: '#',
-  },
-  {
-    name: 'Henry Lee',
-    role: 'UX Engeneer',
-    avatar: '/teams/avatar1.jpg',
+    name: 'Olivia Miller',
+    role: 'Visual Designer',
+    avatar: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlCsjkx0nF5BMj7T0uXqWGgbANfhcdeI8P3x9v',
     link: '#',
   },
 ]
@@ -59,7 +53,7 @@ export default function TestamonialSectionOne() {
           {left.map((member, index) => (
             <div
               key={index}
-              className="group -rotate-6deg size-50 origin-right transform overflow-hidden rounded-xl transition-transform duration-500 group-hover:rotate-0 hover:rotate-0"
+              className="group size-20 origin-right -rotate-6 transform overflow-hidden rounded-xl transition-transform duration-500 hover:rotate-0 md:size-50"
             >
               <img
                 src={member.avatar}
@@ -74,14 +68,14 @@ export default function TestamonialSectionOne() {
           <Badge variant="outline" className="text-muted-foreground uppercase shadow-md">
             Testimonials
           </Badge>
-          <div className="mx-auto flex max-w-2xl flex-col items-center justify-center gap-4 text-center">
+          <div className="mx-auto flex max-w-md flex-col items-center justify-center gap-4 text-center md:max-w-2xl">
             <h1 className="text-3xl font-medium md:text-6xl">
               Trusted by leaders{' '}
               <span className="max-w-md text-neutral-500 dark:text-neutral-400">
                 from various industries
               </span>
             </h1>
-            <p className="text-center text-balance text-muted-foreground">
+            <p className="text-center text-sm text-balance text-muted-foreground md:text-base">
               Discover how teams rely on our platform to design, manage, and deliver seamless
               customer journeys from first touch to long-term engagement.
             </p>
@@ -100,7 +94,7 @@ export default function TestamonialSectionOne() {
           {right.map((member, index) => (
             <div
               key={index}
-              className="rotate-6deg size-50 origin-left transform overflow-hidden rounded-xl shadow-2xl transition-transform duration-500 hover:rotate-0"
+              className="size-20 origin-left rotate-6 transform overflow-hidden rounded-xl shadow-2xl transition-transform duration-500 hover:rotate-0 md:size-50"
             >
               <img
                 src={member.avatar}
@@ -111,8 +105,6 @@ export default function TestamonialSectionOne() {
           ))}
         </div>
       </div>
-
-      {/* section  */}
     </section>
   )
 }

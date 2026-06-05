@@ -68,7 +68,7 @@ const menuGroup: SearchGroup = {
     {
       id: 'components',
       label: 'Components',
-      href: '/blocks',
+      href: '/components',
       type: 'navigation',
       icon: Atom,
       keywords: ['ui', 'kit', 'library'],
@@ -80,6 +80,14 @@ const menuGroup: SearchGroup = {
       type: 'navigation',
       icon: LayoutGrid,
       keywords: ['sections', 'layouts', 'patterns'],
+    },
+    {
+      id: 'projects',
+      label: 'Projects',
+      href: '/projects',
+      type: 'navigation',
+      icon: Briefcase,
+      keywords: ['case studies', 'work', 'portfolio', 'archive'],
     },
     {
       id: 'pages',

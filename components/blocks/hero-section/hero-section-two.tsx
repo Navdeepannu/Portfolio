@@ -161,7 +161,7 @@ export default function HeroSectionTwo() {
           >
             <div className="relative w-full max-w-70 mask-[linear-gradient(to_bottom,black_0%,black_50%,transparent_100%)] mask-size-[100%_100%] mask-center mask-no-repeat sm:max-w-[320px] md:max-w-150">
               <Image
-                src="/data/assets/iphone-mockup.avif"
+                src="https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTl2VlEStmnCKEMaPSHlkN9mY0IgJTt8dwQzFbx"
                 alt="iPhone held in hands showcasing the app"
                 width={600}
                 height={700}
@@ -171,7 +171,7 @@ export default function HeroSectionTwo() {
               {/* Product screen content inside the iPhone */}
               <div className="absolute top-2 left-1/2 z-5 aspect-19/9 h-[76%] w-[40%] -translate-x-1/2 overflow-hidden rounded-3xl bg-neutral-900">
                 <Image
-                  src="/data/assets/product-showcase.avif"
+                  src="https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlllqdwItCNmiMrUu5L4EcS3oaXwpTZQj9zJex"
                   alt="App product showcase"
                   fill
                   className="object-cover object-top"

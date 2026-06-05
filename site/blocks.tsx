@@ -1,8 +1,12 @@
+'use client'
+
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { blocks, getCategoryHref } from '@/data'
 import Link from 'next/link'
 import { LandingBentoGrid } from '@/site/landing-bento-showcase'
+import { getPortfolioContent } from '@/site/portfolio-config'
+import { usePortfolioMode } from '@/site/portfolio-mode-provider'
 
 const PREVIEW_IMAGES = [
   '/sections/design1.png',
@@ -15,6 +19,9 @@ const PREVIEW_IMAGES = [
 ]
 
 export default function Blocks() {
+  const { mode } = usePortfolioMode()
+  const { blocks: copy } = getPortfolioContent(mode)
+
   return (
     <section
       id="blocks"
@@ -22,23 +29,20 @@ export default function Blocks() {
     >
       <div className="mx-auto max-w-6xl px-8">
         <span className="mb-4 block font-mono text-xs text-emerald-600 dark:text-emerald-400/80">
-          Blocks
+          {copy.eyebrow}
         </span>
         <div className="grid items-start gap-4 lg:grid-cols-2 lg:gap-12">
           <div className="max-w-md text-left text-balance">
             <h2 className="font-times-heading font-normal tracking-tight text-foreground md:text-xl">
-              Production-ready UI blocks for real-world use cases
+              {copy.title}
             </h2>
           </div>
 
           <div className="mx-auto max-w-md pt-6 text-xs font-medium text-foreground/70">
-            <p>
-              Reusable, production-grade UI blocks you can drop directly into real
-              applications.{' '}
-            </p>
+            <p>{copy.description}</p>
 
-            <Button className="mt-4" variant="outline" size="sm">
-              <Link href="/blocks">Explore Blocks</Link>
+            <Button className="mt-4" variant="outline" size="sm" asChild>
+              <Link href={copy.cta.href}>{copy.cta.label}</Link>
             </Button>
           </div>
         </div>

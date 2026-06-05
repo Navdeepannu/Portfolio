@@ -4,6 +4,9 @@ import path from 'node:path'
 import type { BundledLanguage } from 'shiki'
 
 import type { BlockDefinition } from '@/registry/types'
+import type { ComponentDefinition } from '@/data/component-types'
+
+export type SourceDefinition = BlockDefinition | ComponentDefinition
 
 export type LoadedBlockSourceFile = {
   filename: string
@@ -33,7 +36,7 @@ export async function readProjectSourceFile(relativePath: string): Promise<strin
  * Loads every `sourceFiles` entry for a block for the code preview tab.
  */
 export async function loadBlockCodeFiles(
-  definition: BlockDefinition,
+  definition: SourceDefinition,
 ): Promise<LoadedBlockSourceFile[]> {
   return Promise.all(
     definition.sourceFiles.map(async (spec) => {

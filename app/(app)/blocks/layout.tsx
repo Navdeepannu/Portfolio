@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 
 import { Navbar } from '@/site/navbar'
-import CategoryNav from '@/site/category-nav'
+import BlocksCategoryNav from '@/site/blocks-category-nav'
 
 export const metadata: Metadata = {
   title: 'UI Blocks',
@@ -18,7 +18,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       <div className="mx-auto flex min-h-screen w-full max-w-360 flex-col bg-card shadow-sm">
         <Navbar fullWidth={true} className="border-x border-black/5 dark:border-white/10" />
         <div className="flex flex-col border-x border-black/5 dark:border-white/10">
-          <CategoryNav />
+          <BlocksCategoryNav />
           <div className="inset-x-0 h-14 w-full bg-[repeating-linear-gradient(to_bottom,var(--color-border)_0,var(--color-border)_1px,transparent_1px,transparent_0.4rem)] mask-b-from-10% dark:bg-[repeating-linear-gradient(to_bottom,var(--color-border)_0,var(--color-border)_1px,transparent_1px,transparent_0.4rem)]" />
 
           <section className="w-full min-w-0">{children}</section>

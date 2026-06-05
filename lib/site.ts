@@ -105,7 +105,7 @@ export const rootMetadata: Metadata = {
 }
 
 export function getPublicSitemapPaths(): string[] {
-  const paths = ['/', '/blocks', '/pages']
+  const paths = ['/', '/components', '/blocks', '/projects', '/pages']
 
   for (const category of blockCategories) {
     paths.push(

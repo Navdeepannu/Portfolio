@@ -30,6 +30,21 @@
           "target": "@ui/custom/text-effect.tsx"
         }
       ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "segment-spotlight",
+      "type": "registry:ui",
+      "title": "Segment Spotlight",
+      "description": "Interactive segmented headline with animated focus states and contextual labels.",
+      "dependencies": ["motion", "lucide-react"],
+      "files": [
+        {
+          "path": "segment-spotlight.tsx",
+          "type": "registry:ui",
+          "target": "@ui/custom/segment-spotlight.tsx"
+        }
+      ]
     }
   ]
 }

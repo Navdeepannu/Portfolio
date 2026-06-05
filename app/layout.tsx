@@ -8,6 +8,7 @@ import { SiteJsonLd } from '@/components/site-json-ld'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { Toaster } from '@/components/ui/sonner'
 import { ThemeProvider } from '@/components/theme-provider'
+import { PortfolioModeProvider } from '@/site/portfolio-mode-provider'
 import { rootMetadata } from '@/lib/site'
 
 import './globals.css'
@@ -57,14 +58,18 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} ${schibsted.variable} ${inter.variable} ${caveat.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col">
+      <head>
         <SiteJsonLd />
+      </head>
+      <body className="flex min-h-full flex-col">
         <ThemeProvider>
-          <TooltipProvider>
-            <Toaster />
-            {children}
-            <GlobalBottomBlur />
-          </TooltipProvider>
+          <PortfolioModeProvider>
+            <TooltipProvider>
+              <Toaster />
+              {children}
+              <GlobalBottomBlur />
+            </TooltipProvider>
+          </PortfolioModeProvider>
         </ThemeProvider>
         <Analytics />
         <SpeedInsights />
