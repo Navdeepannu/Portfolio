@@ -17,10 +17,13 @@ const menuItems = [
   { name: 'Components', href: '/components' },
   { name: 'Blocks', href: '/blocks' },
   { name: 'Projects', href: '/projects' },
+  { name: 'Contact', href: '/#contact' },
 ] as const
 
 function isNavItemActive(pathname: string, href: string) {
+  if (href.includes('#')) return false
   if (href === '/') return pathname === '/'
+
   return pathname === href || pathname.startsWith(`${href}/`)
 }
 

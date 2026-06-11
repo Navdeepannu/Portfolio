@@ -80,7 +80,7 @@ export default function ProjectsSection() {
           <div className="mx-auto max-w-md pt-6 text-xs font-medium text-foreground/70">
             <p>{copy.description}</p>
 
-            <Button className="mt-4" variant="outline" size="sm" asChild>
+            <Button className="mt-4 shadow-sm ring-1 ring-border/10" variant="default" size="sm"  asChild>
               <Link href={copy.cta.href}>{copy.cta.label}</Link>
             </Button>
           </div>

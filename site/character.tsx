@@ -1,8 +1,8 @@
-import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
-export default function Character() {
+export default function Character({ className }: { className?: string }) {
   const router = useRouter()
 
   return (
@@ -15,9 +15,11 @@ export default function Character() {
       <Image
         src="/character.jpg"
         alt="character"
-        className="size-10 cursor-pointer rounded-full object-cover"
+        className={cn(`${className} size-10 cursor-pointer rounded-full object-cover`)}
         width={1000}
         height={1000}
+        loading="eager"
+        preload
       />
     </button>
   )

@@ -16,9 +16,13 @@ export type LandingSectionId =
   | 'projects'
   | 'resume'
   | 'skills'
-  | 'experience'
   | 'contact'
   | 'footer'
+  // Recruiter-only sections — rendered exclusively in recruiter mode.
+  | 'recruiter-hero'
+  | 'recruiter-snapshot'
+  | 'recruiter-projects'
+  | 'recruiter-strengths'
 
 export type CtaLink = {
   label: string
@@ -60,18 +64,10 @@ export type SkillsContent = {
   groups: SkillGroup[]
 }
 
-export type ExperienceItem = {
-  company: string
-  role: string
-  period: string
-  summary: string
-}
-
-export type ExperienceContent = {
+export type BuildJourneyContent = {
   eyebrow: string
   title: string
   description: string
-  items: ExperienceItem[]
 }
 
 export type ContactLink = {
@@ -103,7 +99,7 @@ export type PortfolioModeContent = {
   hero: HeroContent
   resume: ResumeContent
   skills: SkillsContent
-  experience: ExperienceContent
+  buildJourney: BuildJourneyContent
   contact: ContactContent
   projects: SectionCopy
   blocks: SectionCopy
@@ -113,7 +109,7 @@ export type PortfolioModeContent = {
 
 const sharedContact: ContactContent = {
   eyebrow: 'Contact',
-  title: 'Let’s talk about your team or product',
+  title: 'Get in Touch',
   description:
     'Open to full-time frontend and design-engineering roles. Reach out directly — I typically reply within one business day.',
   email: {
@@ -138,41 +134,15 @@ const sharedContact: ContactContent = {
   },
 }
 
-const sharedExperience: ExperienceContent = {
-  eyebrow: 'Experience',
-  title: 'Shipping interfaces and full products in production',
-  description:
-    'A mix of agency delivery, product work, and UI systems — focused on React, Next.js, and design-to-code workflows.',
-  items: [
-    {
-      company: 'Freelance & product work',
-      role: 'Frontend / Design Engineer',
-      period: '2022 — Present',
-      summary:
-        'Design and build marketing sites, dashboards, and reusable UI kits for startups and small businesses.',
-    },
-    {
-      company: 'Client projects',
-      role: 'Full Stack Developer',
-      period: '2021 — Present',
-      summary:
-        'End-to-end delivery with Next.js, PostgreSQL, and Tailwind — from wireframes to deployed production apps.',
-    },
-  ],
+const sharedBuildJourney: BuildJourneyContent = {
+  eyebrow: 'Build Journey',
+  title: 'How I build',
+  description: 'Learn → Build → Ship → Systemize → Scale',
 }
 
 export const portfolioContent = {
   developer: {
-    layout: [
-      'hero',
-      'showcase',
-      'components',
-      'blocks',
-      'projects',
-      'experience',
-      'contact',
-      'footer',
-    ],
+    layout: ['hero', 'showcase', 'components', 'blocks', 'projects', 'contact', 'footer'],
     hero: {
       greeting: "Hi, I'm",
       name: 'Navdeep Singh',
@@ -194,7 +164,7 @@ export const portfolioContent = {
       specialization: 'Frontend & UI systems',
       availability: 'Open to select opportunities',
       downloadLabel: 'Download resume',
-      resumeHref: '/resume.pdf',
+      resumeHref: '/resume/resume.pdf',
     },
     skills: {
       eyebrow: 'Skills',
@@ -208,7 +178,7 @@ export const portfolioContent = {
         { category: 'Design', items: ['Figma', 'Design systems', 'Motion'] },
       ],
     },
-    experience: sharedExperience,
+    buildJourney: sharedBuildJourney,
     contact: {
       ...sharedContact,
       title: 'Say hello',
@@ -244,15 +214,11 @@ export const portfolioContent = {
   },
   recruiter: {
     layout: [
-      'hero',
-      'resume',
-      'projects',
-      'skills',
-      'experience',
+      'recruiter-hero',
+      'recruiter-snapshot',
+      'recruiter-projects',
+      'recruiter-strengths',
       'contact',
-      'showcase',
-      'components',
-      'blocks',
       'footer',
     ],
     hero: {
@@ -269,19 +235,19 @@ export const portfolioContent = {
       ],
       linkedinHref: siteConfig.links.linkedin,
       twitterHref: siteConfig.links.twitter,
-      primaryCTA: { label: 'Download resume', href: '/resume.pdf' },
+      primaryCTA: { label: 'Download resume', href: '/resume/resume.pdf' },
       secondaryCTA: { label: 'Contact me', href: '#contact' },
     },
     resume: {
       eyebrow: 'Resume',
-      title: 'Hiring snapshot',
+      title: 'Quick Qualification',
       description:
         'Quick overview for recruiters — specialization, availability, and a one-click resume download.',
       yearsOfExperience: '4+ years',
       specialization: 'Frontend · React · Next.js · UI systems',
       availability: 'Open to full-time & contract (remote)',
       downloadLabel: 'Download PDF resume',
-      resumeHref: '/resume.pdf',
+      resumeHref: '/resume/resume.pdf',
     },
     skills: {
       eyebrow: 'Skills',
@@ -301,11 +267,10 @@ export const portfolioContent = {
         { category: 'Design', items: ['Figma', 'Design systems', 'Prototyping'] },
       ],
     },
-    experience: {
-      ...sharedExperience,
-      title: 'Professional experience',
-      description:
-        'Hands-on delivery across client work and product builds — emphasis on reliable releases and polished UI.',
+    buildJourney: {
+      ...sharedBuildJourney,
+      title: 'Builder path',
+      description: 'A compact map of how I grow as a design engineer.',
     },
     contact: sharedContact,
     projects: {

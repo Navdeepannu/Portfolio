@@ -1,13 +1,13 @@
 import Link from 'next/link'
 import { IconBrandGithub, IconBrandX, IconBrandLinkedin } from '@tabler/icons-react'
 import { Logo } from './logo'
+import Image from 'next/image'
+import Character from './character'
 
 const links = [
   { label: 'Blocks', href: '#' },
+  { label: 'Components', href: '#' },
   { label: 'Projects', href: '#' },
-  { label: 'Pages', href: '#' },
-  { label: 'Illustrations', href: '#' },
-  { label: 'Blog', href: '#' },
   { label: 'Contact', href: '#' },
 ]
 
@@ -25,8 +25,7 @@ export default function FooterSection() {
       <div className="mx-auto max-w-2xl px-6">
         <div className="flex flex-col items-center text-center">
           <Link href="/" className="flex items-center gap-4">
-            <div className="size-8 rounded-full bg-linear-to-b from-black via-emerald-700 to-neutral-50 shadow-sm shadow-black/80"></div>
-
+            <Character className="size-14" />
             <Logo />
           </Link>
           <nav className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2">

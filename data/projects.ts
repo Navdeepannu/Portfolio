@@ -37,12 +37,7 @@ export type Project = {
 export const projectsPageMeta = {
   statement:
     'Documented work across product interfaces, design systems, and shipped applications — from problem framing through production delivery.',
-  expertise: [
-    'Design Engineering',
-    'Frontend Architecture',
-    'UI Systems',
-    'Product Development',
-  ],
+  expertise: ['Design Engineering', 'Frontend Architecture', 'UI Systems', 'Product Development'],
   productFocus: [
     'SaaS & billing tools',
     'Marketing & brand sites',
@@ -122,9 +117,7 @@ export const projects: Project[] = [
     featured: true,
     image: '/projects/project-1.png',
     imageAlt: 'CableLink Solutions marketing website preview',
-    links: [
-      { label: 'Live site', href: 'https://www.cablelinksolutions.ca', external: true },
-    ],
+    links: [{ label: 'Live site', href: 'https://www.cablelinksolutions.ca', external: true }],
     caseStudy: {
       problem: {
         points: [
@@ -187,46 +180,6 @@ export const projects: Project[] = [
           'Documented JSON registry entries for each pattern',
           'Recruiter- and developer-friendly browse surfaces',
           'Growing artifact demonstrating systems thinking',
-        ],
-      },
-    },
-  },
-  {
-    slug: 'client-dashboard',
-    reference: 'APP-001',
-    filename: 'app-dashboard.tsx',
-    title: 'Client Operations Dashboard',
-    summary: 'Internal dashboard for tracking jobs, crews, and scheduling',
-    description:
-      'Role-based dashboard with data tables, status workflows, and mobile-friendly field views for operations teams.',
-    role: 'Frontend · Product',
-    stack: ['React', 'TypeScript', 'Tailwind CSS', 'REST APIs'],
-    year: 2023,
-    status: 'shipped',
-    featured: true,
-    image: '/sections/design5.png',
-    imageAlt: 'Operations dashboard interface preview',
-    links: [],
-    caseStudy: {
-      problem: {
-        points: [
-          'Job coordination spread across spreadsheets and calls',
-          'Duplicate data entry caused delays and errors',
-          'Field teams lacked real-time task visibility',
-        ],
-      },
-      solution: {
-        points: [
-          'Filterable job views with status-driven workflows',
-          'Role-based permissions for crew assignment',
-          'Mobile layouts for on-site updates',
-        ],
-      },
-      outcome: {
-        points: [
-          'Three legacy spreadsheets consolidated into one system',
-          'Managers gained real-time job status visibility',
-          'Reduced coordination overhead across teams',
         ],
       },
     },

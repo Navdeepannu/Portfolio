@@ -20,7 +20,7 @@ export function ModeSwitcher({ className }: { className?: string }) {
       role="tablist"
       aria-label="Portfolio viewing mode"
       className={cn(
-        'inline-flex items-center rounded-lg border border-border/80 bg-muted/30 p-0.5 shadow-sm ring-1 ring-foreground/5',
+        'inline-flex items-center gap-0.5 rounded-2xl border border-border/80 bg-muted/90 p-0.5 shadow-sm ring-1 ring-foreground/6.5',
         className,
       )}
     >
@@ -34,23 +34,23 @@ export function ModeSwitcher({ className }: { className?: string }) {
             role="tab"
             aria-selected={isActive}
             variant="ghost"
-            size="sm"
+            size="xs"
             onClick={() => setMode(id)}
             className={cn(
-              'relative gap-1.5 rounded-md border-0 px-3 shadow-none',
-              isActive ? 'text-foreground' : 'text-muted-foreground hover:text-foreground/80',
+              'relative gap-1.5 rounded-xl border-0 bg-transparent px-3 shadow-none transition-colors duration-200 ease-out',
+              isActive ? 'text-foreground' : 'text-muted-foreground hover:text-foreground',
             )}
           >
             {isActive ? (
               <motion.span
                 layoutId="portfolio-mode-pill"
-                className="absolute inset-0 rounded-md bg-background shadow-sm ring-1 ring-border/60"
+                className="absolute inset-0 rounded-xl bg-card shadow-xs ring-1 shadow-foreground/5 ring-foreground/6.5"
                 transition={{ type: 'spring', stiffness: 400, damping: 32 }}
                 aria-hidden
               />
             ) : null}
             <span className="relative z-10 inline-flex items-center gap-1.5">
-              <Icon className="size-3.5" aria-hidden />
+              <Icon className="size-3" aria-hidden />
               {label}
             </span>
           </Button>

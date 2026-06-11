@@ -3,23 +3,22 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
-import { motion } from 'motion/react'
+
 import { Button } from '@/components/ui/button'
 import { TextLoop } from '@/components/ui/text-loop'
 import { Tooltip } from '@/components/ui/tooltip-card'
-import { getPortfolioContent } from '@/site/portfolio-config'
-import { usePortfolioMode } from '@/site/portfolio-mode-provider'
+import Container from '@/site/container'
 import { ModeSwitcherWithHint } from '@/site/mode-switcher-hint'
-import Container from './container'
+import { recruiterHero } from '@/site/recruiter/recruiter-content'
 
-export function HeroSection() {
-  const { mode } = usePortfolioMode()
-  const { hero } = getPortfolioContent(mode)
+export function RecruiterHero() {
+  const hero = recruiterHero
 
   return (
     <section>
       <Container className="font-schibsted selection:bg-emerald-200/60">
         <ModeSwitcherWithHint />
+
         <div className="flex max-w-2xl flex-col justify-center gap-3">
           <span className="text-xs font-light">{hero.greeting}</span>
           <div className="flex flex-wrap items-center gap-2">
@@ -64,7 +63,9 @@ export function HeroSection() {
               className="shadow-xl transition-all duration-300 ease-in-out text-shadow-2xs text-shadow-black/50 dark:text-shadow-white/50"
               variant="default"
             >
-              <Link href={hero.primaryCTA.href}>{hero.primaryCTA.label}</Link>
+              <Link href={hero.primaryCTA.href} target="_blank" rel="noopener noreferrer">
+                {hero.primaryCTA.label}
+              </Link>
             </Button>
             <Button variant="link" asChild>
               <Link href={hero.secondaryCTA.href}>

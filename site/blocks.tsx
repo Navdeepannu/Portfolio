@@ -27,7 +27,7 @@ export default function Blocks() {
       id="blocks"
       className="relative overflow-x-clip py-24 font-schibsted selection:bg-emerald-200/60 max-md:py-16 md:py-24"
     >
-      <div className="mx-auto max-w-6xl px-8">
+      <div className="mx-auto max-w-6xl px-8 md:px-12">
         <span className="mb-4 block font-mono text-xs text-emerald-600 dark:text-emerald-400/80">
           {copy.eyebrow}
         </span>
@@ -41,7 +41,12 @@ export default function Blocks() {
           <div className="mx-auto max-w-md pt-6 text-xs font-medium text-foreground/70">
             <p>{copy.description}</p>
 
-            <Button className="mt-4" variant="outline" size="sm" asChild>
+            <Button
+              className="mt-4 border-none shadow-sm ring-1 ring-border"
+              variant="outline"
+              size="sm"
+              asChild
+            >
               <Link href={copy.cta.href}>{copy.cta.label}</Link>
             </Button>
           </div>

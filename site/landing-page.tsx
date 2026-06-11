@@ -1,7 +1,6 @@
 'use client'
 
 import type { ReactNode } from 'react'
-import { LayoutGroup, motion } from 'motion/react'
 
 import Blocks from '@/site/blocks'
 import FooterSection from '@/site/footer-section'
@@ -14,9 +13,12 @@ import { getPortfolioLayout } from '@/site/portfolio-config'
 import { usePortfolioMode } from '@/site/portfolio-mode-provider'
 import { ComponentsPreviewSection } from '@/site/sections/components-preview-section'
 import { ContactSection } from '@/site/sections/contact-section'
-import { ExperienceSection } from '@/site/sections/experience-section'
 import { ResumeSection } from '@/site/sections/resume-section'
 import { SkillsSection } from '@/site/sections/skills-section'
+import { RecruiterHero } from './recruiter/recruiter-hero'
+import { RecruiterSnapshot } from './recruiter/recruiter-snapshot'
+import { RecruiterProjects } from './recruiter/recruiter-projects'
+import { RecruiterStrengths } from './recruiter/recruiter-strengths'
 
 const SECTION_RENDERERS: Record<LandingSectionId, () => ReactNode> = {
   hero: () => <HeroSection />,
@@ -26,11 +28,13 @@ const SECTION_RENDERERS: Record<LandingSectionId, () => ReactNode> = {
   projects: () => <ProjectsSection />,
   resume: () => <ResumeSection />,
   skills: () => <SkillsSection />,
-  experience: () => <ExperienceSection />,
   contact: () => <ContactSection />,
   footer: () => <FooterSection />,
+  'recruiter-hero': () => <RecruiterHero />,
+  'recruiter-snapshot': () => <RecruiterSnapshot />,
+  'recruiter-projects': () => <RecruiterProjects />,
+  'recruiter-strengths': () => <RecruiterStrengths />,
 }
-
 export function LandingPage() {
   const { mode } = usePortfolioMode()
   const layout = getPortfolioLayout(mode)
@@ -38,27 +42,14 @@ export function LandingPage() {
   return (
     <div>
       <Navbar />
-      <LayoutGroup id="portfolio-landing">
-        <motion.div layout className="flex flex-col">
-          {layout.map((sectionId) => (
-            <motion.div
-              key={sectionId}
-              layout="position"
-              initial={false}
-              animate={{ opacity: 1 }}
-              transition={{
-                layout: {
-                  type: 'spring',
-                  stiffness: 320,
-                  damping: 36,
-                },
-              }}
-            >
-              {SECTION_RENDERERS[sectionId]()}
-            </motion.div>
-          ))}
-        </motion.div>
-      </LayoutGroup>
+
+      <main className="flex flex-col">
+        {layout.map((sectionId) => {
+          const Section = SECTION_RENDERERS[sectionId]
+
+          return <section key={sectionId}>{Section()}</section>
+        })}
+      </main>
     </div>
   )
 }
