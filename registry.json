@@ -1,10 +1,72 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
-  "name": "nav",
-  "homepage": "http://localhost:3000",
+  "name": "navdeep-singh",
+  "homepage": "https://www.navdeepsingh.dev",
+  "items": [
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "animated-group",
+      "type": "registry:ui",
+      "title": "Animated Group",
+      "description": "Motion-powered staggered animation container.",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "components/ui/custom/animated-group.tsx",
+          "type": "registry:ui",
+          "target": "@ui/custom/animated-group.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "text-effect",
+      "type": "registry:ui",
+      "title": "Text Effect",
+      "description": "Motion-based per-character / per-word text animation.",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "components/ui/custom/text-effect.tsx",
+          "type": "registry:ui",
+          "target": "@ui/custom/text-effect.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "segment-spotlight",
+      "type": "registry:ui",
+      "title": "Segment Spotlight",
+      "description": "Interactive segmented headline with animated focus states and contextual labels.",
+      "dependencies": ["motion", "lucide-react"],
+      "files": [
+        {
+          "path": "components/ui/custom/segment-spotlight.tsx",
+          "type": "registry:ui",
+          "target": "@ui/custom/segment-spotlight.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "magnetic-button",
+      "type": "registry:ui",
+      "title": "Magnetic Button",
+      "description": "A shadcn-compatible button that subtly follows the cursor using spring-based motion.",
+      "dependencies": ["motion"],
+      "registryDependencies": ["button"],
+      "files": [
+        {
+          "path": "components/ui/custom/magnetic-button.tsx",
+          "type": "registry:ui",
+          "target": "@ui/custom/magnetic-button.tsx"
+        }
+      ]
+    }
+  ],
   "include": [
     "components/registry.json",
-    "components/ui/custom/registry.json",
     "components/blocks/auth/registry.json",
     "components/blocks/footer/registry.json",
     "components/blocks/header/registry.json",

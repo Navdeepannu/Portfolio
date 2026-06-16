@@ -13,7 +13,7 @@ import { cookies } from 'next/headers'
 
 import type { PortfolioMode } from '@/site/portfolio-config'
 import { PORTFOLIO_MODES } from '@/site/portfolio-config'
-import { PortfolioModeProvider } from '@/site/portfolio-mode-provider'
+import { PortfolioModeProvider } from '@/site/context/portfolio-mode-provider'
 
 const STORAGE_KEY = 'portfolio-mode'
 const DEFAULT_MODE: PortfolioMode = 'developer'

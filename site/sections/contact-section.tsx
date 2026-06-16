@@ -11,7 +11,7 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { cn } from '@/lib/utils'
 import { getPortfolioContent } from '@/site/portfolio-config'
-import { usePortfolioMode } from '@/site/portfolio-mode-provider'
+import { usePortfolioMode } from '@/site/context/portfolio-mode-provider'
 
 function InfoCell({
   label,
@@ -31,10 +31,22 @@ function InfoCell({
       href={link ?? '#'}
       target={isExternal ? '_blank' : undefined}
       rel={isExternal ? 'noopener noreferrer' : undefined}
-      className={cn('block rounded-sm bg-muted p-5 hover:shadow-sm md:p-6', className)}
+      className={cn(
+        'group group/cell block rounded-sm bg-muted p-5 text-foreground',
+        'transition-all duration-300 ease-out',
+        'hover:-translate-y-0.5 hover:text-white hover:shadow-sm',
+        'focus-visible:ring-2 focus-visible:ring-foreground/20 focus-visible:outline-none',
+        'md:p-6',
+        className,
+      )}
     >
-      <p className="text-sm text-muted-foreground">{label}</p>
-      <div className="mt-1 text-base font-medium text-foreground">{children}</div>
+      <p className="text-sm text-muted-foreground transition-colors duration-300 group-hover/cell:text-white/70">
+        {label}
+      </p>
+
+      <div className="mt-1 text-base font-medium text-current transition-colors duration-300">
+        {children}
+      </div>
     </Link>
   )
 }
@@ -42,10 +54,12 @@ function InfoCell({
 function ContactForm({ email }: { email: string }) {
   const [isSending, setIsSending] = useState(false)
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
+
     const form = event.currentTarget
     const data = new FormData(form)
+
     const name = String(data.get('name') ?? '').trim()
     const from = String(data.get('email') ?? '').trim()
     const message = String(data.get('message') ?? '').trim()
@@ -56,11 +70,34 @@ function ContactForm({ email }: { email: string }) {
     }
 
     setIsSending(true)
-    const subject = encodeURIComponent(`Portfolio contact from ${name}`)
-    const body = encodeURIComponent(`Hi Navdeep,\n\n${message}\n\n— ${name}\n${from}`)
-    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`
-    toast.success('Opening your mail client…')
-    window.setTimeout(() => setIsSending(false), 1200)
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          email: from,
+          message,
+        }),
+      })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        toast.error(result.error ?? 'Failed to send message')
+        return
+      }
+
+      toast.success('Message sent successfully')
+      form.reset()
+    } catch {
+      toast.error('Something went wrong. Please try again.')
+    } finally {
+      setIsSending(false)
+    }
   }
 
   return (
@@ -70,6 +107,7 @@ function ContactForm({ email }: { email: string }) {
           <Label htmlFor="contact-name" className="text-xs font-medium">
             Name
           </Label>
+
           <Input
             id="contact-name"
             name="name"
@@ -84,6 +122,7 @@ function ContactForm({ email }: { email: string }) {
           <Label htmlFor="contact-email" className="text-xs font-medium">
             Email
           </Label>
+
           <Input
             id="contact-email"
             name="email"
@@ -100,6 +139,7 @@ function ContactForm({ email }: { email: string }) {
         <Label htmlFor="contact-message" className="text-xs font-medium">
           Message
         </Label>
+
         <Textarea
           id="contact-message"
           name="message"
@@ -117,7 +157,7 @@ function ContactForm({ email }: { email: string }) {
           disabled={isSending}
           className="h-9 gap-1 rounded-full px-4"
         >
-          {isSending ? 'Opening...' : 'Send message'}
+          {isSending ? 'Sending...' : 'Send message'}
           <IconSend className="size-4" />
         </Button>
       </div>
@@ -132,7 +172,7 @@ export function ContactSection() {
   return (
     <section
       id="contact"
-      className="relative  overflow-x-clip py-24 font-schibsted selection:bg-emerald-200/60 max-md:py-16 md:py-24"
+      className="relative overflow-x-clip py-24 font-schibsted selection:bg-emerald-200/60 max-md:py-16 md:py-24"
     >
       <div className="mx-auto max-w-6xl px-8 md:px-12">
         <span className="mb-4 block font-mono text-xs text-emerald-600 dark:text-emerald-400/80">
@@ -160,15 +200,17 @@ export function ContactSection() {
               <div className="grid gap-0.5">
                 <InfoCell
                   label="General"
-                  className="bg-card"
+                  className="bg-card hover:bg-[#34a853]"
                   link="mailto:navdeepannu1@gmail.com?subject=Portfolio Inquiry"
                 >
-                  <span className="underline-offset-2 hover:underline">navdeepannu1@gmail.com</span>
+                  <span className="underline-offset-2 group-hover:underline">
+                    navdeepannu1@gmail.com
+                  </span>
                 </InfoCell>
 
                 <InfoCell
                   label="LinkedIn"
-                  className="group bg-card"
+                  className="bg-card hover:bg-[#0A66C2]"
                   link="https://linkedin.com/in/navdeepsingh0"
                 >
                   <span className="flex items-center gap-1 underline-offset-2 group-hover:underline">
@@ -179,7 +221,7 @@ export function ContactSection() {
 
                 <InfoCell
                   label="Github"
-                  className="group bg-card"
+                  className="bg-card hover:bg-[#24292F]"
                   link="https://github.com/Navdeepannu"
                 >
                   <span className="flex items-center gap-1 underline-offset-2 group-hover:underline">
@@ -197,7 +239,7 @@ export function ContactSection() {
               {/* Bottom Row */}
               <InfoCell
                 label="Twitter/X"
-                className="group bg-card"
+                className="bg-card hover:bg-black"
                 link="https://x.com/navdeepannu0"
               >
                 <span className="flex items-center gap-1 underline-offset-2 group-hover:underline">
@@ -208,17 +250,15 @@ export function ContactSection() {
 
               <InfoCell
                 label="Location"
-                className="group col-span-2 bg-card"
+                className="bg-card hover:bg-[#ea4335] md:col-span-2"
                 link="https://maps.google.com/?q=Toronto,Canada"
               >
                 <div className="flex items-center gap-2">
-                  <IconLocation className="size-4 text-muted-foreground" />
+                  <IconLocation className="size-4 opacity-70 transition-colors duration-300 group-hover:text-white group-hover:opacity-90" />
                   <span className="underline-offset-2 group-hover:underline">Toronto, Canada</span>
                   <IconArrowUp className="size-4 rotate-45 opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100" />
                 </div>
               </InfoCell>
-
-              {/* Bottom Row */}
             </div>
           </div>
         </div>

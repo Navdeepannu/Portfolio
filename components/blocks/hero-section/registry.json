@@ -25,7 +25,7 @@
       "description": "Hero Section One — Hero Section block.",
       "categories": ["hero"],
       "dependencies": ["@tabler/icons-react", "lucide-react"],
-      "registryDependencies": ["badge", "button", "@nav/header-one"],
+      "registryDependencies": ["badge", "button", "@navdeep-singh/header-one"],
       "files": [
         {
           "path": "hero-section-one.tsx",
@@ -60,9 +60,9 @@
       "categories": ["hero"],
       "dependencies": ["motion"],
       "registryDependencies": [
-        "@nav/header-two",
-        "@nav/animated-group",
-        "@nav/text-effect"
+        "@navdeep-singh/header-two",
+        "@navdeep-singh/animated-group",
+        "@navdeep-singh/text-effect"
       ],
       "files": [
         {

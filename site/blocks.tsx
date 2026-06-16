@@ -6,7 +6,7 @@ import { blocks, getCategoryHref } from '@/data'
 import Link from 'next/link'
 import { LandingBentoGrid } from '@/site/landing-bento-showcase'
 import { getPortfolioContent } from '@/site/portfolio-config'
-import { usePortfolioMode } from '@/site/portfolio-mode-provider'
+import { usePortfolioMode } from '@/site/context/portfolio-mode-provider'
 
 const PREVIEW_IMAGES = [
   '/sections/design1.png',

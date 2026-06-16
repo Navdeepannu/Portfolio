@@ -4,16 +4,12 @@ import type { ComponentCategory, ComponentCategoryId } from './component-types'
 
 export const DEFAULT_COMPONENT_CATEGORY_ID: ComponentCategoryId = 'featured'
 
-const CATEGORY_ORDER: ComponentCategoryId[] = ['featured', 'text', 'interactive']
+const CATEGORY_ORDER: ComponentCategoryId[] = ['featured', 'interactive']
 
 const CATEGORY_META: Record<string, { name: string; description?: string }> = {
   featured: {
     name: 'All',
     description: 'Every component in one bento grid.',
-  },
-  text: {
-    name: 'Text',
-    description: 'Animated and typographic UI components.',
   },
   interactive: {
     name: 'Interactive',

@@ -10,7 +10,7 @@ import {
 
 /** Same segment / focus pattern as app/demo/page.tsx, different copy. */
 const SEGMENTS: SegmentSpotlightSegment[] = [
-  { id: 'ship', text: 'Ship 10× faster' },
+  { id: 'ship', text: 'Ship 10x faster' },
   { id: 'with', text: ' with ' },
   { id: 'sync', text: 'real-time sync' },
   { id: 'and', text: ' & ' },

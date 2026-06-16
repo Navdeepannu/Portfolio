@@ -7,9 +7,9 @@
     "motion"
   ],
   "registryDependencies": [
-    "http://localhost:3000/r/header-two.json",
-    "http://localhost:3000/r/animated-group.json",
-    "http://localhost:3000/r/text-effect.json"
+    "https://www.navdeepsingh.dev/r/header-two.json",
+    "https://www.navdeepsingh.dev/r/animated-group.json",
+    "https://www.navdeepsingh.dev/r/text-effect.json"
   ],
   "files": [
     {

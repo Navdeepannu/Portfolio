@@ -100,7 +100,7 @@ export function Navbar({
 
   return (
     <>
-      <nav className="sticky top-0 z-20 border-b border-black/5 bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/55 dark:border-white/10">
+      <nav className="sticky top-0 z-20 border-b border-black/5 bg-background dark:border-white/10">
         <div
           className={cn(
             `flex h-14 w-full items-center font-schibsted ${className} ${

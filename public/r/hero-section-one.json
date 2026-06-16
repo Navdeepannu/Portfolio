@@ -10,7 +10,7 @@
   "registryDependencies": [
     "badge",
     "button",
-    "http://localhost:3000/r/header-one.json"
+    "https://www.navdeepsingh.dev/r/header-one.json"
   ],
   "files": [
     {

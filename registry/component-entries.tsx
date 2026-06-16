@@ -1,7 +1,7 @@
 import type { ComponentType } from 'react'
 
-import AnimateTextShowcase from '@/components/showcase/animate-text'
 import SegmentSpotlightShowcase from '@/components/showcase/segment-spotlight'
+import MagneticButtonShowcase from '@/components/showcase/magnetic-button-showcase'
 
 import { defineComponent } from './define-component'
 import type { ComponentDefinition } from '@/data/component-types'
@@ -23,32 +23,13 @@ function entry(
 export const componentRegistryEntries: ComponentRegistryEntry[] = [
   entry(
     defineComponent({
-      slug: 'animate-text',
-      title: 'Animate Text',
-      description: 'Character, word, or line reveal animations powered by Motion.',
-      category: 'text',
-      tags: ['text', 'animation', 'motion', 'typography'],
-      bento: { colSpan: 1, rowSpan: 2 },
-      sourceFiles: [
-        { path: 'components/ui/custom/text-effect.tsx', language: 'tsx' },
-        { path: 'components/showcase/animate-text.tsx', language: 'tsx', filename: 'demo.tsx' },
-      ],
-      registry: {
-        dependencies: ['motion'],
-        registryDependencies: [],
-      },
-    }),
-    AnimateTextShowcase,
-  ),
-  entry(
-    defineComponent({
       slug: 'segment-spotlight',
       title: 'Segment Spotlight',
       description:
         'Segmented headline with hover-driven focus, blur states, and an animated dashed highlight box.',
       category: 'interactive',
       tags: ['interactive', 'marketing', 'animation', 'motion', 'accessibility'],
-      bento: { colSpan: 2, rowSpan: 2 },
+      bento: { size: 'lg' },
       sourceFiles: [
         { path: 'components/ui/custom/segment-spotlight.tsx', language: 'tsx' },
         {
@@ -61,8 +42,117 @@ export const componentRegistryEntries: ComponentRegistryEntry[] = [
         dependencies: ['motion', 'lucide-react'],
         registryDependencies: [],
       },
+      usageExample: `import { Rocket, Zap } from 'lucide-react'
+
+import {
+  SegmentSpotlight,
+  type SegmentSpotlightSegment,
+  type SegmentSpotlightFocus,
+} from '@/components/ui/custom/segment-spotlight'
+
+const segments: SegmentSpotlightSegment[] = [
+  { id: 'ship', text: 'Ship faster' },
+  { id: 'with', text: ' with ' },
+  { id: 'sync', text: 'real-time sync' },
+]
+
+const focuses: SegmentSpotlightFocus[] = [
+  { id: 'velocity', label: 'Velocity', icon: Rocket, segmentIds: ['ship'] },
+  { id: 'infra', label: 'Infrastructure', icon: Zap, segmentIds: ['sync'] },
+]
+
+export function Example() {
+  return <SegmentSpotlight segments={segments} focuses={focuses} />
+}`,
+      api: [
+        {
+          prop: 'segments',
+          type: 'SegmentSpotlightSegment[]',
+          default: '-',
+          description:
+            'Ordered text fragments that make up the headline. Each item is { id, text }.',
+        },
+        {
+          prop: 'focuses',
+          type: 'SegmentSpotlightFocus[]',
+          default: '-',
+          description:
+            'Focus buttons; hovering one highlights its segmentIds. Each item is { id, label, icon, segmentIds }.',
+        },
+        {
+          prop: 'className',
+          type: 'string',
+          default: '-',
+          description: 'Classes merged onto the outer wrapper.',
+        },
+        {
+          prop: 'headingClassName',
+          type: 'string',
+          default: '-',
+          description: 'Classes merged onto the headline row.',
+        },
+      ],
     }),
     SegmentSpotlightShowcase,
+  ),
+  entry(
+    defineComponent({
+      slug: 'magnetic-button',
+      title: 'Magnetic Button',
+      description:
+        'A shadcn-compatible button that subtly follows the cursor using spring-based motion.',
+      category: 'buttons',
+      tags: ['interactive', 'motion', 'cursor', 'animation'],
+      bento: { size: 'md' },
+      sourceFiles: [
+        {
+          path: 'components/ui/custom/magnetic-button.tsx',
+          language: 'tsx',
+        },
+        {
+          path: 'components/showcase/magnetic-button-showcase.tsx',
+          language: 'tsx',
+          filename: 'demo.tsx',
+        },
+      ],
+      registry: {
+        dependencies: ['motion'],
+        registryDependencies: ['button'],
+      },
+      usageExample: `import { MagneticButton } from '@/components/ui/custom/magnetic-button'
+
+export function Example() {
+  return <MagneticButton>Hover me</MagneticButton>
+}`,
+      api: [
+        {
+          prop: 'movement',
+          type: 'number',
+          default: '6',
+          description: 'How far (in px) the button drifts toward the cursor on hover.',
+        },
+        {
+          prop: 'children',
+          type: 'React.ReactNode',
+          default: '-',
+          description: 'Button content.',
+        },
+        {
+          prop: 'className',
+          type: 'string',
+          default: '-',
+          description: 'Classes merged onto the underlying button.',
+        },
+        {
+          prop: '...props',
+          type: 'React.ComponentProps<typeof Button>',
+          default: '-',
+          description:
+            "All native <button> props via the shadcn Button (e.g. variant, size, disabled, onClick), except 'asChild'.",
+        },
+      ],
+    }),
+    MagneticButtonShowcase,
   ),
 ]
 

@@ -1,7 +1,7 @@
 'use client'
 
 import { getPortfolioContent } from '@/site/portfolio-config'
-import { usePortfolioMode } from '@/site/portfolio-mode-provider'
+import { usePortfolioMode } from '@/site/context/portfolio-mode-provider'
 import { SectionShell } from '@/site/sections/section-shell'
 
 export function SkillsSection() {

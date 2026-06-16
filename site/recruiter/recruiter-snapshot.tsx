@@ -97,10 +97,10 @@ export function RecruiterSnapshot() {
                   className="lg:row-span-2"
                   heading={cards.location.heading}
                   description={cards.location.description}
-                  contentPosition="bottom"
+                  contentPosition="top"
                   minClassName="min-h-[20rem] lg:min-h-0"
                 >
-                  <LocationIllustrationCompact />
+                  <LocationIllustration />
                 </BentoCard>
 
                 <ResumeCtaCard className="lg:row-span-1" />
@@ -135,7 +135,7 @@ function BentoCard({
     <motion.div variants={staggerItem} className={cn('h-full', className)}>
       <Card
         className={cn(
-          'group/card relative grid h-full overflow-hidden rounded-2xl border border-border/80 bg-card p-7 text-card-foreground shadow-sm ring-1 shadow-black/5 ring-black/[0.03] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md hover:shadow-black/8 dark:border-white/10 dark:ring-white/[0.04]',
+          'group/card relative grid h-full overflow-hidden rounded-2xl border border-border/80 bg-card p-7 text-card-foreground shadow-sm ring-1 shadow-black/5 ring-black/3 transition-all duration-300 hover:shadow-md hover:shadow-black/8 dark:border-white/10 dark:ring-white/4',
           isTop ? 'grid-rows-[auto_1fr]' : 'grid-rows-[1fr_auto]',
           minClassName,
         )}
@@ -143,11 +143,15 @@ function BentoCard({
         {isTop ? (
           <>
             <CardCopy heading={heading} description={description} />
-            <div className="relative z-10 flex min-h-0 items-center justify-center">{children}</div>
+            <div className="relative z-10 flex min-h-0 w-full items-stretch justify-stretch">
+              {children}
+            </div>
           </>
         ) : (
           <>
-            <div className="relative z-10 flex min-h-0 items-center justify-center">{children}</div>
+            <div className="relative z-10 flex min-h-0 w-full items-stretch justify-stretch">
+              {children}
+            </div>
             <CardCopy heading={heading} description={description} />
           </>
         )}
@@ -155,7 +159,6 @@ function BentoCard({
     </motion.div>
   )
 }
-
 function QualificationsIllustration() {
   return (
     <div className="relative flex h-full min-h-44 w-full items-center justify-center overflow-hidden">
@@ -268,10 +271,10 @@ function ProofCardLarge({
       className={cn(
         'absolute overflow-hidden rounded-2xl border border-border/80 bg-card shadow-2xl ring-1 shadow-black/10 ring-black/5',
         position === 'left' &&
-          'top-14 left-0 z-10 w-56 scale-90 rotate-y-12 rotate-z-[-3deg] opacity-75',
+          'top-14 left-0 z-10 w-56 scale-90 rotate-y-12 -rotate-z-3 opacity-75',
         position === 'center' && 'left-1/2 z-30 w-80 -translate-x-1/2 shadow-black/15',
         position === 'right' &&
-          'top-10 right-0 z-20 w-56 scale-90 rotate-y-[-12deg] rotate-z-[3deg] opacity-75',
+          'top-10 right-0 z-20 w-56 scale-90 -rotate-y-12 rotate-z-3 opacity-75',
       )}
     >
       <Image
@@ -279,7 +282,7 @@ function ProofCardLarge({
         alt={`${label} project preview`}
         width={1200}
         height={800}
-        className="aspect-[16/10] w-full object-cover"
+        className="aspect-16/10 w-full object-cover"
       />
 
       <div className="flex items-center justify-between border-t bg-background/90 px-3 py-2 backdrop-blur">
@@ -291,19 +294,20 @@ function ProofCardLarge({
     </motion.div>
   )
 }
-function LocationIllustrationCompact() {
+
+function LocationIllustration() {
   return (
-    <div className="relative flex h-full min-h-40 w-full items-center justify-center overflow-hidden">
+    <div className="relative h-full min-h-40 w-full self-stretch overflow-visible">
       <DotGrid />
 
-      <div className="relative z-10 flex flex-col items-center gap-4">
-        <div className="relative flex size-24 items-center justify-center rounded-full border border-border/80 bg-background shadow-xl shadow-black/5">
-          <Globe className="absolute inset-0 scale-[1.75] opacity-80" />
-        </div>
-
-        <div className="rounded-full border border-border/80 bg-background/85 px-3 py-1 text-[10px] font-medium text-muted-foreground shadow-sm backdrop-blur">
-          Toronto based · Remote friendly
-        </div>
+      <div
+        className={cn(
+          'absolute left-1/2',
+          'aspect-square w-[clamp(16rem,125%,34rem)] -translate-x-1/2',
+          'shadow-xl shadow-black/5',
+        )}
+      >
+        <Globe className="absolute inset-0 h-full w-full" />
       </div>
     </div>
   )
@@ -311,7 +315,7 @@ function LocationIllustrationCompact() {
 function ResumeCtaCard({ className }: { className?: string }) {
   return (
     <motion.div variants={staggerItem} className={cn('h-full', className)}>
-      <Card className="group relative flex h-full min-h-36 overflow-hidden rounded-2xl border border-border/80 bg-card p-6 shadow-sm ring-1 shadow-black/5 ring-black/[0.03] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md hover:shadow-black/8 dark:border-white/10 dark:ring-white/[0.04]">
+      <Card className="group relative flex h-full min-h-36 overflow-hidden rounded-2xl border border-border/80 bg-card p-6 shadow-sm ring-1 shadow-black/5 ring-black/3 transition-all duration-300 hover:shadow-md hover:shadow-black/8 dark:border-white/10 dark:ring-white/4">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,hsl(var(--foreground)/0.08),transparent_35%)]" />
 
         <div className="relative z-10 flex w-full items-center justify-between gap-4">
@@ -320,9 +324,9 @@ function ResumeCtaCard({ className }: { className?: string }) {
               Resume
             </p>
             <h3 className="text-sm font-semibold tracking-tight text-foreground">
-              Need the full version?
+              Download the resume
             </h3>
-            <p className="mt-1 max-w-40 text-xs leading-relaxed text-muted-foreground">
+            <p className="mt-3 max-w-40 text-balance text-xs leading-relaxed text-muted-foreground">
               One-page recruiter-friendly PDF.
             </p>
           </div>
@@ -334,7 +338,7 @@ function ResumeCtaCard({ className }: { className?: string }) {
               rel="noopener noreferrer"
               aria-label="Download resume"
             >
-              <ArrowDownToLine className="size-4 transition-transform group-hover:translate-y-0.5" />
+              <ArrowDownToLine className="size-4" />
             </a>
           </Button>
         </div>

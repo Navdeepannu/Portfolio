@@ -5,7 +5,7 @@ import { motion } from 'motion/react'
 
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import { usePortfolioMode } from '@/site/portfolio-mode-provider'
+import { usePortfolioMode } from './context/portfolio-mode-provider'
 
 const MODES = [
   { id: 'developer' as const, label: 'Developer', icon: Code },
@@ -13,7 +13,7 @@ const MODES = [
 ]
 
 export function ModeSwitcher({ className }: { className?: string }) {
-  const { mode, setMode } = usePortfolioMode()
+  const { mode, setMode, isTransitioning } = usePortfolioMode()
 
   return (
     <div
@@ -32,6 +32,8 @@ export function ModeSwitcher({ className }: { className?: string }) {
             key={id}
             type="button"
             role="tab"
+            disabled={isTransitioning}
+            aria-disabled={isTransitioning}
             aria-selected={isActive}
             variant="ghost"
             size="xs"
@@ -45,12 +47,17 @@ export function ModeSwitcher({ className }: { className?: string }) {
               <motion.span
                 layoutId="portfolio-mode-pill"
                 className="absolute inset-0 rounded-xl bg-card shadow-xs ring-1 shadow-foreground/5 ring-foreground/6.5"
-                transition={{ type: 'spring', stiffness: 400, damping: 32 }}
-                aria-hidden
+                transition={{
+                  type: 'spring',
+                  stiffness: 400,
+                  damping: 32,
+                }}
+                aria-hidden="true"
               />
             ) : null}
+
             <span className="relative z-10 inline-flex items-center gap-1.5">
-              <Icon className="size-3" aria-hidden />
+              <Icon className="size-3" aria-hidden="true" />
               {label}
             </span>
           </Button>

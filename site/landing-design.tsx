@@ -4,7 +4,7 @@ import React from 'react'
 import Image from 'next/image'
 
 import { getPortfolioContent } from '@/site/portfolio-config'
-import { usePortfolioMode } from '@/site/portfolio-mode-provider'
+import { usePortfolioMode } from '@/site/context/portfolio-mode-provider'
 import Masonry from './masonry-grid'
 
 interface LandingProjectsProps {

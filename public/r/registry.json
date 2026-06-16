@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
-  "name": "nav",
-  "homepage": "http://localhost:3000",
+  "name": "navdeep-singh",
+  "homepage": "https://www.navdeepsingh.dev",
   "items": [
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
@@ -16,58 +16,6 @@
         }
       ],
       "type": "registry:component"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "animated-group",
-      "title": "Animated Group",
-      "description": "Motion-powered staggered animation container.",
-      "dependencies": [
-        "motion"
-      ],
-      "files": [
-        {
-          "path": "components/ui/custom/animated-group.tsx",
-          "type": "registry:ui",
-          "target": "@ui/custom/animated-group.tsx"
-        }
-      ],
-      "type": "registry:ui"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "text-effect",
-      "title": "Text Effect",
-      "description": "Motion-based per-character / per-word text animation.",
-      "dependencies": [
-        "motion"
-      ],
-      "files": [
-        {
-          "path": "components/ui/custom/text-effect.tsx",
-          "type": "registry:ui",
-          "target": "@ui/custom/text-effect.tsx"
-        }
-      ],
-      "type": "registry:ui"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "segment-spotlight",
-      "title": "Segment Spotlight",
-      "description": "Interactive segmented headline with animated focus states and contextual labels.",
-      "dependencies": [
-        "motion",
-        "lucide-react"
-      ],
-      "files": [
-        {
-          "path": "components/ui/custom/segment-spotlight.tsx",
-          "type": "registry:ui",
-          "target": "@ui/custom/segment-spotlight.tsx"
-        }
-      ],
-      "type": "registry:ui"
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
@@ -156,7 +104,7 @@
         "button",
         "input",
         "label",
-        "http://localhost:3000/r/brand-logo.json"
+        "https://www.navdeepsingh.dev/r/brand-logo.json"
       ],
       "files": [
         {
@@ -183,7 +131,7 @@
         "button",
         "input",
         "label",
-        "http://localhost:3000/r/brand-logo.json"
+        "https://www.navdeepsingh.dev/r/brand-logo.json"
       ],
       "files": [
         {
@@ -321,7 +269,7 @@
       "registryDependencies": [
         "badge",
         "button",
-        "http://localhost:3000/r/header-one.json"
+        "https://www.navdeepsingh.dev/r/header-one.json"
       ],
       "files": [
         {
@@ -368,9 +316,9 @@
         "motion"
       ],
       "registryDependencies": [
-        "http://localhost:3000/r/header-two.json",
-        "http://localhost:3000/r/animated-group.json",
-        "http://localhost:3000/r/text-effect.json"
+        "https://www.navdeepsingh.dev/r/header-two.json",
+        "https://www.navdeepsingh.dev/r/animated-group.json",
+        "https://www.navdeepsingh.dev/r/text-effect.json"
       ],
       "files": [
         {
@@ -555,6 +503,78 @@
         "testimonials"
       ],
       "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "animated-group",
+      "title": "Animated Group",
+      "description": "Motion-powered staggered animation container.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "components/ui/custom/animated-group.tsx",
+          "type": "registry:ui",
+          "target": "@ui/custom/animated-group.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "text-effect",
+      "title": "Text Effect",
+      "description": "Motion-based per-character / per-word text animation.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "components/ui/custom/text-effect.tsx",
+          "type": "registry:ui",
+          "target": "@ui/custom/text-effect.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "segment-spotlight",
+      "title": "Segment Spotlight",
+      "description": "Interactive segmented headline with animated focus states and contextual labels.",
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/ui/custom/segment-spotlight.tsx",
+          "type": "registry:ui",
+          "target": "@ui/custom/segment-spotlight.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "magnetic-button",
+      "title": "Magnetic Button",
+      "description": "A shadcn-compatible button that subtly follows the cursor using spring-based motion.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "components/ui/custom/magnetic-button.tsx",
+          "type": "registry:ui",
+          "target": "@ui/custom/magnetic-button.tsx"
+        }
+      ],
+      "type": "registry:ui"
     }
   ]
 }

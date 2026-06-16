@@ -114,9 +114,9 @@ const Masonry: React.FC<MasonryProps> = ({
 
     switch (direction) {
       case 'top':
-        return { x: item.x, y: -200 }
+        return { x: item.x, y: -20 }
       case 'bottom':
-        return { x: item.x, y: window.innerHeight + 200 }
+        return { x: item.x, y: window.innerHeight + 20 }
       case 'left':
         return { x: -200, y: item.y }
       case 'right':

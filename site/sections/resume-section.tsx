@@ -5,7 +5,7 @@ import { Download } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { getPortfolioContent } from '@/site/portfolio-config'
-import { usePortfolioMode } from '@/site/portfolio-mode-provider'
+import { usePortfolioMode } from '@/site/context/portfolio-mode-provider'
 import { SectionShell } from '@/site/sections/section-shell'
 
 export function ResumeSection() {

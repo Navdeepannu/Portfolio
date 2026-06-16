@@ -1,10 +1,7 @@
-import { RecruiterSnapshot } from '@/site/recruiter/recruiter-snapshot'
-import { RecruiterStrengths } from '@/site/recruiter/recruiter-strengths'
+import { CopyButton } from '@/components/ui/custom/copy-button'
+import { DropdownMenu } from '@/components/ui/dropdown-menu'
+import { motion } from 'motion/react'
 
 export default function PlaygroundPage() {
-  return (
-    <div>
-      <RecruiterSnapshot />
-    </div>
-  )
+  return <div className="flex min-h-screen items-center justify-center"></div>
 }

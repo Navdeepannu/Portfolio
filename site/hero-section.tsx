@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { TextLoop } from '@/components/ui/text-loop'
 import { Tooltip } from '@/components/ui/tooltip-card'
 import { getPortfolioContent } from '@/site/portfolio-config'
-import { usePortfolioMode } from '@/site/portfolio-mode-provider'
+import { usePortfolioMode } from '@/site/context/portfolio-mode-provider'
 import { ModeSwitcherWithHint } from '@/site/mode-switcher-hint'
 import Container from './container'
 
@@ -18,7 +18,7 @@ export function HeroSection() {
 
   return (
     <section>
-      <Container className="font-schibsted selection:bg-emerald-200/60">
+      <Container className="font-schibsted selection:bg-emerald-200/60 dark:selection:bg-emerald-500 dark:selection:text-white">
         <ModeSwitcherWithHint />
         <div className="flex max-w-2xl flex-col justify-center gap-3">
           <span className="text-xs font-light">{hero.greeting}</span>

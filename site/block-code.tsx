@@ -1,5 +1,7 @@
 'use client'
 
+import { useId, useState } from 'react'
+
 import type { BundledLanguage } from '@/components/kibo-ui/code-block'
 import {
   CodeBlock,
@@ -19,6 +21,8 @@ import { cn } from '@/lib/utils'
 
 type BlockCodeProps = {
   files: LoadedBlockSourceFile[]
+  /** When true, the code body collapses to a fixed height with a fade + Expand/Collapse toggle. */
+  collapsible?: boolean
 }
 
 const ReactLogo = (className: { className: string }) => {
@@ -43,7 +47,10 @@ const ReactLogo = (className: { className: string }) => {
   )
 }
 /** Thin wrapper around Kibo UI `CodeBlock` fed by filesystem-sourced `LoadedBlockSourceFile` entries. */
-export default function BlockCode({ files }: BlockCodeProps) {
+export default function BlockCode({ files, collapsible = false }: BlockCodeProps) {
+  const [expanded, setExpanded] = useState(false)
+  const bodyId = useId()
+
   const data = files.map((f) => ({
     language: f.language,
     filename: f.filename,
@@ -54,6 +61,80 @@ export default function BlockCode({ files }: BlockCodeProps) {
 
   if (data.length === 0) {
     return null
+  }
+
+  const renderItem = (item: { language: string; filename: string; code: string }) => (
+    <CodeBlockItem key={item.filename} lineNumbers value={item.filename}>
+      <CodeBlockContent language={item.language as BundledLanguage}>{item.code}</CodeBlockContent>
+    </CodeBlockItem>
+  )
+
+  if (collapsible) {
+    return (
+      <CodeBlock
+        className={cn(
+          'flex h-full min-h-0 w-full flex-col overflow-hidden rounded-xl bg-muted/60 p-1.5 shadow-inner',
+        )}
+        data={data}
+        defaultValue={defaultValue}
+      >
+        <CodeBlockHeader className="bg-transparent">
+          <div className="flex min-w-0 flex-1 items-center gap-2">
+            <ReactLogo className="text-muted" aria-hidden />
+            {data.length > 1 ? (
+              <CodeBlockSelect>
+                <CodeBlockSelectTrigger className="max-w-[min(100%,28rem)]">
+                  <CodeBlockSelectValue placeholder="File" />
+                </CodeBlockSelectTrigger>
+                <CodeBlockSelectContent>
+                  {(item) => (
+                    <CodeBlockSelectItem key={item.filename} value={item.filename}>
+                      {item.filename}
+                    </CodeBlockSelectItem>
+                  )}
+                </CodeBlockSelectContent>
+              </CodeBlockSelect>
+            ) : (
+              <span className="truncate font-mono text-xs text-muted-foreground">
+                {data[0].filename}
+              </span>
+            )}
+          </div>
+          <CodeBlockCopyButton />
+        </CodeBlockHeader>
+
+        <div className="relative">
+          <CodeBlockBody
+            id={bodyId}
+            className={cn(
+              'overflow-hidden rounded-lg shadow-sm transition-[max-height] duration-500 ease-in-out',
+              expanded ? 'max-h-1500 pb-14' : 'max-h-120',
+            )}
+          >
+            {renderItem}
+          </CodeBlockBody>
+
+          {!expanded ? (
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-28 rounded-b-lg bg-linear-to-t from-background via-background/85 to-transparent"
+            />
+          ) : null}
+
+          <div className="absolute inset-x-0 bottom-3 flex justify-center">
+            <button
+              type="button"
+              aria-expanded={expanded}
+              aria-controls={bodyId}
+              onClick={() => setExpanded((value) => !value)}
+              className="pointer-events-auto inline-flex items-center rounded-full border border-border bg-background px-3 py-1.5 text-xs font-medium text-foreground shadow-sm transition-colors hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
+            >
+              {expanded ? 'Collapse' : 'Expand'}
+            </button>
+          </div>
+        </div>
+      </CodeBlock>
+    )
   }
 
   return (
@@ -90,13 +171,7 @@ export default function BlockCode({ files }: BlockCodeProps) {
       </CodeBlockHeader>
 
       <CodeBlockBody className="min-h-0 flex-1 overflow-y-auto overscroll-y-auto rounded-lg shadow-sm [-webkit-overflow-scrolling:touch]">
-        {(item) => (
-          <CodeBlockItem key={item.filename} lineNumbers value={item.filename}>
-            <CodeBlockContent language={item.language as BundledLanguage}>
-              {item.code}
-            </CodeBlockContent>
-          </CodeBlockItem>
-        )}
+        {renderItem}
       </CodeBlockBody>
     </CodeBlock>
   )

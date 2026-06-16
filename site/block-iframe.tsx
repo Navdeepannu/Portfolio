@@ -48,10 +48,10 @@ export default function BlockIframe({
 
   return (
     <div
-      className="w-full min-w-0 overflow-hidden rounded-xl border border-neutral-200 bg-neutral-100 p-1 shadow-md ring-1 ring-foreground/6.5 transition-[height] duration-200 ease-out dark:border-neutral-800 dark:bg-neutral-900"
+      className="w-full min-w-0 overflow-hidden rounded-xl bg-neutral-100 p-1 shadow-xs ring-1 ring-foreground/6.5 transition-[height] duration-200 ease-out dark:border-neutral-800 dark:bg-neutral-900"
       style={{ height: frameHeightPx }}
     >
-      <div className="h-full overflow-hidden rounded-lg bg-white p-2 shadow-sm dark:bg-neutral-950">
+      <div className="h-full overflow-hidden rounded-lg bg-white p-2 shadow-sm  dark:bg-neutral-950">
         <iframe
           key={`${slug}-${reloadKey}`}
           src={`/preview/${slug}`}

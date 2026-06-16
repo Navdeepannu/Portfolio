@@ -3,16 +3,22 @@
 import { createElement } from 'react'
 import Link from 'next/link'
 
-import type { ComponentDefinition } from '@/data/component-types'
+import type { ComponentBentoSize, ComponentDefinition } from '@/data/component-types'
 import { getComponentHref } from '@/data/component-helpers'
 import { getComponentPreview } from '@/registry/component-entries'
 import { cn } from '@/lib/utils'
 
-function spanClassName(bento?: ComponentDefinition['bento']) {
-  const colSpan = bento?.colSpan ?? 1
-  const rowSpan = bento?.rowSpan ?? 1
+const COLUMNS = 'columns-1 sm:columns-2 lg:columns-3'
 
-  return cn(colSpan === 2 && 'md:col-span-2', rowSpan === 2 && 'md:row-span-2')
+const PREVIEW_HEIGHT: Record<ComponentBentoSize, string> = {
+  sm: 'h-40',
+  md: 'h-56',
+  lg: 'h-72',
+  xl: 'h-96',
+}
+
+function previewHeight(bento?: ComponentDefinition['bento']): string {
+  return PREVIEW_HEIGHT[bento?.size ?? 'md']
 }
 
 function ComponentPreviewCard({ component }: { component: ComponentDefinition }) {
@@ -21,12 +27,17 @@ function ComponentPreviewCard({ component }: { component: ComponentDefinition })
   return (
     <article
       className={cn(
-        'group flex min-h-44 flex-col overflow-hidden rounded-xl bg-card p-1 shadow-sm ring-1 ring-foreground/5',
-        'group transition-[box-shadow,border-color] duration-300 hover:shadow-md hover:ring-foreground/10',
-        spanClassName(component.bento),
+        // `break-inside-avoid` keeps each card whole as it flows between columns.
+        'group mb-3 break-inside-avoid overflow-hidden rounded-2xl bg-mist-50 p-1.5 shadow-sm ring-1 ring-foreground/6.5 dark:bg-zinc-900 dark:ring-zinc-400/20',
+        'transition-all duration-300 hover:shadow-md hover:ring-foreground/10',
       )}
     >
-      <div className="relative flex flex-1 items-center justify-center overflow-hidden rounded-lg bg-muted/80 p-4 shadow-sm ring-1 ring-foreground/6.5">
+      <div
+        className={cn(
+          'relative flex items-center justify-center overflow-hidden rounded-xl bg-background p-4 shadow-xs ring-1 ring-foreground/6.5',
+          previewHeight(component.bento),
+        )}
+      >
         {Preview ? (
           createElement(Preview)
         ) : (
@@ -45,7 +56,7 @@ function ComponentPreviewCard({ component }: { component: ComponentDefinition })
         <p className="text-sm font-medium text-foreground group-hover:text-primary">
           {component.title}
         </p>
-        <p className="mt-0.5 line-clamp-2 max-w-sm  text-xs text-muted-foreground group-hover:text-muted-foreground">
+        <p className="mt-0.5 line-clamp-2 max-w-sm text-xs text-muted-foreground group-hover:text-muted-foreground">
           {component.description}
         </p>
       </Link>
@@ -56,9 +67,12 @@ function ComponentPreviewCard({ component }: { component: ComponentDefinition })
 export default function ComponentsBentoGrid({
   category,
   components,
+  columnsClassName = COLUMNS,
 }: {
   category: { name: string; description?: string }
   components: ComponentDefinition[]
+  /** Override responsive column counts, e.g. "columns-1 md:columns-2 xl:columns-4". */
+  columnsClassName?: string
 }) {
   if (components.length === 0) {
     return (
@@ -76,7 +90,7 @@ export default function ComponentsBentoGrid({
 
   return (
     <div className="mx-auto w-full px-4 py-8 md:px-6">
-      <div className="grid auto-rows-[minmax(11rem,auto)] grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4">
+      <div className={cn('gap-3', columnsClassName)}>
         {components.map((component) => (
           <ComponentPreviewCard key={component.slug} component={component} />
         ))}

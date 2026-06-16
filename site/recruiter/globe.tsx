@@ -7,7 +7,7 @@ import { useMotionValue, useSpring } from 'motion/react'
 import { cn } from '@/lib/utils'
 
 const MOVEMENT_DAMPING = 1800
-const ROTATION_SPEED = 0.00009
+const ROTATION_SPEED = 0.002
 
 const GLOBE_CONFIG: COBEOptions = {
   width: 800,

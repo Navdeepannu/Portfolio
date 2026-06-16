@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
 import { getPortfolioContent } from '@/site/portfolio-config'
-import { usePortfolioMode } from '@/site/portfolio-mode-provider'
+import { usePortfolioMode } from '@/site/context/portfolio-mode-provider'
 import { SectionShell } from '@/site/sections/section-shell'
 import { cn } from '@/lib/utils'
 
@@ -17,7 +17,7 @@ export function ComponentsPreviewSection() {
       id="blocks"
       className="relative overflow-x-clip py-24 font-schibsted selection:bg-emerald-200/60 max-md:py-16 md:py-24"
     >
-      <div className="mx-auto max-w-6xl md:px-12 px-8">
+      <div className="mx-auto max-w-6xl px-8 md:px-12">
         <span className="mb-4 block font-mono text-xs text-emerald-600 dark:text-emerald-400/80">
           {copy.eyebrow}
         </span>

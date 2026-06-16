@@ -6,7 +6,7 @@ import { motion, useInView, useReducedMotion, type Variants } from 'motion/react
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 import { getPortfolioContent } from '@/site/portfolio-config'
-import { usePortfolioMode } from '@/site/portfolio-mode-provider'
+import { usePortfolioMode } from '@/site/context/portfolio-mode-provider'
 
 /* -------------------------------------------------------------------------- */
 /* Data                                                                       */

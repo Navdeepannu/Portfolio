@@ -1,9 +1,5 @@
 import { siteConfig } from '@/lib/site'
 
-/* -------------------------------------------------------------------------- */
-/* Types — extend `PortfolioMode` union when adding founder, agency, etc.     */
-/* -------------------------------------------------------------------------- */
-
 export const PORTFOLIO_MODES = ['developer', 'recruiter'] as const
 
 export type PortfolioMode = (typeof PORTFOLIO_MODES)[number]
@@ -18,7 +14,6 @@ export type LandingSectionId =
   | 'skills'
   | 'contact'
   | 'footer'
-  // Recruiter-only sections — rendered exclusively in recruiter mode.
   | 'recruiter-hero'
   | 'recruiter-snapshot'
   | 'recruiter-projects'

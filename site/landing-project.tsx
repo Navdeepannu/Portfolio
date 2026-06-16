@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { getPortfolioContent } from '@/site/portfolio-config'
-import { usePortfolioMode } from '@/site/portfolio-mode-provider'
+import { usePortfolioMode } from '@/site/context/portfolio-mode-provider'
 
 import { SiNextdotjs, SiReact, SiTailwindcss, SiPostgresql, SiExpress } from 'react-icons/si'
 
@@ -80,7 +80,12 @@ export default function ProjectsSection() {
           <div className="mx-auto max-w-md pt-6 text-xs font-medium text-foreground/70">
             <p>{copy.description}</p>
 
-            <Button className="mt-4 shadow-sm ring-1 ring-border/10" variant="default" size="sm"  asChild>
+            <Button
+              className="mt-4 shadow-sm ring-1 ring-border/10"
+              variant="default"
+              size="sm"
+              asChild
+            >
               <Link href={copy.cta.href}>{copy.cta.label}</Link>
             </Button>
           </div>
