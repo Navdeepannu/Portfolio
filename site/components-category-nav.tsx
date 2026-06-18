@@ -2,8 +2,8 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { motion } from 'motion/react'
 
-import { Button } from '@/components/ui/button'
 import {
   componentCategories,
   DEFAULT_COMPONENT_CATEGORY_ID,
@@ -29,29 +29,40 @@ export default function ComponentsCategoryNav() {
   })()
 
   return (
-    <nav className="bg-muted/60 dark:border-white/10">
-      <div className="scrollbar-gutter-stable relative scrollbar-thin flex h-10 min-w-0 items-center gap-1 overflow-x-auto scroll-smooth mask-x-from-98% px-4 scrollbar-thumb-muted-foreground/50">
+    <nav className="bg-background">
+      <div className="scrollbar-gutter-stable relative scrollbar-thin flex h-10 min-w-0 items-center gap-1 overflow-x-auto scroll-smooth border-t border-border px-2 scrollbar-thumb-muted-foreground/40 md:px-4 lg:px-6">
         {componentCategories.map((category) => {
           const isActive = category.id === activeCategoryId
+
           return (
-            <Button
+            <Link
               key={category.id}
-              asChild
-              variant={isActive ? 'outline' : 'ghost'}
-              size="sm"
+              href={getComponentCategoryHref(category.id)}
+              aria-current={isActive ? 'page' : undefined}
               className={cn(
-                'dark:hover-text-white shrink-0 font-geist text-xs font-normal text-zinc-900/90 hover:text-foreground dark:text-muted-foreground dark:hover:bg-muted',
-                isActive &&
-                  'pointer-events-auto font-geist text-xs text-foreground shadow-inner dark:text-white',
+                'group relative flex h-full shrink-0 items-center px-3',
+                'font-inter text-sm',
+                'text-muted-foreground transition-colors duration-200',
+                'hover:text-foreground',
+                isActive && 'text-foreground',
               )}
             >
-              <Link
-                href={getComponentCategoryHref(category.id)}
-                aria-current={isActive ? 'page' : undefined}
-              >
-                {category.name}
-              </Link>
-            </Button>
+              {isActive && (
+                <motion.span
+                  layoutId="component-category-active-pill"
+                  className={cn(
+                    'absolute inset-x-0 bottom-0 h-[1.5px] rounded-full bg-muted-foreground',
+                  )}
+                  transition={{
+                    type: 'spring',
+                    stiffness: 420,
+                    damping: 34,
+                  }}
+                />
+              )}
+
+              <span className="relative z-10">{category.name}</span>
+            </Link>
           )
         })}
       </div>

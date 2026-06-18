@@ -6,7 +6,7 @@ import {
   SegmentSpotlight,
   type SegmentSpotlightFocus,
   type SegmentSpotlightSegment,
-} from '@/components/ui/custom/segment-spotlight'
+} from '@/components/ui/components/segment-spotlight'
 
 /** Same segment / focus pattern as app/demo/page.tsx, different copy. */
 const SEGMENTS: SegmentSpotlightSegment[] = [

@@ -14,6 +14,7 @@ import { cookies } from 'next/headers'
 import type { PortfolioMode } from '@/site/portfolio-config'
 import { PORTFOLIO_MODES } from '@/site/portfolio-config'
 import { PortfolioModeProvider } from '@/site/context/portfolio-mode-provider'
+import { NavigationProgressProvider } from '@/site/loader'
 
 const STORAGE_KEY = 'portfolio-mode'
 const DEFAULT_MODE: PortfolioMode = 'developer'
@@ -70,6 +71,7 @@ export default async function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
+      data-scroll-behavior="smooth"
       className={`${geistSans.variable} ${geistMono.variable} ${schibsted.variable} ${inter.variable} ${caveat.variable} h-full scroll-smooth antialiased`}
     >
       <head>
@@ -85,6 +87,7 @@ export default async function RootLayout({
             </TooltipProvider>
           </PortfolioModeProvider>
         </ThemeProvider>
+
         <Analytics />
         <SpeedInsights />
       </body>

@@ -1,5 +1,5 @@
 import { ArrowRight } from 'lucide-react'
-import { MagneticButton } from '../ui/custom/magnetic-button'
+import { MagneticButton } from '../ui/components/magnetic-button'
 
 export default function MagneticButtonShowcase() {
   return (

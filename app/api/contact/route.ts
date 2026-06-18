@@ -3,8 +3,6 @@ import { Resend } from 'resend'
 
 export const runtime = 'nodejs'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
 const CONTACT_TO_EMAIL = process.env.CONTACT_TO_EMAIL ?? 'navdeepannu0@gmail.com'
 const RESEND_FROM_EMAIL = process.env.RESEND_FROM_EMAIL ?? 'Portfolio <onboarding@resend.dev>'
 
@@ -22,6 +20,16 @@ function isValidEmail(email: string) {
 }
 
 export async function POST(request: Request) {
+  const resendApiKey = process.env.RESEND_API_KEY
+
+  if (!resendApiKey) {
+    console.error('Missing RESEND_API_KEY environment variable.')
+
+    return NextResponse.json({ error: 'Email service is not configured.' }, { status: 500 })
+  }
+
+  const resend = new Resend(resendApiKey)
+
   try {
     const body = await request.json()
 
@@ -64,11 +72,15 @@ export async function POST(request: Request) {
     })
 
     if (error) {
+      console.error('Resend error:', error)
+
       return NextResponse.json({ error: 'Failed to send message.' }, { status: 500 })
     }
 
     return NextResponse.json({ success: true, data })
-  } catch {
+  } catch (error) {
+    console.error('Contact route error:', error)
+
     return NextResponse.json({ error: 'Something went wrong.' }, { status: 500 })
   }
 }

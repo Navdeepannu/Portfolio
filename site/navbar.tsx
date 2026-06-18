@@ -100,11 +100,11 @@ export function Navbar({
 
   return (
     <>
-      <nav className="sticky top-0 z-20 border-b border-black/5 bg-background dark:border-white/10">
+      <nav className="sticky top-0 z-20 border-b border-border bg-background">
         <div
           className={cn(
-            `flex h-14 w-full items-center font-schibsted ${className} ${
-              fullWidth ? 'md:px-4 lg:px-6' : 'mx-auto max-w-6xl px-2'
+            `relative flex h-14 w-full items-center font-schibsted ${className} ${
+              fullWidth ? 'px-2 md:px-4 lg:px-6' : 'mx-auto max-w-6xl px-2'
             }`,
           )}
         >

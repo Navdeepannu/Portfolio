@@ -12,7 +12,7 @@ import {
 import { cn } from '@/lib/utils'
 import { motion } from 'motion/react'
 import { Check, ChevronDown, CircleX, Copy } from 'lucide-react'
-import { CopyButton } from '@/components/ui/custom/copy-button'
+import { CopyButton } from '@/components/ui/components/copy-button'
 import type { PackageManagerId } from '@/site/block-install-commands'
 
 type PackageManagerCommandProps = {

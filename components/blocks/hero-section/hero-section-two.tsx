@@ -2,8 +2,8 @@
 import Image from 'next/image'
 import HeaderTwo from '../header/header-two'
 import { motion } from 'motion/react'
-import { AnimatedGroup } from '@/components/ui/custom/animated-group'
-import { TextEffect } from '@/components/ui/custom/text-effect'
+import { AnimatedGroup } from '@/components/ui/components/animated-group'
+import { TextEffect } from '@/components/ui/components/text-effect'
 import { cn } from '@/lib/utils'
 
 const Spotlight = () => {

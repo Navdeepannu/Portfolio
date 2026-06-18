@@ -55,6 +55,7 @@ export type ComponentDefinition = {
   sourceFiles: BlockSourceFileSpec[]
   registry: BlockRegistryMeta
   bento?: ComponentBentoSpan
+  image: string
   /** Install command shown in the UI; optional override. */
   cli?: string
   /** Minimal, copy-pasteable usage example (real import + JSX). */

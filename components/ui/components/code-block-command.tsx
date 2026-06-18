@@ -1,10 +1,10 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import { CopyIcon, TerminalIcon } from 'lucide-react'
+import { TerminalIcon } from 'lucide-react'
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { CopyButton } from '@/components/ui/custom/copy-button'
+import { CopyButton } from '@/components/ui/components/copy-button'
 import { cn } from '@/lib/utils'
 
 export type PackageManagerId = 'pnpm' | 'yarn' | 'npm' | 'bun'

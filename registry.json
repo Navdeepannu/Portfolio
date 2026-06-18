@@ -12,9 +12,9 @@
       "dependencies": ["motion"],
       "files": [
         {
-          "path": "components/ui/custom/animated-group.tsx",
+          "path": "components/ui/components/animated-group.tsx",
           "type": "registry:ui",
-          "target": "@ui/custom/animated-group.tsx"
+          "target": "@components/animated-group.tsx"
         }
       ]
     },
@@ -27,9 +27,9 @@
       "dependencies": ["motion"],
       "files": [
         {
-          "path": "components/ui/custom/text-effect.tsx",
+          "path": "components/ui/components/text-effect.tsx",
           "type": "registry:ui",
-          "target": "@ui/custom/text-effect.tsx"
+          "target": "@components/text-effect.tsx"
         }
       ]
     },
@@ -42,9 +42,9 @@
       "dependencies": ["motion", "lucide-react"],
       "files": [
         {
-          "path": "components/ui/custom/segment-spotlight.tsx",
+          "path": "components/ui/components/segment-spotlight.tsx",
           "type": "registry:ui",
-          "target": "@ui/custom/segment-spotlight.tsx"
+          "target": "@components/segment-spotlight.tsx"
         }
       ]
     },
@@ -58,9 +58,24 @@
       "registryDependencies": ["button"],
       "files": [
         {
-          "path": "components/ui/custom/magnetic-button.tsx",
+          "path": "components/ui/components/magnetic-button.tsx",
           "type": "registry:ui",
-          "target": "@ui/custom/magnetic-button.tsx"
+          "target": "@components/magnetic-button.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "animated-tabs",
+      "type": "registry:ui",
+      "title": "Animated Tabs",
+      "description": "A tab component with a moving active pill and directional content transitions.",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "components/ui/components/animated-tabs.tsx",
+          "type": "registry:ui",
+          "target": "@components/animated-tabs.tsx"
         }
       ]
     }

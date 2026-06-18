@@ -12,7 +12,7 @@ import { getInstallCommands } from '@/site/block-install-commands'
 import { blockShowcaseCodeViewportClassName } from '@/site/block-showcase-viewport'
 import { CodeXml, Maximize, RotateCcw, ScanEye } from 'lucide-react'
 
-import { PackageManagerCommand } from '@/components/ui/custom/package-manager-command'
+import { PackageManagerCommand } from '@/components/ui/components/package-manager-command'
 
 const subscribeNoop = () => () => {}
 const getOriginSnapshot = (): string =>

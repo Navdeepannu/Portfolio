@@ -4,7 +4,7 @@ import { createElement, useMemo, useState, useSyncExternalStore, type ReactNode 
 
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { PackageManagerCommand } from '@/components/ui/custom/package-manager-command'
+import { PackageManagerCommand } from '@/components/ui/components/package-manager-command'
 import { cn } from '@/lib/utils'
 import { getComponentComponent } from '@/registry/component-entries'
 import { getInstallCommands } from '@/site/block-install-commands'
@@ -79,7 +79,7 @@ export default function ComponentTabs({
         >
           <div
             key={reloadKey}
-            className="flex min-h-72 w-full items-center  justify-center overflow-hidden rounded-lg bg-white p-2 shadow-sm dark:bg-neutral-950"
+            className="flex min-h-72 w-full items-center justify-center overflow-hidden rounded-lg bg-white p-2 shadow-sm dark:bg-neutral-950"
           >
             {preview}
           </div>

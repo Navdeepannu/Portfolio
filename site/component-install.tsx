@@ -4,7 +4,7 @@ import { Children, useMemo, useSyncExternalStore, type ReactNode } from 'react'
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { getInstallCommands, type PackageManagerId } from '@/site/block-install-commands'
-import { CodeBlockCommand } from '@/components/ui/custom/code-block-command'
+import { CodeBlockCommand } from '@/components/ui/components/code-block-command'
 
 const subscribeNoop = () => () => {}
 
@@ -55,7 +55,10 @@ function Step({
   return (
     <li className="relative flex flex-col gap-3 pb-8 pl-8 last:pb-0">
       {!isLast && (
-        <span aria-hidden="true" className="absolute top-6 bottom-1 left-3 w-px bg-muted rounded-full" />
+        <span
+          aria-hidden="true"
+          className="absolute top-6 bottom-1 left-3 w-px rounded-full bg-muted"
+        />
       )}
 
       <span

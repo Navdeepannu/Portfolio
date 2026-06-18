@@ -11,10 +11,7 @@ const CATEGORY_META: Record<string, { name: string; description?: string }> = {
     name: 'All',
     description: 'Every component in one bento grid.',
   },
-  interactive: {
-    name: 'Interactive',
-    description: 'Hover, focus, and motion-driven UI patterns.',
-  },
+ 
 }
 
 function humanizeCategoryId(id: string): string {
