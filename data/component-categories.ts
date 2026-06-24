@@ -4,14 +4,23 @@ import type { ComponentCategory, ComponentCategoryId } from './component-types'
 
 export const DEFAULT_COMPONENT_CATEGORY_ID: ComponentCategoryId = 'featured'
 
-const CATEGORY_ORDER: ComponentCategoryId[] = ['featured', 'interactive']
+const CATEGORY_ORDER: ComponentCategoryId[] = ['featured', 'interactive', 'buttons']
 
 const CATEGORY_META: Record<string, { name: string; description?: string }> = {
   featured: {
     name: 'All',
-    description: 'Every component in one bento grid.',
+    description: 'Every component in one bento grid — browse the full collection in one place.',
   },
- 
+  interactive: {
+    name: 'Interactive',
+    description:
+      'Motion-driven components built with spring physics, gestures, and animated transitions.',
+  },
+  buttons: {
+    name: 'Buttons',
+    description:
+      'Drop-in button components with polished hover, focus, and press interactions.',
+  },
 }
 
 function humanizeCategoryId(id: string): string {

@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "sign-up-one",
   "title": "Sign Up One",
-  "description": "Sign Up One — Auth block.",
+  "description": "Sign Up One — Sign Up block.",
   "dependencies": [
     "lucide-react"
   ],
@@ -10,7 +10,7 @@
     "button",
     "input",
     "label",
-    "https://www.navdeepsingh.dev/r/brand-logo.json"
+    "https://navdeepsingh.dev/r/brand-logo.json"
   ],
   "files": [
     {
@@ -21,7 +21,7 @@
     }
   ],
   "categories": [
-    "auth"
+    "sign-up"
   ],
   "type": "registry:block"
 }

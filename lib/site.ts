@@ -18,18 +18,22 @@ export const siteConfig = {
   shortName: 'Navdeep Singh',
   domain: 'navdeepsingh.dev',
   url: getSiteUrl(),
-  title: 'Navdeep Singh — Frontend Developer & Design Engineer',
+  title: `Navdeep Singh · Design Engineer & Full Stack Developer`,
   description:
-    'Portfolio of Navdeep Singh — frontend developer and design engineer building scalable interfaces, UI systems, and production-ready products.',
+    'Portfolio of Navdeep Singh · Design Engineer & Full Stack Developer  building scalable interfaces, UI systems, and production-ready products.',
   keywords: [
     'Navdeep Singh',
     'frontend developer',
     'design engineer',
     'UI systems',
+    'components',
+    'blocks',
     'React',
     'Next.js',
     'portfolio',
+    'webiste',
     'navdeepsingh.dev',
+    'Navdeep Singh',
   ],
   locale: 'en_US',
   author: {
@@ -44,7 +48,7 @@ export const siteConfig = {
 } as const
 
 const ogImage = {
-  url: '/avatar.jpg',
+  url: '/char.jpg',
   width: 1200,
   height: 630,
   alt: 'Navdeep Singh',
@@ -98,19 +102,13 @@ export const rootMetadata: Metadata = {
       'max-video-preview': -1,
     },
   },
-  icons: {
-    icon: '/avatar.jpg',
-    apple: '/avatar.jpg',
-  },
 }
 
 export function getPublicSitemapPaths(): string[] {
-  const paths = ['/', '/components', '/blocks', '/projects', '/pages']
+  const paths = ['/', '/components', '/blocks', '/projects']
 
   for (const category of blockCategories) {
-    paths.push(
-      category.id === 'featured' ? '/blocks' : `/blocks/${category.id}`,
-    )
+    paths.push(category.id === 'featured' ? '/blocks' : `/blocks/${category.id}`)
   }
 
   return [...new Set(paths)]

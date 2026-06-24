@@ -307,7 +307,7 @@ export default function LogoCloudTwo() {
               key={index}
               className="flex items-center justify-center py-8 p-4 transition-colors"
             >
-              <div className="flex h-10 w-full max-w-[160px] shrink-0 items-center justify-center ease-in-out transition group-hover:opacity-50 duration-300 text-neutral-900 [&_svg]:h-7 [&_svg]:w-auto [&_svg]:max-w-full [&_svg]:object-contain">
+              <div className="flex h-10 w-full max-w-40 shrink-0 items-center justify-center ease-in-out transition group-hover:opacity-50 duration-300 text-neutral-900 [&_svg]:h-7 [&_svg]:w-auto [&_svg]:max-w-full [&_svg]:object-contain">
                 {company.icon}
               </div>
             </div>

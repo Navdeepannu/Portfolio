@@ -3,6 +3,13 @@
 
 import type { ComponentType } from 'react'
 
+import ContactSectionFour from '@/components/blocks/contact/contact-section-four'
+import ContactSectionOne from '@/components/blocks/contact/contact-section-one'
+import ContactSectionThree from '@/components/blocks/contact/contact-section-three'
+import ContactSectionTwo from '@/components/blocks/contact/contact-section-two'
+import FaqSectionOne from '@/components/blocks/faqs/faq-section-one'
+import FaqSectionThree from '@/components/blocks/faqs/faq-section-three'
+import FaqsSectionTwo from '@/components/blocks/faqs/faqs-section-two'
 import FooterSectionOne from '@/components/blocks/footer/footer-section-one'
 import FooterSectionTwo from '@/components/blocks/footer/footer-section-two'
 import ForgotPasswordOne from '@/components/blocks/auth/forgot-password-one'
@@ -14,6 +21,7 @@ import HeroSectionFour from '@/components/blocks/hero-section/hero-section-four'
 import HeroSectionOne from '@/components/blocks/hero-section/hero-section-one'
 import HeroSectionThree from '@/components/blocks/hero-section/hero-section-three'
 import HeroSectionTwo from '@/components/blocks/hero-section/hero-section-two'
+import LogoCloudFour from '@/components/blocks/logo-cloud/logo-cloud-four'
 import LogoCloudOne from '@/components/blocks/logo-cloud/logo-cloud-one'
 import LogoCloudThree from '@/components/blocks/logo-cloud/logo-cloud-three'
 import LogoCloudTwo from '@/components/blocks/logo-cloud/logo-cloud-two'
@@ -34,6 +42,83 @@ function entry(definition: BlockDefinition, Component: ComponentType): BlockRegi
 }
 
 export const blockRegistryEntries: BlockRegistryEntry[] = [
+  entry(
+    defineBlock({
+      slug: 'contact-section-four',
+      title: 'Contact Section Four',
+      description: '',
+      category: 'contact',
+      tags: ['contact', 'contact'],
+      sourceFiles: [{ path: 'components/blocks/contact/contact-section-four.tsx', language: 'tsx' }],
+    }),
+    ContactSectionFour,
+  ),
+  entry(
+    defineBlock({
+      slug: 'contact-section-one',
+      title: 'Contact Section One',
+      description: '',
+      category: 'contact',
+      tags: ['contact', 'contact'],
+      sourceFiles: [{ path: 'components/blocks/contact/contact-section-one.tsx', language: 'tsx' }],
+    }),
+    ContactSectionOne,
+  ),
+  entry(
+    defineBlock({
+      slug: 'contact-section-three',
+      title: 'Contact Section Three',
+      description: '',
+      category: 'contact',
+      tags: ['contact', 'contact'],
+      sourceFiles: [{ path: 'components/blocks/contact/contact-section-three.tsx', language: 'tsx' }],
+    }),
+    ContactSectionThree,
+  ),
+  entry(
+    defineBlock({
+      slug: 'contact-section-two',
+      title: 'Contact Section Two',
+      description: '',
+      category: 'contact',
+      tags: ['contact', 'contact'],
+      sourceFiles: [{ path: 'components/blocks/contact/contact-section-two.tsx', language: 'tsx' }],
+    }),
+    ContactSectionTwo,
+  ),
+  entry(
+    defineBlock({
+      slug: 'faq-section-one',
+      title: 'Faq Section One',
+      description: '',
+      category: 'faqs',
+      tags: ['faqs', 'faqs'],
+      sourceFiles: [{ path: 'components/blocks/faqs/faq-section-one.tsx', language: 'tsx' }],
+    }),
+    FaqSectionOne,
+  ),
+  entry(
+    defineBlock({
+      slug: 'faq-section-three',
+      title: 'Faq Section Three',
+      description: '',
+      category: 'faqs',
+      tags: ['faqs', 'faqs'],
+      sourceFiles: [{ path: 'components/blocks/faqs/faq-section-three.tsx', language: 'tsx' }],
+    }),
+    FaqSectionThree,
+  ),
+  entry(
+    defineBlock({
+      slug: 'faqs-section-two',
+      title: 'Faqs Section Two',
+      description: '',
+      category: 'faqs',
+      tags: ['faqs', 'faqs'],
+      sourceFiles: [{ path: 'components/blocks/faqs/faqs-section-two.tsx', language: 'tsx' }],
+    }),
+    FaqsSectionTwo,
+  ),
   entry(
     defineBlock({
       slug: 'footer-section-one',
@@ -61,8 +146,8 @@ export const blockRegistryEntries: BlockRegistryEntry[] = [
       slug: 'forgot-password-one',
       title: 'Forgot Password One',
       description: '',
-      category: 'auth',
-      tags: ['auth', 'auth'],
+      category: 'forgot-password',
+      tags: ['auth', 'forgot-password'],
       sourceFiles: [{ path: 'components/blocks/auth/forgot-password-one.tsx', language: 'tsx' }],
     }),
     ForgotPasswordOne,
@@ -72,8 +157,8 @@ export const blockRegistryEntries: BlockRegistryEntry[] = [
       slug: 'forgot-password-three',
       title: 'Forgot Password Three',
       description: '',
-      category: 'auth',
-      tags: ['auth', 'auth'],
+      category: 'forgot-password',
+      tags: ['auth', 'forgot-password'],
       sourceFiles: [{ path: 'components/blocks/auth/forgot-password-three.tsx', language: 'tsx' }],
     }),
     ForgotPasswordThree,
@@ -83,8 +168,8 @@ export const blockRegistryEntries: BlockRegistryEntry[] = [
       slug: 'forgot-password-two',
       title: 'Forgot Password Two',
       description: '',
-      category: 'auth',
-      tags: ['auth', 'auth'],
+      category: 'forgot-password',
+      tags: ['auth', 'forgot-password'],
       sourceFiles: [{ path: 'components/blocks/auth/forgot-password-two.tsx', language: 'tsx' }],
     }),
     ForgotPasswordTwo,
@@ -157,6 +242,17 @@ export const blockRegistryEntries: BlockRegistryEntry[] = [
   ),
   entry(
     defineBlock({
+      slug: 'logo-cloud-four',
+      title: 'Logo Cloud Four',
+      description: '',
+      category: 'logo-cloud',
+      tags: ['logo-cloud', 'logo-cloud'],
+      sourceFiles: [{ path: 'components/blocks/logo-cloud/logo-cloud-four.tsx', language: 'tsx' }],
+    }),
+    LogoCloudFour,
+  ),
+  entry(
+    defineBlock({
       slug: 'logo-cloud-one',
       title: 'Logo Cloud One',
       description: '',
@@ -193,8 +289,8 @@ export const blockRegistryEntries: BlockRegistryEntry[] = [
       slug: 'sign-up-one',
       title: 'Sign Up One',
       description: '',
-      category: 'auth',
-      tags: ['auth', 'auth'],
+      category: 'sign-up',
+      tags: ['auth', 'sign-up'],
       sourceFiles: [{ path: 'components/blocks/auth/sign-up-one.tsx', language: 'tsx' }],
     }),
     SignUpOne,
@@ -204,8 +300,8 @@ export const blockRegistryEntries: BlockRegistryEntry[] = [
       slug: 'sign-up-two',
       title: 'Sign Up Two',
       description: '',
-      category: 'auth',
-      tags: ['auth', 'auth'],
+      category: 'sign-up',
+      tags: ['auth', 'sign-up'],
       sourceFiles: [{ path: 'components/blocks/auth/sign-up-two.tsx', language: 'tsx' }],
     }),
     SignUpTwo,

@@ -1,18 +1,40 @@
 'use client'
 
-import { useEffect, useRef, useState, type RefObject } from 'react'
-import { AnimatePresence, motion } from 'motion/react'
+import { Fragment, type ReactNode, useMemo, useState } from 'react'
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import type { LucideIcon } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 
-/* -------------------------------------------------------------------------- */
-/* Types                                                                      */
-/* -------------------------------------------------------------------------- */
+const CHIP_COLOR_CLASSES = {
+  blue: 'bg-blue-600 text-white shadow-blue-600/25',
+  purple: 'bg-violet-600 text-white shadow-violet-600/25',
+  green: 'bg-emerald-600 text-white shadow-emerald-600/25',
+  pink: 'bg-pink-600 text-white shadow-pink-600/25',
+  teal: 'bg-teal-600 text-white shadow-teal-600/25',
+  orange: 'bg-orange-500 text-white shadow-orange-500/25',
+  red: 'bg-red-600 text-white shadow-red-600/25',
+  yellow: 'bg-yellow-400 text-zinc-950 shadow-yellow-400/25',
+  zinc: 'bg-zinc-900 text-white shadow-zinc-900/20 dark:bg-zinc-100 dark:text-zinc-950',
+} as const
+
+const DEFAULT_SEGMENT_POSITIONS = [
+  'left-[17%] top-[20%] -rotate-3',
+  'left-[38%] top-[17%] rotate-0',
+  'right-[30%] top-[20%] rotate-1',
+  'right-[18%] top-[23%] rotate-6',
+  'left-[21%] top-[57%] rotate-2',
+  'left-[47%] top-[60%] -rotate-1',
+  'right-[24%] top-[57%] -rotate-3',
+]
+
+export type SegmentSpotlightColor = keyof typeof CHIP_COLOR_CLASSES
 
 export type SegmentSpotlightSegment = {
   id: string
-  text: string
+  label: string
+  color?: SegmentSpotlightColor
+  className?: string
 }
 
 export type SegmentSpotlightFocus = {
@@ -20,256 +42,222 @@ export type SegmentSpotlightFocus = {
   label: string
   icon: LucideIcon
   segmentIds: string[]
+  dividerAfter?: boolean
 }
 
 export type SegmentSpotlightProps = {
   segments: SegmentSpotlightSegment[]
   focuses: SegmentSpotlightFocus[]
+  children?: ReactNode
   className?: string
-  headingClassName?: string
+  viewportClassName?: string
+  toolbarClassName?: string
+  showGrid?: boolean
 }
-
-type SegmentVisualState = {
-  active: boolean
-  blurred: boolean
-}
-
-/* -------------------------------------------------------------------------- */
-/* SegmentSpotlight                                                           */
-/* -------------------------------------------------------------------------- */
 
 export function SegmentSpotlight({
   segments,
   focuses,
+  children,
   className,
-  headingClassName,
+  viewportClassName,
+  toolbarClassName,
+  showGrid = false,
 }: SegmentSpotlightProps) {
-  const [highlight, setHighlight] = useState<string | null>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
-  const segmentRefs = useRef<Record<string, HTMLSpanElement | null>>({})
+  const reduceMotion = useReducedMotion()
+  const [activeId, setActiveId] = useState<string | null>(null)
 
-  const activeFocus = focuses.find((focus) => focus.id === highlight) ?? null
+  const activeFocus = useMemo(() => {
+    return focuses.find((focus) => focus.id === activeId) ?? null
+  }, [activeId, focuses])
 
-  const getSegmentStates = (): Record<string, SegmentVisualState> => {
-    const base: Record<string, SegmentVisualState> = {}
-    for (const segment of segments) {
-      base[segment.id] = { active: false, blurred: false }
-    }
+  const activeSegmentIds = useMemo(() => {
+    return new Set(activeFocus?.segmentIds ?? [])
+  }, [activeFocus])
 
-    if (!activeFocus) return base
-
-    for (const segment of segments) {
-      const isActive = activeFocus.segmentIds.includes(segment.id)
-      base[segment.id] = {
-        active: isActive,
-        blurred: !isActive,
-      }
-    }
-
-    return base
-  }
-
-  const segmentStates = getSegmentStates()
-  const [boxPosition, setBoxPosition] = useState({ x: 0, width: 0 })
-
-  useEffect(() => {
-    if (!containerRef.current || !highlight || !activeFocus) return
-
-    const containerRect = containerRef.current.getBoundingClientRect()
-    let startX = Infinity
-    let endX = 0
-
-    for (const segmentId of activeFocus.segmentIds) {
-      const node = segmentRefs.current[segmentId]
-      if (!node) continue
-
-      const rect = node.getBoundingClientRect()
-      const relativeX = rect.left - containerRect.left
-      startX = Math.min(startX, relativeX)
-      endX = Math.max(endX, relativeX + rect.width)
-    }
-
-    if (startX !== Infinity) {
-      setBoxPosition({
-        x: startX,
-        width: endX - startX,
-      })
-    }
-  }, [highlight, activeFocus, segments])
+  const hasActiveFocus = Boolean(activeFocus)
 
   return (
-    <div
-      className={cn(
-        'flex flex-col items-center justify-center gap-4 p-4',
-        className,
-      )}
-    >
-      <div className="relative flex min-h-20 flex-col items-center">
-        <div
-          ref={containerRef}
-          className={cn(
-            'relative flex items-center justify-center',
-            headingClassName,
-          )}
-        >
-          {segments.map((segment) => {
-            const state = segmentStates[segment.id] ?? { active: false, blurred: false }
+    <div className={cn('relative mx-auto w-full max-w-6xl', className)}>
+      <div
+        className={cn('relative min-h-135 overflow-hidden bg-background', viewportClassName)}
+      >
+        {showGrid ? (
+          <div
+            aria-hidden
+            className={cn(
+              'pointer-events-none absolute inset-0 z-0',
+              'bg-[linear-gradient(to_right,var(--border)_1px,transparent_1px),linear-gradient(to_bottom,var(--border)_1px,transparent_1px)]',
+              'bg-[size:40px_40px] opacity-60',
+              '[mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]',
+            )}
+          />
+        ) : null}
+
+        <div className="absolute inset-0 z-10">
+          {segments.map((segment, index) => {
+            const isActive = hasActiveFocus && activeSegmentIds.has(segment.id)
+
+            const isMuted = hasActiveFocus && !activeSegmentIds.has(segment.id)
 
             return (
-              <TextSegment
+              <SegmentChip
                 key={segment.id}
-                isActive={state.active}
-                isBlurred={state.blurred}
-                segmentRef={(node) => {
-                  segmentRefs.current[segment.id] = node
-                }}
-              >
-                {segment.text}
-              </TextSegment>
+                segment={segment}
+                index={index}
+                isActive={isActive}
+                isMuted={isMuted}
+                reduceMotion={reduceMotion}
+              />
             )
           })}
+        </div>
 
-          <AnimatedDashedBox
-            width={boxPosition.width}
-            x={boxPosition.x}
-            visible={highlight !== null}
-            label={activeFocus?.label}
+        <div className="absolute inset-x-0 top-[42%] z-30 flex justify-center px-4">
+          <SegmentToolbar
+            focuses={focuses}
+            activeId={activeId}
+            toolbarClassName={toolbarClassName}
+            reduceMotion={reduceMotion}
+            onActivate={setActiveId}
+            onReset={() => setActiveId(null)}
           />
         </div>
-      </div>
 
-      <div className="flex items-center">
-        {focuses.map(({ id, icon: Icon }) => (
-          <motion.button
-            key={id}
-            type="button"
-            onMouseEnter={() => setHighlight(id)}
-            onMouseLeave={() => setHighlight(null)}
-            className="relative rounded-lg p-2 transition-colors"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <Icon className="size-5 transition-colors duration-150" aria-hidden />
-            <AnimatePresence>
-              {highlight === id ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  transition={{ duration: 0.2 }}
-                  className="absolute inset-0 -z-10 rounded-lg bg-foreground/5"
-                  aria-hidden
-                />
-              ) : null}
-            </AnimatePresence>
-          </motion.button>
-        ))}
+        {children ? (
+          <div className="absolute inset-x-0 bottom-0 z-20 px-6 pt-24 pb-10">
+            <div className="mx-auto max-w-3xl text-center">{children}</div>
+          </div>
+        ) : null}
       </div>
     </div>
   )
 }
 
-/* -------------------------------------------------------------------------- */
-/* TextSegment — matches app/demo/page.tsx                                    */
-/* -------------------------------------------------------------------------- */
-
-interface TextSegmentProps {
-  children: React.ReactNode
-  isActive: boolean
-  isBlurred: boolean
-  segmentRef: (node: HTMLSpanElement | null) => void
-}
-
-function TextSegment({ children, isActive, isBlurred, segmentRef }: TextSegmentProps) {
-  return (
-    <motion.span
-      ref={segmentRef}
-      className={cn(
-        'text-3xl font-medium tracking-tight md:text-4xl',
-        isActive ? 'text-foreground' : 'text-muted-foreground',
-      )}
-      animate={{
-        filter: isBlurred ? 'blur(4px)' : 'blur(0px)',
-        opacity: isActive ? 1 : 0.6,
-      }}
-      transition={{
-        duration: 0.5,
-        ease: 'easeOut',
-      }}
-    >
-      {children}
-    </motion.span>
-  )
-}
-
-/* -------------------------------------------------------------------------- */
-/* AnimatedDashedBox — matches app/demo/page.tsx                              */
-/* -------------------------------------------------------------------------- */
-
-function AnimatedDashedBox({
-  width,
-  x,
-  visible,
-  label,
+function SegmentChip({
+  segment,
+  index,
+  isActive,
+  isMuted,
+  reduceMotion,
 }: {
-  width: number
-  x: number
-  visible?: boolean
-  label?: string
+  segment: SegmentSpotlightSegment
+  index: number
+  isActive: boolean
+  isMuted: boolean
+  reduceMotion: boolean | null
 }) {
-  const paddingX = 6
-  const boxWidth = Math.max(width + paddingX * 2, 40)
-  const boxHeight = 16
-  const path = `
-     M 0 0
-     L 0 ${boxHeight}
-     L ${boxWidth} ${boxHeight}
-     L ${boxWidth} 0
-  `
+  const color = segment.color ?? 'zinc'
+  const position =
+    segment.className ?? DEFAULT_SEGMENT_POSITIONS[index % DEFAULT_SEGMENT_POSITIONS.length]
 
   return (
     <motion.div
-      transition={{ duration: 0.3, ease: 'easeOut' }}
-      animate={{ opacity: visible ? 1 : 0, x: x - paddingX }}
-      className="pointer-events-none absolute top-full left-0 mt-4 flex flex-col items-start"
-      layoutId="animated-dashed-box"
+      initial={
+        reduceMotion
+          ? false
+          : {
+              opacity: 0,
+              y: 12,
+              scale: 0.96,
+              filter: 'blur(6px)',
+            }
+      }
+      animate={{
+        opacity: isMuted ? 0.24 : 1,
+        y: isActive ? -4 : 0,
+        scale: isActive ? 1.06 : 1,
+        filter: isMuted ? 'blur(5px)' : 'blur(0px)',
+      }}
+      transition={{
+        duration: reduceMotion ? 0 : 0.38,
+        ease: [0.16, 1, 0.3, 1],
+      }}
+      className={cn(
+        'absolute z-10 rounded-lg px-3 py-1.5 text-sm font-medium',
+        'shadow-xl ring-1 ring-black/5 will-change-transform dark:ring-white/10',
+        CHIP_COLOR_CLASSES[color],
+        isActive && 'z-20',
+        position,
+      )}
     >
-      <motion.svg
-        width={boxWidth}
-        height={boxHeight}
-        viewBox={`0 0 ${boxWidth} ${boxHeight}`}
-        fill="none"
-        className="overflow-visible"
-      >
-        <motion.path
-          d={path}
-          stroke="var(--color-muted-foreground)"
-          strokeWidth={1}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          fill="none"
-          strokeDasharray="4 4"
-          initial={{ strokeDashoffset: 0 }}
-          animate={{ strokeDashoffset: [0, -16] }}
-          transition={{ duration: 2, ease: 'linear', repeat: Infinity }}
-        />
-      </motion.svg>
-      <div className="relative mt-1 h-6 min-w-16 overflow-hidden">
-        <AnimatePresence mode="popLayout">
-          {label ? (
-            <motion.span
-              key={label}
-              initial={{ opacity: 0, y: 8, filter: 'blur(4px)' }}
-              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              transition={{ duration: 0.2, ease: 'easeOut' }}
-              exit={{ opacity: 0, y: 0, filter: 'blur(4px)' }}
-              className="text-sm text-muted-foreground"
+      {segment.label}
+    </motion.div>
+  )
+}
+
+function SegmentToolbar({
+  focuses,
+  activeId,
+  toolbarClassName,
+  reduceMotion,
+  onActivate,
+  onReset,
+}: {
+  focuses: SegmentSpotlightFocus[]
+  activeId: string | null
+  toolbarClassName?: string
+  reduceMotion: boolean | null
+  onActivate: (id: string) => void
+  onReset: () => void
+}) {
+  return (
+    <motion.div
+      onMouseLeave={onReset}
+      initial={reduceMotion ? false : { opacity: 0, y: 10, scale: 0.96 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{
+        duration: reduceMotion ? 0 : 0.35,
+        ease: [0.16, 1, 0.3, 1],
+      }}
+      className={cn(
+        'flex items-center gap-1 rounded-full bg-zinc-950/95 p-2 ring-1 ring-border',
+        'shadow-2xl shadow-black/20 backdrop-blur-xl',
+        toolbarClassName,
+      )}
+    >
+      {focuses.map((focus) => {
+        const Icon = focus.icon
+        const isActive = activeId === focus.id
+
+        return (
+          <Fragment key={focus.id}>
+            <motion.button
+              type="button"
+              aria-label={focus.label}
+              aria-pressed={isActive}
+              title={focus.label}
+              onMouseEnter={() => onActivate(focus.id)}
+              onFocus={() => onActivate(focus.id)}
+              whileHover={reduceMotion ? undefined : { scale: 1.08 }}
+              whileTap={reduceMotion ? undefined : { scale: 0.94 }}
+              className={cn(
+                'relative grid size-10 place-items-center rounded-full',
+                'text-neutral-200 transition-colors outline-none',
+                'focus-visible:ring-2 focus-visible:ring-border',
+                isActive && 'text-white',
+              )}
             >
-              {label}
-            </motion.span>
-          ) : null}
-        </AnimatePresence>
-      </div>
+              <AnimatePresence initial={false}>
+                {isActive ? (
+                  <motion.span
+                    layoutId="segment-spotlight-active-icon"
+                    className="absolute inset-1 rounded-full bg-white/15"
+                    transition={{
+                      duration: reduceMotion ? 0 : 0.25,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                  />
+                ) : null}
+              </AnimatePresence>
+
+              <Icon className="relative z-10 size-5" aria-hidden />
+            </motion.button>
+
+            {focus.dividerAfter ? <span aria-hidden className="mx-1 h-6 w-px bg-white/15" /> : null}
+          </Fragment>
+        )
+      })}
     </motion.div>
   )
 }

@@ -13,8 +13,8 @@ export default function Character({ className }: { className?: string }) {
       }}
     >
       <Image
-        src="/character.jpg"
-        alt="character"
+        src="/char.jpg"
+        alt="Navdeep character icon"
         className={cn(`${className} size-10 cursor-pointer rounded-full object-cover`)}
         width={1000}
         height={1000}

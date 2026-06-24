@@ -1,31 +1,70 @@
 'use client'
 
+import { ArrowRight } from 'lucide-react'
+import { Button } from '../ui/button'
 import { AnimatedTabs, type AnimatedTabItem } from '@/components/ui/components/animated-tabs'
+import { cn } from '@/lib/utils'
 
-function TabContent({
-  title,
-  description,
-  image,
-  imageAlt,
-}: {
+const IMAGES = {
+  discovery: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTljn0lnIziS93GUAyT2Loud5qMEamYgj7C0BVN',
+  automation: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTl2qccwOLmnCKEMaPSHlkN9mY0IgJTt8dwQzFb',
+  optimization: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlBE1JQ6bM0rCoZtdKDAVO8yw7eSuvUb1LhYIJ',
+}
+
+type AgentFlowPanelProps = {
   title: string
   description: string
   image: string
   imageAlt: string
-}) {
+}
+
+function AgentFlowPanel({ title, description, image, imageAlt }: AgentFlowPanelProps) {
   return (
-    <div className="grid min-h-65 gap-6 md:grid-cols-[0.9fr_1.1fr] md:items-center">
-      <div className="max-w-md text-center md:text-left">
-        <h3 className="text-2xl font-semibold tracking-tight sm:text-3xl">{title}</h3>
+    <div className={cn('relative w-full overflow-hidden', 'min-h-95 bg-muted/30 rounded-md p-6 font-geist')}>
+      <div
+        aria-hidden
+        className={cn(
+          'absolute inset-0 opacity-50',
+          'bg-[linear-gradient(to_right,var(--border)_1px,transparent_1px),linear-gradient(to_bottom,var(--border)_1px,transparent_1px)]',
+          'bg-size-[90px_90px]',
+        )}
+      />
 
-        <p className="mt-3 text-sm leading-6 text-muted-foreground sm:text-base sm:leading-7">
-          {description}
-        </p>
-      </div>
+      <div className="relative z-10 grid min-h-80 items-center gap-8 md:grid-cols-[0.92fr_1.08fr]">
+        <div className="max-w-xl">
+          <h3 className="mt-5 max-w-xl text-3xl font-bold tracking-tight text-foreground">
+            {title}
+          </h3>
 
-      <div className="overflow-hidden rounded-2xl border bg-muted shadow-sm">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={image} alt={imageAlt} className="aspect-16/10 w-full object-cover" />
+          <p className="mt-4 max-w-lg text-base leading-7 text-muted-foreground">{description}</p>
+
+          <Button
+            variant="default"
+            size="lg"
+            className="mt-7 inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm"
+          >
+            Explore workflow
+            <ArrowRight className="size-4" aria-hidden />
+          </Button>
+        </div>
+
+        <div className="relative min-h-65">
+          <div
+            className={cn(
+              'absolute top-1/2 right-[-28%] w-[105%] -translate-y-1/2',
+              'rounded-2xl bg-background/70 p-2 shadow-2xl backdrop-blur-md',
+              'sm:right-[-18%] md:right-[-22%]',
+            )}
+          >
+            <div className="overflow-hidden rounded-xl">
+              <img
+                src={image}
+                alt={imageAlt}
+                className="h-61.25 w-full object-cover object-left md:h-78.75"
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )
@@ -33,55 +72,47 @@ function TabContent({
 
 const TABS: AnimatedTabItem[] = [
   {
-    value: 'workspace',
-    label: 'Workspace',
+    value: 'discover',
+    label: 'Discover',
     content: (
-      <TabContent
-        title="One workspace for everything"
-        description="Bring docs, tasks, and discussions together so your team always has a single source of truth."
-        image="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=80"
-        imageAlt="A bright, organized office workspace"
+      <AgentFlowPanel
+        title="Understand the goal before work starts."
+        description="The agent reads the request, studies the context, and turns scattered ideas into a clear direction your team can actually execute."
+        image={IMAGES.discovery}
+        imageAlt="AI discovery workflow interface"
       />
     ),
   },
   {
-    value: 'analytics',
-    label: 'Analytics',
+    value: 'automate',
+    label: 'Automate',
     content: (
-      <TabContent
-        title="Insights that drive decisions"
-        description="Track the metrics that matter with real-time dashboards and clear, actionable reporting."
-        image="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80"
-        imageAlt="An analytics dashboard on a screen"
+      <AgentFlowPanel
+        title="Automate the repetitive parts of the flow."
+        description="Let the system handle the repeatable tasks, generate useful outputs, and keep the process moving without needing constant manual work."
+        image={IMAGES.automation}
+        imageAlt="AI automation dashboard preview"
       />
     ),
   },
   {
-    value: 'team',
-    label: 'Team',
+    value: 'optimize',
+    label: 'Optimize',
     content: (
-      <TabContent
-        title="Built for collaboration"
-        description="Invite teammates, assign roles, and keep everyone aligned with shared context and updates."
-        image="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80"
-        imageAlt="A team collaborating around a laptop"
-      />
-    ),
-  },
-  {
-    value: 'automation',
-    label: 'Automation',
-    content: (
-      <TabContent
-        title="Automate the busywork"
-        description="Set up rules and workflows that handle repetitive tasks so your team can focus on what counts."
-        image="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80"
-        imageAlt="Close-up of a circuit board"
+      <AgentFlowPanel
+        title="Refine everything until it is ready to ship."
+        description="The agent reviews the output, improves weak areas, and helps turn the final result into something polished and production ready."
+        image={IMAGES.optimization}
+        imageAlt="AI optimization interface preview"
       />
     ),
   },
 ]
 
 export default function AnimatedTabsShowcase() {
-  return <AnimatedTabs items={TABS} defaultValue="workspace" />
+  return (
+    <div className="mx-auto w-full max-w-5xl px-4 py-10">
+      <AnimatedTabs items={TABS} defaultValue="discover" />
+    </div>
+  )
 }

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "faqs-section-two",
+  "title": "FAQs Section Two",
+  "description": "FAQs Section Two — FAQs block.",
+  "registryDependencies": [
+    "accordion"
+  ],
+  "files": [
+    {
+      "path": "components/blocks/faqs/faqs-section-two.tsx",
+      "content": "import {\n  Accordion,\n  AccordionContent,\n  AccordionItem,\n  AccordionTrigger,\n} from '@/components/ui/accordion'\nimport Link from 'next/link'\n\nexport default function FAQsTwo() {\n  const faqItems = [\n    {\n      id: 'item-1',\n      question: 'Can I use this template for a commercial project?',\n      answer:\n        'Yes, you can use this template for personal and commercial projects. You can customize the layout, styling, and content to match your product or brand.',\n    },\n    {\n      id: 'item-2',\n      question: 'Is this section responsive on mobile devices?',\n      answer:\n        'Yes, the layout is designed to work across desktop, tablet, and mobile screens. On smaller screens, the content stacks vertically so the FAQ remains easy to read.',\n    },\n    {\n      id: 'item-3',\n      question: 'Do I need to install any extra dependencies?',\n      answer:\n        'This section uses the shadcn Accordion component. As long as Accordion is already installed in your project, you do not need anything extra for the basic version.',\n    },\n    {\n      id: 'item-4',\n      question: 'Can I customize the questions and answers?',\n      answer:\n        'Absolutely. The FAQ content is stored in a simple array, so you can update the questions, answers, IDs, and order without changing the layout logic.',\n    },\n    {\n      id: 'item-5',\n      question: 'Can this be used on a pricing or landing page?',\n      answer:\n        'Yes, this type of FAQ section works well on pricing pages, landing pages, documentation pages, and product pages where users need quick answers before taking action.',\n    },\n  ]\n\n  return (\n    <section className=\"relative overflow-hidden py-16 md:py-24\">\n      <div className=\"relative mx-auto max-w-5xl px-6\">\n        <div className=\"mx-auto flex max-w-2xl flex-col items-center text-center\">\n          <h2 className=\"mt-4 text-4xl font-semibold tracking-tight text-foreground\">\n            Frequently asked questions\n          </h2>\n\n          <p className=\"mt-4 text-lg text-balance text-muted-foreground\">\n            Everything you need to know before using this section in your project.\n          </p>\n        </div>\n\n        <div className=\"mx-auto mt-10 max-w-3xl rounded-2xl border border-border bg-background p-2 shadow-xs backdrop-blur\">\n          <Accordion type=\"single\" collapsible className=\"space-y-2\">\n            {faqItems.map((item) => (\n              <AccordionItem\n                key={item.id}\n                value={item.id}\n                className=\"group rounded-xl border-transparent px-4 transition-colors data-[state=open]:bg-muted\"\n              >\n                <AccordionTrigger className=\"cursor-pointer gap-4 text-left hover:no-underline\">\n                  <span className=\"text-base font-medium text-foreground\">{item.question}</span>\n                </AccordionTrigger>\n\n                <AccordionContent className=\"pb-4\">\n                  <p className=\"text-sm leading-6 text-pretty text-muted-foreground\">\n                    {item.answer}\n                  </p>\n                </AccordionContent>\n              </AccordionItem>\n            ))}\n          </Accordion>\n        </div>\n\n        <p className=\"mx-auto mt-8 max-w-xl text-center text-sm text-muted-foreground\">\n          Still have questions? Reach out to our{' '}\n          <Link href=\"#\" className=\"font-medium text-foreground underline underline-offset-2\">\n            support team\n          </Link>\n          .\n        </p>\n      </div>\n    </section>\n  )\n}\n",
+      "type": "registry:component",
+      "target": "@components/blocks/faqs/faqs-section-two.tsx"
+    }
+  ],
+  "categories": [
+    "faqs"
+  ],
+  "type": "registry:block"
+}

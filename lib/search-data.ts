@@ -148,11 +148,21 @@ const socialGroup: SearchGroup = {
     {
       id: 'github',
       label: 'GitHub',
-      href: 'https://github.com/navdeepannu',
+      href: 'https://github.com/Navdeepannu/Portfolio',
       external: true,
       type: 'social',
       icon: IconBrandGithub as SearchIcon,
-      keywords: ['code', 'repos', 'open source'],
+      keywords: [
+        'code',
+        'repos',
+        'open source',
+        'portfolio',
+        'developer',
+        'react',
+        'nextjs',
+        'vercel',
+        'github',
+      ],
     },
     {
       id: 'linkedin',
@@ -161,7 +171,7 @@ const socialGroup: SearchGroup = {
       external: true,
       type: 'social',
       icon: IconBrandLinkedin as SearchIcon,
-      keywords: ['profile', 'work', 'resume'],
+      keywords: ['profile', 'work', 'resume', 'linkedin'],
     },
     {
       id: 'twitter',
@@ -170,7 +180,7 @@ const socialGroup: SearchGroup = {
       external: true,
       type: 'social',
       icon: IconBrandX as SearchIcon,
-      keywords: ['tweets', 'posts'],
+      keywords: ['tweets', 'posts', 'x', 'content'],
     },
   ],
 }

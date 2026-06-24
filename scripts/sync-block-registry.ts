@@ -17,7 +17,6 @@ const FOLDER_CATEGORY_MAP: Record<string, string> = {
   'hero-section': 'hero',
   header: 'header',
   featured: 'featured',
-  auth: 'auth',
   'logo-cloud': 'logo-cloud',
   teams: 'teams',
   footer: 'footer',
@@ -38,7 +37,9 @@ function toImportName(slug: string): string {
     .join('')
 }
 
-function resolveCategory(folder: string): string {
+function resolveCategory(folder: string, slug: string): string {
+  if (slug.startsWith('forgot-password-')) return 'forgot-password'
+  if (slug.startsWith('sign-up-')) return 'sign-up'
   return FOLDER_CATEGORY_MAP[folder] ?? folder
 }
 
@@ -74,7 +75,7 @@ async function discoverBlocks(): Promise<DiscoveredBlock[]> {
         sourcePath: `components/blocks/${folder}/${filename}`,
         importPath: `@/components/blocks/${folder}/${filename.replace(/\.tsx$/, '')}`,
         importName: toImportName(slug),
-        category: resolveCategory(folder),
+        category: resolveCategory(folder, slug),
       })
     }
   }

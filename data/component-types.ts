@@ -50,6 +50,12 @@ export type ComponentDefinition = {
   slug: string
   title: string
   description: string
+  /**
+   * Short, single-line description used for the shadcn registry item
+   * (`registry.json` / `/r/<slug>.json`). Falls back to `description` when
+   * omitted, so existing components keep their current behavior.
+   */
+  registryDescription?: string
   category: ComponentCategoryId
   tags: string[]
   sourceFiles: BlockSourceFileSpec[]
@@ -60,6 +66,10 @@ export type ComponentDefinition = {
   cli?: string
   /** Minimal, copy-pasteable usage example (real import + JSX). */
   usageExample?: string
+  /** Short list of scenarios the component is good for. Rendered when present. */
+  useCases?: string[]
+  /** Callout notes (e.g. desktop-only constraints). Rendered when present. */
+  notes?: string[]
   /** API reference rows. Render the API table only when present. */
   api?: ComponentApiRow[]
   /** External references. Render the References section only when present. */

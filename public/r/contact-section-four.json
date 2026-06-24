@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "contact-section-four",
+  "title": "Contact Section Four",
+  "description": "Contact Section Four — Contact block.",
+  "registryDependencies": [
+    "button",
+    "input",
+    "label",
+    "textarea"
+  ],
+  "files": [
+    {
+      "path": "components/blocks/contact/contact-section-four.tsx",
+      "content": "import { Button } from '@/components/ui/button'\nimport { Label } from '@/components/ui/label'\nimport { Textarea } from '@/components/ui/textarea'\nimport { Input } from '@/components/ui/input'\n\nexport default function ContactSectionFour() {\n  return (\n    <section className=\"min-h-screen px-4 text-foreground\">\n      <div className=\"mx-auto max-w-6xl border-x border-border bg-border dark:bg-border\">\n        <div className=\"grid min-h-screen gap-px border-y border-border\">\n          {/* Header box */}\n          <div className=\"flex min-h-50 flex-col items-center justify-center rounded-b-sm bg-background px-6 text-center\">\n            <h1 className=\"text-4xl font-semibold tracking-tight text-zinc-800 md:text-6xl dark:text-zinc-200\">\n              Get in Touch?\n            </h1>\n\n            <p className=\"mt-5 max-w-md text-base leading-7 text-balance text-muted-foreground md:text-lg\">\n              Tell me what you&apos;re working on and let&apos;s explore how we can bring it to\n              life.\n            </p>\n          </div>\n\n          <div className=\"grid gap-px bg-zinc-200 md:grid-cols-[1fr_minmax(0,552px)_1fr] dark:bg-border\">\n            <div className=\"hidden rounded-sm bg-background md:block\" />\n\n            <form className=\"rounded-sm bg-background px-6 py-10 shadow-xs md:px-12 md:py-12\">\n              <div className=\"space-y-5\">\n                <div className=\"grid gap-4 sm:grid-cols-2\">\n                  <div className=\"space-y-2\">\n                    <Label htmlFor=\"name\">Name</Label>\n                    <Input id=\"name\" type=\"text\" placeholder=\"Your name\" />\n                  </div>\n\n                  <div className=\"space-y-2\">\n                    <Label htmlFor=\"email\">Email</Label>\n                    <Input id=\"email\" type=\"email\" placeholder=\"you@example.com\" />\n                  </div>\n                </div>\n\n                <div className=\"space-y-2\">\n                  <Label htmlFor=\"project\">Company or project</Label>\n                  <Input id=\"project\" type=\"text\" placeholder=\"Acme Inc.\" />\n                </div>\n\n                <div className=\"space-y-2\">\n                  <Label htmlFor=\"message\">Message</Label>\n                  <Textarea\n                    id=\"message\"\n                    placeholder=\"Tell me a little about your project, idea, or question.\"\n                    className=\"min-h-36 resize-none\"\n                  />\n                </div>\n\n                <div className=\"flex flex-col gap-4 pt-2 sm:flex-row sm:items-center sm:justify-between\">\n                  <p className=\"text-sm text-muted-foreground\">Usually replies within 24 hours.</p>\n\n                  <Button type=\"submit\">Send Message</Button>\n                </div>\n              </div>\n            </form>\n\n            {/* Right empty column */}\n            <div className=\"hidden rounded-sm bg-background md:block\" />\n          </div>\n\n          {/* Bottom empty row */}\n          <div className=\"h-40 rounded-t-sm bg-background\" />\n        </div>\n      </div>\n    </section>\n  )\n}\n",
+      "type": "registry:component",
+      "target": "@components/blocks/contact/contact-section-four.tsx"
+    }
+  ],
+  "categories": [
+    "contact"
+  ],
+  "type": "registry:block"
+}

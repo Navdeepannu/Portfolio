@@ -1,27 +1,17 @@
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 
 import {
-  componentCategories,
   DEFAULT_COMPONENT_CATEGORY_ID,
   getAllComponents,
-  getComponentsByCategory,
-  resolveComponentsRouteParam,
+  getComponentBySlug,
+  isValidComponentCategoryId,
 } from '@/data'
 import ComponentRenderer from '@/site/component-renderer'
 import ComponentDocSidebar from '@/site/component-doc-sidebar'
-import ComponentsBentoGrid from '@/site/components-bento-grid'
 import { SidebarProvider } from '@/components/ui/sidebar'
 
 export function generateStaticParams() {
-  const categoryParams = componentCategories
-    .filter((category) => category.id !== DEFAULT_COMPONENT_CATEGORY_ID)
-    .map((category) => ({ slug: category.id }))
-
-  const componentParams = getComponentsByCategory(DEFAULT_COMPONENT_CATEGORY_ID).map(
-    (component) => ({ slug: component.slug }),
-  )
-
-  return [...categoryParams, ...componentParams]
+  return getAllComponents().map((component) => ({ slug: component.slug }))
 }
 
 export default async function ComponentsSlugPage({
@@ -30,30 +20,36 @@ export default async function ComponentsSlugPage({
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
-  const resolved = resolveComponentsRouteParam(slug)
+  const component = getComponentBySlug(slug)
 
-  if (!resolved) notFound()
-
-  if (resolved.type === 'category') {
-    const components = getComponentsByCategory(resolved.category.id)
-    return <ComponentsBentoGrid category={resolved.category} components={components} />
+  if (!component) {
+    // Old category routes (e.g. /components/interactive) are now in-page filters.
+    if (isValidComponentCategoryId(slug) && slug !== DEFAULT_COMPONENT_CATEGORY_ID) {
+      redirect('/components')
+    }
+    notFound()
   }
 
-  const sidebarItems = getAllComponents().map((component) => ({
-    slug: component.slug,
-    title: component.title,
+  const sidebarItems = getAllComponents().map((item) => ({
+    slug: item.slug,
+    title: item.title,
   }))
 
   return (
-    <div className="mx-auto flex w-full gap-8 px-4 py-8 md:px-6 lg:gap-16">
-      <aside className="hidden shrink-0 lg:block">
-        <SidebarProvider>
-          <ComponentDocSidebar items={sidebarItems} activeSlug={resolved.component.slug} />
-        </SidebarProvider>
-      </aside>
-      <main className="w-full max-w-5xl min-w-0">
-        <ComponentRenderer component={resolved.component} />
-      </main>
-    </div>
+    <>
+      {/* pattern */}
+      <div className="inset-x-0 mt-1.5 h-12 w-full bg-[repeating-linear-gradient(to_bottom,var(--color-border)_0,var(--color-border)_1px,transparent_1px,transparent_0.4rem)] mask-b-from-10% dark:bg-[repeating-linear-gradient(to_bottom,var(--color-border)_0,var(--color-border)_1px,transparent_1px,transparent_0.4rem)]" />
+
+      <div className="mx-auto flex w-full gap-8 px-4 py-8 md:px-6 lg:gap-16">
+        <aside className="hidden shrink-0 lg:block">
+          <SidebarProvider>
+            <ComponentDocSidebar items={sidebarItems} activeSlug={component.slug} />
+          </SidebarProvider>
+        </aside>
+        <main className="w-full max-w-5xl min-w-0">
+          <ComponentRenderer component={component} />
+        </main>
+      </div>
+    </>
   )
 }

@@ -1,17 +1,10 @@
 'use client'
 
-import { Children, useMemo, useSyncExternalStore, type ReactNode } from 'react'
+import { Children, useMemo, type ReactNode } from 'react'
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { getInstallCommands, type PackageManagerId } from '@/site/block-install-commands'
 import { CodeBlockCommand } from '@/components/ui/components/code-block-command'
-
-const subscribeNoop = () => () => {}
-
-const getOriginSnapshot = (): string =>
-  typeof window === 'undefined' ? '' : window.location.origin
-
-const getOriginServerSnapshot = (): string => ''
 
 type PackageCommands = Record<PackageManagerId, string>
 
@@ -88,9 +81,8 @@ export default function ComponentInstall({
   utilsCode: ReactNode
   showImportNote?: boolean
 }) {
-  const origin = useSyncExternalStore(subscribeNoop, getOriginSnapshot, getOriginServerSnapshot)
-
-  const cliCommands = useMemo(() => getInstallCommands(slug, origin), [slug, origin])
+  // Install commands always resolve to the production registry domain.
+  const cliCommands = useMemo(() => getInstallCommands(slug), [slug])
 
   const depCommands = useMemo(() => {
     return getDependencyCommands(dependencies)
@@ -107,7 +99,7 @@ export default function ComponentInstall({
         <TabsTrigger value="manual">Manual</TabsTrigger>
       </TabsList>
 
-      <TabsContent value="command" className="mt-0 flex flex-col gap-3 outline-none">
+      <TabsContent value="command" className="mt-0 flex flex-col gap-4 outline-none">
         <CodeBlockCommand commands={cliCommands} />
       </TabsContent>
 

@@ -1,0 +1,67 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "contact-section-one",
+      "type": "registry:block",
+      "title": "Contact Section One",
+      "description": "Contact Section One — Contact block.",
+      "categories": ["contact"],
+      "dependencies": ["lucide-react"],
+      "files": [
+        {
+          "path": "contact-section-one.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/contact/contact-section-one.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "contact-section-two",
+      "type": "registry:block",
+      "title": "Contact Section Two",
+      "description": "Contact Section Two — Contact block.",
+      "categories": ["contact"],
+      "files": [
+        {
+          "path": "contact-section-two.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/contact/contact-section-two.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "contact-section-three",
+      "type": "registry:block",
+      "title": "Contact Section Three",
+      "description": "Contact Section Three — Contact block.",
+      "categories": ["contact"],
+      "files": [
+        {
+          "path": "contact-section-three.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/contact/contact-section-three.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "contact-section-four",
+      "type": "registry:block",
+      "title": "Contact Section Four",
+      "description": "Contact Section Four — Contact block.",
+      "categories": ["contact"],
+      "registryDependencies": ["button", "input", "label", "textarea"],
+      "files": [
+        {
+          "path": "contact-section-four.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/contact/contact-section-four.tsx"
+        }
+      ]
+    }
+  ]
+}

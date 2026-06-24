@@ -1,25 +1,21 @@
 'use client'
 
-import { createElement, useMemo, useState, useSyncExternalStore, type ReactNode } from 'react'
+import { createElement, useMemo, useState, type ReactNode } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { PackageManagerCommand } from '@/components/ui/components/package-manager-command'
 import { cn } from '@/lib/utils'
-import { getComponentComponent } from '@/registry/component-entries'
+import { getComponentShowcase } from '@/registry/component-entries'
 import { getInstallCommands } from '@/site/block-install-commands'
 import { blockShowcaseCodeViewportClassName } from '@/site/block-showcase-viewport'
-import { CodeXml, RotateCcw, ScanEye } from 'lucide-react'
-
-const subscribeNoop = () => () => {}
-const getOriginSnapshot = (): string =>
-  typeof window === 'undefined' ? '' : window.location.origin
-const getOriginServerSnapshot = (): string => ''
+import { CodeXml, Maximize, RotateCcw, ScanEye } from 'lucide-react'
+import Link from 'next/link'
 
 export function ComponentPreview({ slug }: { slug: string }) {
-  const Component = getComponentComponent(slug)
-  if (!Component) return null
-  return createElement(Component)
+  const Showcase = getComponentShowcase(slug)
+  if (!Showcase) return null
+  return createElement(Showcase)
 }
 
 export default function ComponentTabs({
@@ -35,8 +31,9 @@ export default function ComponentTabs({
 }) {
   const [reloadKey, setReloadKey] = useState(0)
 
-  const origin = useSyncExternalStore(subscribeNoop, getOriginSnapshot, getOriginServerSnapshot)
-  const commands = useMemo(() => getInstallCommands(slug, origin), [slug, origin])
+  // Install commands always resolve to the production registry domain (see
+  // @/lib/registry), so they're stable across SSR and client renders.
+  const commands = useMemo(() => getInstallCommands(slug), [slug])
 
   return (
     <Tabs defaultValue="preview" className="flex w-full flex-col gap-0">
@@ -59,16 +56,29 @@ export default function ComponentTabs({
             className="w-37 sm:w-88 sm:max-w-[calc(100vw-7rem)]"
           />
 
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            className="h-9"
-            onClick={() => setReloadKey((key) => key + 1)}
-            aria-label="Reload preview"
-          >
-            <RotateCcw />
-          </Button>
+          <div className="flex h-9 items-center gap-1 rounded-md bg-muted px-1">
+            <Button
+              asChild
+              variant="ghost"
+              size="sm"
+              className="rounded-sm bg-background shadow-sm"
+              aria-label="Open preview in new tab"
+              title="Open in new tab"
+            >
+              <Link href={`/preview/${slug}`} target="_blank" rel="noopener noreferrer">
+                <Maximize className="size-4" />
+              </Link>
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="rounded-sm bg-background shadow-sm"
+              onClick={() => setReloadKey((key) => key + 1)}
+              aria-label="Reload preview"
+            >
+              <RotateCcw />
+            </Button>
+          </div>
         </div>
       </div>
 

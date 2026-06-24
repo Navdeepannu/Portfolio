@@ -12,9 +12,13 @@
  *     into the catalog (`registry.json`).
  *
  * Base URL resolution order (first match wins):
- *   1. `process.env.NEXT_PUBLIC_REGISTRY_URL`
- *   2. `homepage` field in `registry.json`
- *   3. `http://localhost:3000`
+ *   1. `process.env.NEXT_PUBLIC_REGISTRY_URL` (deploy-time override)
+ *   2. `homepage` field in `registry.json` (the canonical production domain)
+ *   3. `PRODUCTION_FALLBACK_BASE_URL` below
+ *
+ * All three resolve to the production origin (https://navdeepsingh.dev) — the
+ * domain lives in `registry.json#homepage` / `lib/site.ts`, never localhost, so
+ * generated `registryDependencies` URLs always resolve after deployment.
  *
  * Run via `bun scripts/finalize-registry.ts` (chained after `shadcn build`).
  */
@@ -26,6 +30,12 @@ type Json = unknown
 const ROOT = process.cwd()
 const REGISTRY_JSON_PATH = path.join(ROOT, 'registry.json')
 const OUT_DIR = path.join(ROOT, 'public/r')
+
+/**
+ * Production registry origin used when neither the env override nor
+ * `registry.json#homepage` is set. Must match `getSiteUrl()` in `lib/site.ts`.
+ */
+const PRODUCTION_FALLBACK_BASE_URL = 'https://navdeepsingh.dev'
 
 function trimTrailingSlashes(value: string): string {
   return value.replace(/\/+$/, '')
@@ -96,7 +106,7 @@ async function main() {
 
   const envBase = process.env.NEXT_PUBLIC_REGISTRY_URL?.trim()
   const homepage = rootRegistry.homepage?.trim()
-  const resolvedBase = trimTrailingSlashes(envBase || homepage || 'http://localhost:3000')
+  const resolvedBase = trimTrailingSlashes(envBase || homepage || PRODUCTION_FALLBACK_BASE_URL)
 
   let entries: string[]
   try {

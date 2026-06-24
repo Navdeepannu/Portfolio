@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "faq-section-one",
+  "title": "FAQ Section One",
+  "description": "FAQ Section One — FAQs block.",
+  "registryDependencies": [
+    "accordion"
+  ],
+  "files": [
+    {
+      "path": "components/blocks/faqs/faq-section-one.tsx",
+      "content": "'use client'\n\nimport {\n  Accordion,\n  AccordionContent,\n  AccordionItem,\n  AccordionTrigger,\n} from '@/components/ui/accordion'\nimport Link from 'next/link'\n\nexport default function FAQsOne() {\n  const faqItems = [\n    {\n      id: 'item-1',\n      question: 'Can I use this template for a commercial project?',\n      answer:\n        'Yes, you can use this template for personal and commercial projects. You can customize the layout, styling, and content to match your product or brand.',\n    },\n    {\n      id: 'item-2',\n      question: 'Is this section responsive on mobile devices?',\n      answer:\n        'Yes, the layout is designed to work across desktop, tablet, and mobile screens. On smaller screens, the content stacks vertically so the FAQ remains easy to read.',\n    },\n    {\n      id: 'item-3',\n      question: 'Do I need to install any extra dependencies?',\n      answer:\n        'This section uses the shadcn Accordion component. As long as Accordion is already installed in your project, you do not need anything extra for the basic version.',\n    },\n    {\n      id: 'item-4',\n      question: 'Can I customize the questions and answers?',\n      answer:\n        'Absolutely. The FAQ content is stored in a simple array, so you can update the questions, answers, IDs, and order without changing the layout logic.',\n    },\n    {\n      id: 'item-5',\n      question: 'Can this be used on a pricing or landing page?',\n      answer:\n        'Yes, this type of FAQ section works well on pricing pages, landing pages, documentation pages, and product pages where users need quick answers before taking action.',\n    },\n  ]\n\n  return (\n    <section className=\"py-16 md:py-24\">\n      <div className=\"mx-auto max-w-5xl px-6\">\n        <div className=\"grid gap-8 lg:grid-cols-5 lg:gap-12\">\n          <div className=\"lg:col-span-2\">\n            <h2 className=\"text-4xl font-semibold text-foreground\">FAQs</h2>\n            <p className=\"mt-4 text-lg text-balance text-muted-foreground\">\n              Everything you need to know\n            </p>\n            <p className=\"mt-6 hidden text-muted-foreground lg:block\">\n              Still have questions? Reach out to our{' '}\n              <Link href=\"#\" className=\"font-medium text-blue-500 hover:underline\">\n                support team\n              </Link>\n            </p>\n          </div>\n\n          <div className=\"min-w-0 lg:col-span-3\">\n            <Accordion type=\"single\" collapsible>\n              {faqItems.map((item) => (\n                <AccordionItem\n                  key={item.id}\n                  value={item.id}\n                  className=\"border-b border-dashed last:border-0\"\n                >\n                  <AccordionTrigger className=\"cursor-pointer text-base hover:no-underline\">\n                    {item.question}\n                  </AccordionTrigger>\n\n                  <AccordionContent>\n                    <p className=\"text-preety text-sm font-normal text-muted-foreground\">\n                      {item.answer}\n                    </p>\n                  </AccordionContent>\n                </AccordionItem>\n              ))}\n            </Accordion>\n          </div>\n\n          <p className=\"mt-6 text-muted-foreground lg:hidden\">\n            Still have questions? Reach out to our{' '}\n            <Link href=\"#\" className=\"font-medium text-blue-500 hover:underline\">\n              support team\n            </Link>\n          </p>\n        </div>\n      </div>\n    </section>\n  )\n}\n",
+      "type": "registry:component",
+      "target": "@components/blocks/faqs/faq-section-one.tsx"
+    }
+  ],
+  "categories": [
+    "faqs"
+  ],
+  "type": "registry:block"
+}

@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "sync:blocks": "bun scripts/sync-block-registry.ts",
-    "registry:build": "shadcn build && bun scripts/finalize-registry.ts",
+    "sync:components": "bun scripts/sync-component-registry.ts",
+    "validate:components": "bun scripts/validate-component-registry.ts",
+    "registry:build": "bun run sync:components && bun run validate:components && shadcn build && bun scripts/finalize-registry.ts",
     "predev": "bun run sync:blocks && bun run registry:build",
     "prebuild": "bun run sync:blocks && bun run registry:build",
     "dev": "next dev",

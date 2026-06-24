@@ -1,156 +1,158 @@
 'use client'
 
+import { useRef, useState } from 'react'
 import Link from 'next/link'
-
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarGroupContent,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-} from '@/components/ui/sidebar'
+import { motion, useMotionValue, useSpring, useTransform, type MotionValue } from 'motion/react'
 
 import { getComponentHref } from '@/data/component-helpers'
 import { cn } from '@/lib/utils'
+
+const springConfig = {
+  type: 'spring' as const,
+  stiffness: 420,
+  damping: 34,
+  mass: 0.7,
+}
 
 export type ComponentSidebarItem = {
   slug: string
   title: string
 }
 
+type ComponentDocSidebarProps = {
+  items: ComponentSidebarItem[]
+  activeSlug: string
+  className?: string
+}
+
 export default function ComponentDocSidebar({
   items,
   activeSlug,
-}: {
-  items: ComponentSidebarItem[]
-  activeSlug: string
-}) {
+  className,
+}: ComponentDocSidebarProps) {
+  const mouseY = useMotionValue(Number.POSITIVE_INFINITY)
+
   return (
-    <Sidebar
+    <motion.nav
       aria-label="Components"
-      variant="floating"
-      side="left"
+      onPointerMove={(event) => mouseY.set(event.clientY)}
+      onPointerLeave={() => mouseY.set(Number.POSITIVE_INFINITY)}
       className={cn(
-        'sticky top-20 h-fit w-60 max-w-60 shrink-0',
-        'rounded-xl p-1.5 shadow-sm ring-1 ring-foreground/5.5 selection:bg-emerald-200/60',
+        'borde-border sticky top-20 h-fit w-64 shrink-0 border border-border/70 bg-background/80 p-3 shadow-sm backdrop-blur rounded-2xl',
+        className,
       )}
     >
-      <SidebarContent className="p-0">
-        <SidebarGroupContent>
-          <SidebarMenu className="gap-0">
-            {items.map((item) => {
-              const isActive = item.slug === activeSlug
+      <ul className="m-0 flex list-none flex-col p-0">
+        {items.map((item, index) => (
+          <SidebarItem
+            key={item.slug}
+            item={item}
+            isActive={item.slug === activeSlug}
+            showTrailingLine={index < items.length - 1}
+            mouseY={mouseY}
+          />
+        ))}
+      </ul>
+    </motion.nav>
+  )
+}
 
-              return (
-                <SidebarMenuItem key={item.slug}>
-                  <SidebarMenuButton
-                    asChild
-                    isActive={isActive}
-                    className={cn(
-                      'group/link w-full justify-start rounded-lg px-2.5',
-                      'overflow-hidden',
+function SidebarItem({
+  item,
+  isActive,
+  showTrailingLine,
+  mouseY,
+}: {
+  item: ComponentSidebarItem
+  isActive: boolean
+  showTrailingLine: boolean
+  mouseY: MotionValue<number>
+}) {
+  const [isInteracting, setIsInteracting] = useState(false)
+  const isHighlighted = isActive || isInteracting
 
-                      // Force shadcn sidebar button background to stay transparent
-                      'bg-transparent!',
-                      'hover:bg-transparent!',
-                      'focus-visible:bg-transparent!',
-                      'active!bg-transparent!',
-                      'data-[active=true]:bg-transparent!',
+  return (
+    <li className="relative">
+      <Link
+        href={getComponentHref(item.slug)}
+        aria-current={isActive ? 'page' : undefined}
+        onPointerEnter={() => setIsInteracting(true)}
+        onPointerLeave={() => setIsInteracting(false)}
+        onFocus={() => setIsInteracting(true)}
+        onBlur={() => setIsInteracting(false)}
+        className={cn(
+          'group flex w-full min-w-0 items-center rounded-sm py-1 text-sm outline-none',
+          'text-muted-foreground transition-colors duration-200',
+          'hover:text-foreground focus-visible:text-foreground',
+          'focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:ring-offset-2',
+          isActive && 'font-medium text-foreground',
+        )}
+      >
+        <span aria-hidden="true" className="flex w-12 shrink-0 items-center">
+          <SidebarBar mouseY={mouseY} isActive={isActive} idleOpacity={0.28} />
+        </span>
+        <motion.span
+          initial={false}
+          animate={{ x: isHighlighted ? 4 : 0 }}
+          transition={springConfig}
+          className="min-w-0 truncate whitespace-nowrap"
+        >
+          {item.title}
+        </motion.span>
+      </Link>
 
-                      // Remove focus visuals from the button itself
-                      'shadow-none',
-                      'focus-visible:ring-0',
-                      'focus-visible:ring-offset-0',
+      {showTrailingLine && (
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute bottom-0 left-0 flex items-center"
+        >
+          <SidebarBar mouseY={mouseY} idleOpacity={0.2} peakOpacity={0.65} />
+        </span>
+      )}
+    </li>
+  )
+}
 
-                      // Text state only
-                      'text-muted-foreground',
-                      'hover:text-foreground',
-                      'data-[active=true]:text-emerald-600',
+function SidebarBar({
+  mouseY,
+  isActive = false,
+  idleOpacity,
+  peakOpacity = 1,
+}: {
+  mouseY: MotionValue<number>
+  isActive?: boolean
+  idleOpacity: number
+  peakOpacity?: number
+}) {
+  const ref = useRef<HTMLSpanElement>(null)
 
-                      // Fast color response
-                      'transition-colors duration-100 ease-out',
-                    )}
-                  >
-                    <Link
-                      href={getComponentHref(item.slug)}
-                      aria-current={isActive ? 'page' : undefined}
-                      className={cn(
-                        'flex h-full w-full items-center overflow-hidden',
+  const proximity = useTransform(mouseY, (value) => {
+    const bounds = ref.current?.getBoundingClientRect()
 
-                        // Keep the actual link clean too
-                        'bg-transparent!',
-                        'hover:bg-transparent!',
-                        'focus-visible:bg-transparent!',
-                        'active:bg-transparent!',
-                        'outline-none',
-                      )}
-                    >
-                      {/* Left rail */}
-                      <span className="mr-4 flex w-6 shrink-0 flex-col items-start gap-1">
-                        {/* Main animated line */}
-                        <span
-                          aria-hidden="true"
-                          className={cn(
-                            'h-px w-3 rounded-full bg-muted-foreground/50',
+    if (!bounds) return 0
 
-                            // Smoother line animation
-                            'transition-all',
-                            'duration-250',
-                            'ease-[cubic-bezier(0.22,1,0.36,1)]',
+    const distance = Math.abs(value - bounds.top - bounds.height / 2)
 
-                            // Hover state
-                            'group-hover/link:w-6',
-                            'group-hover/link:bg-foreground',
+    return Math.max(0, 1 - Math.min(distance, 70) / 70)
+  })
 
-                            // Active state
-                            'group-data-[active=true]/link:w-6',
-                            'group-data-[active=true]/link:bg-foreground',
-                          )}
-                        />
+  const targetWidth = useTransform(proximity, (value) => 22 + 20 * value ** 2)
+  const targetOpacity = useTransform(
+    proximity,
+    (value) => idleOpacity + (peakOpacity - idleOpacity) * value,
+  )
 
-                        {/* Inactive rail lines */}
-                        <span
-                          aria-hidden="true"
-                          className="h-px w-3 rounded-full bg-muted-foreground/50"
-                        />
+  const width = useSpring(targetWidth, springConfig)
+  const opacity = useSpring(targetOpacity, springConfig)
 
-                        <span
-                          aria-hidden="true"
-                          className="h-px w-3 rounded-full bg-muted-foreground/50"
-                        />
-                      </span>
-
-                      {/* Title */}
-                      <span
-                        className={cn(
-                          'min-w-0 truncate text-sm whitespace-nowrap',
-
-                          // Smoother text slide
-                          'transition-all',
-                          'duration-200',
-                          'ease-[cubic-bezier(0.22,1,0.36,1)]',
-                          'will-change-transform',
-
-                          // Hover state
-                          'group-hover/link:translate-x-1',
-                          'group-hover/link:text-foreground',
-
-                          // Active state
-                          'group-data-[active=true]/link:translate-x-1',
-                          'group-data-[active=true]/link:text-foreground',
-                        )}
-                      >
-                        {item.title}
-                      </span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              )
-            })}
-          </SidebarMenu>
-        </SidebarGroupContent>
-      </SidebarContent>
-    </Sidebar>
+  return (
+    <motion.span
+      ref={ref}
+      style={{
+        width: isActive ? 42 : width,
+        opacity: isActive ? 1 : opacity,
+      }}
+      className="block h-px rounded-full bg-foreground"
+    />
   )
 }

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "faq-section-one",
+      "type": "registry:block",
+      "title": "FAQ Section One",
+      "description": "FAQ Section One — FAQs block.",
+      "categories": ["faqs"],
+      "registryDependencies": ["accordion"],
+      "files": [
+        {
+          "path": "faq-section-one.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/faqs/faq-section-one.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "faqs-section-two",
+      "type": "registry:block",
+      "title": "FAQs Section Two",
+      "description": "FAQs Section Two — FAQs block.",
+      "categories": ["faqs"],
+      "registryDependencies": ["accordion"],
+      "files": [
+        {
+          "path": "faqs-section-two.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/faqs/faqs-section-two.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "faq-section-three",
+      "type": "registry:block",
+      "title": "FAQ Section Three",
+      "description": "FAQ Section Three — FAQs block.",
+      "categories": ["faqs"],
+      "registryDependencies": ["accordion"],
+      "files": [
+        {
+          "path": "faq-section-three.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/faqs/faq-section-three.tsx"
+        }
+      ]
+    }
+  ]
+}

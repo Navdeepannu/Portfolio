@@ -7,7 +7,7 @@ import BlocksCategoryNav from '@/site/blocks-category-nav'
 export const metadata: Metadata = {
   title: 'UI Blocks',
   description:
-    'Copy-paste UI blocks and sections for React and Next.js — hero, header, auth, teams, footer, and more.',
+    'Copy-paste UI blocks and sections for React and Next.js — hero, header, sign-up, forgot-password, teams, footer, and more.',
   alternates: { canonical: '/blocks' },
   openGraph: { url: '/blocks' },
 }

@@ -4,7 +4,6 @@ import * as React from 'react'
 import { AnimatePresence, LayoutGroup, motion } from 'motion/react'
 import { cn } from '@/lib/utils'
 
-
 export type AnimatedTabItem = {
   value: string
   label: string
@@ -63,17 +62,12 @@ export function AnimatedTabs({
 
   return (
     <LayoutGroup id={layoutId}>
-      <div
-        className={cn(
-          'mx-auto w-full max-w-3xl overflow-hidden rounded-3xl border border-border bg-background p-2',
-          className,
-        )}
-      >
+      <div className={cn('mx-auto w-full max-w-4xl overflow-hidden bg-background', className)}>
         <div className="overflow-x-auto">
           <div
             role="tablist"
             aria-label="Animated tabs"
-            className={cn('grid min-w-max gap-1 rounded-2xl bg-muted p-1', listClassName)}
+            className={cn('grid min-w-max rounded-xl bg-muted p-1', listClassName)}
             style={{
               gridTemplateColumns: `repeat(${items.length}, minmax(120px, 1fr))`,
             }}
@@ -93,7 +87,7 @@ export function AnimatedTabs({
                   onClick={() => handleTabChange(index)}
                   onKeyDown={(event) => handleKeyDown(event, index)}
                   className={cn(
-                    'relative rounded-xl px-4 py-2.5 text-sm font-medium whitespace-nowrap transition-colors',
+                    'relative rounded-xl px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors',
                     'focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none',
                     isActive ? 'text-foreground' : 'text-muted-foreground hover:text-foreground',
                     triggerClassName,
@@ -118,7 +112,7 @@ export function AnimatedTabs({
           </div>
         </div>
 
-        <div className={cn('min-h-80 overflow-hidden px-4 py-5 sm:px-6 sm:py-6', contentClassName)}>
+        <div className={cn('overflow-hidden py-4', contentClassName)}>
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div
               key={activeItem.value}

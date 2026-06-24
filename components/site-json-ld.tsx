@@ -8,7 +8,7 @@ export function SiteJsonLd() {
     '@type': 'Person',
     name: siteConfig.name,
     url,
-    image: `${url}/avatar.jpg`,
+    image: `${url}/char.jpg`,
     jobTitle: 'Frontend Developer',
     sameAs: [siteConfig.links.linkedin, siteConfig.links.twitter],
   }

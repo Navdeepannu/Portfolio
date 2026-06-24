@@ -1,5 +1,5 @@
 import type { Viewport } from 'next'
-import { Analytics } from '@vercel/analytics/react'
+import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Geist, Geist_Mono, Inter, Schibsted_Grotesk, Caveat } from 'next/font/google'
 
@@ -14,7 +14,6 @@ import { cookies } from 'next/headers'
 import type { PortfolioMode } from '@/site/portfolio-config'
 import { PORTFOLIO_MODES } from '@/site/portfolio-config'
 import { PortfolioModeProvider } from '@/site/context/portfolio-mode-provider'
-import { NavigationProgressProvider } from '@/site/loader'
 
 const STORAGE_KEY = 'portfolio-mode'
 const DEFAULT_MODE: PortfolioMode = 'developer'

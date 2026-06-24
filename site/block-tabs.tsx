@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useMemo, useState, useSyncExternalStore, type ReactNode } from 'react'
+import { useMemo, useState, type ReactNode } from 'react'
 
 import { Button } from '@/components/ui/button'
 
@@ -13,11 +13,6 @@ import { blockShowcaseCodeViewportClassName } from '@/site/block-showcase-viewpo
 import { CodeXml, Maximize, RotateCcw, ScanEye } from 'lucide-react'
 
 import { PackageManagerCommand } from '@/components/ui/components/package-manager-command'
-
-const subscribeNoop = () => () => {}
-const getOriginSnapshot = (): string =>
-  typeof window === 'undefined' ? '' : window.location.origin
-const getOriginServerSnapshot = (): string => ''
 
 const TOOLBAR_SEGMENT_SHELL =
   'rounded-lg border border-border/60 shadow-sm ring-1 ring-foreground/6.5 dark:bg-background/50'
@@ -38,9 +33,9 @@ export default function BlockTabs({
 }) {
   const [reloadKey, setReloadKey] = useState(0)
 
-  const origin = useSyncExternalStore(subscribeNoop, getOriginSnapshot, getOriginServerSnapshot)
-
-  const commands = useMemo(() => getInstallCommands(slug, origin), [slug, origin])
+  // Install commands always resolve to the production registry domain (see
+  // @/lib/registry), so they're stable across SSR and client renders.
+  const commands = useMemo(() => getInstallCommands(slug), [slug])
 
   const onReload = () => setReloadKey((key) => key + 1)
   return (
@@ -57,12 +52,17 @@ export default function BlockTabs({
               <span className="inline">Code</span>
             </TabsTrigger>
           </TabsList>
+        </div>
 
-          <div className="group flex h-9 cursor-pointer items-center rounded-lg bg-muted p-0.5">
+        <div className="flex min-h-9 shrink-0 items-center gap-2">
+          <PackageManagerCommand commands={commands} defaultPackageManager="npm" />
+
+          <div className="flex h-9 items-center gap-1 rounded-lg bg-muted p-1">
             <Button
               asChild
               variant="ghost"
-              className="inline-flex rounded-md bg-background shadow-sm [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
+              size="sm"
+              className="rounded-md bg-background shadow-sm"
               aria-label="Open preview in new tab"
               title="Open in new tab"
             >
@@ -70,17 +70,10 @@ export default function BlockTabs({
                 <Maximize className="size-4" />
               </Link>
             </Button>
-          </div>
-        </div>
-
-        <div className="flex min-h-9 shrink-0 items-center gap-2">
-          <PackageManagerCommand commands={commands} defaultPackageManager="npm" />
-
-          <div className={TOOLBAR_OPEN_PREVIEW_CHROME}>
             <Button
-              type="button"
               variant="ghost"
-              className={cn(TOOLBAR_OPEN_PREVIEW_BUTTON)}
+              size="sm"
+              className="rounded-md bg-background shadow-sm"
               onClick={onReload}
               aria-label="Reload preview"
               title="Reload preview"

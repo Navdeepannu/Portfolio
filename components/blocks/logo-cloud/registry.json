@@ -54,6 +54,26 @@
           "target": "@components/blocks/logo-cloud/logo-cloud-two.tsx"
         }
       ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "logo-cloud-four",
+      "type": "registry:block",
+      "title": "Logo Cloud Four",
+      "description": "Logo Cloud Four — Logo Cloud block.",
+      "categories": [
+        "logo-cloud"
+      ],
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "logo-cloud-four.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/logo-cloud/logo-cloud-four.tsx"
+        }
+      ]
     }
   ]
 }

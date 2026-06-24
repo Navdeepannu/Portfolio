@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "navdeep-singh",
-  "homepage": "https://www.navdeepsingh.dev",
+  "homepage": "https://navdeepsingh.dev",
   "items": [
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
@@ -21,7 +21,7 @@
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "forgot-password-one",
       "title": "Forgot Password One",
-      "description": "Forgot Password One — Auth block.",
+      "description": "Forgot Password One — Forgot Password block.",
       "dependencies": [
         "@tabler/icons-react"
       ],
@@ -38,7 +38,7 @@
         }
       ],
       "categories": [
-        "auth"
+        "forgot-password"
       ],
       "type": "registry:block"
     },
@@ -46,7 +46,7 @@
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "forgot-password-three",
       "title": "Forgot Password Three",
-      "description": "Forgot Password Three — Auth block.",
+      "description": "Forgot Password Three — Forgot Password block.",
       "dependencies": [
         "@tabler/icons-react"
       ],
@@ -63,7 +63,7 @@
         }
       ],
       "categories": [
-        "auth"
+        "forgot-password"
       ],
       "type": "registry:block"
     },
@@ -71,7 +71,7 @@
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "forgot-password-two",
       "title": "Forgot Password Two",
-      "description": "Forgot Password Two — Auth block.",
+      "description": "Forgot Password Two — Forgot Password block.",
       "dependencies": [
         "@tabler/icons-react"
       ],
@@ -88,7 +88,7 @@
         }
       ],
       "categories": [
-        "auth"
+        "forgot-password"
       ],
       "type": "registry:block"
     },
@@ -96,7 +96,7 @@
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "sign-up-one",
       "title": "Sign Up One",
-      "description": "Sign Up One — Auth block.",
+      "description": "Sign Up One — Sign Up block.",
       "dependencies": [
         "lucide-react"
       ],
@@ -104,7 +104,7 @@
         "button",
         "input",
         "label",
-        "https://www.navdeepsingh.dev/r/brand-logo.json"
+        "https://navdeepsingh.dev/r/brand-logo.json"
       ],
       "files": [
         {
@@ -114,7 +114,7 @@
         }
       ],
       "categories": [
-        "auth"
+        "sign-up"
       ],
       "type": "registry:block"
     },
@@ -122,7 +122,7 @@
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "sign-up-two",
       "title": "Sign Up Two",
-      "description": "Sign Up Two — Auth block.",
+      "description": "Sign Up Two — Sign Up block.",
       "dependencies": [
         "lucide-react",
         "shaders"
@@ -131,7 +131,7 @@
         "button",
         "input",
         "label",
-        "https://www.navdeepsingh.dev/r/brand-logo.json"
+        "https://navdeepsingh.dev/r/brand-logo.json"
       ],
       "files": [
         {
@@ -141,7 +141,7 @@
         }
       ],
       "categories": [
-        "auth"
+        "sign-up"
       ],
       "type": "registry:block"
     },
@@ -269,7 +269,7 @@
       "registryDependencies": [
         "badge",
         "button",
-        "https://www.navdeepsingh.dev/r/header-one.json"
+        "https://navdeepsingh.dev/r/header-one.json"
       ],
       "files": [
         {
@@ -316,9 +316,9 @@
         "motion"
       ],
       "registryDependencies": [
-        "https://www.navdeepsingh.dev/r/header-two.json",
-        "https://www.navdeepsingh.dev/r/animated-group.json",
-        "https://www.navdeepsingh.dev/r/text-effect.json"
+        "https://navdeepsingh.dev/r/header-two.json",
+        "https://navdeepsingh.dev/r/animated-group.json",
+        "https://navdeepsingh.dev/r/text-effect.json"
       ],
       "files": [
         {
@@ -379,6 +379,26 @@
           "path": "components/blocks/logo-cloud/logo-cloud-two.tsx",
           "type": "registry:component",
           "target": "@components/blocks/logo-cloud/logo-cloud-two.tsx"
+        }
+      ],
+      "categories": [
+        "logo-cloud"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "logo-cloud-four",
+      "title": "Logo Cloud Four",
+      "description": "Logo Cloud Four — Logo Cloud block.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "components/blocks/logo-cloud/logo-cloud-four.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/logo-cloud/logo-cloud-four.tsx"
         }
       ],
       "categories": [
@@ -506,6 +526,143 @@
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "faq-section-one",
+      "title": "FAQ Section One",
+      "description": "FAQ Section One — FAQs block.",
+      "registryDependencies": [
+        "accordion"
+      ],
+      "files": [
+        {
+          "path": "components/blocks/faqs/faq-section-one.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/faqs/faq-section-one.tsx"
+        }
+      ],
+      "categories": [
+        "faqs"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "faqs-section-two",
+      "title": "FAQs Section Two",
+      "description": "FAQs Section Two — FAQs block.",
+      "registryDependencies": [
+        "accordion"
+      ],
+      "files": [
+        {
+          "path": "components/blocks/faqs/faqs-section-two.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/faqs/faqs-section-two.tsx"
+        }
+      ],
+      "categories": [
+        "faqs"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "faq-section-three",
+      "title": "FAQ Section Three",
+      "description": "FAQ Section Three — FAQs block.",
+      "registryDependencies": [
+        "accordion"
+      ],
+      "files": [
+        {
+          "path": "components/blocks/faqs/faq-section-three.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/faqs/faq-section-three.tsx"
+        }
+      ],
+      "categories": [
+        "faqs"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "contact-section-one",
+      "title": "Contact Section One",
+      "description": "Contact Section One — Contact block.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/blocks/contact/contact-section-one.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/contact/contact-section-one.tsx"
+        }
+      ],
+      "categories": [
+        "contact"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "contact-section-two",
+      "title": "Contact Section Two",
+      "description": "Contact Section Two — Contact block.",
+      "files": [
+        {
+          "path": "components/blocks/contact/contact-section-two.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/contact/contact-section-two.tsx"
+        }
+      ],
+      "categories": [
+        "contact"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "contact-section-three",
+      "title": "Contact Section Three",
+      "description": "Contact Section Three — Contact block.",
+      "files": [
+        {
+          "path": "components/blocks/contact/contact-section-three.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/contact/contact-section-three.tsx"
+        }
+      ],
+      "categories": [
+        "contact"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "contact-section-four",
+      "title": "Contact Section Four",
+      "description": "Contact Section Four — Contact block.",
+      "registryDependencies": [
+        "button",
+        "input",
+        "label",
+        "textarea"
+      ],
+      "files": [
+        {
+          "path": "components/blocks/contact/contact-section-four.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/contact/contact-section-four.tsx"
+        }
+      ],
+      "categories": [
+        "contact"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "animated-group",
       "title": "Animated Group",
       "description": "Motion-powered staggered animation container.",
@@ -542,7 +699,7 @@
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "segment-spotlight",
       "title": "Segment Spotlight",
-      "description": "Interactive segmented headline with animated focus states and contextual labels.",
+      "description": "A desktop-focused floating feature spotlight with animated chips, icon controls, hover focus, and blurred inactive states.",
       "dependencies": [
         "motion",
         "lucide-react"
@@ -589,6 +746,25 @@
           "path": "components/ui/components/animated-tabs.tsx",
           "type": "registry:ui",
           "target": "@components/animated-tabs.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "expandable-card",
+      "title": "Expandable Card",
+      "description": "An animated expandable card that reveals more content, actions, and optional links on interaction.",
+      "dependencies": [
+        "motion",
+        "lucide-react",
+        "@radix-ui/react-use-controllable-state"
+      ],
+      "files": [
+        {
+          "path": "components/ui/components/expandable-card.tsx",
+          "type": "registry:ui",
+          "target": "@components/expandable-card.tsx"
         }
       ],
       "type": "registry:ui"

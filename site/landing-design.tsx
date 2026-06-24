@@ -15,45 +15,45 @@ const items = [
   {
     id: '1',
     img: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlwnc9sHT0Ebck1dTslf49q5rag7XIHeMz6Sj3',
-    url: 'https://www.navdeepsingh.dev/blocks/auth',
+    url: 'https://navdeepsingh.dev/blocks/sign-up',
     height: 500,
   },
   {
     id: '2',
     img: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlzyCwl1GLxvDQCGptolAdz7ghSeXqVYN9E24H',
-    url: 'https://www.navdeepsingh.dev/blocks/hero',
+    url: 'https://navdeepsingh.dev/blocks/hero',
     height: 800,
   },
   {
     id: '3',
     img: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTltgWg2wAncYx8GiQaPmyboup14RwlrMzW3IA9',
-    url: 'https://www.navdeepsingh.dev/blocks/logo-cloud',
+    url: 'https://navdeepsingh.dev/blocks/logo-cloud',
 
     height: 300,
   },
   {
     id: '4',
     img: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlQICKERjBWY7XQAxMKNls4T6nZb0U2pHvfS9G',
-    url: 'https://www.navdeepsingh.dev/blocks/footer',
+    url: 'https://navdeepsingh.dev/blocks/footer',
     height: 300,
   },
   {
     id: '5',
     img: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlNP5cqDeJIMXrF35vasVbLAD0jBGhUEyeltu8',
-    url: 'https://www.navdeepsingh.dev/blocks/logo-cloud',
+    url: 'https://navdeepsingh.dev/blocks/logo-cloud',
 
     height: 300,
   },
   {
     id: '6',
     img: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlVinCr1kua1nwvRWLo6bCcepS4YzPXjuFMh7T',
-    url: 'https://www.navdeepsingh.dev/blocks/hero',
+    url: 'https://navdeepsingh.dev/blocks/hero',
     height: 800,
   },
   {
     id: '7',
     img: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlNTMZnKeJIMXrF35vasVbLAD0jBGhUEyeltu8',
-    url: 'https://www.navdeepsingh.dev/blocks/teams',
+    url: 'https://navdeepsingh.dev/blocks/teams',
     height: 500,
   },
 ]

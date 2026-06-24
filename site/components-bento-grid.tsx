@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { AnimatePresence, motion } from 'motion/react'
 
 import type { ComponentDefinition } from '@/data/component-types'
 import { getComponentHref } from '@/data/component-helpers'
@@ -14,7 +15,7 @@ function ComponentPreviewCard({ component }: { component: ComponentDefinition })
   return (
     <Card
       className={cn(
-        'group mb-4 break-inside-avoid overflow-hidden rounded-2xl bg-card p-1',
+        'group overflow-hidden rounded-2xl bg-card p-1',
         'shadow-md ring-1 shadow-black/5 ring-border transition-all',
         'hover:shadow-lg hover:ring-foreground/10',
       )}
@@ -77,17 +78,12 @@ export default function ComponentsBentoGrid({
     )
   }
 
+  const heading = category.name === 'All' ? 'Components' : category.name
+
   return (
     <div className="mx-auto w-full max-w-365 px-4 md:px-8">
       <header className="mb-8">
-        {category.name === 'All' ? (
-          <h1 className="text-2xl font-semibold tracking-tight">Components</h1>
-        ) : (
-          ''
-        )}
-        <h1 className="text-2xl font-semibold tracking-tight">
-          {category.name === 'All' ? '' : <span>{category.name}</span>}
-        </h1>
+        <h1 className="text-2xl font-semibold tracking-tight">{heading}</h1>
 
         {category.description ? (
           <p className="mt-2 max-w-lg text-sm text-muted-foreground">{category.description}</p>
@@ -95,9 +91,22 @@ export default function ComponentsBentoGrid({
       </header>
 
       <div className={cn('gap-x-4', columnsClassName)}>
-        {components.map((component) => (
-          <ComponentPreviewCard key={component.slug} component={component} />
-        ))}
+        <AnimatePresence mode="popLayout" initial={false}>
+          {components.map((component) => (
+            <motion.div
+              key={component.slug}
+              layout
+              layoutId={component.slug}
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.96 }}
+              transition={{ type: 'spring', stiffness: 340, damping: 32, mass: 0.8 }}
+              className="mb-4 break-inside-avoid"
+            >
+              <ComponentPreviewCard component={component} />
+            </motion.div>
+          ))}
+        </AnimatePresence>
       </div>
     </div>
   )

@@ -1,9 +1,8 @@
-import { getComponentsByCategory, getDefaultComponentCategory } from '@/data'
-import ComponentsBentoGrid from '@/site/components-bento-grid'
+import { componentCategories, getAllComponents } from '@/data'
+import ComponentsExplorer from '@/site/components-explorer'
 
 export default function ComponentsPage() {
-  const category = getDefaultComponentCategory()
-  const components = getComponentsByCategory(category.id)
-
-  return <ComponentsBentoGrid category={category} components={components} />
+  return (
+    <ComponentsExplorer categories={componentCategories} components={getAllComponents()} />
+  )
 }

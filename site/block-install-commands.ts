@@ -1,29 +1,17 @@
-export type PackageManagerId = 'npm' | 'bun' | 'pnpm' | 'yarn'
-
 /**
- * Build the absolute URL of a registry item served from this app
- * (`<origin>/r/<slug>.json`). Falls back to a relative URL if `origin`
- * is empty (e.g. during the very first SSR paint).
+ * Thin compatibility layer over the centralized registry helpers in
+ * `@/lib/registry`. Several showcase components import package-manager types and
+ * install commands from here; the actual registry URL logic lives in one place
+ * (`@/lib/registry`) so the production domain only needs to change there.
  */
-export function getRegistryItemUrl(slug: string, origin: string): string {
-  const base = origin.replace(/\/+$/, '')
-  return base ? `${base}/r/${slug}.json` : `/r/${slug}.json`
-}
-
-/**
- * Build the URL-based shadcn install commands shown in the showcase UI.
- * Consumers paste these directly — no `@scope` namespace registration
- * is required on their side.
- */
-export function getInstallCommands(
-  slug: string,
-  origin: string,
-): Record<PackageManagerId, string> {
-  const url = getRegistryItemUrl(slug, origin)
-  return {
-    npm: `npx shadcn@latest add ${url}`,
-    bun: `bunx --bun shadcn@latest add ${url}`,
-    pnpm: `pnpm dlx shadcn@latest add ${url}`,
-    yarn: `yarn dlx shadcn@latest add ${url}`,
-  }
-}
+export {
+  type PackageManagerId,
+  REGISTRY_NAMESPACE,
+  getRegistryItemUrl,
+  getRegistryNamespaceRef,
+  getRegistryNamespaceUrlTemplate,
+  getRegistryConfigSnippet,
+  getNamespaceInstallCommands,
+  // Default install method shown in the UI = direct-URL commands.
+  getDirectInstallCommands as getInstallCommands,
+} from '@/lib/registry'

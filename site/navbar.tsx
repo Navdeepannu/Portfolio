@@ -100,10 +100,10 @@ export function Navbar({
 
   return (
     <>
-      <nav className="sticky top-0 z-20 border-b border-border bg-background">
+      <nav className="sticky top-0 z-100 border-b border-border bg-background">
         <div
           className={cn(
-            `relative flex h-14 w-full items-center font-schibsted ${className} ${
+            `font-geist-sans relative flex h-14 w-full items-center ${className} ${
               fullWidth ? 'px-2 md:px-4 lg:px-6' : 'mx-auto max-w-6xl px-2'
             }`,
           )}
@@ -146,7 +146,7 @@ export function Navbar({
 
             <Button variant="ghost" size="icon-sm" asChild>
               <Link
-                href="https://github.com/navdeepannu"
+                href="https://github.com/Navdeepannu/Portfolio"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Open GitHub profile"

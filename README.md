@@ -42,7 +42,7 @@ More updates and improvements are coming soon.
 - Email: navdeepannu1@gmail.com  
 - LinkedIn: : https://www.linkedin.com/in/navdeepsingh0/
 - X (Twitter): https://x.com/navdeepannu0
-- Website: https://www.navdeepsingh.dev/
+- Website: https://navdeepsingh.dev/
 
 ## ⚡ Status
 

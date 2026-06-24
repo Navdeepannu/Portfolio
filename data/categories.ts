@@ -9,10 +9,13 @@ const CATEGORY_ORDER: BlockCategoryId[] = [
   'featured',
   'hero',
   'header',
-  'auth',
+  'forgot-password',
+  'sign-up',
   'logo-cloud',
   'teams',
   'footer',
+  'faqs',
+  'contact',
 ]
 
 const CATEGORY_META: Record<string, { name: string; description?: string }> = {
@@ -28,9 +31,13 @@ const CATEGORY_META: Record<string, { name: string; description?: string }> = {
     name: 'Header',
     description: 'Navigation and top-bar patterns.',
   },
-  auth: {
-    name: 'Auth',
-    description: 'Sign-up, sign-in, and password recovery layouts.',
+  'forgot-password': {
+    name: 'Forgot Password',
+    description: 'Password recovery and reset request layouts.',
+  },
+  'sign-up': {
+    name: 'Sign Up',
+    description: 'Registration and account creation layouts.',
   },
   'logo-cloud': {
     name: 'Logo Cloud',
@@ -43,6 +50,14 @@ const CATEGORY_META: Record<string, { name: string; description?: string }> = {
   footer: {
     name: 'Footer',
     description: 'Site footers with links, newsletter, and brand rows.',
+  },
+  faqs: {
+    name: 'FAQs',
+    description: 'Frequently asked questions sections with accordion layouts.',
+  },
+  contact: {
+    name: 'Contact',
+    description: 'Contact and support sections with cards and link lists.',
   },
 }
 

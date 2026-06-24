@@ -1,4 +1,4 @@
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Info } from 'lucide-react'
 import Link from 'next/link'
 
 import type { ComponentDefinition } from '@/data/component-types'
@@ -7,7 +7,7 @@ import {
   readProjectSourceFile,
   type LoadedBlockSourceFile,
 } from '@/lib/block-source'
-import { getComponentComponent } from '@/registry/component-entries'
+import { getComponentShowcase } from '@/registry/component-entries'
 import BlockCode from '@/site/block-code'
 import ComponentTabs, { ComponentPreview } from '@/site/component-tabs'
 import ComponentInstall from '@/site/component-install'
@@ -29,8 +29,27 @@ function SectionHeading({ id, children }: { id: string; children: React.ReactNod
   )
 }
 
+function ComponentNotes({ notes }: { notes?: string[] }) {
+  if (!notes || notes.length === 0) return null
+
+  return (
+    <aside
+      aria-label="Component notes"
+      className="flex max-w-2xl items-start gap-2 rounded-lg border border-border bg-muted/30 px-3 py-2 text-xs text-muted-foreground"
+    >
+      <Info className="mt-0.5 size-3.5 shrink-0" aria-hidden />
+
+      <div className="flex flex-col gap-1 leading-5">
+        {notes.map((note) => (
+          <p key={note}>{note}</p>
+        ))}
+      </div>
+    </aside>
+  )
+}
+
 export default async function ComponentRenderer({ component }: { component: ComponentDefinition }) {
-  const ShowcaseComponent = getComponentComponent(component.slug)
+  const ShowcaseComponent = getComponentShowcase(component.slug)
 
   if (!ShowcaseComponent) {
     return (
@@ -49,6 +68,7 @@ export default async function ComponentRenderer({ component }: { component: Comp
   ])
 
   let utilsFiles: LoadedBlockSourceFile[] = []
+
   try {
     const utilsCode = await readProjectSourceFile('lib/utils.ts')
     utilsFiles = [{ filename: 'lib/utils.ts', language: 'ts', code: utilsCode }]
@@ -60,7 +80,7 @@ export default async function ComponentRenderer({ component }: { component: Comp
     ? [{ filename: 'example.tsx', language: 'tsx', code: component.usageExample }]
     : demoFiles
 
-  // The demo (real usage) powers the top Code tab; fall back to source if absent.
+  // The demo usage powers the top Code tab. Fall back to source if absent.
   const codeTabFiles = demoFiles.length > 0 ? demoFiles : componentFiles
 
   const deps = component.registry.dependencies ?? []
@@ -81,11 +101,13 @@ export default async function ComponentRenderer({ component }: { component: Comp
           Components
         </Link>
 
-        <header className="flex flex-col gap-3 pb-6">
+        <header className="flex flex-col gap-3 pb-2">
           <h1 className="text-2xl font-semibold tracking-tight text-foreground">
             {component.title}
           </h1>
+
           <p className="max-w-2xl text-sm text-muted-foreground">{component.description}</p>
+
           <div className="flex flex-wrap items-center gap-2">
             {component.tags.map((tag) => (
               <Badge key={tag} variant="secondary" className="text-muted-foreground">
@@ -96,15 +118,20 @@ export default async function ComponentRenderer({ component }: { component: Comp
         </header>
       </div>
 
-      <ComponentTabs
-        slug={component.slug}
-        title={component.title}
-        preview={<ComponentPreview slug={component.slug} />}
-        code={<BlockCode files={codeTabFiles} />}
-      />
+      <div className="flex flex-col gap-3">
+        <ComponentTabs
+          slug={component.slug}
+          title={component.title}
+          preview={<ComponentPreview slug={component.slug} />}
+          code={<BlockCode files={codeTabFiles} />}
+        />
+
+        <ComponentNotes notes={component.notes} />
+      </div>
 
       <section className="flex flex-col gap-4">
         <SectionHeading id="installation">Installation</SectionHeading>
+
         <ComponentInstall
           slug={component.slug}
           dependencies={deps}
@@ -117,6 +144,7 @@ export default async function ComponentRenderer({ component }: { component: Comp
       {component.api && component.api.length > 0 ? (
         <section className="flex flex-col gap-4">
           <SectionHeading id="api-reference">API Reference</SectionHeading>
+
           <div className="overflow-x-auto rounded-lg border border-border">
             <table className="w-full min-w-160 border-collapse text-left text-sm">
               <thead>
@@ -127,18 +155,22 @@ export default async function ComponentRenderer({ component }: { component: Comp
                   <th className="px-4 py-2.5 font-semibold">Description</th>
                 </tr>
               </thead>
+
               <tbody>
                 {component.api.map((row) => (
                   <tr key={row.prop} className="border-b border-border/60 last:border-b-0">
                     <td className="px-4 py-2.5 align-top">
                       <code className="font-mono text-xs text-foreground">{row.prop}</code>
                     </td>
+
                     <td className="px-4 py-2.5 align-top">
                       <code className="font-mono text-xs text-muted-foreground">{row.type}</code>
                     </td>
+
                     <td className="px-4 py-2.5 align-top">
                       <code className="font-mono text-xs text-muted-foreground">{row.default}</code>
                     </td>
+
                     <td className="px-4 py-2.5 align-top text-muted-foreground">
                       {row.description}
                     </td>
@@ -150,22 +182,25 @@ export default async function ComponentRenderer({ component }: { component: Comp
         </section>
       ) : null}
 
-      <section className="flex flex-col gap-4 mb-12">
+      <section className="mb-12 flex flex-col gap-4">
         <SectionHeading id="customization">Customization</SectionHeading>
+
         <ul className="flex list-disc flex-col gap-2 pl-5 text-sm text-muted-foreground">
           <li>
-            Pass <code className="text-foreground">className</code> to restyle the component —
-            classes are merged with <code className="text-foreground">cn</code>, so your utilities
+            Pass <code className="text-foreground">className</code> to restyle the component.
+            Classes are merged with <code className="text-foreground">cn</code>, so your utilities
             win.
           </li>
+
           <li>
             Styling uses Tailwind utility classes and theme tokens, so it adapts to light/dark mode
             automatically.
           </li>
+
           {tunableProps.length > 0 ? (
             <li>
-              Tune behavior with the props in the API reference above (e.g.{' '}
-              <code className="text-foreground">{tunableProps[0]}</code>).
+              Tune behavior with the props in the API reference above, for example{' '}
+              <code className="text-foreground">{tunableProps[0]}</code>.
             </li>
           ) : null}
         </ul>
@@ -174,6 +209,7 @@ export default async function ComponentRenderer({ component }: { component: Comp
       {component.credits && component.credits.length > 0 ? (
         <section className="flex flex-col gap-4">
           <SectionHeading id="credits">Credits</SectionHeading>
+
           <ul className="flex list-disc flex-col gap-2 pl-5 text-sm text-muted-foreground">
             {component.credits.map((credit) => (
               <li key={credit.label}>
@@ -198,6 +234,7 @@ export default async function ComponentRenderer({ component }: { component: Comp
       {component.references && component.references.length > 0 ? (
         <section className="flex flex-col gap-4">
           <SectionHeading id="references">References</SectionHeading>
+
           <ul className="flex list-disc flex-col gap-2 pl-5 text-sm text-muted-foreground">
             {component.references.map((reference) => (
               <li key={reference.href}>
