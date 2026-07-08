@@ -13,6 +13,7 @@ import { blockShowcaseCodeViewportClassName } from '@/site/block-showcase-viewpo
 import { CodeXml, Maximize, RotateCcw, ScanEye } from 'lucide-react'
 
 import { PackageManagerCommand } from '@/components/ui/components/package-manager-command'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 
 const TOOLBAR_SEGMENT_SHELL =
   'rounded-lg border border-border/60 shadow-sm ring-1 ring-foreground/6.5 dark:bg-background/50'
@@ -33,14 +34,12 @@ export default function BlockTabs({
 }) {
   const [reloadKey, setReloadKey] = useState(0)
 
-  // Install commands always resolve to the production registry domain (see
-  // @/lib/registry), so they're stable across SSR and client renders.
   const commands = useMemo(() => getInstallCommands(slug), [slug])
 
   const onReload = () => setReloadKey((key) => key + 1)
   return (
     <Tabs defaultValue="preview" className="flex w-full flex-col gap-0">
-      <div className="mb-3 flex min-h-9 w-full min-w-0 items-center justify-between gap-3 sm:gap-4">
+      <div className="mb-3 flex min-h-9 w-full min-w-0 flex-col justify-between gap-3 sm:gap-4 md:flex-row md:items-center">
         <div className="flex min-w-0 flex-1 items-center gap-2">
           <TabsList className="rounded-lg p-1">
             <TabsTrigger value="preview" aria-label="Preview" title="Preview">
@@ -58,28 +57,51 @@ export default function BlockTabs({
           <PackageManagerCommand commands={commands} defaultPackageManager="npm" />
 
           <div className="flex h-9 items-center gap-1 rounded-lg bg-muted p-1">
-            <Button
-              asChild
-              variant="ghost"
-              size="sm"
-              className="rounded-md bg-background shadow-sm"
-              aria-label="Open preview in new tab"
-              title="Open in new tab"
-            >
-              <Link href={`/preview/${slug}`} target="_blank" rel="noopener noreferrer">
-                <Maximize className="size-4" />
-              </Link>
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="rounded-md bg-background shadow-sm"
-              onClick={onReload}
-              aria-label="Reload preview"
-              title="Reload preview"
-            >
-              <RotateCcw />
-            </Button>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  asChild
+                  variant="ghost"
+                  size="sm"
+                  className="rounded-md bg-background shadow-xs"
+                  aria-label="Open preview in new tab"
+                  title="Open in new tab"
+                >
+                  <Link href={`/preview/${slug}`} target="_blank" rel="noopener noreferrer">
+                    <Maximize className="size-4" />
+                  </Link>
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent
+                side="top"
+                align="center"
+                className="-translate-y-4 shadow-sm ring-1 ring-foreground/8.5"
+              >
+                <span className="text-sm">Open in full screen</span>
+              </TooltipContent>
+            </Tooltip>
+
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="rounded-md bg-background shadow-xs"
+                  onClick={onReload}
+                  aria-label="Reload preview"
+                  title="Reload preview"
+                >
+                  <RotateCcw />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent
+                side="top"
+                align="center"
+                className="-translate-y-4 shadow-sm ring-1 ring-foreground/8.5"
+              >
+                <span className="text-sm">Reload Preview</span>
+              </TooltipContent>
+            </Tooltip>
           </div>
         </div>
       </div>

@@ -7,9 +7,7 @@
       "type": "registry:block",
       "title": "Logo Cloud One",
       "description": "Logo Cloud One — Logo Cloud block.",
-      "categories": [
-        "logo-cloud"
-      ],
+      "categories": ["logo-cloud"],
       "files": [
         {
           "path": "logo-cloud-one.tsx",
@@ -24,9 +22,7 @@
       "type": "registry:block",
       "title": "Logo Cloud Three",
       "description": "Logo Cloud Three — Logo Cloud block.",
-      "categories": [
-        "logo-cloud"
-      ],
+      "categories": ["logo-cloud"],
       "files": [
         {
           "path": "logo-cloud-three.tsx",
@@ -41,12 +37,8 @@
       "type": "registry:block",
       "title": "Logo Cloud Two",
       "description": "Logo Cloud Two — Logo Cloud block.",
-      "categories": [
-        "logo-cloud"
-      ],
-      "dependencies": [
-        "@tabler/icons-react"
-      ],
+      "categories": ["logo-cloud"],
+      "dependencies": ["@tabler/icons-react"],
       "files": [
         {
           "path": "logo-cloud-two.tsx",
@@ -61,17 +53,29 @@
       "type": "registry:block",
       "title": "Logo Cloud Four",
       "description": "Logo Cloud Four — Logo Cloud block.",
-      "categories": [
-        "logo-cloud"
-      ],
-      "dependencies": [
-        "motion"
-      ],
+      "categories": ["logo-cloud"],
+      "dependencies": ["motion"],
       "files": [
         {
           "path": "logo-cloud-four.tsx",
           "type": "registry:component",
           "target": "@components/blocks/logo-cloud/logo-cloud-four.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "logo-cloud-five",
+      "type": "registry:block",
+      "title": "Logo Cloud Five",
+      "description": "Logo Cloud Five — Logo Cloud block.",
+      "categories": ["logo-cloud"],
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "logo-cloud-five.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/logo-cloud/logo-cloud-five.tsx"
         }
       ]
     }

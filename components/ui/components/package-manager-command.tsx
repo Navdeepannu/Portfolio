@@ -176,7 +176,7 @@ export function PackageManagerCommand({
             variant="ghost"
             text={command}
             idleIcon={<SelectedIcon className="size-4.5 shrink-0" />}
-            doneIcon={<Check className="size-4.5 text-emerald-600" />}
+            doneIcon={<Check className="size-4.5 text-foreground" />}
             errorIcon={<CircleX className="size-4.5 text-destructive" />}
             className={cn(
               'inline-flex h-full min-h-0 min-w-0 flex-1 cursor-pointer items-center justify-start gap-2 rounded-none border-0 bg-transparent px-2.5 shadow-none outline-none select-none',
@@ -188,11 +188,9 @@ export function PackageManagerCommand({
             title={command}
             onCopySuccess={handleCopySuccess}
           >
-            <span className="block text-sm font-semibold text-muted-foreground sm:hidden">
-              Copy
-            </span>
+            <span className="block text-xs font-medium text-muted-foreground sm:hidden">Copy</span>
 
-            <Copy className="size-4 shrink-0 text-muted-foreground sm:hidden" />
+            <Copy className="shrink-0 text-muted-foreground sm:hidden" />
 
             <span className="hidden min-w-0 truncate font-mono text-xs text-muted-foreground sm:block dark:text-card-foreground">
               {command}
@@ -248,9 +246,9 @@ export function PackageManagerCommand({
         <output
           role="status"
           aria-live="polite"
-          className="pointer-events-none fixed top-6 left-1/2 z-100 -translate-x-1/2 rounded-lg border border-border/80 bg-popover px-3 py-2 text-sm text-popover-foreground shadow-lg ring-1 ring-foreground/5"
+          className="pointer-events-none fixed bottom-10 left-1/2 z-100 -translate-x-1/2 rounded-lg border border-border/80 bg-popover p-1 px-3 py-2 text-sm font-medium text-muted-foreground shadow-lg ring-1 ring-foreground/5"
         >
-          Copied to clipboard
+          <div className="">Command Copied</div>
         </output>
       ) : null}
     </>

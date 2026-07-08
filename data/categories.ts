@@ -16,6 +16,7 @@ const CATEGORY_ORDER: BlockCategoryId[] = [
   'footer',
   'faqs',
   'contact',
+  'features',
 ]
 
 const CATEGORY_META: Record<string, { name: string; description?: string }> = {
@@ -58,6 +59,10 @@ const CATEGORY_META: Record<string, { name: string; description?: string }> = {
   contact: {
     name: 'Contact',
     description: 'Contact and support sections with cards and link lists.',
+  },
+  features: {
+    name: 'Features',
+    description: 'Product feature sections with interactive highlights and motion-driven layouts.',
   },
 }
 

@@ -30,7 +30,7 @@ export function RecruiterHero() {
             </TextLoop>
           </div>
 
-          <div className="space-y-2 text-sm md:text-base">
+          <div className="max-w-150 space-y-2 text-sm text-muted-foreground md:text-base">
             {hero.paragraphs.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
@@ -40,7 +40,7 @@ export function RecruiterHero() {
                 href={hero.linkedinHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative border-b border-dashed border-foreground/40 font-medium italic"
+                className="relative border-b border-dashed border-foreground/40 font-medium text-foreground italic"
               >
                 <Tooltip content={<LinkedinCard />}>LinkedIn</Tooltip>
               </Link>
@@ -49,7 +49,7 @@ export function RecruiterHero() {
                 href={hero.twitterHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="border-b border-dashed border-foreground/40 font-medium italic"
+                className="border-b border-dashed border-foreground/40 font-medium text-foreground italic"
               >
                 <Tooltip content={<TwitterCard />}>X / Twitter</Tooltip>
               </Link>

@@ -12,6 +12,7 @@ import { cn } from '@/lib/utils'
 import { useCommandMenu } from '@/hooks/use-command-menu'
 import { CommandMenu } from '@/site/command/command-menu'
 import Character from './character'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 
 const menuItems = [
   { name: 'Components', href: '/components' },
@@ -100,7 +101,7 @@ export function Navbar({
 
   return (
     <>
-      <nav className="sticky top-0 z-100 border-b border-border bg-background">
+      <nav className="sticky top-0 z-50 border-b border-border bg-background">
         <div
           className={cn(
             `font-geist-sans relative flex h-14 w-full items-center ${className} ${
@@ -134,7 +135,7 @@ export function Navbar({
                       aria-current={isActive ? 'page' : undefined}
                       className={cn(
                         'text-sm transition-colors hover:text-foreground',
-                        isActive ? 'font-medium text-primary' : 'text-muted-foreground',
+                        isActive ? 'text-foreground' : 'text-muted-foreground',
                       )}
                     >
                       {item.name}
@@ -159,9 +160,25 @@ export function Navbar({
 
             <span className="hidden h-4 w-px bg-border md:block" />
 
-            <Button variant="ghost" size="icon-sm" onClick={toggleTheme} aria-label="Toggle theme">
-              {mounted && isDark ? <Sun className="size-4" /> : <Moon className="size-4" />}
-            </Button>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon-sm"
+                  onClick={toggleTheme}
+                  aria-label="Toggle theme"
+                >
+                  {mounted && isDark ? <Sun className="size-4" /> : <Moon className="size-4" />}
+                </Button>
+              </TooltipTrigger>
+
+              <TooltipContent side="bottom" align="center">
+                <div className="flex items-center gap-1 text-sm font-medium">
+                  <span>Toggle Mode </span>
+                  <kbd className="rounded bg-muted-foreground px-1.5">D</kbd>
+                </div>
+              </TooltipContent>
+            </Tooltip>
 
             <Button
               variant="ghost"
@@ -225,7 +242,7 @@ export function Navbar({
                       key={item.name}
                       variant="ghost"
                       className={cn(
-                        'h-11 w-full justify-start rounded-lg px-3 text-base font-normal',
+                        'font-geist-sans h-11 w-full justify-start rounded-lg px-3 text-base font-normal',
                         isActive ? 'text-foreground' : 'text-muted-foreground',
                       )}
                       asChild

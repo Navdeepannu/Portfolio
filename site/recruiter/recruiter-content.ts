@@ -5,7 +5,7 @@ import { siteConfig } from '@/lib/site'
 /* developer mode is never affected by recruiter copy or shape changes.        */
 /* -------------------------------------------------------------------------- */
 
-export const RESUME_HREF = '/resume.pdf'
+export const RESUME_HREF = '/resume/resume.pdf'
 export const RESUME_UPDATED = 'June 2026'
 
 export const recruiterHero = {
@@ -13,8 +13,9 @@ export const recruiterHero = {
   name: 'Navdeep Singh',
   roles: ['Frontend Engineer', 'Design Engineer', 'Frontend-focused Full Stack'],
   paragraphs: [
-    'Frontend-focused full stack engineer building production interfaces with strong UI craft, accessibility, and maintainable architecture.',
-    'I partner closely with product and design — from discovery through launch — and communicate clearly about tradeoffs and timelines.',
+    'I help startups and businesses turn ideas into modern websites, SaaS products, and digital experiences.',
+    "From product thinking and interface design to frontend development and launch, I build software that's fast, scalable, and crafted with attention to detail.",
+    'Available for freelance projects and frontend opportunities.',
   ],
   linkedinHref: siteConfig.links.linkedin,
   twitterHref: siteConfig.links.twitter,

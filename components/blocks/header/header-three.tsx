@@ -1,0 +1,314 @@
+'use client'
+
+import Link from 'next/link'
+import {
+  BarChart3,
+  BookOpen,
+  Building2,
+  ChevronDown,
+  LayoutDashboard,
+  Menu,
+  NfcIcon,
+  PlugZap,
+  ShieldCheck,
+  Users,
+  X,
+} from 'lucide-react'
+import React from 'react'
+
+import { Button } from '@/components/ui/button'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import { cn } from '@/lib/utils'
+
+const menuItems = [
+  {
+    name: 'Features',
+    href: '#features',
+    children: [
+      {
+        name: 'Dashboard',
+        description: 'Track payments and revenue',
+        href: '#dashboard',
+        icon: LayoutDashboard,
+      },
+      {
+        name: 'Integrations',
+        description: 'Connect your payment stack',
+        href: '#integrations',
+        icon: PlugZap,
+      },
+      {
+        name: 'Security',
+        description: 'Built-in fraud protection',
+        href: '#security',
+        icon: ShieldCheck,
+      },
+    ],
+  },
+  {
+    name: 'Solutions',
+    href: '#solutions',
+    children: [
+      {
+        name: 'Startups',
+        description: 'Launch payments faster',
+        href: '#startups',
+        icon: Building2,
+      },
+      {
+        name: 'Teams',
+        description: 'Manage payment operations',
+        href: '#teams',
+        icon: Users,
+      },
+      {
+        name: 'Analytics',
+        description: 'Understand your growth',
+        href: '#analytics',
+        icon: BarChart3,
+      },
+    ],
+  },
+  { name: 'Pricing', href: '#pricing' },
+  { name: 'Docs', href: '#docs', icon: BookOpen },
+]
+
+export default function HeaderThree() {
+  const [menuState, setMenuState] = React.useState(false)
+  const [isScrolled, setIsScrolled] = React.useState(false)
+  const [openDropdown, setOpenDropdown] = React.useState<string | null>(null)
+  const [mobileDropdown, setMobileDropdown] = React.useState<string | null>(null)
+
+  const closeTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  React.useEffect(() => {
+    if (!menuState) {
+      setMobileDropdown(null)
+    }
+  }, [menuState])
+
+  const handleOpenDropdown = (name: string) => {
+    if (closeTimer.current) {
+      clearTimeout(closeTimer.current)
+    }
+
+    setOpenDropdown(name)
+  }
+
+  const handleCloseDropdown = () => {
+    closeTimer.current = setTimeout(() => {
+      setOpenDropdown(null)
+    }, 120)
+  }
+
+  const toggleMobileDropdown = (name: string) => {
+    setMobileDropdown((current) => (current === name ? null : name))
+  }
+
+  return (
+    <header>
+      <nav data-state={menuState && 'active'} className="fixed z-20 w-full px-2">
+        <div
+          className={cn(
+            'mx-auto mt-2 max-w-6xl px-4 transition-all duration-300 sm:px-6 lg:px-12',
+            isScrolled &&
+              'mx-auto max-w-4xl rounded-2xl border bg-background/50 backdrop-blur-lg lg:px-5',
+          )}
+        >
+          <div className="relative flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">
+            <div className="flex w-full items-center justify-between lg:w-auto">
+              <Link href="/" aria-label="home" className="flex items-center gap-2">
+                <NfcIcon className="size-6" />
+                <span className="font-medium">Payflow</span>
+              </Link>
+
+              <button
+                onClick={() => setMenuState(!menuState)}
+                aria-label={menuState ? 'Close Menu' : 'Open Menu'}
+                className="relative z-20 -m-2.5 -mr-2 block cursor-pointer p-2.5 lg:hidden"
+              >
+                <Menu className="m-auto size-6 duration-200 in-data-[state=active]:scale-0 in-data-[state=active]:rotate-180 in-data-[state=active]:opacity-0" />
+                <X className="absolute inset-0 m-auto size-6 scale-0 -rotate-180 opacity-0 duration-200 in-data-[state=active]:scale-100 in-data-[state=active]:rotate-0 in-data-[state=active]:opacity-100" />
+              </button>
+            </div>
+
+            {/* Desktop center nav */}
+            <div className="absolute inset-0 m-auto hidden size-fit lg:block">
+              <ul className="flex items-center gap-2 text-sm">
+                {menuItems.map((item) => (
+                  <li key={item.name}>
+                    {item.children ? (
+                      <div
+                        onMouseEnter={() => handleOpenDropdown(item.name)}
+                        onMouseLeave={handleCloseDropdown}
+                      >
+                        <DropdownMenu
+                          open={openDropdown === item.name}
+                          onOpenChange={(open) => setOpenDropdown(open ? item.name : null)}
+                        >
+                          <DropdownMenuTrigger asChild>
+                            <button className="flex items-center gap-1 rounded-lg px-3 py-2 text-muted-foreground transition-colors duration-150 hover:bg-muted hover:text-foreground">
+                              {item.name}
+                              <ChevronDown
+                                className={cn(
+                                  'size-3.5 transition-transform duration-200',
+                                  openDropdown === item.name && 'rotate-180',
+                                )}
+                              />
+                            </button>
+                          </DropdownMenuTrigger>
+
+                          <DropdownMenuContent
+                            align="center"
+                            sideOffset={12}
+                            onMouseEnter={() => handleOpenDropdown(item.name)}
+                            onMouseLeave={handleCloseDropdown}
+                            className="w-72 p-2 data-[side=bottom]:slide-in-from-top-2 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95"
+                          >
+                            {item.children.map((child) => {
+                              const Icon = child.icon
+
+                              return (
+                                <DropdownMenuItem key={child.name} asChild>
+                                  <Link
+                                    href={child.href}
+                                    className="flex cursor-pointer items-start gap-3 rounded-lg p-3"
+                                  >
+                                    <span className="mt-0.5 rounded-md border bg-background p-1.5">
+                                      <Icon className="size-4" />
+                                    </span>
+
+                                    <span className="space-y-1">
+                                      <span className="block text-sm font-medium">
+                                        {child.name}
+                                      </span>
+                                      <span className="block text-xs leading-5 text-muted-foreground">
+                                        {child.description}
+                                      </span>
+                                    </span>
+                                  </Link>
+                                </DropdownMenuItem>
+                              )
+                            })}
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </div>
+                    ) : (
+                      <Link
+                        href={item.href}
+                        className="block rounded-lg px-3 py-2 text-muted-foreground transition-colors duration-150 hover:bg-muted hover:text-foreground"
+                      >
+                        {item.name}
+                      </Link>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Mobile menu + desktop buttons */}
+            <div className="mx-auto mb-6 hidden w-[calc(100%-1rem)] max-w-md flex-wrap items-center justify-center space-y-6 rounded-3xl border bg-background p-6 shadow-2xl shadow-zinc-300/20 in-data-[state=active]:block sm:w-full md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:max-w-none lg:justify-end lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none lg:in-data-[state=active]:flex dark:shadow-none dark:lg:bg-transparent">
+              <div className="w-full lg:hidden">
+                <ul className="space-y-2 text-base">
+                  {menuItems.map((item) => (
+                    <li key={item.name}>
+                      {item.children ? (
+                        <div>
+                          <button
+                            type="button"
+                            onClick={() => toggleMobileDropdown(item.name)}
+                            className="flex w-full items-center justify-between rounded-xl px-3 py-3 text-left font-medium text-muted-foreground transition-colors duration-150 hover:bg-muted hover:text-foreground"
+                          >
+                            <span>{item.name}</span>
+
+                            <ChevronDown
+                              className={cn(
+                                'size-4 transition-transform duration-200',
+                                mobileDropdown === item.name && 'rotate-180',
+                              )}
+                            />
+                          </button>
+
+                          <div
+                            className={cn(
+                              'grid overflow-hidden transition-all duration-300 ease-in-out',
+                              mobileDropdown === item.name
+                                ? 'grid-rows-[1fr] opacity-100'
+                                : 'grid-rows-[0fr] opacity-0',
+                            )}
+                          >
+                            <div className="min-h-0">
+                              <div className="space-y-1 px-3 pt-1 pb-2">
+                                {item.children.map((child) => {
+                                  const Icon = child.icon
+
+                                  return (
+                                    <Link
+                                      key={child.name}
+                                      href={child.href}
+                                      onClick={() => setMenuState(false)}
+                                      className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-muted-foreground transition-colors duration-150 hover:bg-muted hover:text-foreground"
+                                    >
+                                      <Icon className="size-4" />
+                                      <span>{child.name}</span>
+                                    </Link>
+                                  )
+                                })}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        <Link
+                          href={item.href}
+                          onClick={() => setMenuState(false)}
+                          className="block rounded-xl px-3 py-3 font-medium text-muted-foreground transition-colors duration-150 hover:bg-muted hover:text-foreground"
+                        >
+                          {item.name}
+                        </Link>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
+                <Button
+                  asChild
+                  variant="outline"
+                  size="sm"
+                  className={cn(isScrolled && 'lg:hidden')}
+                >
+                  <Link href="#login" onClick={() => setMenuState(false)}>
+                    <span>Login</span>
+                  </Link>
+                </Button>
+
+                <Button asChild size="sm" className={cn(isScrolled ? 'lg:inline-flex' : 'hidden')}>
+                  <Link href="#get-started" onClick={() => setMenuState(false)}>
+                    <span>Get Started</span>
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+  )
+}

@@ -143,8 +143,8 @@ export const portfolioContent = {
       name: 'Navdeep Singh',
       roles: ['Frontend Developer', 'Design Engineer', 'UI Systems Builder', 'Freelancer'],
       paragraphs: [
-        'I design and build scalable interfaces, working across both design and engineering. I design in code, create reusable components, and focus on systems over one-off screens.',
-        'I also work across the stack to ship complete, production-ready products.',
+        'I design and build scalable interfaces with React, Next.js, and TypeScript. From reusable UI systems and motion to full-stack applications',
+        'I focus on creating products that are fast, maintainable, and built for real-world use.',
       ],
       linkedinHref: siteConfig.links.linkedin,
       twitterHref: siteConfig.links.twitter,
@@ -225,8 +225,8 @@ export const portfolioContent = {
         'Product-minded Engineer',
       ],
       paragraphs: [
-        'Frontend-focused full stack developer creating production-ready applications with strong UI craft, accessibility, and maintainable architecture.',
-        'I partner well with product and design teams — from discovery through launch — and communicate clearly about tradeoffs and timelines.',
+        'I help startups and businesses turn ideas into modern websites, SaaS products, and digital experiences. From product thinking and interface design to frontend development and launch, I build software that&apos;s fast, scalable, and crafted with attention to detail.',
+        'Available for freelance projects and frontend opportunities.',
       ],
       linkedinHref: siteConfig.links.linkedin,
       twitterHref: siteConfig.links.twitter,

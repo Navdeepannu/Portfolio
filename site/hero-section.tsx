@@ -3,7 +3,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
-import { motion } from 'motion/react'
 import { Button } from '@/components/ui/button'
 import { TextLoop } from '@/components/ui/text-loop'
 import { Tooltip } from '@/components/ui/tooltip-card'
@@ -31,7 +30,7 @@ export function HeroSection() {
             </TextLoop>
           </div>
 
-          <div className="space-y-2 text-sm md:text-base">
+          <div className="max-w-xl space-y-2 text-sm text-muted-foreground md:text-base">
             {hero.paragraphs.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
@@ -41,7 +40,7 @@ export function HeroSection() {
                 href={hero.linkedinHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative border-b border-dashed border-foreground/40 font-medium italic"
+                className="relative border-b border-dashed border-foreground/40 font-medium text-foreground italic"
               >
                 <Tooltip content={<LinkedinCard />}>LinkedIn</Tooltip>
               </Link>
@@ -50,7 +49,7 @@ export function HeroSection() {
                 href={hero.twitterHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="border-b border-dashed border-foreground/40 font-medium italic"
+                className="border-b border-dashed border-foreground/40 font-medium text-foreground italic"
               >
                 <Tooltip content={<TwitterCard />}>X / Twitter</Tooltip>
               </Link>

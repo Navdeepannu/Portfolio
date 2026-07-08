@@ -278,7 +278,7 @@ export default function LogoCloudThree() {
   ];
 
   return (
-    <section className="min-h-screen flex items-center justify-center py-24 bg-white">
+    <section className="flex items-center justify-center py-24 bg-white">
       <div className="w-full max-w-6xl px-8">
         {/* Header */}
         <div className="text-center mb-16 flex justify-center">
@@ -301,7 +301,7 @@ export default function LogoCloudThree() {
               <span className="bg-linear-to-t -bottom-2 from-neutral-200 via-neutral-100 to-neutral-50 w-full h-full absolute inset-0 group-hover:opacity-100 backdrop-blur-xs group-hover:translate-y-0 translate-y-20 opacity-0 duration-400 ease-out">
                 {" "}
               </span>
-              <div className="flex h-10 w-full max-w-[160px] shrink-0 items-center group-hover:z-100 justify-center text-neutral-900 [&_svg]:h-7 [&_svg]:w-auto [&_svg]:max-w-full [&_svg]:object-contain">
+              <div className="flex h-10 w-full max-w-40 shrink-0 items-center group-hover:z-100 justify-center text-neutral-900 [&_svg]:h-7 [&_svg]:w-auto [&_svg]:max-w-full [&_svg]:object-contain">
                 {company.icon}
               </div>
             </div>

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "feature-section-one",
+      "type": "registry:block",
+      "title": "Feature Section One",
+      "description": "Interactive product features list with hover-activated row spotlight and motion transitions.",
+      "categories": ["features"],
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "feature-section-one.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/features/feature-section-one.tsx"
+        }
+      ]
+    }
+  ]
+}

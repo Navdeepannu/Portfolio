@@ -7,16 +7,9 @@
       "type": "registry:block",
       "title": "Header One",
       "description": "Header One — Header block.",
-      "categories": [
-        "header"
-      ],
-      "dependencies": [
-        "lucide-react",
-        "motion"
-      ],
-      "registryDependencies": [
-        "button"
-      ],
+      "categories": ["header"],
+      "dependencies": ["lucide-react", "motion"],
+      "registryDependencies": ["button"],
       "files": [
         {
           "path": "header-one.tsx",
@@ -31,21 +24,31 @@
       "type": "registry:block",
       "title": "Header Two",
       "description": "Header Two — Header block.",
-      "categories": [
-        "header"
-      ],
-      "dependencies": [
-        "lucide-react",
-        "motion"
-      ],
-      "registryDependencies": [
-        "button"
-      ],
+      "categories": ["header"],
+      "dependencies": ["lucide-react", "motion"],
+      "registryDependencies": ["button"],
       "files": [
         {
           "path": "header-two.tsx",
           "type": "registry:component",
           "target": "@components/blocks/header/header-two.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "header-three",
+      "type": "registry:block",
+      "title": "Header Three",
+      "description": "Header Three — Header block.",
+      "categories": ["header"],
+      "dependencies": ["lucide-react", "motion"],
+      "registryDependencies": ["button", "dropdown-menu"],
+      "files": [
+        {
+          "path": "header-three.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/header/header-three.tsx"
         }
       ]
     }

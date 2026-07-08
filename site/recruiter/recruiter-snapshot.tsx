@@ -9,14 +9,12 @@ import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { Card } from '@/components/ui/card'
 import { staggerItem } from '@/site/recruiter/recruiter-primitives'
-import { recruiterSnapshot } from '@/site/recruiter/recruiter-content'
+import { recruiterSnapshot, RESUME_HREF } from '@/site/recruiter/recruiter-content'
 import { Safari } from './browser-mockup'
 import Character from '../character'
 import { Globe } from './globe'
 import { InfiniteSlider } from '@/components/ui/infinite-slider'
 import Image from 'next/image'
-
-export const RESUME_HREF = '/resume/resume.pdf'
 
 export function RecruiterSnapshot() {
   const { eyebrow, title, description, cards } = recruiterSnapshot

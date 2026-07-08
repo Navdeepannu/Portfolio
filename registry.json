@@ -110,6 +110,23 @@
           "target": "@components/expandable-card.tsx"
         }
       ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "rail-nav",
+      "type": "registry:ui",
+      "title": "Rail Nav",
+      "description": "A motion-powered on-this-page rail nav with collapsed line indicators and expandable section labels.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "components/ui/components/rail-nav.tsx",
+          "type": "registry:ui",
+          "target": "@components/rail-nav.tsx"
+        }
+      ]
     }
   ],
   "include": [
@@ -122,6 +139,7 @@
     "components/blocks/teams/registry.json",
     "components/blocks/testamonials/registry.json",
     "components/blocks/faqs/registry.json",
-    "components/blocks/contact/registry.json"
+    "components/blocks/contact/registry.json",
+    "components/blocks/features/registry.json"
   ]
 }

@@ -91,7 +91,7 @@ export default function PreviewShell({
   if (!standalone) return <>{children}</>
 
   return (
-    <div className="min-h-screen py-12">
+    <div className="min-h-screen">
       <PreviewNavbar name={name} fallbackHref={fallbackHref} />
 
       <div >{children}</div>

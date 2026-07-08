@@ -4,6 +4,7 @@ import SegmentSpotlightShowcase from '@/components/showcase/segment-spotlight'
 import MagneticButtonShowcase from '@/components/showcase/magnetic-button'
 import AnimatedTabsShowcase from '@/components/showcase/animated-tabs'
 import ExpandableCardShowcase from '@/components/showcase/expandable-card'
+import RailNavShowcase from '@/components/showcase/rail-nav'
 
 import { defineComponent } from './define-component'
 import type { ComponentDefinition } from '@/data/component-types'
@@ -22,7 +23,7 @@ export const componentRegistryEntries: ComponentRegistryEntry[] = [
     defineComponent({
       slug: 'segment-spotlight',
       title: 'Segment Spotlight',
-      image: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlM04Gne1uOodGSrWg4T1VFeXnaL6f08c9vlJx',
+      image: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlHuf7vDqHjv3VPCtBSMksEJOn7pmfxyc9IoU5',
       description:
         'A desktop-focused spotlight component for showcasing product features, services, or workflow steps with floating labels and an interactive icon toolbar.',
       registryDescription:
@@ -188,7 +189,7 @@ export function Example() {
     defineComponent({
       slug: 'animated-tabs',
       title: 'Animated Tabs',
-      image: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTl8DHX6q4dwU2oJkmKaujTg9FMAr3QiGROq5bE',
+      image: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlX3opSU2u3zKHak0FTUAL7ZrsNJE5jQiOYwtd',
       description: 'A tab component with a moving active pill and directional content transitions.',
       category: 'interactive',
       tags: ['interactive', 'motion', 'animation', 'tabs', 'accessibility'],
@@ -265,8 +266,7 @@ export function Example() {
     defineComponent({
       slug: 'expandable-card',
       title: 'Expandable Card',
-      image:
-        'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1080&auto=format&fit=crop',
+      image: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlx629Fkg7C4maJxGZf1yUPI6YWNcVgE0T9hXu',
       description:
         'Expandable Card is a reusable interactive card component for showing a compact preview first, then expanding to reveal more details, supporting descriptions, actions, and optional learn-more links.',
       registryDescription:
@@ -389,6 +389,75 @@ export function Example() {
       ],
     }),
     ExpandableCardShowcase,
+  ),
+  entry(
+    defineComponent({
+      slug: 'rail-nav',
+      title: 'Rail Nav',
+      image: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlTxAO7Jhdub1qHgxLFNhzr80OKpXcDswBitAY',
+      description:
+        'A compact right-side rail navigation for long docs, case studies, and portfolio pages with scroll-aware active states.',
+      registryDescription:
+        'A motion-powered on-this-page rail nav with collapsed line indicators and expandable section labels.',
+      category: 'interactive',
+      tags: ['interactive', 'navigation', 'docs', 'motion', 'accessibility'],
+      bento: { size: 'lg' },
+      useCases: [
+        'Documentation pages',
+        'Long-form case studies',
+        'Portfolio write-ups',
+        'Changelog pages',
+        'Product guides',
+      ],
+      notes: ['Desktop-first. Hidden below the `xl` breakpoint.'],
+      sourceFiles: [
+        { path: 'components/ui/components/rail-nav.tsx', language: 'tsx' },
+        {
+          path: 'components/showcase/rail-nav.tsx',
+          language: 'tsx',
+          filename: 'demo.tsx',
+        },
+      ],
+      registry: {
+        dependencies: ['motion'],
+        registryDependencies: [],
+      },
+      usageExample: `import { RailNav, type RailNavItems } from '@/components/rail-nav'
+
+const items: RailNavItems[] = [
+  { label: 'Introduction', href: '#introduction' },
+  { label: 'Installation', href: '#installation' },
+  { label: 'Usage', href: '#usage' },
+]
+
+export function Example() {
+  return (
+    <div className="relative min-h-screen">
+      <section id="introduction" className="scroll-mt-24 py-24">
+        <h2>Introduction</h2>
+      </section>
+
+      <RailNav items={items} className="fixed top-28 right-8" />
+    </div>
+  )
+}`,
+      api: [
+        {
+          prop: 'items',
+          type: 'RailNavItems[]',
+          default: '-',
+          description:
+            'Section links rendered in the rail. Each item is { label, href } where href is a hash anchor.',
+        },
+        {
+          prop: 'className',
+          type: 'string',
+          default: "''",
+          description: 'Classes merged onto the outer aside wrapper.',
+        },
+      ],
+    }),
+    RailNavShowcase,
   ),
 ]
 

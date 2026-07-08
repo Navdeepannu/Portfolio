@@ -29,7 +29,7 @@ export default function BlockIframe({
   useEffect(() => {
     setTimeout(() => {
       setFrameHeightPx(getInitialBlockPreviewHeightPx())
-    }, 1000)
+    }, 100)
   }, [slug, reloadKey])
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export default function BlockIframe({
       className="w-full min-w-0 overflow-hidden rounded-xl bg-neutral-100 p-1 shadow-xs ring-1 ring-foreground/6.5 transition-[height] duration-200 ease-out dark:border-neutral-800 dark:bg-neutral-900"
       style={{ height: frameHeightPx }}
     >
-      <div className="h-full overflow-hidden rounded-lg bg-white p-2 shadow-sm  dark:bg-neutral-950">
+      <div className="h-full overflow-hidden rounded-lg bg-white p-2 shadow-sm dark:bg-neutral-950">
         <iframe
           key={`${slug}-${reloadKey}`}
           src={`/preview/${slug}`}

@@ -238,6 +238,31 @@
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "header-three",
+      "title": "Header Three",
+      "description": "Header Three — Header block.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "button",
+        "dropdown-menu"
+      ],
+      "files": [
+        {
+          "path": "components/blocks/header/header-three.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/header/header-three.tsx"
+        }
+      ],
+      "categories": [
+        "header"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "hero-section-four",
       "title": "Hero Section Four",
       "description": "Hero Section Four — Hero Section block.",
@@ -399,6 +424,26 @@
           "path": "components/blocks/logo-cloud/logo-cloud-four.tsx",
           "type": "registry:component",
           "target": "@components/blocks/logo-cloud/logo-cloud-four.tsx"
+        }
+      ],
+      "categories": [
+        "logo-cloud"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "logo-cloud-five",
+      "title": "Logo Cloud Five",
+      "description": "Logo Cloud Five — Logo Cloud block.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "components/blocks/logo-cloud/logo-cloud-five.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/logo-cloud/logo-cloud-five.tsx"
         }
       ],
       "categories": [
@@ -663,6 +708,26 @@
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "feature-section-one",
+      "title": "Feature Section One",
+      "description": "Interactive product features list with hover-activated row spotlight and motion transitions.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "components/blocks/features/feature-section-one.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/features/feature-section-one.tsx"
+        }
+      ],
+      "categories": [
+        "features"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "animated-group",
       "title": "Animated Group",
       "description": "Motion-powered staggered animation container.",
@@ -765,6 +830,23 @@
           "path": "components/ui/components/expandable-card.tsx",
           "type": "registry:ui",
           "target": "@components/expandable-card.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "rail-nav",
+      "title": "Rail Nav",
+      "description": "A motion-powered on-this-page rail nav with collapsed line indicators and expandable section labels.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "components/ui/components/rail-nav.tsx",
+          "type": "registry:ui",
+          "target": "@components/rail-nav.tsx"
         }
       ],
       "type": "registry:ui"
