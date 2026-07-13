@@ -27,7 +27,7 @@ export default function HeaderOne() {
 export const DesktopNavbar = () => {
   return (
     <header>
-      <nav className="sticky top-0 z-20 w-full border border-b bg-background/50 backdrop-blur-3xl dark:bg-neutral-900">
+      <nav className="sticky top-0 z-20 w-full border-b bg-background/50 backdrop-blur-3xl dark:bg-neutral-900">
         <div className="mx-auto hidden max-w-6xl items-center justify-between gap-6 px-4 py-3 md:flex">
           <div className="flex items-center gap-2">
             <Hexagon className="size-8 stroke-neutral-200 stroke-2" />

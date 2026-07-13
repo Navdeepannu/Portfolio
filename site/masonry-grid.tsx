@@ -1,4 +1,5 @@
 'use client'
+
 import React, {
   useEffect,
   useLayoutEffect,
@@ -11,6 +12,8 @@ import { gsap } from 'gsap'
 
 const useMedia = (queries: string[], values: number[], defaultValue: number): number => {
   const getSnapshot = (): number => {
+    if (typeof window === 'undefined') return defaultValue
+
     const index = queries.findIndex((q) => window.matchMedia(q).matches)
     return values[index] ?? defaultValue
   }
@@ -18,8 +21,12 @@ const useMedia = (queries: string[], values: number[], defaultValue: number): nu
   return useSyncExternalStore(
     (callback) => {
       const mediaQueries = queries.map((q) => window.matchMedia(q))
+
       mediaQueries.forEach((mql) => mql.addEventListener('change', callback))
-      return () => mediaQueries.forEach((mql) => mql.removeEventListener('change', callback))
+
+      return () => {
+        mediaQueries.forEach((mql) => mql.removeEventListener('change', callback))
+      }
     },
     getSnapshot,
     () => defaultValue,
@@ -32,35 +39,24 @@ const useMeasure = <T extends HTMLElement>() => {
 
   useLayoutEffect(() => {
     if (!ref.current) return
+
     const ro = new ResizeObserver(([entry]) => {
       const { width, height } = entry.contentRect
       setSize({ width, height })
     })
+
     ro.observe(ref.current)
+
     return () => ro.disconnect()
   }, [])
 
   return [ref, size] as const
 }
 
-const preloadImages = async (urls: string[]): Promise<void> => {
-  await Promise.all(
-    urls.map(
-      (src) =>
-        new Promise<void>((resolve) => {
-          const img = new Image()
-          img.src = src
-          img.onload = img.onerror = () => resolve()
-        }),
-    ),
-  )
-}
-
 interface Item {
   id: string
   img: string
   url?: string
-  height: number
 }
 
 interface GridItem extends Item {
@@ -82,6 +78,29 @@ interface MasonryProps {
   colorShiftOnHover?: boolean
 }
 
+const preloadImagesWithRatios = async (items: Item[]) => {
+  const entries = await Promise.all(
+    items.map(
+      (item) =>
+        new Promise<[string, number]>((resolve) => {
+          const img = new window.Image()
+          img.src = item.img
+
+          img.onload = () => {
+            const ratio = img.naturalWidth / img.naturalHeight
+            resolve([item.id, Number.isFinite(ratio) ? ratio : 16 / 10])
+          }
+
+          img.onerror = () => {
+            resolve([item.id, 16 / 10])
+          }
+        }),
+    ),
+  )
+
+  return Object.fromEntries(entries) as Record<string, number>
+}
+
 const Masonry: React.FC<MasonryProps> = ({
   items,
   ease = 'power3.out',
@@ -89,83 +108,128 @@ const Masonry: React.FC<MasonryProps> = ({
   stagger = 0.05,
   animateFrom = 'bottom',
   scaleOnHover = true,
-  hoverScale = 0.95,
+  hoverScale = 0.98,
   blurToFocus = true,
   colorShiftOnHover = false,
 }) => {
   const columns = useMedia(
-    ['(min-width:1500px)', '(min-width:1000px)', '(min-width:600px)', '(min-width:400px)'],
-    [5, 4, 3, 2],
-    1,
+    ['(min-width:1500px)', '(min-width:1000px)', '(min-width:640px)'],
+    [4, 3, 2],
+    2,
   )
 
   const [containerRef, { width }] = useMeasure<HTMLDivElement>()
+  const [ratios, setRatios] = useState<Record<string, number>>({})
   const [imagesReady, setImagesReady] = useState(false)
+  const hasMounted = useRef(false)
+
+  useEffect(() => {
+    let cancelled = false
+
+    setImagesReady(false)
+
+    preloadImagesWithRatios(items).then((result) => {
+      if (cancelled) return
+
+      setRatios(result)
+      setImagesReady(true)
+    })
+
+    return () => {
+      cancelled = true
+    }
+  }, [items])
+
+  const { grid, containerHeight } = useMemo(() => {
+    if (!width || !imagesReady) {
+      return { grid: [] as GridItem[], containerHeight: 0 }
+    }
+
+    const gap = 12
+    const colHeights = new Array(columns).fill(0)
+    const totalGaps = (columns - 1) * gap
+    const columnWidth = (width - totalGaps) / columns
+
+    const grid = items.map((item) => {
+      const shortestCol = colHeights.indexOf(Math.min(...colHeights))
+      const ratio = ratios[item.id] ?? 16 / 10
+
+      const x = shortestCol * (columnWidth + gap)
+      const y = colHeights[shortestCol]
+      const h = columnWidth / ratio
+      const w = columnWidth
+
+      colHeights[shortestCol] += h + gap
+
+      return {
+        ...item,
+        x,
+        y,
+        w,
+        h,
+      }
+    })
+
+    return {
+      grid,
+      containerHeight: Math.max(...colHeights, 0),
+    }
+  }, [columns, imagesReady, items, ratios, width])
 
   const getInitialPosition = (item: GridItem) => {
     const containerRect = containerRef.current?.getBoundingClientRect()
-    if (!containerRect) return { x: item.x, y: item.y }
+
+    if (!containerRect) {
+      return { x: item.x, y: item.y }
+    }
 
     let direction = animateFrom
+
     if (animateFrom === 'random') {
-      const dirs = ['top', 'bottom', 'left', 'right']
-      direction = dirs[Math.floor(Math.random() * dirs.length)] as typeof animateFrom
+      const dirs = ['top', 'bottom', 'left', 'right'] as const
+      direction = dirs[Math.floor(Math.random() * dirs.length)]
     }
 
     switch (direction) {
       case 'top':
-        return { x: item.x, y: -20 }
+        return { x: item.x, y: -item.h - 40 }
+
       case 'bottom':
-        return { x: item.x, y: window.innerHeight + 20 }
+        return { x: item.x, y: item.y + 80 }
+
       case 'left':
-        return { x: -200, y: item.y }
+        return { x: -item.w - 80, y: item.y }
+
       case 'right':
-        return { x: window.innerWidth + 200, y: item.y }
+        return { x: containerRect.width + 80, y: item.y }
+
       case 'center':
         return {
           x: containerRect.width / 2 - item.w / 2,
           y: containerRect.height / 2 - item.h / 2,
         }
+
       default:
-        return { x: item.x, y: item.y + 100 }
+        return { x: item.x, y: item.y + 80 }
     }
   }
 
-  useEffect(() => {
-    preloadImages(items.map((i) => i.img)).then(() => setImagesReady(true))
-  }, [items])
-
-  const { grid, containerHeight } = useMemo(() => {
-    if (!width) return { grid: [] as GridItem[], containerHeight: 0 }
-    const colHeights = new Array(columns).fill(0)
-    const gap = 16
-    const totalGaps = (columns - 1) * gap
-    const columnWidth = (width - totalGaps) / columns
-
-    const grid = items.map((child) => {
-      const col = colHeights.indexOf(Math.min(...colHeights))
-      const x = col * (columnWidth + gap)
-      const height = child.height / 2
-      const y = colHeights[col]
-
-      colHeights[col] += height + gap
-      return { ...child, x, y, w: columnWidth, h: height }
-    })
-
-    return { grid, containerHeight: Math.max(...colHeights, 0) }
-  }, [columns, items, width])
-
-  const hasMounted = useRef(false)
-
   useLayoutEffect(() => {
-    if (!imagesReady) return
+    if (!imagesReady || grid.length === 0) return
 
     grid.forEach((item, index) => {
       const selector = `[data-key="${item.id}"]`
-      const animProps = { x: item.x, y: item.y, width: item.w, height: item.h }
+
+      const animProps = {
+        x: item.x,
+        y: item.y,
+        width: item.w,
+        height: item.h,
+      }
 
       if (!hasMounted.current) {
         const start = getInitialPosition(item)
+
         gsap.fromTo(
           selector,
           {
@@ -206,9 +270,12 @@ const Masonry: React.FC<MasonryProps> = ({
         ease: 'power2.out',
       })
     }
+
     if (colorShiftOnHover) {
-      const overlay = element.querySelector('.color-overlay') as HTMLElement
-      if (overlay) gsap.to(overlay, { opacity: 0.3, duration: 0.3 })
+      const overlay = element.querySelector('.color-overlay') as HTMLElement | null
+      if (overlay) {
+        gsap.to(overlay, { opacity: 0.3, duration: 0.3 })
+      }
     }
   }
 
@@ -220,39 +287,37 @@ const Masonry: React.FC<MasonryProps> = ({
         ease: 'power2.out',
       })
     }
+
     if (colorShiftOnHover) {
-      const overlay = element.querySelector('.color-overlay') as HTMLElement
-      if (overlay) gsap.to(overlay, { opacity: 0, duration: 0.3 })
+      const overlay = element.querySelector('.color-overlay') as HTMLElement | null
+      if (overlay) {
+        gsap.to(overlay, { opacity: 0, duration: 0.3 })
+      }
     }
   }
 
   return (
-    <div
-      ref={containerRef}
-      className="relative w-full"
-      style={{ height: containerHeight || undefined }}
-    >
-      <div className="color-overlay pointer-events-none absolute inset-0 bg-linear-to-br via-neutral-400/50 from-emerald-300/50 to-sky-500/50 mask-y-from-50% mask-x-from-70%" />
-
+    <div ref={containerRef} className="relative w-full" style={{ height: containerHeight || 400 }}>
       {grid.map((item) => (
-        <div
+        <a
           key={item.id}
           data-key={item.id}
-          className="absolute box-content"
-          style={{ willChange: 'transform, width, height, opacity' }}
-          onClick={() => window.open(item.url, '_blank', 'noopener')}
+          href={item.url}
+          target="_blank"
+          rel="noreferrer"
+          className="absolute block cursor-pointer overflow-hidden rounded-lg border border-border/70 bg-muted shadow-[0px_10px_50px_-20px_rgba(0,0,0,0.35)]"
+          style={{
+            willChange: 'transform, width, height, opacity',
+          }}
           onMouseEnter={(e) => handleMouseEnter(item.id, e.currentTarget)}
           onMouseLeave={(e) => handleMouseLeave(item.id, e.currentTarget)}
         >
-          <div
-            className="relative h-full ring-1 ring-border/60 w-full rounded-md bg-cover bg-center text-[10px] leading-2.5 uppercase shadow-[0px_10px_50px_-10px_rgba(0,0,0,0.2)]"
-            style={{ backgroundImage: `url(${item.img})` }}
-          >
-            {colorShiftOnHover && (
-              <div className="color-overlay pointer-events-none absolute inset-0 rounded-[10px] bg-linear-to-tr from-pink-500/50 to-sky-500/50 opacity-0" />
-            )}
-          </div>
-        </div>
+          <img src={item.img} alt="" draggable={false} className="h-full w-full object-cover" />
+
+          {colorShiftOnHover && (
+            <div className="color-overlay pointer-events-none absolute inset-0 bg-linear-to-tr from-pink-500/50 to-sky-500/50 opacity-0" />
+          )}
+        </a>
       ))}
     </div>
   )

@@ -12,6 +12,7 @@ const BLOCKS_DIR = path.join(ROOT, 'components/blocks')
 const OUTPUT = path.join(ROOT, 'registry/block-registry.generated.tsx')
 
 const KEBAB_TSX = /^[a-z0-9]+(?:-[a-z0-9]+)*\.tsx$/
+const SUPPORT_FILE_SUFFIXES = ['-illustration.tsx']
 
 const FOLDER_CATEGORY_MAP: Record<string, string> = {
   'hero-section': 'hero',
@@ -61,10 +62,18 @@ async function discoverBlocks(): Promise<DiscoveredBlock[]> {
     if (!dirent.isDirectory()) continue
     const folder = dirent.name
     const folderPath = path.join(BLOCKS_DIR, folder)
+
+    try {
+      await fs.access(path.join(folderPath, 'registry.json'))
+    } catch {
+      continue
+    }
+
     const files = await fs.readdir(folderPath)
 
     for (const filename of files.sort()) {
       if (!KEBAB_TSX.test(filename)) continue
+      if (SUPPORT_FILE_SUFFIXES.some((suffix) => filename.endsWith(suffix))) continue
       const slug = filename.replace(/\.tsx$/, '')
       if (seenSlugs.has(slug)) continue
       seenSlugs.add(slug)

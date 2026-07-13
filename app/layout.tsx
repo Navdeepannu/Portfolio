@@ -82,7 +82,7 @@ export default async function RootLayout({
             <TooltipProvider>
               <Toaster />
               {children}
-              <GlobalBottomBlur />
+              {/* <GlobalBottomBlur /> */}
             </TooltipProvider>
           </PortfolioModeProvider>
         </ThemeProvider>

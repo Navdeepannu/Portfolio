@@ -5,6 +5,7 @@
   "description": "Sign Up Two — Sign Up block.",
   "dependencies": [
     "lucide-react",
+    "react-icons",
     "shaders"
   ],
   "registryDependencies": [

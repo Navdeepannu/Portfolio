@@ -140,6 +140,7 @@
     "components/blocks/testamonials/registry.json",
     "components/blocks/faqs/registry.json",
     "components/blocks/contact/registry.json",
-    "components/blocks/features/registry.json"
+    "components/blocks/features/registry.json",
+    "components/illustrations/registry.json"
   ]
 }

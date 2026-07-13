@@ -23,6 +23,8 @@ type BlockCodeProps = {
   files: LoadedBlockSourceFile[]
   /** When true, the code body collapses to a fixed height with a fade + Expand/Collapse toggle. */
   collapsible?: boolean
+  collapsedMaxHeightClassName?: string
+  expandedMaxHeightClassName?: string
 }
 
 const ReactLogo = (className: { className: string }) => {
@@ -47,7 +49,12 @@ const ReactLogo = (className: { className: string }) => {
   )
 }
 /** Thin wrapper around Kibo UI `CodeBlock` fed by filesystem-sourced `LoadedBlockSourceFile` entries. */
-export default function BlockCode({ files, collapsible = false }: BlockCodeProps) {
+export default function BlockCode({
+  files,
+  collapsible = false,
+  collapsedMaxHeightClassName = 'max-h-120',
+  expandedMaxHeightClassName = 'max-h-1500',
+}: BlockCodeProps) {
   const [expanded, setExpanded] = useState(false)
   const bodyId = useId()
 
@@ -108,7 +115,7 @@ export default function BlockCode({ files, collapsible = false }: BlockCodeProps
             id={bodyId}
             className={cn(
               'overflow-hidden rounded-lg shadow-sm transition-[max-height] duration-500 ease-in-out',
-              expanded ? 'max-h-1500 pb-14' : 'max-h-120',
+              expanded ? cn(expandedMaxHeightClassName, 'pb-14') : collapsedMaxHeightClassName,
             )}
           >
             {renderItem}

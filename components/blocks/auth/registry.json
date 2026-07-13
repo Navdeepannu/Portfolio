@@ -76,7 +76,7 @@
       "title": "Sign Up Two",
       "description": "Sign Up Two — Sign Up block.",
       "categories": ["sign-up"],
-      "dependencies": ["lucide-react", "shaders"],
+      "dependencies": ["lucide-react", "react-icons", "shaders"],
       "registryDependencies": ["button", "input", "label", "@navdeep-singh/brand-logo"],
       "files": [
         {

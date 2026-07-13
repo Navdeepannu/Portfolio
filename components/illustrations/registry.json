@@ -1,0 +1,125 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "payment-card",
+      "type": "registry:component",
+      "title": "Payment Card Illustration",
+      "description": "A motion-ready payment card illustration.",
+      "dependencies": ["lucide-react", "motion"],
+      "files": [
+        {
+          "path": "payment-card.tsx",
+          "type": "registry:component",
+          "target": "@components/illustrations/payment-card.tsx"
+        },
+        {
+          "path": "_expense-workflow-parts.tsx",
+          "type": "registry:component",
+          "target": "@components/illustrations/_expense-workflow-parts.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "workflow-desk",
+      "type": "registry:component",
+      "title": "Workflow Desk Illustration",
+      "description": "A combined expense workflow illustration with a payment card and four process panels.",
+      "dependencies": ["lucide-react", "motion"],
+      "files": [
+        {
+          "path": "workflow-desk.tsx",
+          "type": "registry:component",
+          "target": "@components/illustrations/workflow-desk.tsx"
+        },
+        {
+          "path": "_expense-workflow-parts.tsx",
+          "type": "registry:component",
+          "target": "@components/illustrations/_expense-workflow-parts.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "receipt-panel",
+      "type": "registry:component",
+      "title": "Receipt Panel Illustration",
+      "description": "A receipt capture panel illustration.",
+      "dependencies": ["lucide-react", "motion"],
+      "files": [
+        {
+          "path": "receipt-panel.tsx",
+          "type": "registry:component",
+          "target": "@components/illustrations/receipt-panel.tsx"
+        },
+        {
+          "path": "_expense-workflow-parts.tsx",
+          "type": "registry:component",
+          "target": "@components/illustrations/_expense-workflow-parts.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "matching-panel",
+      "type": "registry:component",
+      "title": "Matching Panel Illustration",
+      "description": "A policy matching panel illustration.",
+      "dependencies": ["lucide-react", "motion"],
+      "files": [
+        {
+          "path": "matching-panel.tsx",
+          "type": "registry:component",
+          "target": "@components/illustrations/matching-panel.tsx"
+        },
+        {
+          "path": "_expense-workflow-parts.tsx",
+          "type": "registry:component",
+          "target": "@components/illustrations/_expense-workflow-parts.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "report-panel",
+      "type": "registry:component",
+      "title": "Report Panel Illustration",
+      "description": "A report fetching panel illustration.",
+      "dependencies": ["lucide-react", "motion"],
+      "files": [
+        {
+          "path": "report-panel.tsx",
+          "type": "registry:component",
+          "target": "@components/illustrations/report-panel.tsx"
+        },
+        {
+          "path": "_expense-workflow-parts.tsx",
+          "type": "registry:component",
+          "target": "@components/illustrations/_expense-workflow-parts.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "approval-panel",
+      "type": "registry:component",
+      "title": "Approval Panel Illustration",
+      "description": "An approval routing panel illustration.",
+      "dependencies": ["lucide-react", "motion"],
+      "files": [
+        {
+          "path": "approval-panel.tsx",
+          "type": "registry:component",
+          "target": "@components/illustrations/approval-panel.tsx"
+        },
+        {
+          "path": "_expense-workflow-parts.tsx",
+          "type": "registry:component",
+          "target": "@components/illustrations/_expense-workflow-parts.tsx"
+        }
+      ]
+    }
+  ]
+}

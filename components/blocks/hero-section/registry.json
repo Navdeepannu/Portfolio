@@ -8,12 +8,23 @@
       "title": "Hero Section Four",
       "description": "Hero Section Four — Hero Section block.",
       "categories": ["hero"],
-      "dependencies": ["@tabler/icons-react", "motion"],
+      "dependencies": ["lucide-react", "motion"],
+      "registryDependencies": [
+        "button",
+        "label",
+        "@navdeep-singh/header-three",
+        "@navdeep-singh/logo-cloud-five"
+      ],
       "files": [
         {
           "path": "hero-section-four.tsx",
           "type": "registry:component",
           "target": "@components/blocks/hero-section/hero-section-four.tsx"
+        },
+        {
+          "path": "hero-section-four-illustration.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/hero-section/hero-section-four-illustration.tsx"
         }
       ]
     },

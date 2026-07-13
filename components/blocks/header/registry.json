@@ -42,7 +42,7 @@
       "title": "Header Three",
       "description": "Header Three — Header block.",
       "categories": ["header"],
-      "dependencies": ["lucide-react", "motion"],
+      "dependencies": ["lucide-react"],
       "registryDependencies": ["button", "dropdown-menu"],
       "files": [
         {

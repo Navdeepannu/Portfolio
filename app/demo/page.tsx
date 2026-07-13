@@ -1,6 +1,9 @@
 'use client'
 
-import RailNavDemo from '@/components/showcase/rail-nav'
+import {
+  AIChatWithConversationNavigator,
+  AIChatWithConversationNavigatorDemo,
+} from '@/components/blocks/ai-chat/ai-chat-with-conversation-navigator'
 import { Button } from '@/components/ui/button'
 import { IconCaretRightFilled } from '@tabler/icons-react'
 import { AnimatePresence, motion } from 'motion/react'
@@ -9,9 +12,8 @@ import { useState } from 'react'
 
 export default function Page() {
   return (
-    <div>
-      {/* <ProductFeaturesShowcase /> */}
-      <RailNavDemo />
+    <div className="">
+      <AIChatWithConversationNavigatorDemo />
     </div>
   )
 }

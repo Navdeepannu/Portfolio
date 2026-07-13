@@ -3,6 +3,9 @@
   "name": "brand-logo",
   "title": "Brand Logo",
   "description": "Shared brand mark used across auth and marketing blocks.",
+  "dependencies": [
+    "lucide-react"
+  ],
   "files": [
     {
       "path": "components/brand-logo.tsx",

@@ -17,6 +17,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 const menuItems = [
   { name: 'Components', href: '/components' },
   { name: 'Blocks', href: '/blocks' },
+  { name: 'Illustrations', href: '/illustrations' },
   { name: 'Projects', href: '/projects' },
   { name: 'Contact', href: '/#contact' },
 ] as const

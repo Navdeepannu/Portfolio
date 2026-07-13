@@ -4,58 +4,63 @@ import Link from 'next/link'
 import { cn } from '@/lib/utils'
 
 export type LandigBentoGridProps = {
-  image?: string
+  imageLight: string
+  imageDark: string
+  imageWidth: number
+  imageHeight: number
   title: string
-  id: string
-  description?: string
-  count?: number
+  count: number
   countLabel?: string
+  id: string
   className?: string
   href?: string
 }
 
 export function LandingBentoGrid({
-  image,
+  imageLight,
+  imageDark,
+  imageWidth,
+  imageHeight,
   id,
   title,
-  description,
   count,
   countLabel = 'blocks',
   className,
   href,
 }: LandigBentoGridProps) {
-  const showCount = count != null && count >= 0
-
   const content = (
     <>
-      <h2 className="text-base font-medium text-muted-foreground">{title}</h2>
-      {showCount ? (
-        <p className="text-sm font-normal text-neutral-500 dark:text-neutral-400">
-          {count} <span>{countLabel}</span>
+      <div className="relative w-full overflow-hidden rounded-lg bg-card ring-1 ring-foreground/6.5">
+        <Image
+          src={imageLight}
+          alt={`${title} category preview`}
+          width={imageWidth}
+          height={imageHeight}
+          className="h-auto w-full object-cover dark:hidden"
+          sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
+        />
+        <Image
+          src={imageDark}
+          alt={`${title} category preview`}
+          width={imageWidth}
+          height={imageHeight}
+          className="hidden h-auto w-full object-cover dark:block"
+          sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
+        />
+      </div>
+      <div className="px-1 pt-2">
+        <h3 className="text-sm font-medium text-foreground">{title}</h3>
+        <p className="text-xs text-muted-foreground">
+          {count} {countLabel}
         </p>
-      ) : null}
-      {description ? (
-        <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">{description}</p>
-      ) : null}
-      {image ? (
-        <div className="relative mt-4 w-full overflow-hidden rounded-lg bg-muted/20 shadow-sm ring-1 ring-ring/5">
-          <Image
-            src={image}
-            alt={`${title}-image`}
-            width={1200}
-            height={800}
-            className="h-auto w-full object-contain"
-            sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
-          />
-        </div>
-      ) : null}
+      </div>
     </>
   )
 
   const baseClass = cn(
     'mb-4 block break-inside-avoid',
-    'rounded-xl border bg-neutral-50 p-2 shadow-md ring-1 ring-gray-200 dark:border-neutral-700 dark:bg-neutral-800/60 dark:ring-neutral-600',
-    'transition-shadow hover:shadow-lg hover:ring-gray-300 motion-reduce:transition-none dark:hover:ring-neutral-500',
+    'rounded-xl bg-card p-2 shadow-sm ring-1 ring-foreground/6.5',
+    'transition-shadow hover:shadow-md hover:ring-foreground/7.5 motion-reduce:transition-none',
     className,
   )
 

@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import {
+  ArrowRight,
   BarChart3,
   BookOpen,
   Building2,
@@ -88,10 +89,12 @@ export default function HeaderThree() {
 
   React.useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
+      setIsScrolled(window.scrollY > 24)
     }
 
-    window.addEventListener('scroll', handleScroll)
+    handleScroll()
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
 
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
@@ -101,6 +104,14 @@ export default function HeaderThree() {
       setMobileDropdown(null)
     }
   }, [menuState])
+
+  React.useEffect(() => {
+    return () => {
+      if (closeTimer.current) {
+        clearTimeout(closeTimer.current)
+      }
+    }
+  }, [])
 
   const handleOpenDropdown = (name: string) => {
     if (closeTimer.current) {
@@ -122,19 +133,39 @@ export default function HeaderThree() {
 
   return (
     <header>
-      <nav data-state={menuState && 'active'} className="fixed z-20 w-full px-2">
+      <nav
+        data-state={menuState && 'active'}
+        className="fixed inset-x-0 top-0 z-50 w-full px-4 sm:px-6 lg:px-8"
+      >
         <div
           className={cn(
-            'mx-auto mt-2 max-w-6xl px-4 transition-all duration-300 sm:px-6 lg:px-12',
+            'mx-auto mt-3 w-full max-w-7xl rounded-xl border border-transparent bg-transparent px-0 transition-all duration-500 ease-out',
             isScrolled &&
-              'mx-auto max-w-4xl rounded-2xl border bg-background/50 backdrop-blur-lg lg:px-5',
+              'max-w-6xl border-border/60 bg-background/70 px-3 shadow-sm shadow-black/5 backdrop-blur-xl dark:bg-background/55 dark:shadow-none',
           )}
         >
-          <div className="relative flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">
+          <div
+            className={cn(
+              'relative flex flex-wrap items-center justify-between gap-6 transition-all duration-500 ease-out lg:gap-0',
+              isScrolled ? 'py-2 lg:py-2.5' : 'py-4 lg:py-5',
+            )}
+          >
             <div className="flex w-full items-center justify-between lg:w-auto">
               <Link href="/" aria-label="home" className="flex items-center gap-2">
-                <NfcIcon className="size-6" />
-                <span className="font-medium">Payflow</span>
+                <NfcIcon
+                  className={cn(
+                    'transition-all duration-500 ease-out',
+                    isScrolled ? 'size-5' : 'size-6',
+                  )}
+                />
+                <span
+                  className={cn(
+                    'font-medium transition-all duration-500 ease-out',
+                    isScrolled ? 'text-sm' : 'text-base',
+                  )}
+                >
+                  Payflow
+                </span>
               </Link>
 
               <button
@@ -149,7 +180,12 @@ export default function HeaderThree() {
 
             {/* Desktop center nav */}
             <div className="absolute inset-0 m-auto hidden size-fit lg:block">
-              <ul className="flex items-center gap-2 text-sm">
+              <ul
+                className={cn(
+                  'flex items-center gap-2 text-sm transition-all duration-500 ease-out',
+                  isScrolled && 'scale-[0.98]',
+                )}
+              >
                 {menuItems.map((item) => (
                   <li key={item.name}>
                     {item.children ? (
@@ -221,8 +257,8 @@ export default function HeaderThree() {
               </ul>
             </div>
 
-            {/* Mobile menu + desktop buttons */}
-            <div className="mx-auto mb-6 hidden w-[calc(100%-1rem)] max-w-md flex-wrap items-center justify-center space-y-6 rounded-3xl border bg-background p-6 shadow-2xl shadow-zinc-300/20 in-data-[state=active]:block sm:w-full md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:max-w-none lg:justify-end lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none lg:in-data-[state=active]:flex dark:shadow-none dark:lg:bg-transparent">
+            {/* Mobile menu + CTA */}
+            <div className="mx-auto mb-6 hidden w-full max-w-md flex-wrap items-center justify-center space-y-6 rounded-3xl border bg-background p-6 shadow-2xl shadow-zinc-300/20 in-data-[state=active]:block md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:max-w-none lg:justify-end lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none lg:in-data-[state=active]:flex dark:shadow-none dark:lg:bg-transparent">
               <div className="w-full lg:hidden">
                 <ul className="space-y-2 text-base">
                   {menuItems.map((item) => (
@@ -287,21 +323,18 @@ export default function HeaderThree() {
                 </ul>
               </div>
 
-              <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
+              <div className="flex w-full flex-col sm:w-auto">
                 <Button
                   asChild
-                  variant="outline"
                   size="sm"
-                  className={cn(isScrolled && 'lg:hidden')}
+                  className={cn(
+                    'h-9 rounded-full px-4 transition-all duration-500 ease-out sm:w-auto',
+                    isScrolled && 'lg:h-8 lg:px-3 lg:text-xs',
+                  )}
                 >
-                  <Link href="#login" onClick={() => setMenuState(false)}>
-                    <span>Login</span>
-                  </Link>
-                </Button>
-
-                <Button asChild size="sm" className={cn(isScrolled ? 'lg:inline-flex' : 'hidden')}>
                   <Link href="#get-started" onClick={() => setMenuState(false)}>
                     <span>Get Started</span>
+                    <ArrowRight className="ml-1 size-3.5" />
                   </Link>
                 </Button>
               </div>

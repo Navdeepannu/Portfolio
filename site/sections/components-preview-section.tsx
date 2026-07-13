@@ -3,18 +3,20 @@
 import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
+import { getAllComponents } from '@/data'
 import { getPortfolioContent } from '@/site/portfolio-config'
+import { ComponentPreviewCard } from '@/site/component-preview-card'
 import { usePortfolioMode } from '@/site/context/portfolio-mode-provider'
-import { SectionShell } from '@/site/sections/section-shell'
 import { cn } from '@/lib/utils'
 
 export function ComponentsPreviewSection() {
   const { mode } = usePortfolioMode()
   const { components: copy } = getPortfolioContent(mode)
+  const components = getAllComponents()
 
   return (
     <section
-      id="blocks"
+      id="components"
       className="relative overflow-x-clip py-24 font-schibsted selection:bg-emerald-200/60 max-md:py-16 md:py-24"
     >
       <div className="mx-auto max-w-6xl px-8 md:px-12">
@@ -43,16 +45,25 @@ export function ComponentsPreviewSection() {
         </div>
       </div>
       <div className="relative mt-8">
-        <div className="pointer-events-none absolute -inset-x-32 inset-y-0 border-y border-border mask-x-from-75% dark:border-neutral-800" />
+        <div className="pointer-events-none absolute -inset-x-32 inset-y-0 z-10 border-y border-border mask-x-from-75% dark:border-neutral-800" />
         <div className="relative mx-auto w-full max-w-6xl px-4">
           <div className="pointer-events-none absolute inset-x-4 -inset-y-32 border-x border-border mask-y-from-90% dark:border-neutral-800" />
           <div className="overflow-hidden">
             <div
               className={cn(
-                'masonry-grid bg-foreground/4 p-2 dark:bg-neutral-800/30',
+                'masonry-grid bg-muted/50 p-2 dark:bg-neutral-800/30',
                 'masonry-cols-1 sm:masonry-cols-2 xl:masonry-cols-3',
               )}
-            ></div>
+            >
+              {components.map((component) => (
+                <ComponentPreviewCard
+                  key={component.slug}
+                  component={component}
+                  showDescription={true}
+                  className="mb-4 break-inside-avoid"
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
