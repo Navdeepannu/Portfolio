@@ -1,128 +1,72 @@
-# UI Blocks & Developer Portfolio
+# Portfolio and UI Library
 
-A growing collection of production-ready **React components**, **UI blocks**, and **landing page sections** built with modern web technologies.
+One Next.js application serves two independent public sites from one repository and Vercel project:
 
-This repository serves as both my personal portfolio and an open-source UI library focused on clean design, accessibility, performance, and developer experience.
+- [navdeepsingh.dev](https://navdeepsingh.dev) — Navdeep Singh's personal portfolio and project case studies.
+- [ui.navdeepsingh.dev](https://ui.navdeepsingh.dev) — shadcn-compatible components, blocks, illustrations, page templates, previews, source drawers, and registry installs.
 
----
+The UI library lives under the internal `/ui` route tree. `proxy.ts` maps the UI hostname to that tree without exposing `/ui` in public canonical URLs.
 
-## ✨ Features
+## Stack
 
-- Modern landing page blocks
-- Reusable React components
-- Responsive by default
-- Light & dark mode support
-- Smooth animations with Motion
-- Built with shadcn/ui
-- Ready-to-copy examples
-- Growing illustration library
-
----
-
-## 🧩 What's Included
-
-### Blocks
-
-- Hero Sections
-- Feature Sections
-- CTA Sections
-- Headers
-- Footers
-- Logo Clouds
-- Contact Sections
-- FAQ Sections
-- Sign Up Sections
-- Bento Layouts
-
-### Components
-
-- Buttons
-- Navigation
-- Cards
-- Tooltips
-- Text Animations
-- Interactive UI
-- Motion Components
-- Utility Components
-
-### Illustrations
-
-A growing collection of handcrafted illustrations designed for modern web applications.
-
----
-
-## 🚀 Tech Stack
-
-- Next.js 15
+- Next.js 16
 - React 19
 - TypeScript
 - Tailwind CSS v4
 - shadcn/ui
 - Motion
-- Lucide React
+- Bun
 
----
+## Local development
 
-## 💻 Getting Started
-
-Clone the repository:
+Install dependencies and start the development server with the repository's Bun scripts:
 
 ```bash
-git clone https://github.com/Navdeepannu/Portfolio.git
+bun install
+bun run dev
 ```
 
-Install dependencies:
+Use these local URLs:
+
+- Portfolio: `http://localhost:3000`
+- UI library with hostname routing: `http://ui.localhost:3000`
+- UI library's internal route tree: `http://localhost:3000/ui`
+
+Generic Vercel preview hosts intentionally keep `/ui` explicit; they are not automatically classified as the public UI hostname.
+
+## Registry
+
+Published registry artifacts remain in `public/r`. Canonical item URLs use the UI-library origin:
+
+```text
+https://ui.navdeepsingh.dev/r/<name>.json
+```
+
+Build and validate the registry with:
 
 ```bash
-npm install
+bun run registry:build
 ```
 
-Run the development server:
+The optional `NEXT_PUBLIC_REGISTRY_URL` build-time variable must point to the UI-library origin when set.
+
+## Checks
 
 ```bash
-npm run dev
+bun run lint
+bunx next typegen
+bunx tsc --noEmit
+bun test
+bun run build
 ```
 
-Open **http://localhost:3000** in your browser.
+## Connect
 
----
+- [Portfolio](https://navdeepsingh.dev)
+- [UI library](https://ui.navdeepsingh.dev)
+- [GitHub](https://github.com/navdeepannu)
+- [LinkedIn](https://www.linkedin.com/in/navdeepsingh0/)
 
-## 🎯 Vision
-
-The goal of this project is to build a growing collection of high-quality UI that developers can easily browse, customize, and use in production projects.
-
-New blocks, components, illustrations, and improvements are added regularly.
-
----
-
-## 🌐 Live Demo
-
-**Website:** https://navdeepsingh.dev
-
----
-
-## 🤝 Contributing
-
-Contributions, ideas, feature requests, and bug reports are always welcome.
-
-If you have an idea for a new block or component, feel free to open an issue or submit a pull request.
-
----
-
-## 🔗 Connect
-
-- Portfolio — https://navdeepsingh.dev
-- LinkedIn — https://www.linkedin.com/in/navdeepsingh0
-- X — https://x.com/navdeepannu0
-
----
-
-## ⭐ Support
-
-If you find this project useful, consider giving it a star on GitHub.
-
----
-
-## 📄 License
+## License
 
 Licensed under the MIT License.

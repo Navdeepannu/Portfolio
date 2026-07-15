@@ -5,7 +5,7 @@ import { IconBrandGithub, IconBrandLinkedin, IconBrandX } from '@tabler/icons-re
 import { blockCategories } from '@/data/categories'
 import { blocks } from '@/data/blocks'
 import { getCategoryHref } from '@/data/block-helpers'
-import { siteConfig } from '@/lib/site'
+import { portfolioSiteConfig } from '@/lib/site'
 import { SITE_ORIGINS } from '@/lib/sites'
 
 export type SearchIcon = ComponentType<SVGProps<SVGSVGElement>>
@@ -119,7 +119,7 @@ const socialGroup: SearchGroup = {
     {
       id: 'linkedin',
       label: 'LinkedIn',
-      href: siteConfig.links.linkedin,
+      href: portfolioSiteConfig.links.linkedin,
       external: true,
       type: 'social',
       icon: IconBrandLinkedin as SearchIcon,
@@ -128,7 +128,7 @@ const socialGroup: SearchGroup = {
     {
       id: 'twitter',
       label: 'X / Twitter',
-      href: siteConfig.links.twitter,
+      href: portfolioSiteConfig.links.twitter,
       external: true,
       type: 'social',
       icon: IconBrandX as SearchIcon,

@@ -10,8 +10,8 @@
   "registryDependencies": [
     "button",
     "label",
-    "https://navdeepsingh.dev/r/header-three.json",
-    "https://navdeepsingh.dev/r/logo-cloud-five.json"
+    "https://ui.navdeepsingh.dev/r/header-three.json",
+    "https://ui.navdeepsingh.dev/r/logo-cloud-five.json"
   ],
   "files": [
     {

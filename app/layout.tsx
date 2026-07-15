@@ -3,11 +3,10 @@ import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Geist, Geist_Mono, Inter, Schibsted_Grotesk, Caveat } from 'next/font/google'
 
-import { SiteJsonLd } from '@/components/site-json-ld'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { Toaster } from '@/components/ui/sonner'
 import { ThemeProvider } from '@/components/theme-provider'
-import { rootMetadata } from '@/lib/site'
+import { portfolioMetadata } from '@/lib/site'
 import './globals.css'
 
 const geistSans = Geist({
@@ -34,7 +33,7 @@ const schibsted = Schibsted_Grotesk({
   subsets: ['latin'],
 })
 
-export const metadata = rootMetadata
+export const metadata = portfolioMetadata
 
 export const viewport: Viewport = {
   colorScheme: 'light dark',
@@ -56,9 +55,6 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       className={`${geistSans.variable} ${geistMono.variable} ${schibsted.variable} ${inter.variable} ${caveat.variable} h-full scroll-smooth antialiased`}
     >
-      <head>
-        <SiteJsonLd />
-      </head>
       <body className="flex min-h-full flex-col">
         <ThemeProvider>
           <TooltipProvider>

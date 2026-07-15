@@ -7,9 +7,9 @@
     "motion"
   ],
   "registryDependencies": [
-    "https://navdeepsingh.dev/r/header-two.json",
-    "https://navdeepsingh.dev/r/animated-group.json",
-    "https://navdeepsingh.dev/r/text-effect.json"
+    "https://ui.navdeepsingh.dev/r/header-two.json",
+    "https://ui.navdeepsingh.dev/r/animated-group.json",
+    "https://ui.navdeepsingh.dev/r/text-effect.json"
   ],
   "files": [
     {

@@ -24,6 +24,6 @@
   "registries": {
     "@skiper-ui": "https://skiper-ui.com/registry/{name}.json",
     "@kibo-ui": "https://www.kibo-ui.com/r/{name}.json",
-    "@navui": "https://navdeepsingh.dev/r/{name}.json"
+    "@navui": "https://ui.navdeepsingh.dev/r/{name}.json"
   }
 }

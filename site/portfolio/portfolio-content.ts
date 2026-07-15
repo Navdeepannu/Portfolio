@@ -1,4 +1,5 @@
-import { siteConfig } from '@/lib/site'
+import { portfolioSiteConfig } from '@/lib/site'
+import { SITE_ORIGINS } from '@/lib/sites'
 
 /* Personal portfolio copy kept separate from the UI-library site. */
 
@@ -14,8 +15,8 @@ export const portfolioHero = {
     "From product thinking and interface design to frontend development and launch, I build software that's fast, scalable, and crafted with attention to detail.",
     'Available for freelance projects and frontend opportunities.',
   ],
-  linkedinHref: siteConfig.links.linkedin,
-  twitterHref: siteConfig.links.twitter,
+  linkedinHref: portfolioSiteConfig.links.linkedin,
+  twitterHref: portfolioSiteConfig.links.twitter,
   primaryCTA: { label: 'Download resume', href: RESUME_HREF },
   secondaryCTA: { label: 'Get in touch', href: '#contact' },
 }
@@ -169,7 +170,7 @@ export const portfolioProof = {
       ],
       preview: '/sections/design3.png',
       previewAlt: 'Design system tokens preview',
-      href: '/components',
+      href: `${SITE_ORIGINS.ui}/components`,
       cta: 'Explore the system',
     },
     {
@@ -184,7 +185,7 @@ export const portfolioProof = {
       ],
       preview: '/sections/design1.png',
       previewAlt: 'Reusable component library preview',
-      href: '/components',
+      href: `${SITE_ORIGINS.ui}/components`,
       cta: 'Browse components',
     },
     {
@@ -199,7 +200,7 @@ export const portfolioProof = {
       ],
       preview: '/sections/design5.png',
       previewAlt: 'Production UI blocks preview',
-      href: '/blocks',
+      href: `${SITE_ORIGINS.ui}/blocks`,
       cta: 'Explore blocks',
     },
   ] satisfies ProofPillar[],
@@ -269,7 +270,7 @@ export const portfolioContact = {
     {
       label: 'LinkedIn',
       value: 'navdeepsingh0',
-      href: siteConfig.links.linkedin,
+      href: portfolioSiteConfig.links.linkedin,
     },
     {
       label: 'GitHub',

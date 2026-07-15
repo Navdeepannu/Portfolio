@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "navdeep-singh",
-  "homepage": "https://navdeepsingh.dev",
+  "homepage": "https://ui.navdeepsingh.dev",
   "items": [
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
@@ -107,7 +107,7 @@
         "button",
         "input",
         "label",
-        "https://navdeepsingh.dev/r/brand-logo.json"
+        "https://ui.navdeepsingh.dev/r/brand-logo.json"
       ],
       "files": [
         {
@@ -135,7 +135,7 @@
         "button",
         "input",
         "label",
-        "https://navdeepsingh.dev/r/brand-logo.json"
+        "https://ui.navdeepsingh.dev/r/brand-logo.json"
       ],
       "files": [
         {
@@ -276,8 +276,8 @@
       "registryDependencies": [
         "button",
         "label",
-        "https://navdeepsingh.dev/r/header-three.json",
-        "https://navdeepsingh.dev/r/logo-cloud-five.json"
+        "https://ui.navdeepsingh.dev/r/header-three.json",
+        "https://ui.navdeepsingh.dev/r/logo-cloud-five.json"
       ],
       "files": [
         {
@@ -308,7 +308,7 @@
       "registryDependencies": [
         "badge",
         "button",
-        "https://navdeepsingh.dev/r/header-one.json"
+        "https://ui.navdeepsingh.dev/r/header-one.json"
       ],
       "files": [
         {
@@ -355,9 +355,9 @@
         "motion"
       ],
       "registryDependencies": [
-        "https://navdeepsingh.dev/r/header-two.json",
-        "https://navdeepsingh.dev/r/animated-group.json",
-        "https://navdeepsingh.dev/r/text-effect.json"
+        "https://ui.navdeepsingh.dev/r/header-two.json",
+        "https://ui.navdeepsingh.dev/r/animated-group.json",
+        "https://ui.navdeepsingh.dev/r/text-effect.json"
       ],
       "files": [
         {

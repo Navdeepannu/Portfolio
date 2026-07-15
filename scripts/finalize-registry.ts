@@ -16,14 +16,16 @@
  *   2. `homepage` field in `registry.json` (the canonical production domain)
  *   3. `PRODUCTION_FALLBACK_BASE_URL` below
  *
- * All three resolve to the production origin (https://navdeepsingh.dev) — the
- * domain lives in `registry.json#homepage` / `lib/site.ts`, never localhost, so
- * generated `registryDependencies` URLs always resolve after deployment.
+ * All three resolve to the public UI-library origin — the canonical default
+ * lives in `lib/sites.ts`, never localhost, so generated dependency URLs always
+ * resolve after deployment.
  *
  * Run via `bun scripts/finalize-registry.ts` (chained after `shadcn build`).
  */
 import { promises as fs } from 'node:fs'
 import path from 'node:path'
+
+import { SITE_ORIGINS } from '@/lib/sites'
 
 type Json = unknown
 
@@ -33,9 +35,9 @@ const OUT_DIR = path.join(ROOT, 'public/r')
 
 /**
  * Production registry origin used when neither the env override nor
- * `registry.json#homepage` is set. Must match `getSiteUrl()` in `lib/site.ts`.
+ * `registry.json#homepage` is set.
  */
-const PRODUCTION_FALLBACK_BASE_URL = 'https://navdeepsingh.dev'
+const PRODUCTION_FALLBACK_BASE_URL = SITE_ORIGINS.ui
 
 function trimTrailingSlashes(value: string): string {
   return value.replace(/\/+$/, '')
@@ -55,11 +57,7 @@ function isStringArray(value: unknown): value is string[] {
 }
 
 /** Mutates `node` in place; returns the number of rewrites it performed. */
-function rewriteRegistryDeps(
-  node: unknown,
-  namespacePrefix: string,
-  baseUrl: string,
-): number {
+function rewriteRegistryDeps(node: unknown, namespacePrefix: string, baseUrl: string): number {
   let count = 0
 
   const rewriteArray = (arr: string[]): string[] =>
@@ -94,9 +92,7 @@ function rewriteRegistryDeps(
 }
 
 async function main() {
-  const rootRegistry = await readJson<{ name?: string; homepage?: string }>(
-    REGISTRY_JSON_PATH,
-  )
+  const rootRegistry = await readJson<{ name?: string; homepage?: string }>(REGISTRY_JSON_PATH)
 
   const registryName = rootRegistry.name?.trim()
   if (!registryName) {

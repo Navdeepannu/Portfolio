@@ -10,7 +10,7 @@
   "registryDependencies": [
     "badge",
     "button",
-    "https://navdeepsingh.dev/r/header-one.json"
+    "https://ui.navdeepsingh.dev/r/header-one.json"
   ],
   "files": [
     {

@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { createElement } from 'react'
 import { notFound } from 'next/navigation'
 
@@ -13,6 +14,23 @@ export function generateStaticParams() {
     ...blocks.map((block) => ({ slug: block.slug })),
     ...componentDefinitions.map((component) => ({ slug: component.slug })),
   ]
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params
+  const block = blocks.find((item) => item.slug === slug)
+  const component = getComponentEntry(slug)?.definition
+  const title = block?.title ?? component?.title ?? 'UI Preview'
+
+  return {
+    title: `${title} Preview`,
+    alternates: { canonical: `/preview/${slug}` },
+    robots: { index: false, follow: false, googleBot: { index: false, follow: false } },
+  }
 }
 
 export default async function PreviewPage({ params }: { params: Promise<{ slug: string }> }) {

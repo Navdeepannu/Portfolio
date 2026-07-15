@@ -1,15 +1,15 @@
 import type { MetadataRoute } from 'next'
 
-import { getPublicSitemapPaths, getSiteUrl } from '@/lib/site'
+import { SITE_ORIGINS } from '@/lib/sites'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = getSiteUrl()
   const now = new Date()
+  const paths = ['/', '/projects'] as const
 
-  return getPublicSitemapPaths().map((path) => ({
-    url: path === '/' ? base : `${base}${path}`,
+  return paths.map((path) => ({
+    url: path === '/' ? SITE_ORIGINS.portfolio : `${SITE_ORIGINS.portfolio}${path}`,
     lastModified: now,
     changeFrequency: path === '/' ? 'weekly' : 'monthly',
-    priority: path === '/' ? 1 : path.startsWith('/blocks') ? 0.8 : 0.6,
+    priority: path === '/' ? 1 : 0.8,
   }))
 }

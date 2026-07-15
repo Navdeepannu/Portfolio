@@ -1,19 +1,17 @@
 import type { MetadataRoute } from 'next'
 
-import { getSiteUrl } from '@/lib/site'
+import { SITE_ORIGINS } from '@/lib/sites'
 
 export default function robots(): MetadataRoute.Robots {
-  const base = getSiteUrl()
-
   return {
     rules: [
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/preview/', '/api/'],
+        disallow: ['/api/', '/demo', '/ui/'],
       },
     ],
-    sitemap: `${base}/sitemap.xml`,
-    host: base,
+    sitemap: `${SITE_ORIGINS.portfolio}/sitemap.xml`,
+    host: SITE_ORIGINS.portfolio,
   }
 }
