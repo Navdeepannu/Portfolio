@@ -1,13 +1,13 @@
 import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
-import { Navbar } from '@/site/navbar'
+import { PortfolioNavbar } from '@/site/portfolio/portfolio-navbar'
 
 export default function NotFound() {
   return (
     <main className="min-h-screen bg-background selection:bg-emerald-200/60 dark:bg-zinc-950 dark:selection:bg-emerald-500 dark:selection:text-white">
       <div className="mx-auto flex min-h-screen w-full max-w-360 flex-col">
-        <Navbar fullWidth className="border-x border-border" />
+        <PortfolioNavbar fullWidth className="border-x border-border" />
 
         <section className="flex flex-1 items-center justify-center border-x border-border px-6 py-20">
           <div className="flex max-w-md flex-col items-center text-center">

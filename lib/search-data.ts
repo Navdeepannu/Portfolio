@@ -1,16 +1,5 @@
 import type { ComponentType, SVGProps } from 'react'
-import {
-  Atom,
-  BookOpen,
-  Briefcase,
-  Component,
-  FileText,
-  Hash,
-  Home,
-  LayoutGrid,
-  Mail,
-  User,
-} from 'lucide-react'
+import { Atom, Component, FileText, Hash, Home, Images, LayoutGrid } from 'lucide-react'
 import { IconBrandGithub, IconBrandLinkedin, IconBrandX } from '@tabler/icons-react'
 
 import { blockCategories } from '@/data/categories'
@@ -21,14 +10,7 @@ import { siteConfig } from '@/lib/site'
 export type SearchIcon = ComponentType<SVGProps<SVGSVGElement>>
 
 export type SearchItemType =
-  | 'navigation'
-  | 'portfolio'
-  | 'block'
-  | 'component'
-  | 'page'
-  | 'blog'
-  | 'social'
-  | 'action'
+  'navigation' | 'portfolio' | 'block' | 'component' | 'page' | 'blog' | 'social' | 'action'
 
 export type SearchItem = {
   id: string
@@ -82,12 +64,12 @@ const menuGroup: SearchGroup = {
       keywords: ['sections', 'layouts', 'patterns'],
     },
     {
-      id: 'projects',
-      label: 'Projects',
-      href: '/projects',
+      id: 'illustrations',
+      label: 'Illustrations',
+      href: '/illustrations',
       type: 'navigation',
-      icon: Briefcase,
-      keywords: ['case studies', 'work', 'portfolio', 'archive'],
+      icon: Images,
+      keywords: ['artwork', 'visuals', 'assets'],
     },
     {
       id: 'pages',
@@ -98,44 +80,13 @@ const menuGroup: SearchGroup = {
       keywords: ['templates', 'screens'],
     },
     {
-      id: 'blog',
-      label: 'Blog',
-      href: '/blog',
-      type: 'blog',
-      icon: BookOpen,
-      keywords: ['writing', 'posts', 'articles'],
-    },
-  ],
-}
-
-/** Portfolio-specific anchors / sections on the landing page. */
-const portfolioGroup: SearchGroup = {
-  id: 'portfolio',
-  heading: 'Portfolio',
-  items: [
-    {
-      id: 'about',
-      label: 'About',
-      href: '/#about',
+      id: 'portfolio',
+      label: 'Personal portfolio',
+      href: 'https://navdeepsingh.dev',
+      external: true,
       type: 'portfolio',
-      icon: User,
-      keywords: ['bio', 'profile', 'navdeep'],
-    },
-    {
-      id: 'projects',
-      label: 'Projects',
-      href: '/#projects',
-      type: 'portfolio',
-      icon: Briefcase,
-      keywords: ['work', 'case studies'],
-    },
-    {
-      id: 'contact',
-      label: 'Contact',
-      href: '/#contact',
-      type: 'portfolio',
-      icon: Mail,
-      keywords: ['email', 'hire', 'reach out'],
+      icon: Home,
+      keywords: ['about', 'projects', 'resume', 'contact'],
     },
   ],
 }
@@ -221,5 +172,5 @@ function buildBlocksGroup(): SearchGroup {
 
 /** Returns the full set of search groups in display order. */
 export function getSearchGroups(): SearchGroup[] {
-  return [menuGroup, portfolioGroup, buildCategoriesGroup(), buildBlocksGroup(), socialGroup]
+  return [menuGroup, buildCategoriesGroup(), buildBlocksGroup(), socialGroup]
 }

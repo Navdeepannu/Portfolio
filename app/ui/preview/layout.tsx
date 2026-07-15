@@ -16,10 +16,7 @@ export default function PreviewLayout({ children }: { children: ReactNode }) {
   return (
     <>
       <BlockPreviewResizeReporter />
-      <div
-        className="w-full bg-background text-foreground antialiased"
-        data-block-root
-      >
+      <div className="w-full bg-background text-foreground antialiased" data-block-root>
         {children}
       </div>
     </>

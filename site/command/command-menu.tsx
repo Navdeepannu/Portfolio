@@ -56,8 +56,8 @@ export function CommandMenu({ open, onOpenChange }: CommandMenuProps) {
       >
         <DialogTitle className="sr-only">Command Menu</DialogTitle>
         <DialogDescription className="sr-only">
-          Search across pages, blocks, components and portfolio sections. Use arrow keys to navigate
-          and Enter to open.
+          Search across UI-library pages, blocks, and components. Use arrow keys to navigate and
+          Enter to open.
         </DialogDescription>
 
         <CommandPrimitive

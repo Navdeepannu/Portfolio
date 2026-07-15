@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: { url: '/pages' },
 }
 import { BlockFiltersProvider } from '@/site/context/block-filters-context'
-import { Navbar } from '@/site/navbar'
+import { UiLibraryNavbar } from '@/site/ui-library/ui-library-navbar'
 import SearchSection from '@/site/search-section'
 
 export default function Layout({ children }: { children: ReactNode }) {
@@ -18,7 +18,7 @@ export default function Layout({ children }: { children: ReactNode }) {
     <ColumnsProvider>
       <BlockFiltersProvider>
         <main className="flex min-h-screen w-full flex-col">
-          <Navbar fullWidth={true} />
+          <UiLibraryNavbar fullWidth />
           <div className="flex min-h-0 flex-1 flex-col">
             <SearchSection />
             <section className="w-full min-w-0">{children}</section>

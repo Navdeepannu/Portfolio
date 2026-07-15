@@ -1,15 +1,15 @@
 import Link from 'next/link'
 import { IconBrandGithub, IconBrandX, IconBrandLinkedin } from '@tabler/icons-react'
-import { Logo } from './logo'
-import Image from 'next/image'
-import Character from './character'
+import { Logo } from '@/site/logo'
+import Character from '@/site/character'
 
 const links = [
-  { label: 'Blocks', href: '/blocks' },
-  { label: 'Components', href: '/components' },
-  { label: 'Illustrations', href: '/illustrations' },
   { label: 'Projects', href: '/projects' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'About', href: '/#about' },
+  { label: 'Strengths', href: '/#technical-strengths' },
+  { label: 'Resume', href: '/resume/resume.pdf' },
+  { label: 'Contact', href: '/#contact' },
+  { label: 'UI Library', href: 'https://ui.navdeepsingh.dev' },
 ]
 
 const social = [
@@ -22,17 +22,17 @@ const social = [
   },
 ]
 
-export default function FooterSection() {
+export function PortfolioFooter() {
   const date = new Date().getFullYear()
 
   return (
     <footer className="@container bg-background py-12">
       <div className="mx-auto max-w-2xl px-6">
         <div className="flex flex-col items-center text-center">
-          <Link href="/" className="flex items-center gap-4">
+          <div className="flex items-center gap-4">
             <Character className="size-14" />
             <Logo />
-          </Link>
+          </div>
           <nav className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2">
             {links.map((link) => (
               <Link

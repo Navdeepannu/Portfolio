@@ -11,25 +11,28 @@ import { Kbd } from '@/components/ui/kbd'
 import { cn } from '@/lib/utils'
 import { useCommandMenu } from '@/hooks/use-command-menu'
 import { CommandMenu } from '@/site/command/command-menu'
-import Character from './character'
+import Character from '@/site/character'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 
 const menuItems = [
   { name: 'Components', href: '/components' },
   { name: 'Blocks', href: '/blocks' },
   { name: 'Illustrations', href: '/illustrations' },
-  { name: 'Projects', href: '/projects' },
-  { name: 'Contact', href: '/#contact' },
+  { name: 'Pages', href: '/pages' },
+  { name: 'Portfolio', href: 'https://navdeepsingh.dev', external: true },
 ] as const
 
 function isNavItemActive(pathname: string, href: string) {
+  if (href.startsWith('http')) return false
   if (href.includes('#')) return false
   if (href === '/') return pathname === '/'
 
-  return pathname === href || pathname.startsWith(`${href}/`)
+  const publicPathname = pathname.replace(/^\/ui(?=\/|$)/, '') || '/'
+
+  return publicPathname === href || publicPathname.startsWith(`${href}/`)
 }
 
-export function Navbar({
+export function UiLibraryNavbar({
   fullWidth = false,
   className,
 }: {
@@ -133,6 +136,8 @@ export function Navbar({
                   <li key={item.name}>
                     <Link
                       href={item.href}
+                      target={'external' in item && item.external ? '_blank' : undefined}
+                      rel={'external' in item && item.external ? 'noopener noreferrer' : undefined}
                       aria-current={isActive ? 'page' : undefined}
                       className={cn(
                         'text-sm transition-colors hover:text-foreground',
@@ -175,7 +180,7 @@ export function Navbar({
 
               <TooltipContent side="bottom" align="center">
                 <div className="flex items-center gap-1 text-sm font-medium">
-                  <span>Toggle Mode </span>
+                  <span>Toggle theme</span>
                   <kbd className="rounded bg-muted-foreground px-1.5">D</kbd>
                 </div>
               </TooltipContent>
@@ -250,6 +255,10 @@ export function Navbar({
                     >
                       <Link
                         href={item.href}
+                        target={'external' in item && item.external ? '_blank' : undefined}
+                        rel={
+                          'external' in item && item.external ? 'noopener noreferrer' : undefined
+                        }
                         aria-current={isActive ? 'page' : undefined}
                         onClick={() => setMobileMenuOpen(false)}
                       >

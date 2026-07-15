@@ -15,11 +15,7 @@ export function generateStaticParams() {
   ]
 }
 
-export default async function PreviewPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>
-}) {
+export default async function PreviewPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
 
   const block = blocks.find((b) => b.slug === slug)
@@ -29,9 +25,7 @@ export default async function PreviewPage({
 
     return (
       <PreviewShell name={block.title} fallbackHref={`/blocks/${block.category}`}>
-        <BlockPreviewBoundary slug={slug}>
-          {createElement(blockComponent)}
-        </BlockPreviewBoundary>
+        <BlockPreviewBoundary slug={slug}>{createElement(blockComponent)}</BlockPreviewBoundary>
       </PreviewShell>
     )
   }

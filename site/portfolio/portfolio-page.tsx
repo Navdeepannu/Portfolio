@@ -1,5 +1,5 @@
-import FooterSection from '@/site/footer-section'
-import { Navbar } from '@/site/navbar'
+import { PortfolioFooter } from '@/site/portfolio/portfolio-footer'
+import { PortfolioNavbar } from '@/site/portfolio/portfolio-navbar'
 import { PortfolioContact } from '@/site/portfolio/portfolio-contact'
 import { PortfolioHero } from '@/site/portfolio/portfolio-hero'
 import { PortfolioProjects } from '@/site/portfolio/portfolio-projects'
@@ -9,7 +9,7 @@ import { PortfolioStrengths } from '@/site/portfolio/portfolio-strengths'
 export function PortfolioPage() {
   return (
     <div>
-      <Navbar />
+      <PortfolioNavbar />
       <main className="flex flex-col">
         <PortfolioHero />
         <PortfolioSnapshot />
@@ -17,7 +17,7 @@ export function PortfolioPage() {
         <PortfolioStrengths />
         <PortfolioContact />
       </main>
-      <FooterSection />
+      <PortfolioFooter />
     </div>
   )
 }
