@@ -5,16 +5,21 @@ import Image from 'next/image'
 import Character from './character'
 
 const links = [
-  { label: 'Blocks', href: '#' },
-  { label: 'Components', href: '#' },
-  { label: 'Projects', href: '#' },
-  { label: 'Contact', href: '#' },
+  { label: 'Blocks', href: '/blocks' },
+  { label: 'Components', href: '/components' },
+  { label: 'Illustrations', href: '/illustrations' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Contact', href: '#contact' },
 ]
 
 const social = [
-  { icon: IconBrandX, href: '#', label: 'Twitter' },
-  { icon: IconBrandGithub, href: '#', label: 'GitHub' },
-  { icon: IconBrandLinkedin, href: '#', label: 'LinkedIn' },
+  { icon: IconBrandX, href: 'https://x.com/navdeepannu0', label: 'Twitter' },
+  { icon: IconBrandGithub, href: 'https://github.com/Navdeepannu/Portfolio', label: 'GitHub' },
+  {
+    icon: IconBrandLinkedin,
+    href: 'https://www.linkedin.com/in/navdeepsingh0/',
+    label: 'LinkedIn',
+  },
 ]
 
 export default function FooterSection() {
