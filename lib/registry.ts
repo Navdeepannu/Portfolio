@@ -5,14 +5,11 @@
  * ## Registry URL architecture
  *
  * All published registry artifacts live under `<base>/r/<name>.json`, where
- * `<base>` is the production origin resolved by `getSiteUrl()` in `lib/site.ts`.
- * That means the domain is configured in exactly ONE place: the `getSiteUrl()`
- * default (or the `NEXT_PUBLIC_SITE_URL` env var at build/deploy time). Changing
- * it there updates every install command, namespace template, and generated item
- * URL across the site automatically.
+ * `<base>` is the canonical UI-library origin from `lib/sites.ts`. Changing it
+ * there updates every runtime install command and namespace template.
  *
- *   Production base : https://navdeepsingh.dev
- *   Item URL        : https://navdeepsingh.dev/r/animated-tabs.json
+ *   Production base : https://ui.navdeepsingh.dev
+ *   Item URL        : https://ui.navdeepsingh.dev/r/animated-tabs.json
  *
  * Two installation strategies are supported, both backed by the exact same JSON
  * files in `public/r/`:
@@ -20,7 +17,7 @@
  * 1. **Direct URL (default)** — consumers paste the fully-qualified item URL and
  *    need no `components.json` changes:
  *
- *      npx shadcn@latest add https://navdeepsingh.dev/r/animated-tabs.json
+ *      npx shadcn@latest add https://ui.navdeepsingh.dev/r/animated-tabs.json
  *
  *    The build step (`scripts/finalize-registry.ts`) rewrites internal
  *    `@navdeep-singh/<item>` registryDependencies into these absolute URLs so
@@ -29,7 +26,7 @@
  * 2. **Namespace (`@navui`)** — consumers register the namespace once in their
  *    `components.json` and then install by short reference:
  *
- *      "registries": { "@navui": "https://navdeepsingh.dev/r/{name}.json" }
+ *      "registries": { "@navui": "https://ui.navdeepsingh.dev/r/{name}.json" }
  *      npx shadcn@latest add @navui/animated-tabs
  *
  * Note: the public-facing consumer namespace (`@navui`) is intentionally distinct
@@ -37,7 +34,7 @@
  * dependency resolution in `registry.json`.
  */
 
-import { getSiteUrl } from '@/lib/site'
+import { SITE_ORIGINS } from '@/lib/sites'
 
 export type PackageManagerId = 'npm' | 'bun' | 'pnpm' | 'yarn'
 
@@ -45,12 +42,11 @@ export type PackageManagerId = 'npm' | 'bun' | 'pnpm' | 'yarn'
 export const REGISTRY_NAMESPACE = '@navui' as const
 
 /**
- * Production base URL for all registry artifacts. Derived from `getSiteUrl()` so
- * the domain is defined in a single place (overridable via `NEXT_PUBLIC_SITE_URL`).
- * Always returned without a trailing slash.
+ * Production base URL for all registry artifacts. Always returned without a
+ * trailing slash.
  */
 export function getRegistryBaseUrl(): string {
-  return getSiteUrl()
+  return SITE_ORIGINS.ui
 }
 
 /** Fully-qualified URL of a published registry item: `<base>/r/<slug>.json`. */
@@ -90,7 +86,7 @@ function buildShadcnAddCommands(target: string): Record<PackageManagerId, string
 
 /**
  * Direct-URL install commands (the default method shown throughout the UI).
- * e.g. `npx shadcn@latest add https://navdeepsingh.dev/r/animated-tabs.json`
+ * e.g. `npx shadcn@latest add https://ui.navdeepsingh.dev/r/animated-tabs.json`
  */
 export function getDirectInstallCommands(slug: string): Record<PackageManagerId, string> {
   return buildShadcnAddCommands(getRegistryItemUrl(slug))

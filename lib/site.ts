@@ -1,115 +1,160 @@
 import type { Metadata } from 'next'
 
-import { blockCategories } from '@/data/categories'
+import { SITE_ORIGINS } from '@/lib/sites'
 
-/** Production site URL — set NEXT_PUBLIC_SITE_URL in Vercel env if the domain differs. */
-export function getSiteUrl(): string {
-  if (process.env.NEXT_PUBLIC_SITE_URL) {
-    return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, '')
-  }
-  if (process.env.VERCEL_URL) {
-    return `https://${process.env.VERCEL_URL}`
-  }
-  return 'https://navdeepsingh.dev'
-}
-
-export const siteConfig = {
+const author = {
   name: 'Navdeep Singh',
-  shortName: 'Navdeep Singh',
-  domain: 'navdeepsingh.dev',
-  url: getSiteUrl(),
-  title: `Navdeep Singh · Design Engineer & Full Stack Developer`,
-  description:
-    'Portfolio of Navdeep Singh · Design Engineer & Full Stack Developer  building scalable interfaces, UI systems, and production-ready products.',
-  keywords: [
-    'Navdeep Singh',
-    'frontend developer',
-    'design engineer',
-    'UI systems',
-    'components',
-    'blocks',
-    'React',
-    'Next.js',
-    'portfolio',
-    'webiste',
-    'navdeepsingh.dev',
-    'Navdeep Singh',
-  ],
-  locale: 'en_US',
-  author: {
-    name: 'Navdeep Singh',
-    url: 'https://www.linkedin.com/in/navdeepsingh0/',
-    twitter: '@navdeepannu0',
-  },
+  twitterHandle: '@navdeepannu0',
   links: {
+    github: 'https://github.com/navdeepannu',
     linkedin: 'https://www.linkedin.com/in/navdeepsingh0/',
     twitter: 'https://x.com/navdeepannu0',
   },
 } as const
 
-const ogImage = {
+export const portfolioSiteConfig = {
+  name: 'Navdeep Singh',
+  shortName: 'Navdeep Singh',
+  domain: new URL(SITE_ORIGINS.portfolio).hostname,
+  url: SITE_ORIGINS.portfolio,
+  title: 'Navdeep Singh · Design Engineer & Full Stack Developer',
+  description:
+    'Portfolio of Navdeep Singh, a Toronto-based design engineer and frontend-focused full stack developer building polished, production-ready products.',
+  keywords: [
+    'Navdeep Singh',
+    'frontend developer',
+    'design engineer',
+    'full stack developer',
+    'React',
+    'Next.js',
+    'TypeScript',
+    'Toronto',
+    'portfolio',
+  ],
+  locale: 'en_US',
+  author,
+  links: author.links,
+} as const
+
+export const uiSiteConfig = {
+  name: 'Navdeep UI',
+  shortName: 'Navdeep UI',
+  domain: new URL(SITE_ORIGINS.ui).hostname,
+  url: SITE_ORIGINS.ui,
+  title: 'Navdeep UI · Components, Blocks, and Templates',
+  description:
+    'A shadcn-compatible design-engineering library of React components, production-ready blocks, interface illustrations, and full-page templates.',
+  keywords: [
+    'Navdeep UI',
+    'shadcn registry',
+    'React components',
+    'Next.js components',
+    'UI blocks',
+    'Tailwind CSS',
+    'design engineering',
+    'interface illustrations',
+    'page templates',
+  ],
+  locale: 'en_US',
+  author,
+  links: {
+    github: author.links.github,
+    portfolio: SITE_ORIGINS.portfolio,
+  },
+} as const
+
+const portfolioOgImage = {
   url: '/char.jpg',
   width: 1200,
   height: 630,
   alt: 'Navdeep Singh',
 } as const
 
-export const rootMetadata: Metadata = {
-  metadataBase: new URL(siteConfig.url),
-  title: {
-    default: siteConfig.title,
-    template: `%s · ${siteConfig.name}`,
-  },
-  description: siteConfig.description,
-  keywords: [...siteConfig.keywords],
-  authors: [{ name: siteConfig.author.name, url: siteConfig.links.linkedin }],
-  creator: siteConfig.author.name,
-  publisher: siteConfig.author.name,
-  applicationName: siteConfig.shortName,
-  category: 'technology',
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  alternates: {
-    canonical: '/',
-  },
-  openGraph: {
-    type: 'website',
-    locale: siteConfig.locale,
-    url: siteConfig.url,
-    siteName: siteConfig.name,
-    title: siteConfig.title,
-    description: siteConfig.description,
-    images: [ogImage],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: siteConfig.title,
-    description: siteConfig.description,
-    images: [ogImage.url],
-    creator: siteConfig.author.twitter,
-  },
-  robots: {
+const uiOgImage = {
+  url: '/char.jpg',
+  width: 1200,
+  height: 630,
+  alt: 'Navdeep UI component and design-engineering library',
+} as const
+
+const searchEngineRobots = {
+  index: true,
+  follow: true,
+  googleBot: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-      'max-video-preview': -1,
-    },
+    'max-image-preview': 'large' as const,
+    'max-snippet': -1,
+    'max-video-preview': -1,
   },
 }
 
-export function getPublicSitemapPaths(): string[] {
-  const paths = ['/', '/components', '/blocks', '/projects']
+export const portfolioMetadata: Metadata = {
+  metadataBase: new URL(portfolioSiteConfig.url),
+  title: {
+    default: portfolioSiteConfig.title,
+    template: `%s · ${portfolioSiteConfig.name}`,
+  },
+  description: portfolioSiteConfig.description,
+  keywords: [...portfolioSiteConfig.keywords],
+  authors: [{ name: portfolioSiteConfig.author.name, url: portfolioSiteConfig.links.linkedin }],
+  creator: portfolioSiteConfig.author.name,
+  publisher: portfolioSiteConfig.author.name,
+  applicationName: portfolioSiteConfig.shortName,
+  category: 'technology',
+  formatDetection: { email: false, address: false, telephone: false },
+  alternates: { canonical: '/' },
+  manifest: '/manifest.webmanifest',
+  openGraph: {
+    type: 'website',
+    locale: portfolioSiteConfig.locale,
+    url: portfolioSiteConfig.url,
+    siteName: portfolioSiteConfig.name,
+    title: portfolioSiteConfig.title,
+    description: portfolioSiteConfig.description,
+    images: [portfolioOgImage],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: portfolioSiteConfig.title,
+    description: portfolioSiteConfig.description,
+    images: [portfolioOgImage.url],
+    creator: portfolioSiteConfig.author.twitterHandle,
+  },
+  robots: searchEngineRobots,
+}
 
-  for (const category of blockCategories) {
-    paths.push(category.id === 'featured' ? '/blocks' : `/blocks/${category.id}`)
-  }
-
-  return [...new Set(paths)]
+export const uiMetadata: Metadata = {
+  metadataBase: new URL(uiSiteConfig.url),
+  title: {
+    default: uiSiteConfig.title,
+    template: `%s · ${uiSiteConfig.name}`,
+  },
+  description: uiSiteConfig.description,
+  keywords: [...uiSiteConfig.keywords],
+  authors: [{ name: uiSiteConfig.author.name, url: uiSiteConfig.links.portfolio }],
+  creator: uiSiteConfig.author.name,
+  publisher: uiSiteConfig.author.name,
+  applicationName: uiSiteConfig.shortName,
+  category: 'technology',
+  formatDetection: { email: false, address: false, telephone: false },
+  alternates: { canonical: '/' },
+  manifest: '/manifest.webmanifest',
+  openGraph: {
+    type: 'website',
+    locale: uiSiteConfig.locale,
+    url: uiSiteConfig.url,
+    siteName: uiSiteConfig.name,
+    title: uiSiteConfig.title,
+    description: uiSiteConfig.description,
+    images: [uiOgImage],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: uiSiteConfig.title,
+    description: uiSiteConfig.description,
+    images: [uiOgImage.url],
+    creator: uiSiteConfig.author.twitterHandle,
+  },
+  robots: searchEngineRobots,
 }

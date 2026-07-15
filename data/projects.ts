@@ -157,8 +157,8 @@ export const projects: Project[] = [
     image: '/sections/design1.png',
     imageAlt: 'UI component registry preview grid',
     links: [
-      { label: 'Components', href: '/components' },
-      { label: 'Blocks', href: '/blocks' },
+      { label: 'Components', href: `${SITE_ORIGINS.ui}/components`, external: true },
+      { label: 'Blocks', href: `${SITE_ORIGINS.ui}/blocks`, external: true },
     ],
     caseStudy: {
       problem: {
@@ -185,3 +185,4 @@ export const projects: Project[] = [
     },
   },
 ]
+import { SITE_ORIGINS } from '@/lib/sites'

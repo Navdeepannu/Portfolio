@@ -1,5 +1,11 @@
-import { LandingPage } from '@/site/landing-page'
+import { PortfolioJsonLd } from '@/components/site-json-ld'
+import { PortfolioPage } from '@/site/portfolio/portfolio-page'
 
 export default function Home() {
-  return <LandingPage />
+  return (
+    <>
+      <PortfolioJsonLd />
+      <PortfolioPage />
+    </>
+  )
 }

@@ -1,41 +1,62 @@
-import { getSiteUrl, siteConfig } from '@/lib/site'
+import { portfolioSiteConfig, uiSiteConfig } from '@/lib/site'
 
-export function SiteJsonLd() {
-  const url = getSiteUrl()
+function JsonLd({ value }: { value: Record<string, unknown> }) {
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(value).replace(/</g, '\\u003c'),
+      }}
+    />
+  )
+}
 
+export function PortfolioJsonLd() {
   const person = {
     '@context': 'https://schema.org',
     '@type': 'Person',
-    name: siteConfig.name,
-    url,
-    image: `${url}/char.jpg`,
-    jobTitle: 'Frontend Developer',
-    sameAs: [siteConfig.links.linkedin, siteConfig.links.twitter],
+    name: portfolioSiteConfig.name,
+    url: portfolioSiteConfig.url,
+    image: `${portfolioSiteConfig.url}/char.jpg`,
+    jobTitle: 'Design Engineer and Frontend Developer',
+    sameAs: [
+      portfolioSiteConfig.links.github,
+      portfolioSiteConfig.links.linkedin,
+      portfolioSiteConfig.links.twitter,
+    ],
   }
 
   const website = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: siteConfig.name,
-    url,
-    description: siteConfig.description,
+    name: portfolioSiteConfig.name,
+    url: portfolioSiteConfig.url,
+    description: portfolioSiteConfig.description,
     inLanguage: 'en-US',
   }
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(person).replace(/</g, '\\u003c'),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(website).replace(/</g, '\\u003c'),
-        }}
-      />
+      <JsonLd value={person} />
+      <JsonLd value={website} />
     </>
   )
+}
+
+export function UiLibraryJsonLd() {
+  const website = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: uiSiteConfig.name,
+    url: uiSiteConfig.url,
+    description: uiSiteConfig.description,
+    inLanguage: 'en-US',
+    creator: {
+      '@type': 'Person',
+      name: uiSiteConfig.author.name,
+      url: uiSiteConfig.links.portfolio,
+    },
+  }
+
+  return <JsonLd value={website} />
 }
