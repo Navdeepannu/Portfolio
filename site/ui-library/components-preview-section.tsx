@@ -4,14 +4,18 @@ import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
 import { getAllComponents } from '@/data'
-import { getPortfolioContent } from '@/site/portfolio-config'
 import { ComponentPreviewCard } from '@/site/component-preview-card'
-import { usePortfolioMode } from '@/site/context/portfolio-mode-provider'
 import { cn } from '@/lib/utils'
 
+const copy = {
+  eyebrow: 'Components',
+  title: 'Reusable React components with polished interaction details',
+  description:
+    'Copy-paste components with accessible patterns, restrained motion, and shadcn-compatible registry entries.',
+  cta: { label: 'Browse components', href: '/components' },
+}
+
 export function ComponentsPreviewSection() {
-  const { mode } = usePortfolioMode()
-  const { components: copy } = getPortfolioContent(mode)
   const components = getAllComponents()
 
   return (

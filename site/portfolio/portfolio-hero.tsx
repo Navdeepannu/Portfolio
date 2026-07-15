@@ -8,17 +8,14 @@ import { Button } from '@/components/ui/button'
 import { TextLoop } from '@/components/ui/text-loop'
 import { Tooltip } from '@/components/ui/tooltip-card'
 import Container from '@/site/container'
-import { ModeSwitcherWithHint } from '@/site/mode-switcher-hint'
-import { recruiterHero } from '@/site/recruiter/recruiter-content'
+import { portfolioHero } from '@/site/portfolio/portfolio-content'
 
-export function RecruiterHero() {
-  const hero = recruiterHero
+export function PortfolioHero() {
+  const hero = portfolioHero
 
   return (
     <section>
       <Container className="font-schibsted selection:bg-emerald-200/60">
-        <ModeSwitcherWithHint />
-
         <div className="flex max-w-2xl flex-col justify-center gap-3">
           <span className="text-xs font-light">{hero.greeting}</span>
           <div className="flex flex-wrap items-center gap-2">

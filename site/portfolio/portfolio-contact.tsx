@@ -10,8 +10,13 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { cn } from '@/lib/utils'
-import { getPortfolioContent } from '@/site/portfolio-config'
-import { usePortfolioMode } from '@/site/context/portfolio-mode-provider'
+
+const contactCopy = {
+  eyebrow: 'Contact',
+  title: 'Get in touch',
+  description:
+    'Open to full-time frontend and design-engineering roles, contract work, and thoughtful product collaborations.',
+}
 
 function InfoCell({
   label,
@@ -51,7 +56,7 @@ function InfoCell({
   )
 }
 
-function ContactForm({ email }: { email: string }) {
+function ContactForm() {
   const [isSending, setIsSending] = useState(false)
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -165,10 +170,7 @@ function ContactForm({ email }: { email: string }) {
   )
 }
 
-export function ContactSection() {
-  const { mode } = usePortfolioMode()
-  const { contact } = getPortfolioContent(mode)
-
+export function PortfolioContact() {
   return (
     <section
       id="contact"
@@ -176,17 +178,17 @@ export function ContactSection() {
     >
       <div className="mx-auto max-w-6xl px-8 md:px-12">
         <span className="mb-4 block font-mono text-xs text-emerald-600 dark:text-emerald-400/80">
-          {contact.eyebrow}
+          {contactCopy.eyebrow}
         </span>
         <div className="grid items-start gap-4 lg:grid-cols-2 lg:gap-12">
           <div className="max-w-md text-left text-balance">
             <h2 className="font-times-heading font-normal tracking-tight text-foreground md:text-xl">
-              {contact.title}
+              {contactCopy.title}
             </h2>
           </div>
 
           <div className="mx-auto max-w-md pt-6 text-xs font-medium text-foreground/70">
-            <p>{contact.description}</p>
+            <p>{contactCopy.description}</p>
           </div>
         </div>
       </div>
@@ -233,7 +235,7 @@ export function ContactSection() {
 
               {/* Contact Form */}
               <div className="rounded-sm bg-card p-6 md:col-span-2">
-                <ContactForm email="navdeepannu1@gmail.com" />
+                <ContactForm />
               </div>
 
               {/* Bottom Row */}

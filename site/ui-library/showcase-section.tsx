@@ -1,11 +1,8 @@
 'use client'
 
 import React from 'react'
-import Image from 'next/image'
 
-import { getPortfolioContent } from '@/site/portfolio-config'
-import { usePortfolioMode } from '@/site/context/portfolio-mode-provider'
-import Masonry from './masonry-grid'
+import Masonry from '@/site/masonry-grid'
 
 interface LandingProjectsProps {
   showAll?: boolean
@@ -67,10 +64,7 @@ const items = [
     url: 'https://navdeepsingh.dev/blocks',
   },
 ]
-export const LandingProjects: React.FC<LandingProjectsProps> = () => {
-  const { mode } = usePortfolioMode()
-  const { showcase } = getPortfolioContent(mode)
-
+export const ShowcaseSection: React.FC<LandingProjectsProps> = () => {
   return (
     <section id="showcase" className="overflow-hidden pt-20 pb-12">
       <div className="mx-auto max-w-360 px-4 sm:px-6 lg:px-8">
@@ -89,40 +83,5 @@ export const LandingProjects: React.FC<LandingProjectsProps> = () => {
         </div>
       </div>
     </section>
-  )
-}
-
-const Column = ({
-  children,
-  offset,
-  hideOnMobile = false,
-}: {
-  children: React.ReactNode
-  offset?: string
-  hideOnMobile?: boolean
-}) => {
-  return (
-    <div
-      className={`flex w-[43vw] shrink-0 flex-col gap-3 md:w-[40vw] md:gap-4 lg:w-auto lg:shrink ${offset || ''} ${hideOnMobile ? 'hidden lg:flex' : ''}`}
-    >
-      {children}
-    </div>
-  )
-}
-
-const Card = ({ src, alt, className }: { src: string; alt: string; className?: string }) => {
-  return (
-    <div className="py-2">
-      <div className="relative block min-w-0 overflow-hidden rounded-lg shadow-lg ring-1 ring-ring/20 dark:shadow-neutral-950/50">
-        <Image
-          src={src}
-          alt={alt}
-          width={1200}
-          height={800}
-          className={`h-auto w-full object-contain ${className}`}
-          sizes="(max-width: 768px) 43vw, (max-width: 1024px) 40vw, 25vw"
-        />
-      </div>
-    </div>
   )
 }

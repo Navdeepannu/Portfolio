@@ -6,19 +6,26 @@ import { ArrowUpRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { TextLoop } from '@/components/ui/text-loop'
 import { Tooltip } from '@/components/ui/tooltip-card'
-import { getPortfolioContent } from '@/site/portfolio-config'
-import { usePortfolioMode } from '@/site/context/portfolio-mode-provider'
-import { ModeSwitcherWithHint } from '@/site/mode-switcher-hint'
-import Container from './container'
+import Container from '@/site/container'
 
-export function HeroSection() {
-  const { mode } = usePortfolioMode()
-  const { hero } = getPortfolioContent(mode)
+const hero = {
+  greeting: 'Navdeep Singh presents',
+  name: 'Navdeep UI',
+  roles: ['Components', 'Blocks', 'Illustrations', 'Templates'],
+  paragraphs: [
+    'A shadcn-compatible library of production-ready React interfaces, crafted with TypeScript, Tailwind CSS, and restrained motion.',
+    'Preview the work, inspect the source, and install individual pieces directly from the registry.',
+  ],
+  linkedinHref: 'https://www.linkedin.com/in/navdeepsingh0/',
+  githubHref: 'https://github.com/navdeepannu',
+  primaryCTA: { label: 'Explore components', href: '/components' },
+  secondaryCTA: { label: 'Browse blocks', href: '/blocks' },
+}
 
+export function UiLibraryHero() {
   return (
     <section>
       <Container className="font-schibsted selection:bg-emerald-200/60 dark:selection:bg-emerald-500 dark:selection:text-white">
-        <ModeSwitcherWithHint />
         <div className="flex max-w-2xl flex-col justify-center gap-3">
           <span className="text-xs font-light">{hero.greeting}</span>
           <div className="flex flex-wrap items-center gap-2">
@@ -44,14 +51,14 @@ export function HeroSection() {
               >
                 <Tooltip content={<LinkedinCard />}>LinkedIn</Tooltip>
               </Link>
-              , follow on{' '}
+              , or browse the source on{' '}
               <Link
-                href={hero.twitterHref}
+                href={hero.githubHref}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="border-b border-dashed border-foreground/40 font-medium text-foreground italic"
               >
-                <Tooltip content={<TwitterCard />}>X / Twitter</Tooltip>
+                GitHub
               </Link>
               .
             </div>
@@ -86,18 +93,6 @@ const LinkedinCard = () => {
       width={1000}
       height={50}
       className="aspect-video w-full rounded-sm object-cover"
-    />
-  )
-}
-
-const TwitterCard = () => {
-  return (
-    <Image
-      src="/x.png"
-      alt="Twitter/X Image"
-      width={100}
-      height={100}
-      className="aspect-video w-full rounded-sm"
     />
   )
 }

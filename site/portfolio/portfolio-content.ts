@@ -1,14 +1,11 @@
 import { siteConfig } from '@/lib/site'
 
-/* -------------------------------------------------------------------------- */
-/* Recruiter-only content. Kept separate from the shared portfolio-config so   */
-/* developer mode is never affected by recruiter copy or shape changes.        */
-/* -------------------------------------------------------------------------- */
+/* Personal portfolio copy kept separate from the UI-library site. */
 
 export const RESUME_HREF = '/resume/resume.pdf'
 export const RESUME_UPDATED = 'June 2026'
 
-export const recruiterHero = {
+export const portfolioHero = {
   greeting: "Hi, I'm",
   name: 'Navdeep Singh',
   roles: ['Frontend Engineer', 'Design Engineer', 'Frontend-focused Full Stack'],
@@ -25,7 +22,7 @@ export const recruiterHero = {
 
 export type SnapshotCardId = 'strengths' | 'proof' | 'thinking' | 'stack' | 'location' | 'resume'
 
-export const recruiterSnapshot = {
+export const portfolioSnapshot = {
   eyebrow: 'Snapshot',
   title: 'Who I am, what I build, and how I think — at a glance.',
   description:
@@ -67,7 +64,7 @@ export const recruiterSnapshot = {
   cards: Record<SnapshotCardId, { heading: string; description: string }>
 }
 
-export const recruiterProjectsMeta = {
+export const portfolioProjectsMeta = {
   eyebrow: 'Selected work',
   title: 'Production software, framed by impact.',
   description: 'A few shipped products. Scan the highlights, open the live site.',
@@ -83,7 +80,7 @@ export type Strength = {
   image: string
 }
 
-export const recruiterStrengths = {
+export const portfolioStrengths = {
   eyebrow: 'Technical strengths',
   title: 'What I bring to an engineering team.',
   description:
@@ -154,7 +151,7 @@ export type ProofPillar = {
   cta: string
 }
 
-export const recruiterProof = {
+export const portfolioProof = {
   eyebrow: 'Proof of work',
   title: 'I build scalable UI systems, not one-off screens.',
   description:
@@ -208,7 +205,7 @@ export const recruiterProof = {
   ] satisfies ProofPillar[],
 }
 
-export const recruiterWhy = {
+export const portfolioWhy = {
   eyebrow: 'Why hire me',
   title: 'How I actually work.',
   description: 'Less buzzwords, more how I show up on a team day to day.',
@@ -251,7 +248,7 @@ export const recruiterWhy = {
   ],
 }
 
-export const recruiterContact = {
+export const portfolioContact = {
   eyebrow: 'Contact',
   title: "Let's talk about your team or product.",
   description:

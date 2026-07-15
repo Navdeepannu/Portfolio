@@ -6,7 +6,7 @@ import { motion, useReducedMotion, type Variants } from 'motion/react'
 import { cn } from '@/lib/utils'
 
 /* -------------------------------------------------------------------------- */
-/* Motion — subtle reveal-on-scroll, shared across every recruiter section.   */
+/* Motion — subtle reveal-on-scroll, shared across the portfolio sections.    */
 /* Mirrors the spring feel already used in the landing layout group.          */
 /* -------------------------------------------------------------------------- */
 
@@ -61,23 +61,20 @@ export const staggerItem: Variants = {
 
 /* -------------------------------------------------------------------------- */
 /* Section shell — same rhythm, spacing, and eyebrow treatment as the rest    */
-/* of the site so recruiter sections read as one continuous page.             */
+/* of the site so portfolio sections read as one continuous page.             */
 /* -------------------------------------------------------------------------- */
 
 export function Eyebrow({ children, className }: { children: ReactNode; className?: string }) {
   return (
     <span
-      className={cn(
-        'block font-mono text-xs text-emerald-600 dark:text-emerald-400/80',
-        className,
-      )}
+      className={cn('block font-mono text-xs text-emerald-600 dark:text-emerald-400/80', className)}
     >
       {children}
     </span>
   )
 }
 
-export function RecruiterSection({
+export function PortfolioSection({
   id,
   eyebrow,
   title,
@@ -130,5 +127,4 @@ export function RecruiterSection({
 }
 
 /** Shared card surface — matches the rounded-xl / border / ring tokens used site-wide. */
-export const cardSurface =
-  'rounded-xl border border-border/70 bg-card ring-1 ring-foreground/5'
+export const cardSurface = 'rounded-xl border border-border/70 bg-card ring-1 ring-foreground/5'

@@ -5,12 +5,15 @@ import { cn } from '@/lib/utils'
 import { getBlockCategories } from '@/data'
 import Link from 'next/link'
 import { LandingBentoGrid } from '@/site/landing-bento-showcase'
-import { getPortfolioContent } from '@/site/portfolio-config'
-import { usePortfolioMode } from '@/site/context/portfolio-mode-provider'
 
-export default function Blocks() {
-  const { mode } = usePortfolioMode()
-  const { blocks: copy } = getPortfolioContent(mode)
+const copy = {
+  eyebrow: 'Blocks',
+  title: 'Production-ready sections for real products',
+  description: 'Reusable page sections with live previews, source drawers, and registry installs.',
+  cta: { label: 'Explore blocks', href: '/blocks' },
+}
+
+export default function BlocksPreviewSection() {
   const categories = getBlockCategories()
 
   return (
@@ -45,7 +48,7 @@ export default function Blocks() {
       </div>
 
       <div className="relative mt-8">
-        <div className="pointer-events-none absolute -inset-x-32 z-10 inset-y-0 border-y border-border mask-x-from-75% dark:border-neutral-800" />
+        <div className="pointer-events-none absolute -inset-x-32 inset-y-0 z-10 border-y border-border mask-x-from-75% dark:border-neutral-800" />
         <div className="relative mx-auto w-full max-w-6xl px-4">
           <div className="pointer-events-none absolute inset-x-4 -inset-y-32 border-x border-border mask-y-from-90% dark:border-neutral-800" />
           <div className="overflow-hidden">

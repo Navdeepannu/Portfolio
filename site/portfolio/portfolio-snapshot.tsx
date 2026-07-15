@@ -2,25 +2,28 @@
 
 import type { ReactNode } from 'react'
 import { motion } from 'motion/react'
-import { ArrowDownToLine, Award, BookOpenCheck, GraduationCap, MapPin } from 'lucide-react'
+import { ArrowDownToLine, Award, BookOpenCheck, GraduationCap } from 'lucide-react'
 import { SiNextdotjs, SiNodedotjs, SiReact, SiTailwindcss, SiTypescript } from 'react-icons/si'
 import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { Card } from '@/components/ui/card'
-import { staggerItem } from '@/site/recruiter/recruiter-primitives'
-import { recruiterSnapshot, RESUME_HREF } from '@/site/recruiter/recruiter-content'
+import { portfolioSnapshot, RESUME_HREF } from '@/site/portfolio/portfolio-content'
+import { staggerItem } from '@/site/portfolio/portfolio-primitives'
 import { Safari } from './browser-mockup'
 import Character from '../character'
 import { Globe } from './globe'
 import { InfiniteSlider } from '@/components/ui/infinite-slider'
 import Image from 'next/image'
 
-export function RecruiterSnapshot() {
-  const { eyebrow, title, description, cards } = recruiterSnapshot
+export function PortfolioSnapshot() {
+  const { eyebrow, title, description, cards } = portfolioSnapshot
 
   return (
-    <section className="relative overflow-x-clip py-20 font-schibsted selection:bg-emerald-200/60 max-md:py-14 md:py-24">
+    <section
+      id="about"
+      className="relative overflow-x-clip py-20 font-schibsted selection:bg-emerald-200/60 max-md:py-14 md:py-24"
+    >
       <div className="mx-auto max-w-6xl px-8 md:px-12">
         <span className="mb-4 block font-mono text-xs text-emerald-600 dark:text-emerald-400/80">
           {eyebrow}
@@ -324,7 +327,7 @@ function ResumeCtaCard({ className }: { className?: string }) {
             <h3 className="text-sm font-semibold tracking-tight text-foreground">
               Download the resume
             </h3>
-            <p className="mt-3 max-w-40 text-balance text-xs leading-relaxed text-muted-foreground">
+            <p className="mt-3 max-w-40 text-xs leading-relaxed text-balance text-muted-foreground">
               One-page recruiter-friendly PDF.
             </p>
           </div>

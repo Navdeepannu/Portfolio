@@ -8,12 +8,12 @@ import { projects, type Project } from '@/data'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
-import { Reveal } from '@/site/recruiter/recruiter-primitives'
-import { recruiterProjectsMeta } from '@/site/recruiter/recruiter-content'
+import { portfolioProjectsMeta } from '@/site/portfolio/portfolio-content'
+import { Reveal } from '@/site/portfolio/portfolio-primitives'
 
 const featuredProjects = projects.filter((project) => project.featured)
 
-export function RecruiterProjects() {
+export function PortfolioProjects() {
   return (
     <section
       id="projects"
@@ -21,16 +21,16 @@ export function RecruiterProjects() {
     >
       <div className="mx-auto max-w-6xl px-8 md:px-12">
         <span className="mb-4 block font-mono text-xs text-emerald-600 dark:text-emerald-400/80">
-          {recruiterProjectsMeta.eyebrow}
+          {portfolioProjectsMeta.eyebrow}
         </span>
         <div className="grid items-start gap-4 lg:grid-cols-2 lg:gap-12">
           <div className="max-w-md text-left text-balance">
             <h2 className="font-times-heading font-normal tracking-tight text-foreground md:text-xl">
-              {recruiterProjectsMeta.title}
+              {portfolioProjectsMeta.title}
             </h2>
           </div>
           <div className="mx-auto max-w-md pt-6 text-xs font-medium text-foreground/70">
-            <p>{recruiterProjectsMeta.description}</p>
+            <p>{portfolioProjectsMeta.description}</p>
           </div>
         </div>
       </div>

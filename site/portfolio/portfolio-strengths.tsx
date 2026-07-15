@@ -15,7 +15,7 @@ import {
 import Image from 'next/image'
 
 import { cn } from '@/lib/utils'
-import { recruiterStrengths, type Strength } from '@/site/recruiter/recruiter-content'
+import { portfolioStrengths, type Strength } from '@/site/portfolio/portfolio-content'
 
 const capabilityIcons: Record<string, LucideIcon> = {
   frontend: Code2,
@@ -25,9 +25,9 @@ const capabilityIcons: Record<string, LucideIcon> = {
   deployment: Cloud,
 }
 
-export function RecruiterStrengths() {
+export function PortfolioStrengths() {
   const reduceMotion = useReducedMotion()
-  const { capabilities } = recruiterStrengths
+  const { capabilities } = portfolioStrengths
 
   const [activeId, setActiveId] = useState(capabilities[0].id)
 
@@ -40,18 +40,18 @@ export function RecruiterStrengths() {
     >
       <div className="mx-auto max-w-6xl px-8 md:px-12">
         <span className="mb-4 block font-mono text-xs text-emerald-600 dark:text-emerald-400/80">
-          {recruiterStrengths.eyebrow}
+          {portfolioStrengths.eyebrow}
         </span>
 
         <div className="grid items-start gap-4 lg:grid-cols-2 lg:gap-12">
           <div className="max-w-md text-left">
             <h2 className="font-times-heading font-normal tracking-tight text-foreground md:text-xl">
-              {recruiterStrengths.title}
+              {portfolioStrengths.title}
             </h2>
           </div>
 
           <div className="mx-auto max-w-md pt-6 text-xs font-medium text-foreground/70">
-            <p>{recruiterStrengths.description}</p>
+            <p>{portfolioStrengths.description}</p>
           </div>
         </div>
       </div>
@@ -104,8 +104,8 @@ function Tabs({
 
   useEffect(() => {
     // Skip the initial mount. This section lives well below the fold in
-    // recruiter mode, so running on mount would scroll the freshly-switched
-    // page down to it.
+    // This section sits well below the fold, so running on mount would scroll
+    // the freshly loaded page down to it.
     if (!hasMountedRef.current) {
       hasMountedRef.current = true
       return
