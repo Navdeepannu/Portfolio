@@ -6,6 +6,7 @@ import { blockCategories } from '@/data/categories'
 import { blocks } from '@/data/blocks'
 import { getCategoryHref } from '@/data/block-helpers'
 import { siteConfig } from '@/lib/site'
+import { SITE_ORIGINS } from '@/lib/sites'
 
 export type SearchIcon = ComponentType<SVGProps<SVGSVGElement>>
 
@@ -82,7 +83,7 @@ const menuGroup: SearchGroup = {
     {
       id: 'portfolio',
       label: 'Personal portfolio',
-      href: 'https://navdeepsingh.dev',
+      href: SITE_ORIGINS.portfolio,
       external: true,
       type: 'portfolio',
       icon: Home,

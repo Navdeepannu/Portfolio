@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { IconBrandGithub, IconBrandX, IconBrandLinkedin } from '@tabler/icons-react'
 import { Logo } from '@/site/logo'
 import Character from '@/site/character'
+import { SITE_ORIGINS } from '@/lib/sites'
 
 const links = [
   { label: 'Projects', href: '/projects' },
@@ -9,7 +10,7 @@ const links = [
   { label: 'Strengths', href: '/#technical-strengths' },
   { label: 'Resume', href: '/resume/resume.pdf' },
   { label: 'Contact', href: '/#contact' },
-  { label: 'UI Library', href: 'https://ui.navdeepsingh.dev' },
+  { label: 'UI Library', href: SITE_ORIGINS.ui },
 ]
 
 const social = [

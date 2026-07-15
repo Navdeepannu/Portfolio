@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { IconBrandGithub } from '@tabler/icons-react'
 
+import { SITE_ORIGINS } from '@/lib/sites'
 import Character from '@/site/character'
 
 const links = [
@@ -8,7 +9,7 @@ const links = [
   { label: 'Blocks', href: '/blocks' },
   { label: 'Illustrations', href: '/illustrations' },
   { label: 'Pages', href: '/pages' },
-  { label: 'Portfolio', href: 'https://navdeepsingh.dev', external: true },
+  { label: 'Portfolio', href: SITE_ORIGINS.portfolio, external: true },
 ] as const
 
 export function UiLibraryFooter() {

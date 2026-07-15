@@ -9,6 +9,7 @@ import { useTheme } from 'next-themes'
 import { Button } from '@/components/ui/button'
 import { Kbd } from '@/components/ui/kbd'
 import { cn } from '@/lib/utils'
+import { SITE_ORIGINS } from '@/lib/sites'
 import { useCommandMenu } from '@/hooks/use-command-menu'
 import { CommandMenu } from '@/site/command/command-menu'
 import Character from '@/site/character'
@@ -19,7 +20,7 @@ const menuItems = [
   { name: 'Blocks', href: '/blocks' },
   { name: 'Illustrations', href: '/illustrations' },
   { name: 'Pages', href: '/pages' },
-  { name: 'Portfolio', href: 'https://navdeepsingh.dev', external: true },
+  { name: 'Portfolio', href: SITE_ORIGINS.portfolio, external: true },
 ] as const
 
 function isNavItemActive(pathname: string, href: string) {

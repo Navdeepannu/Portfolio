@@ -9,6 +9,7 @@ import { useTheme } from 'next-themes'
 
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { SITE_ORIGINS } from '@/lib/sites'
 import Character from '@/site/character'
 
 const navigation = [
@@ -21,7 +22,7 @@ const navigation = [
 const externalLinks = [
   { label: 'GitHub', href: 'https://github.com/navdeepannu' },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/navdeepsingh0/' },
-  { label: 'UI Library', href: 'https://ui.navdeepsingh.dev' },
+  { label: 'UI Library', href: SITE_ORIGINS.ui },
 ] as const
 
 function isActive(pathname: string, href: string) {
