@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "project-gallery-one",
+      "type": "registry:block",
+      "title": "Project Gallery One",
+      "description": "A horizontally scrollable project gallery with an accessible image viewer and keyboard navigation.",
+      "categories": ["content"],
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["dialog", "button"],
+      "files": [
+        {
+          "path": "project-gallery-one.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/content/project-gallery-one.tsx"
+        }
+      ]
+    }
+  ]
+}

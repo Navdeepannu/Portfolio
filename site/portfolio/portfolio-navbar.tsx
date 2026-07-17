@@ -1,29 +1,23 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Menu, Moon, Sun, X } from 'lucide-react'
-import { AnimatePresence, motion } from 'motion/react'
-import { useEffect, useState, useSyncExternalStore } from 'react'
-import { useTheme } from 'next-themes'
+import { ArrowUpRight, Menu, X } from 'lucide-react'
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
+import { useState } from 'react'
+import { Dialog as DialogPrimitive } from 'radix-ui'
 
-import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { SITE_ORIGINS } from '@/lib/sites'
-import Character from '@/site/character'
+import { LandingThemeToggle } from '@/site/portfolio/landing-theme-toggle'
+import { Button } from '@/components/ui/button'
 
-const navigation = [
-  { label: 'Projects', href: '/projects' },
-  { label: 'About', href: '/#about' },
-  { label: 'Strengths', href: '/#technical-strengths' },
-  { label: 'Resume', href: '/resume/resume.pdf', external: true },
-] as const
-
-const externalLinks = [
-  { label: 'GitHub', href: 'https://github.com/navdeepannu' },
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/navdeepsingh0/' },
-  { label: 'UI Library', href: SITE_ORIGINS.ui },
-] as const
+type PortfolioNavbarProps = {
+  fullWidth?: boolean
+  className?: string
+  isHome?: boolean
+}
 
 function isActive(pathname: string, href: string) {
   if (href.includes('#') || href.startsWith('http')) return false
@@ -33,180 +27,192 @@ function isActive(pathname: string, href: string) {
 export function PortfolioNavbar({
   fullWidth = false,
   className,
-}: {
-  fullWidth?: boolean
-  className?: string
-}) {
+  isHome = false,
+}: PortfolioNavbarProps) {
   const pathname = usePathname()
-  const { theme, setTheme } = useTheme()
+  const shouldReduceMotion = useReducedMotion() ?? false
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const mounted = useSyncExternalStore(
-    () => () => {},
-    () => true,
-    () => false,
-  )
-  const isDark = theme === 'dark'
-
-  useEffect(() => {
-    if (!mobileMenuOpen) return
-
-    const previousOverflow = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setMobileMenuOpen(false)
-    }
-
-    document.addEventListener('keydown', closeOnEscape)
-
-    return () => {
-      document.body.style.overflow = previousOverflow
-      document.removeEventListener('keydown', closeOnEscape)
-    }
-  }, [mobileMenuOpen])
+  const navigation = [
+    { label: 'Projects', href: isHome ? '#work' : '/projects', external: false },
+    { label: 'About', href: isHome ? '#about' : '/#about', external: false },
+    { label: 'Blocks', href: `${SITE_ORIGINS.ui}/blocks`, external: true },
+    { label: 'Components', href: `${SITE_ORIGINS.ui}/components`, external: true },
+    { label: 'Illustrations', href: `${SITE_ORIGINS.ui}/illustrations`, external: true },
+  ] as const
 
   return (
-    <>
-      <nav className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur">
+    <DialogPrimitive.Root open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+      <header
+        className={cn(
+          'sticky top-0 z-40 border-b border-border/70 bg-background/90 font-schibsted backdrop-blur-md',
+          className,
+        )}
+      >
         <div
           className={cn(
-            'font-geist-sans relative flex h-14 w-full items-center gap-4',
-            fullWidth ? 'px-2 md:px-4 lg:px-6' : 'mx-auto max-w-6xl px-2',
-            className,
+            'flex min-h-16 w-full items-center gap-2',
+            fullWidth ? 'px-5 sm:px-8' : 'mx-auto max-w-4xl px-5 sm:px-8 lg:px-10',
           )}
         >
-          <Character />
-          <div className="flex-1" />
+          <Link
+            href="/"
+            aria-label="Navdeep Singh — Home"
+            className="inline-flex size-11 shrink-0 items-center justify-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-foreground active:scale-[0.97]"
+          >
+            <Image
+              src="/char.jpg"
+              alt=""
+              width={32}
+              height={32}
+              preload
+              className="size-8 rounded-full object-cover shadow-sm ring-1 ring-border"
+            />
+          </Link>
 
-          <ul className="hidden items-center gap-5 lg:flex">
+          <nav aria-label="Primary navigation" className="ml-auto hidden items-center md:flex">
             {navigation.map((item) => {
               const active = isActive(pathname, item.href)
 
               return (
-                <li key={item.label}>
-                  <Link
-                    href={item.href}
-                    target={'external' in item && item.external ? '_blank' : undefined}
-                    rel={'external' in item && item.external ? 'noopener noreferrer' : undefined}
-                    aria-current={active ? 'page' : undefined}
-                    className={cn(
-                      'text-sm transition-colors hover:text-foreground',
-                      active ? 'text-foreground' : 'text-muted-foreground',
-                    )}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  target={item.external ? '_blank' : undefined}
+                  rel={item.external ? 'noopener noreferrer' : undefined}
+                  aria-current={active ? 'page' : undefined}
+                  className={cn(
+                    'inline-flex min-h-11 items-center gap-0.5 px-2 text-sm transition-colors duration-150 hover:text-foreground focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground',
+                    active ? 'text-foreground' : 'text-muted-foreground',
+                  )}
+                >
+                  <span>{item.label}</span>
+                  {item.external ? <ArrowUpRight aria-hidden="true" className="size-2.5" /> : null}
+                  {item.external ? <span className="sr-only"> (opens in a new tab)</span> : null}
+                </Link>
               )
             })}
-            {externalLinks.map((item) => (
-              <li key={item.label}>
-                <Link
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          </nav>
 
-          <Button
-            variant="default"
-            size="sm"
-            className="hidden rounded-full sm:inline-flex"
-            asChild
-          >
-            <Link href="/#contact">Contact</Link>
-          </Button>
+          <div className="ml-auto flex shrink-0 items-center gap-0.5 md:ml-2">
+            <LandingThemeToggle />
 
-          <Button
-            variant="ghost"
-            size="icon-sm"
-            onClick={() => setTheme(isDark ? 'light' : 'dark')}
-            aria-label="Toggle theme"
-          >
-            {mounted && isDark ? <Sun className="size-4" /> : <Moon className="size-4" />}
-          </Button>
-
-          <Button
-            variant="ghost"
-            size="icon-sm"
-            className={cn('lg:hidden', mobileMenuOpen && 'pointer-events-none invisible')}
-            onClick={() => setMobileMenuOpen(true)}
-            aria-expanded={mobileMenuOpen}
-            aria-label="Open menu"
-          >
-            <Menu className="size-4" />
-          </Button>
-        </div>
-      </nav>
-
-      <AnimatePresence>
-        {mobileMenuOpen ? (
-          <>
-            <motion.button
-              type="button"
-              aria-label="Close menu"
-              className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm lg:hidden"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.18, ease: 'easeOut' }}
-              onClick={() => setMobileMenuOpen(false)}
-            />
-            <motion.aside
-              role="dialog"
-              aria-modal="true"
-              aria-label="Portfolio navigation"
-              className="fixed top-2 right-2 bottom-2 z-50 flex w-[min(18rem,calc(100vw-1.25rem))] flex-col rounded-2xl border bg-background p-4 shadow-2xl lg:hidden"
-              initial={{ transform: 'translateX(calc(100% + 0.75rem))', opacity: 0.8 }}
-              animate={{ transform: 'translateX(0)', opacity: 1 }}
-              exit={{ transform: 'translateX(calc(100% + 0.75rem))', opacity: 0.8 }}
-              transition={{ type: 'spring', duration: 0.4, bounce: 0.1 }}
-            >
-              <div className="mb-6 flex items-center justify-between">
-                <Character />
-                <Button
-                  variant="ghost"
-                  size="icon-sm"
-                  onClick={() => setMobileMenuOpen(false)}
-                  aria-label="Close menu"
-                >
-                  <X className="size-5" />
-                </Button>
-              </div>
-
-              <div className="flex flex-1 flex-col gap-1">
-                {[...navigation, ...externalLinks].map((item) => {
-                  const external = item.href.startsWith('http') || item.href.endsWith('.pdf')
-
-                  return (
-                    <Button key={item.label} variant="ghost" className="justify-start" asChild>
-                      <Link
-                        href={item.href}
-                        target={external ? '_blank' : undefined}
-                        rel={external ? 'noopener noreferrer' : undefined}
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        {item.label}
-                      </Link>
-                    </Button>
-                  )
-                })}
-              </div>
-
-              <Button className="w-full rounded-full" asChild>
-                <Link href="/#contact" onClick={() => setMobileMenuOpen(false)}>
-                  Contact
-                </Link>
+            <DialogPrimitive.Trigger asChild>
+              <Button
+                type="button"
+                aria-label="Open navigation menu"
+                className={cn(
+                  'bg-background text-foreground transition-[background-color,transform] duration-150 hover:bg-muted/80 md:hidden',
+                  mobileMenuOpen && 'pointer-events-none invisible',
+                )}
+              >
+                <Menu aria-hidden="true" className="size-4.5" />
               </Button>
-            </motion.aside>
-          </>
-        ) : null}
-      </AnimatePresence>
-    </>
+            </DialogPrimitive.Trigger>
+          </div>
+        </div>
+      </header>
+
+      <DialogPrimitive.Portal forceMount>
+        <AnimatePresence>
+          {mobileMenuOpen ? (
+            <motion.div key="mobile-navigation">
+              <DialogPrimitive.Overlay asChild forceMount>
+                <motion.div
+                  className="fixed inset-0 z-50 bg-black/25 backdrop-blur-[3px] md:hidden"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: shouldReduceMotion ? 0.12 : 0.2, ease: 'easeOut' }}
+                />
+              </DialogPrimitive.Overlay>
+
+              <DialogPrimitive.Content asChild forceMount>
+                <motion.aside
+                  aria-describedby="mobile-navigation-description"
+                  className="fixed top-3 right-3 bottom-3 z-60 flex w-[min(22rem,calc(100vw-1.5rem))] flex-col overflow-hidden rounded-3xl border border-border bg-background/96 p-5 text-foreground shadow-2xl backdrop-blur-xl outline-none md:hidden"
+                  initial={
+                    shouldReduceMotion
+                      ? { opacity: 0 }
+                      : { opacity: 0.96, transform: 'translateX(calc(100% + 1rem))' }
+                  }
+                  animate={{ opacity: 1, transform: 'translateX(0)' }}
+                  exit={
+                    shouldReduceMotion
+                      ? { opacity: 0 }
+                      : { opacity: 0.96, transform: 'translateX(calc(100% + 1rem))' }
+                  }
+                  transition={
+                    shouldReduceMotion
+                      ? { duration: 0.12, ease: 'easeOut' }
+                      : { type: 'spring', duration: 0.32, bounce: 0 }
+                  }
+                >
+                  <DialogPrimitive.Title className="sr-only">
+                    Portfolio navigation
+                  </DialogPrimitive.Title>
+                  <DialogPrimitive.Description
+                    id="mobile-navigation-description"
+                    className="sr-only"
+                  >
+                    Navigate to portfolio sections and Navdeep UI resources.
+                  </DialogPrimitive.Description>
+
+                  <div className="flex items-center justify-between">
+                    <Link
+                      href="/"
+                      aria-label="Navdeep Singh — Home"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="inline-flex size-11 items-center justify-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-foreground active:scale-[0.97]"
+                    >
+                      <Image
+                        src="/char.jpg"
+                        alt=""
+                        width={36}
+                        height={36}
+                        className="size-9 rounded-full object-cover shadow-sm ring-1 ring-border"
+                      />
+                    </Link>
+
+                    <DialogPrimitive.Close asChild>
+                      <button
+                        type="button"
+                        aria-label="Close navigation menu"
+                        className="inline-flex size-11 items-center justify-center rounded-full text-foreground transition-[background-color,transform] duration-150 hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground active:scale-[0.97]"
+                      >
+                        <X aria-hidden="true" className="size-5" />
+                      </button>
+                    </DialogPrimitive.Close>
+                  </div>
+
+                  <nav aria-label="Mobile navigation" className="mt-12 flex flex-col">
+                    {navigation.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        target={item.external ? '_blank' : undefined}
+                        rel={item.external ? 'noopener noreferrer' : undefined}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="group/link flex min-h-14 items-center justify-between rounded-xl px-3 text-lg font-medium tracking-[-0.01em] text-foreground transition-colors duration-150 hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
+                      >
+                        <span>{item.label}</span>
+                        {item.external ? (
+                          <ArrowUpRight
+                            aria-hidden="true"
+                            className="size-3.5 text-muted-foreground transition-transform duration-150 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 motion-reduce:transform-none"
+                          />
+                        ) : null}
+                        {item.external ? (
+                          <span className="sr-only"> (opens in a new tab)</span>
+                        ) : null}
+                      </Link>
+                    ))}
+                  </nav>
+                </motion.aside>
+              </DialogPrimitive.Content>
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
+      </DialogPrimitive.Portal>
+    </DialogPrimitive.Root>
   )
 }

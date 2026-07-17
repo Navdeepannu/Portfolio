@@ -1,7 +1,7 @@
 'use client'
-import { ReactNode } from 'react'
-import { motion, Variants } from 'motion/react'
-import React from 'react'
+
+import React, { type ReactNode } from 'react'
+import { motion, type TargetAndTransition, type Variants } from 'motion/react'
 
 export type PresetType =
   | 'fade'
@@ -23,11 +23,16 @@ export type AnimatedGroupProps = {
     item?: Variants
   }
   preset?: PresetType
-  as?: keyof React.JSX.IntrinsicElements
-  asChild?: keyof React.JSX.IntrinsicElements
+  as?: React.ElementType
+  asChild?: React.ElementType
 }
 
-const defaultContainerVariants: Variants = {
+type AnimationStates = {
+  hidden?: TargetAndTransition
+  visible?: TargetAndTransition
+}
+
+const defaultContainerVariants: AnimationStates = {
   visible: {
     transition: {
       staggerChildren: 0.1,
@@ -35,12 +40,12 @@ const defaultContainerVariants: Variants = {
   },
 }
 
-const defaultItemVariants: Variants = {
+const defaultItemVariants: AnimationStates = {
   hidden: { opacity: 0 },
   visible: { opacity: 1 },
 }
 
-const presetVariants: Record<PresetType, Variants> = {
+const presetVariants: Record<PresetType, AnimationStates> = {
   fade: {},
   slide: {
     hidden: { y: 20 },
@@ -62,43 +67,71 @@ const presetVariants: Record<PresetType, Variants> = {
     hidden: { scale: 0.5 },
     visible: {
       scale: 1,
-      transition: { type: 'spring', stiffness: 300, damping: 20 },
+      transition: {
+        type: 'spring',
+        stiffness: 300,
+        damping: 20,
+      },
     },
   },
   flip: {
     hidden: { rotateX: -90 },
     visible: {
       rotateX: 0,
-      transition: { type: 'spring', stiffness: 300, damping: 20 },
+      transition: {
+        type: 'spring',
+        stiffness: 300,
+        damping: 20,
+      },
     },
   },
   bounce: {
     hidden: { y: -50 },
     visible: {
       y: 0,
-      transition: { type: 'spring', stiffness: 400, damping: 10 },
+      transition: {
+        type: 'spring',
+        stiffness: 400,
+        damping: 10,
+      },
     },
   },
   rotate: {
     hidden: { rotate: -180 },
     visible: {
       rotate: 0,
-      transition: { type: 'spring', stiffness: 200, damping: 15 },
+      transition: {
+        type: 'spring',
+        stiffness: 200,
+        damping: 15,
+      },
     },
   },
   swing: {
     hidden: { rotate: -10 },
     visible: {
       rotate: 0,
-      transition: { type: 'spring', stiffness: 300, damping: 8 },
+      transition: {
+        type: 'spring',
+        stiffness: 300,
+        damping: 8,
+      },
     },
   },
 }
 
-const addDefaultVariants = (variants: Variants) => ({
-  hidden: { ...defaultItemVariants.hidden, ...variants.hidden },
-  visible: { ...defaultItemVariants.visible, ...variants.visible },
-})
+function addDefaultVariants(variants: AnimationStates): Variants {
+  return {
+    hidden: {
+      ...defaultItemVariants.hidden,
+      ...variants.hidden,
+    },
+    visible: {
+      ...defaultItemVariants.visible,
+      ...variants.visible,
+    },
+  }
+}
 
 function AnimatedGroup({
   children,
@@ -112,10 +145,13 @@ function AnimatedGroup({
     item: addDefaultVariants(preset ? presetVariants[preset] : {}),
     container: addDefaultVariants(defaultContainerVariants),
   }
-  const containerVariants = variants?.container || selectedVariants.container
-  const itemVariants = variants?.item || selectedVariants.item
+
+  const containerVariants = variants?.container ?? selectedVariants.container
+
+  const itemVariants = variants?.item ?? selectedVariants.item
 
   const MotionComponent = React.useMemo(() => motion.create(as), [as])
+
   const MotionChild = React.useMemo(() => motion.create(asChild), [asChild])
 
   return (

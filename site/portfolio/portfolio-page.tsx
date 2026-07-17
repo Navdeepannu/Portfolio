@@ -1,23 +1,23 @@
-import { PortfolioFooter } from '@/site/portfolio/portfolio-footer'
-import { PortfolioNavbar } from '@/site/portfolio/portfolio-navbar'
-import { PortfolioContact } from '@/site/portfolio/portfolio-contact'
-import { PortfolioHero } from '@/site/portfolio/portfolio-hero'
-import { PortfolioProjects } from '@/site/portfolio/portfolio-projects'
-import { PortfolioSnapshot } from '@/site/portfolio/portfolio-snapshot'
-import { PortfolioStrengths } from '@/site/portfolio/portfolio-strengths'
+import { AboutSection } from '@/site/portfolio/about-section'
+import { CapabilitiesSection } from '@/site/portfolio/capabilities-section'
+import { EducationSection } from '@/site/portfolio/education-section'
+import { ExperienceSection } from '@/site/portfolio/experience-section'
+import { LandingClosing } from '@/site/portfolio/landing-closing'
+import { LandingHeader } from '@/site/portfolio/landing-header'
+import { SelectedWorkSection } from '@/site/portfolio/selected-work-section'
 
 export function PortfolioPage() {
   return (
-    <div>
-      <PortfolioNavbar />
-      <main className="flex flex-col">
-        <PortfolioHero />
-        <PortfolioSnapshot />
-        <PortfolioProjects />
-        <PortfolioStrengths />
-        <PortfolioContact />
+    <div className="landing-page min-h-screen overflow-x-clip bg-background font-schibsted text-foreground">
+      <LandingHeader />
+      <main id="main-content" className="mx-auto max-w-4xl px-5 sm:px-8 lg:px-10">
+        <SelectedWorkSection />
+        <AboutSection />
+        <ExperienceSection />
+        <CapabilitiesSection />
+        <EducationSection />
       </main>
-      <PortfolioFooter />
+      <LandingClosing />
     </div>
   )
 }

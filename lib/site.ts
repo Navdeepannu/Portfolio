@@ -17,14 +17,15 @@ export const portfolioSiteConfig = {
   shortName: 'Navdeep Singh',
   domain: new URL(SITE_ORIGINS.portfolio).hostname,
   url: SITE_ORIGINS.portfolio,
-  title: 'Navdeep Singh · Design Engineer & Full Stack Developer',
+  title: 'Navdeep Singh · Design Engineer & Frontend Engineer',
   description:
-    'Portfolio of Navdeep Singh, a Toronto-based design engineer and frontend-focused full stack developer building polished, production-ready products.',
+    'Portfolio of Navdeep Singh, a Toronto-based frontend engineer and design engineer building polished, accessible interfaces and reusable UI systems.',
   keywords: [
     'Navdeep Singh',
+    'NavUI',
+    'Nav UI',
     'frontend developer',
     'design engineer',
-    'full stack developer',
     'React',
     'Next.js',
     'TypeScript',
@@ -38,14 +39,14 @@ export const portfolioSiteConfig = {
 
 export const uiSiteConfig = {
   name: 'Navdeep UI',
-  shortName: 'Navdeep UI',
+  shortName: 'NavUI',
   domain: new URL(SITE_ORIGINS.ui).hostname,
   url: SITE_ORIGINS.ui,
-  title: 'Navdeep UI · Components, Blocks, and Templates',
+  title: 'NavUI · Blocks · Components · Templates',
   description:
     'A shadcn-compatible design-engineering library of React components, production-ready blocks, interface illustrations, and full-page templates.',
   keywords: [
-    'Navdeep UI',
+    'Nav UI',
     'shadcn registry',
     'React components',
     'Next.js components',
@@ -74,7 +75,7 @@ const uiOgImage = {
   url: '/char.jpg',
   width: 1200,
   height: 630,
-  alt: 'Navdeep UI component and design-engineering library',
+  alt: 'Nav UI component and design-engineering library',
 } as const
 
 const searchEngineRobots = {

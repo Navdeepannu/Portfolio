@@ -1,98 +1,59 @@
 'use client'
 
-import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight, Sparkles } from 'lucide-react'
+
 import { Button } from '@/components/ui/button'
 import { TextLoop } from '@/components/ui/text-loop'
-import { Tooltip } from '@/components/ui/tooltip-card'
 import Container from '@/site/container'
 
 const hero = {
-  greeting: 'Navdeep Singh presents',
-  name: 'Navdeep UI',
-  roles: ['Components', 'Blocks', 'Illustrations', 'Templates'],
-  paragraphs: [
-    'A shadcn-compatible library of production-ready React interfaces, crafted with TypeScript, Tailwind CSS, and restrained motion.',
-    'Preview the work, inspect the source, and install individual pieces directly from the registry.',
-  ],
-  linkedinHref: 'https://www.linkedin.com/in/navdeepsingh0/',
-  githubHref: 'https://github.com/navdeepannu',
-  primaryCTA: { label: 'Explore components', href: '/components' },
-  secondaryCTA: { label: 'Browse blocks', href: '/blocks' },
+  announcement: 'New UI resources added regularly',
+  roles: ['components.', 'blocks.', 'illustrations.', 'templates.'],
+  description:
+    'A shadcn-compatible collection of React interfaces built with TypeScript, Tailwind CSS, and thoughtful motion. Preview the source and add only what your project needs.',
+  primaryCTA: {
+    label: 'Explore Blocks',
+    href: '/blocks',
+  },
+  secondaryCTA: {
+    label: 'Browse Components',
+    href: '/components',
+  },
 }
 
 export function UiLibraryHero() {
   return (
     <section>
-      <Container className="font-schibsted selection:bg-emerald-200/60 dark:selection:bg-emerald-500 dark:selection:text-white">
-        <div className="flex max-w-2xl flex-col justify-center gap-3">
-          <span className="text-xs font-light">{hero.greeting}</span>
-          <div className="flex flex-wrap items-center gap-2">
-            <h1 className="text-lg tracking-tight md:text-2xl">{hero.name}</h1>
-            <TextLoop className="pointer-events-none bg-linear-to-b from-emerald-400 to-emerald-600 bg-clip-text font-caveat text-lg text-transparent md:text-2xl">
+      <Container className="font-geist selection:bg-emerald-200/60 dark:selection:bg-emerald-500 dark:selection:text-white">
+        <div className="flex max-w-xl flex-col gap-4 py-14">
+          <h1 className="max-w-2xl text-3xl leading-tight font-medium tracking-tight sm:text-4xl md:text-5xl">
+            Build polished interfaces with{' '}
+            <TextLoop className="inline-block bg-linear-to-b from-emerald-400 to-emerald-600 bg-clip-text text-transparent">
               {hero.roles.map((role) => (
                 <span key={role}>{role}</span>
               ))}
             </TextLoop>
-          </div>
+          </h1>
 
-          <div className="max-w-xl space-y-2 text-sm text-muted-foreground md:text-base">
-            {hero.paragraphs.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-            <div>
-              See my work on{' '}
-              <Link
-                href={hero.linkedinHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative border-b border-dashed border-foreground/40 font-medium text-foreground italic"
-              >
-                <Tooltip content={<LinkedinCard />}>LinkedIn</Tooltip>
-              </Link>
-              , or browse the source on{' '}
-              <Link
-                href={hero.githubHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="border-b border-dashed border-foreground/40 font-medium text-foreground italic"
-              >
-                GitHub
-              </Link>
-              .
-            </div>
-          </div>
+          <p className="max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
+            {hero.description}
+          </p>
 
-          <div className="mt-4 flex flex-wrap items-center gap-2">
-            <Button
-              asChild
-              className="shadow-xl transition-all duration-300 ease-in-out text-shadow-2xs text-shadow-black/50 dark:text-shadow-white/50"
-              variant="default"
-            >
+          <div className="mt-2 flex flex-wrap items-center gap-2">
+            <Button asChild>
               <Link href={hero.primaryCTA.href}>{hero.primaryCTA.label}</Link>
             </Button>
-            <Button variant="link" asChild>
+
+            <Button asChild variant="ghost">
               <Link href={hero.secondaryCTA.href}>
                 {hero.secondaryCTA.label}
-                <ArrowUpRight />
+                <ArrowUpRight aria-hidden="true" className="size-4" />
               </Link>
             </Button>
           </div>
         </div>
       </Container>
     </section>
-  )
-}
-
-const LinkedinCard = () => {
-  return (
-    <Image
-      src="/Linkedin.png"
-      alt="LinkedIn Image"
-      width={1000}
-      height={50}
-      className="aspect-video w-full rounded-sm object-cover"
-    />
   )
 }

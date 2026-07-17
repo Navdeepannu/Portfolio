@@ -18,7 +18,7 @@ export function PortfolioJsonLd() {
     name: portfolioSiteConfig.name,
     url: portfolioSiteConfig.url,
     image: `${portfolioSiteConfig.url}/char.jpg`,
-    jobTitle: 'Design Engineer and Frontend Developer',
+    jobTitle: 'Frontend Engineer and Design Engineer',
     sameAs: [
       portfolioSiteConfig.links.github,
       portfolioSiteConfig.links.linkedin,

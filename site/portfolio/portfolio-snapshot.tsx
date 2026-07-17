@@ -12,7 +12,6 @@ import { portfolioSnapshot, RESUME_HREF } from '@/site/portfolio/portfolio-conte
 import { staggerItem } from '@/site/portfolio/portfolio-primitives'
 import { Safari } from './browser-mockup'
 import Character from '../character'
-import { Globe } from './globe'
 import { InfiniteSlider } from '@/components/ui/infinite-slider'
 import Image from 'next/image'
 
@@ -50,7 +49,7 @@ export function PortfolioSnapshot() {
 
           <div className="overflow-hidden">
             <div className="bg-foreground/4 p-2 dark:bg-neutral-800/30">
-              <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:auto-rows-[12rem] lg:grid-cols-3">
+              <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:auto-rows-48 lg:grid-cols-3">
                 {/* Top row */}
                 <BentoCard
                   className="lg:row-span-2"
@@ -307,9 +306,7 @@ function LocationIllustration() {
           'aspect-square w-[clamp(16rem,125%,34rem)] -translate-x-1/2',
           'shadow-xl shadow-black/5',
         )}
-      >
-        <Globe className="absolute inset-0 h-full w-full" />
-      </div>
+      ></div>
     </div>
   )
 }

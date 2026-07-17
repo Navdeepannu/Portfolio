@@ -40,6 +40,12 @@ const CATEGORY_IMAGE_MAP: Partial<Record<BlockCategoryId, BlockCategoryImageSet>
     width: 1200,
     height: 700,
   },
+  content: {
+    light: '/sections/design3.png',
+    dark: '/sections/design1.png',
+    width: 1200,
+    height: 760,
+  },
   'sign-up': {
     light: '/sections/design2.png',
     dark: '/sections/design3.png',
