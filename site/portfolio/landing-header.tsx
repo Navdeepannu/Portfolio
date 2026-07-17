@@ -2,7 +2,6 @@
 
 import Link from 'next/link'
 import type { Variants } from 'motion/react'
-
 import { AnimatedGroup } from '@/components/ui/components/animated-group'
 import { LandingTextLink } from '@/site/portfolio/landing-link'
 import { landingPageContent } from '@/site/portfolio/landing-page-content'
@@ -69,7 +68,7 @@ export function LandingHeader() {
               <LandingRoleLoop />
             </div>
 
-            <p className="max-w-[68ch mt-4 text-sm leading-6 text-muted-foreground md:text-base md:leading-7">
+            <p className="mt-4 max-w-[68ch] text-sm leading-6 text-muted-foreground md:text-base md:leading-7">
               Currently building{' '}
               <Link
                 href="https://ui.navdeepsingh.dev"

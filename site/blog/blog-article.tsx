@@ -80,25 +80,27 @@ export function BlogArticle({ post }: { post: BlogPost }) {
             </section>
           ))}
 
-          <section aria-labelledby="article-references">
-            <h2 id="article-references">References</h2>
-            <ul>
-              {post.references.map((reference) => (
-                <li key={reference.href}>
-                  <Link
-                    href={reference.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex min-h-11 items-center gap-1 font-medium text-foreground underline decoration-border underline-offset-4 hover:decoration-foreground focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground"
-                  >
-                    {reference.label}
-                    <ArrowUpRight aria-hidden="true" className="size-3.5" />
-                    <span className="sr-only"> (opens in a new tab)</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </section>
+          {post.references.length > 0 ? (
+            <section aria-labelledby="article-references">
+              <h2 id="article-references">References</h2>
+              <ul>
+                {post.references.map((reference) => (
+                  <li key={reference.href}>
+                    <Link
+                      href={reference.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex min-h-11 items-center gap-1 font-medium text-foreground underline decoration-border underline-offset-4 hover:decoration-foreground focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground"
+                    >
+                      {reference.label}
+                      <ArrowUpRight aria-hidden="true" className="size-3.5" />
+                      <span className="sr-only"> (opens in a new tab)</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
         </div>
       </article>
     </main>

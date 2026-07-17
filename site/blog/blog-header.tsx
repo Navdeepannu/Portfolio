@@ -29,7 +29,7 @@ export function BlogHeader() {
           >
             Writing
           </Link>
-          <Link
+          <a
             href="/resume/resume.pdf"
             target="_blank"
             rel="noreferrer"
@@ -37,7 +37,7 @@ export function BlogHeader() {
           >
             Resume
             <span className="sr-only"> (opens in a new tab)</span>
-          </Link>
+          </a>
         </nav>
       </div>
     </header>

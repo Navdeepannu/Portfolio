@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ArrowUpRight, Menu, X } from 'lucide-react'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Dialog as DialogPrimitive } from 'radix-ui'
 
 import { cn } from '@/lib/utils'
@@ -39,6 +39,16 @@ export function PortfolioNavbar({
     { label: 'Components', href: `${SITE_ORIGINS.ui}/components`, external: true },
     { label: 'Illustrations', href: `${SITE_ORIGINS.ui}/illustrations`, external: true },
   ] as const
+
+  useEffect(() => {
+    const desktopMediaQuery = window.matchMedia('(min-width: 48rem)')
+    const closeMobileMenuOnDesktop = (event: MediaQueryListEvent) => {
+      if (event.matches) setMobileMenuOpen(false)
+    }
+
+    desktopMediaQuery.addEventListener('change', closeMobileMenuOnDesktop)
+    return () => desktopMediaQuery.removeEventListener('change', closeMobileMenuOnDesktop)
+  }, [])
 
   return (
     <DialogPrimitive.Root open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>

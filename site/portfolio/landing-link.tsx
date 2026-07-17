@@ -38,14 +38,12 @@ export function LandingTextLink({
         {label}
       </span>
       {showArrow ? (
-        <>
-          <ArrowUpRight
-            aria-hidden="true"
-            className="size-3.5 transition-transform duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 motion-reduce:transform-none motion-reduce:transition-none"
-          />
-          <span className="sr-only"> (opens in a new tab)</span>
-        </>
+        <ArrowUpRight
+          aria-hidden="true"
+          className="size-3.5 transition-transform duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 motion-reduce:transform-none motion-reduce:transition-none"
+        />
       ) : null}
+      {external ? <span className="sr-only"> (opens in a new tab)</span> : null}
     </Link>
   )
 }

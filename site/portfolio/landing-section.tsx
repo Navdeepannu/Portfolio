@@ -7,7 +7,7 @@ type LandingSectionProps = {
   className?: string
   showDivider?: boolean
   compactTop?: boolean
-  ref?: RefObject<HTMLDivElement | null>
+  ref?: RefObject<HTMLElement | null>
 }
 
 export function LandingSection({

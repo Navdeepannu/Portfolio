@@ -80,9 +80,13 @@ export async function getGithubActivity(): Promise<GithubActivityPreview> {
     return fallback
   }
 
+  const controller = new AbortController()
+  const timeoutId = setTimeout(() => controller.abort(), 5_000)
+
   try {
     const response = await fetch('https://api.github.com/graphql', {
       method: 'POST',
+      signal: controller.signal,
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
@@ -142,5 +146,7 @@ export async function getGithubActivity(): Promise<GithubActivityPreview> {
     )
 
     return fallback
+  } finally {
+    clearTimeout(timeoutId)
   }
 }

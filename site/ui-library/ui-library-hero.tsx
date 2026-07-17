@@ -8,7 +8,6 @@ import { TextLoop } from '@/components/ui/text-loop'
 import Container from '@/site/container'
 
 const hero = {
-  announcement: 'New UI resources added regularly',
   roles: ['components.', 'blocks.', 'illustrations.', 'templates.'],
   description:
     'A shadcn-compatible collection of React interfaces built with TypeScript, Tailwind CSS, and thoughtful motion. Preview the source and add only what your project needs.',

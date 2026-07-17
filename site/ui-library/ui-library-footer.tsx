@@ -21,7 +21,8 @@ export function UiLibraryFooter() {
         <div className="flex items-center gap-3">
           <Character className="size-12" />
           <div className="text-left font-geist">
-            <h4 className='font-semibold tracking-tight text-lg'>Navdeep UI</h4></div>
+            <h4 className="text-lg font-semibold tracking-tight">Navdeep UI</h4>
+          </div>
         </div>
 
         <nav className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2">
@@ -38,13 +39,13 @@ export function UiLibraryFooter() {
           ))}
         </nav>
 
-        <div className="flex items-center justify-center gap-2">
+        <div className="mt-8 flex items-center justify-center gap-2">
           <Link
             href="https://github.com/navdeepannu/Portfolio"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="View the UI library source on GitHub"
-            className="mt-8 rounded-full p-2 text-muted-foreground transition-colors hover:text-foreground"
+            className="rounded-full p-2 text-muted-foreground transition-colors hover:text-foreground"
           >
             <IconBrandGithub className="size-4" />
           </Link>
@@ -52,8 +53,8 @@ export function UiLibraryFooter() {
             href="https://www.linkedin.com/in/navdeepsingh0/"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="View the UI library source on GitHub"
-            className="mt-8 rounded-full p-2 text-muted-foreground transition-colors hover:text-foreground"
+            aria-label="View LinkedIn profile"
+            className="rounded-full p-2 text-muted-foreground transition-colors hover:text-foreground"
           >
             <IconBrandLinkedin className="size-4" />
           </Link>
@@ -61,8 +62,8 @@ export function UiLibraryFooter() {
             href="https://x.com/navdeepannu0"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="View the UI library source on GitHub"
-            className="mt-8 rounded-full p-2 text-muted-foreground transition-colors hover:text-foreground"
+            aria-label="View X profile"
+            className="rounded-full p-2 text-muted-foreground transition-colors hover:text-foreground"
           >
             <IconBrandX className="size-4" />
           </Link>
