@@ -5,6 +5,8 @@ import {
   AIChatWithConversationNavigatorDemo,
 } from '@/components/blocks/ai-chat/ai-chat-with-conversation-navigator'
 import { Button } from '@/components/ui/button'
+import { LandingHeader, LandingNavbar } from '@/site/portfolio/landing-header'
+import { PortfolioNavbar } from '@/site/portfolio/portfolio-navbar'
 import { IconCaretRightFilled } from '@tabler/icons-react'
 import { AnimatePresence, motion } from 'motion/react'
 import Image from 'next/image'
@@ -13,7 +15,7 @@ import { useState } from 'react'
 export default function Page() {
   return (
     <div className="">
-      <AIChatWithConversationNavigatorDemo />
+      <LandingNavbar />
     </div>
   )
 }

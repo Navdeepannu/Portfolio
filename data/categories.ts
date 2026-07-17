@@ -12,6 +12,7 @@ const CATEGORY_ORDER: BlockCategoryId[] = [
   'forgot-password',
   'sign-up',
   'logo-cloud',
+  'content',
   'teams',
   'footer',
   'faqs',
@@ -43,6 +44,10 @@ const CATEGORY_META: Record<string, { name: string; description?: string }> = {
   'logo-cloud': {
     name: 'Logo Cloud',
     description: 'Logo clouds and brand strips.',
+  },
+  content: {
+    name: 'Content',
+    description: 'Editorial galleries, project showcases, and readable content layouts.',
   },
   teams: {
     name: 'Teams',

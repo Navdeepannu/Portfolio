@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { IconBrandGithub } from '@tabler/icons-react'
+import { IconBrandGithub, IconBrandLinkedin, IconBrandX } from '@tabler/icons-react'
 
 import { SITE_ORIGINS } from '@/lib/sites'
 import Character from '@/site/character'
@@ -16,13 +16,12 @@ export function UiLibraryFooter() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="border-t bg-background py-12">
+    <footer className="bg-background py-12">
       <div className="mx-auto flex max-w-6xl flex-col items-center px-6 text-center">
         <div className="flex items-center gap-3">
           <Character className="size-12" />
-          <div className="text-left">
-            <p className="text-sm font-medium text-foreground">Navdeep UI</p>
-            <p className="text-xs text-muted-foreground">Components, blocks, and templates</p>
+          <div className="text-left font-geist">
+            <h4 className="text-lg font-semibold tracking-tight">Navdeep UI</h4>
           </div>
         </div>
 
@@ -40,15 +39,35 @@ export function UiLibraryFooter() {
           ))}
         </nav>
 
-        <Link
-          href="https://github.com/navdeepannu/Portfolio"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="View the UI library source on GitHub"
-          className="mt-8 rounded-full p-2 text-muted-foreground transition-colors hover:text-foreground"
-        >
-          <IconBrandGithub className="size-4" />
-        </Link>
+        <div className="mt-8 flex items-center justify-center gap-2">
+          <Link
+            href="https://github.com/navdeepannu/Portfolio"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="View the UI library source on GitHub"
+            className="rounded-full p-2 text-muted-foreground transition-colors hover:text-foreground"
+          >
+            <IconBrandGithub className="size-4" />
+          </Link>
+          <Link
+            href="https://www.linkedin.com/in/navdeepsingh0/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="View LinkedIn profile"
+            className="rounded-full p-2 text-muted-foreground transition-colors hover:text-foreground"
+          >
+            <IconBrandLinkedin className="size-4" />
+          </Link>
+          <Link
+            href="https://x.com/navdeepannu0"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="View X profile"
+            className="rounded-full p-2 text-muted-foreground transition-colors hover:text-foreground"
+          >
+            <IconBrandX className="size-4" />
+          </Link>
+        </div>
 
         <p className="mt-5 text-xs text-muted-foreground">&copy; {year} Navdeep Singh.</p>
       </div>

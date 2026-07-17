@@ -141,6 +141,7 @@
     "components/blocks/faqs/registry.json",
     "components/blocks/contact/registry.json",
     "components/blocks/features/registry.json",
+    "components/blocks/content/registry.json",
     "components/illustrations/registry.json"
   ]
 }

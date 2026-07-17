@@ -20,7 +20,14 @@ describe('site-specific metadata origins', () => {
     const portfolioUrls = portfolioSitemap().map((entry) => entry.url)
     const uiUrls = uiSitemap().map((entry) => entry.url)
 
-    assert.deepEqual(portfolioUrls, [SITE_ORIGINS.portfolio, `${SITE_ORIGINS.portfolio}/projects`])
+    assert.deepEqual(portfolioUrls, [
+      SITE_ORIGINS.portfolio,
+      `${SITE_ORIGINS.portfolio}/projects`,
+      `${SITE_ORIGINS.portfolio}/blog`,
+      `${SITE_ORIGINS.portfolio}/blog/nextjs-subdomain-local-production`,
+      `${SITE_ORIGINS.portfolio}/blog/shadcn-registry-dependencies`,
+      `${SITE_ORIGINS.portfolio}/blog/accessible-motion-react`,
+    ])
     assert.ok(uiUrls.every((url) => url.startsWith(SITE_ORIGINS.ui)))
     assert.ok(uiUrls.every((url) => !new URL(url).pathname.startsWith('/ui')))
     assert.ok(uiUrls.includes(`${SITE_ORIGINS.ui}/components/animated-tabs`))

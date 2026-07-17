@@ -28,6 +28,7 @@ import LogoCloudFour from '@/components/blocks/logo-cloud/logo-cloud-four'
 import LogoCloudOne from '@/components/blocks/logo-cloud/logo-cloud-one'
 import LogoCloudThree from '@/components/blocks/logo-cloud/logo-cloud-three'
 import LogoCloudTwo from '@/components/blocks/logo-cloud/logo-cloud-two'
+import ProjectGalleryOne from '@/components/blocks/content/project-gallery-one'
 import SignUpOne from '@/components/blocks/auth/sign-up-one'
 import SignUpTwo from '@/components/blocks/auth/sign-up-two'
 import TeamsSectionFive from '@/components/blocks/teams/teams-section-five'
@@ -319,6 +320,17 @@ export const blockRegistryEntries: BlockRegistryEntry[] = [
       sourceFiles: [{ path: 'components/blocks/logo-cloud/logo-cloud-two.tsx', language: 'tsx' }],
     }),
     LogoCloudTwo,
+  ),
+  entry(
+    defineBlock({
+      slug: 'project-gallery-one',
+      title: 'Project Gallery One',
+      description: '',
+      category: 'content',
+      tags: ['content', 'content'],
+      sourceFiles: [{ path: 'components/blocks/content/project-gallery-one.tsx', language: 'tsx' }],
+    }),
+    ProjectGalleryOne,
   ),
   entry(
     defineBlock({
