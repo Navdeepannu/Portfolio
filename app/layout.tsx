@@ -16,6 +16,7 @@ const geistSans = Geist({
 
 const caveat = Caveat({
   variable: '--font-caveat',
+  subsets: ['latin'],
 })
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',

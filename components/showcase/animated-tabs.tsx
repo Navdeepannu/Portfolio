@@ -2,7 +2,13 @@
 
 import { ArrowRight } from 'lucide-react'
 import { Button } from '../ui/button'
-import { AnimatedTabs, type AnimatedTabItem } from '@/components/ui/components/animated-tabs'
+import {
+  AnimatedTabs,
+  AnimatedTabsContent,
+  AnimatedTabsList,
+  AnimatedTabsTrigger,
+  AnimatedTabsViewport,
+} from '@/components/ui/components/animated-tabs'
 import { cn } from '@/lib/utils'
 
 const IMAGES = {
@@ -20,7 +26,12 @@ type AgentFlowPanelProps = {
 
 function AgentFlowPanel({ title, description, image, imageAlt }: AgentFlowPanelProps) {
   return (
-    <div className={cn('relative w-full overflow-hidden', 'min-h-95 bg-muted/30 rounded-md p-6 font-geist')}>
+    <div
+      className={cn(
+        'relative w-full overflow-hidden',
+        'min-h-95 rounded-md bg-muted/30 p-6 font-geist',
+      )}
+    >
       <div
         aria-hidden
         className={cn(
@@ -70,49 +81,61 @@ function AgentFlowPanel({ title, description, image, imageAlt }: AgentFlowPanelP
   )
 }
 
-const TABS: AnimatedTabItem[] = [
+const TABS = [
   {
     value: 'discover',
     label: 'Discover',
-    content: (
-      <AgentFlowPanel
-        title="Understand the goal before work starts."
-        description="The agent reads the request, studies the context, and turns scattered ideas into a clear direction your team can actually execute."
-        image={IMAGES.discovery}
-        imageAlt="AI discovery workflow interface"
-      />
-    ),
+    title: 'Understand the goal before work starts.',
+    description:
+      'The agent reads the request, studies the context, and turns scattered ideas into a clear direction your team can actually execute.',
+    image: IMAGES.discovery,
+    imageAlt: 'AI discovery workflow interface',
   },
   {
     value: 'automate',
     label: 'Automate',
-    content: (
-      <AgentFlowPanel
-        title="Automate the repetitive parts of the flow."
-        description="Let the system handle the repeatable tasks, generate useful outputs, and keep the process moving without needing constant manual work."
-        image={IMAGES.automation}
-        imageAlt="AI automation dashboard preview"
-      />
-    ),
+    title: 'Automate the repetitive parts of the flow.',
+    description:
+      'Let the system handle the repeatable tasks, generate useful outputs, and keep the process moving without needing constant manual work.',
+    image: IMAGES.automation,
+    imageAlt: 'AI automation dashboard preview',
   },
   {
     value: 'optimize',
     label: 'Optimize',
-    content: (
-      <AgentFlowPanel
-        title="Refine everything until it is ready to ship."
-        description="The agent reviews the output, improves weak areas, and helps turn the final result into something polished and production ready."
-        image={IMAGES.optimization}
-        imageAlt="AI optimization interface preview"
-      />
-    ),
+    title: 'Refine everything until it is ready to ship.',
+    description:
+      'The agent reviews the output, improves weak areas, and helps turn the final result into something polished and production ready.',
+    image: IMAGES.optimization,
+    imageAlt: 'AI optimization interface preview',
   },
 ]
 
 export default function AnimatedTabsShowcase() {
   return (
     <div className="mx-auto w-full max-w-5xl px-4 py-10">
-      <AnimatedTabs items={TABS} defaultValue="discover" />
+      <AnimatedTabs defaultValue="discover">
+        <AnimatedTabsList className="grid min-w-max grid-cols-3 sm:min-w-0">
+          {TABS.map((tab) => (
+            <AnimatedTabsTrigger key={tab.value} value={tab.value}>
+              {tab.label}
+            </AnimatedTabsTrigger>
+          ))}
+        </AnimatedTabsList>
+
+        <AnimatedTabsViewport className="py-4">
+          {TABS.map((tab) => (
+            <AnimatedTabsContent key={tab.value} value={tab.value}>
+              <AgentFlowPanel
+                title={tab.title}
+                description={tab.description}
+                image={tab.image}
+                imageAlt={tab.imageAlt}
+              />
+            </AnimatedTabsContent>
+          ))}
+        </AnimatedTabsViewport>
+      </AnimatedTabs>
     </div>
   )
 }

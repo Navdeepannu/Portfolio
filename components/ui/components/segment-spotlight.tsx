@@ -1,12 +1,14 @@
 'use client'
 
-import { Fragment, type ReactNode, useMemo, useState } from 'react'
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
-import type { LucideIcon } from 'lucide-react'
+import * as React from 'react'
+import { Slot } from 'radix-ui'
+import { motion, useReducedMotion } from 'motion/react'
+import { useControllableState } from '@radix-ui/react-use-controllable-state'
 
 import { cn } from '@/lib/utils'
 
-const CHIP_COLOR_CLASSES = {
+const segmentVariants = {
+  default: 'bg-foreground text-background shadow-foreground/20',
   blue: 'bg-blue-600 text-white shadow-blue-600/25',
   purple: 'bg-violet-600 text-white shadow-violet-600/25',
   green: 'bg-emerald-600 text-white shadow-emerald-600/25',
@@ -15,249 +17,351 @@ const CHIP_COLOR_CLASSES = {
   orange: 'bg-orange-500 text-white shadow-orange-500/25',
   red: 'bg-red-600 text-white shadow-red-600/25',
   yellow: 'bg-yellow-400 text-zinc-950 shadow-yellow-400/25',
-  zinc: 'bg-zinc-900 text-white shadow-zinc-900/20 dark:bg-zinc-100 dark:text-zinc-950',
 } as const
 
-const DEFAULT_SEGMENT_POSITIONS = [
-  'left-[17%] top-[20%] -rotate-3',
-  'left-[38%] top-[17%] rotate-0',
-  'right-[30%] top-[20%] rotate-1',
-  'right-[18%] top-[23%] rotate-6',
-  'left-[21%] top-[57%] rotate-2',
-  'left-[47%] top-[60%] -rotate-1',
-  'right-[24%] top-[57%] -rotate-3',
-]
+type SegmentSpotlightVariant = keyof typeof segmentVariants
+type SegmentSpotlightActivationMode = 'hover' | 'click'
 
-export type SegmentSpotlightColor = keyof typeof CHIP_COLOR_CLASSES
-
-export type SegmentSpotlightSegment = {
-  id: string
-  label: string
-  color?: SegmentSpotlightColor
-  className?: string
+type SegmentSpotlightContextValue = {
+  activeValue: string | null
+  activeTargets: ReadonlySet<string>
+  activationMode: SegmentSpotlightActivationMode
+  prefersReducedMotion: boolean
+  setActiveValue: (value: string | null) => void
+  registerTrigger: (value: string, targets: string[]) => () => void
 }
 
-export type SegmentSpotlightFocus = {
-  id: string
-  label: string
-  icon: LucideIcon
-  segmentIds: string[]
-  dividerAfter?: boolean
+const SegmentSpotlightContext = React.createContext<SegmentSpotlightContextValue | null>(null)
+
+function useSegmentSpotlight() {
+  const context = React.useContext(SegmentSpotlightContext)
+
+  if (!context) {
+    throw new Error('SegmentSpotlight components must be used within <SegmentSpotlight>.')
+  }
+
+  return context
 }
 
-export type SegmentSpotlightProps = {
-  segments: SegmentSpotlightSegment[]
-  focuses: SegmentSpotlightFocus[]
-  children?: ReactNode
-  className?: string
-  viewportClassName?: string
-  toolbarClassName?: string
-  showGrid?: boolean
+type SegmentSpotlightProps = Omit<React.ComponentProps<'div'>, 'defaultValue'> & {
+  value?: string | null
+  defaultValue?: string | null
+  onValueChange?: (value: string | null) => void
+  activationMode?: SegmentSpotlightActivationMode
 }
 
-export function SegmentSpotlight({
-  segments,
-  focuses,
-  children,
+function SegmentSpotlight({
+  value: valueProp,
+  defaultValue = null,
+  onValueChange,
+  activationMode = 'hover',
   className,
-  viewportClassName,
-  toolbarClassName,
-  showGrid = false,
+  children,
+  ...props
 }: SegmentSpotlightProps) {
-  const reduceMotion = useReducedMotion()
-  const [activeId, setActiveId] = useState<string | null>(null)
+  const prefersReducedMotion = useReducedMotion()
+  const [targetsByValue, setTargetsByValue] = React.useState<Map<string, string[]>>(new Map())
+  const [activeValue = null, setActiveValue] = useControllableState({
+    prop: valueProp,
+    defaultProp: defaultValue,
+    onChange: onValueChange,
+  })
 
-  const activeFocus = useMemo(() => {
-    return focuses.find((focus) => focus.id === activeId) ?? null
-  }, [activeId, focuses])
+  const registerTrigger = React.useCallback((value: string, targets: string[]) => {
+    setTargetsByValue((current) => {
+      const next = new Map(current)
+      next.set(value, targets)
+      return next
+    })
 
-  const activeSegmentIds = useMemo(() => {
-    return new Set(activeFocus?.segmentIds ?? [])
-  }, [activeFocus])
+    return () => {
+      setTargetsByValue((current) => {
+        const next = new Map(current)
+        next.delete(value)
+        return next
+      })
+    }
+  }, [])
 
-  const hasActiveFocus = Boolean(activeFocus)
+  const activeTargets = React.useMemo(
+    () => new Set(activeValue ? (targetsByValue.get(activeValue) ?? []) : []),
+    [activeValue, targetsByValue],
+  )
 
   return (
-    <div className={cn('relative mx-auto w-full max-w-6xl', className)}>
+    <SegmentSpotlightContext.Provider
+      value={{
+        activeValue,
+        activeTargets,
+        activationMode,
+        prefersReducedMotion: Boolean(prefersReducedMotion),
+        setActiveValue,
+        registerTrigger,
+      }}
+    >
       <div
-        className={cn('relative min-h-135 overflow-hidden bg-background', viewportClassName)}
+        data-slot="segment-spotlight"
+        data-state={activeValue ? 'active' : 'idle'}
+        className={cn('relative w-full', className)}
+        {...props}
       >
-        {showGrid ? (
-          <div
-            aria-hidden
-            className={cn(
-              'pointer-events-none absolute inset-0 z-0',
-              'bg-[linear-gradient(to_right,var(--border)_1px,transparent_1px),linear-gradient(to_bottom,var(--border)_1px,transparent_1px)]',
-              'bg-[size:40px_40px] opacity-60',
-              '[mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]',
-            )}
-          />
-        ) : null}
-
-        <div className="absolute inset-0 z-10">
-          {segments.map((segment, index) => {
-            const isActive = hasActiveFocus && activeSegmentIds.has(segment.id)
-
-            const isMuted = hasActiveFocus && !activeSegmentIds.has(segment.id)
-
-            return (
-              <SegmentChip
-                key={segment.id}
-                segment={segment}
-                index={index}
-                isActive={isActive}
-                isMuted={isMuted}
-                reduceMotion={reduceMotion}
-              />
-            )
-          })}
-        </div>
-
-        <div className="absolute inset-x-0 top-[42%] z-30 flex justify-center px-4">
-          <SegmentToolbar
-            focuses={focuses}
-            activeId={activeId}
-            toolbarClassName={toolbarClassName}
-            reduceMotion={reduceMotion}
-            onActivate={setActiveId}
-            onReset={() => setActiveId(null)}
-          />
-        </div>
-
-        {children ? (
-          <div className="absolute inset-x-0 bottom-0 z-20 px-6 pt-24 pb-10">
-            <div className="mx-auto max-w-3xl text-center">{children}</div>
-          </div>
-        ) : null}
+        {children}
       </div>
-    </div>
+    </SegmentSpotlightContext.Provider>
   )
 }
 
-function SegmentChip({
-  segment,
-  index,
-  isActive,
-  isMuted,
-  reduceMotion,
-}: {
-  segment: SegmentSpotlightSegment
-  index: number
-  isActive: boolean
-  isMuted: boolean
-  reduceMotion: boolean | null
-}) {
-  const color = segment.color ?? 'zinc'
-  const position =
-    segment.className ?? DEFAULT_SEGMENT_POSITIONS[index % DEFAULT_SEGMENT_POSITIONS.length]
+function SegmentSpotlightViewport({ className, ...props }: React.ComponentProps<'div'>) {
+  return (
+    <div
+      data-slot="segment-spotlight-viewport"
+      className={cn('relative min-h-135 overflow-hidden bg-background', className)}
+      {...props}
+    />
+  )
+}
+
+function SegmentSpotlightGrid({ className, ...props }: React.ComponentProps<'div'>) {
+  return (
+    <div
+      data-slot="segment-spotlight-grid"
+      aria-hidden="true"
+      className={cn(
+        'pointer-events-none absolute inset-0 z-0 bg-[linear-gradient(to_right,var(--border)_1px,transparent_1px),linear-gradient(to_bottom,var(--border)_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)] bg-[size:40px_40px] opacity-60',
+        className,
+      )}
+      {...props}
+    />
+  )
+}
+
+type SegmentSpotlightSegmentProps = Omit<React.ComponentProps<typeof motion.div>, 'children'> & {
+  value: string
+  variant?: SegmentSpotlightVariant
+  children?: React.ReactNode
+}
+
+function SegmentSpotlightSegment({
+  value,
+  variant = 'default',
+  className,
+  children,
+  initial,
+  animate,
+  transition,
+  ...props
+}: SegmentSpotlightSegmentProps) {
+  const context = useSegmentSpotlight()
+  const hasActiveValue = context.activeValue !== null
+  const isActive = hasActiveValue && context.activeTargets.has(value)
+  const isMuted = hasActiveValue && !isActive
 
   return (
     <motion.div
+      data-slot="segment-spotlight-segment"
+      data-state={isActive ? 'active' : isMuted ? 'muted' : 'idle'}
       initial={
-        reduceMotion
+        initial ??
+        (context.prefersReducedMotion
           ? false
-          : {
-              opacity: 0,
-              y: 12,
-              scale: 0.96,
-              filter: 'blur(6px)',
-            }
+          : { opacity: 0, y: 12, scale: 0.96, filter: 'blur(6px)' })
       }
-      animate={{
-        opacity: isMuted ? 0.24 : 1,
-        y: isActive ? -4 : 0,
-        scale: isActive ? 1.06 : 1,
-        filter: isMuted ? 'blur(5px)' : 'blur(0px)',
-      }}
-      transition={{
-        duration: reduceMotion ? 0 : 0.38,
-        ease: [0.16, 1, 0.3, 1],
-      }}
+      animate={
+        animate ?? {
+          opacity: isMuted ? 0.24 : 1,
+          y: isActive ? -4 : 0,
+          scale: isActive ? 1.06 : 1,
+          filter: isMuted ? 'blur(5px)' : 'blur(0px)',
+        }
+      }
+      transition={
+        transition ?? {
+          duration: context.prefersReducedMotion ? 0 : 0.38,
+          ease: [0.16, 1, 0.3, 1],
+        }
+      }
       className={cn(
-        'absolute z-10 rounded-lg px-3 py-1.5 text-sm font-medium',
-        'shadow-xl ring-1 ring-black/5 will-change-transform dark:ring-white/10',
-        CHIP_COLOR_CLASSES[color],
+        'absolute z-10 rounded-lg px-3 py-1.5 text-sm font-medium shadow-xl ring-1 ring-black/5 will-change-transform dark:ring-white/10',
+        segmentVariants[variant],
         isActive && 'z-20',
-        position,
+        className,
       )}
+      {...props}
     >
-      {segment.label}
+      {children}
     </motion.div>
   )
 }
 
-function SegmentToolbar({
-  focuses,
-  activeId,
-  toolbarClassName,
-  reduceMotion,
-  onActivate,
-  onReset,
-}: {
-  focuses: SegmentSpotlightFocus[]
-  activeId: string | null
-  toolbarClassName?: string
-  reduceMotion: boolean | null
-  onActivate: (id: string) => void
-  onReset: () => void
-}) {
+function SegmentSpotlightToolbar({
+  className,
+  onPointerLeave,
+  onBlur,
+  initial,
+  animate,
+  transition,
+  ...props
+}: React.ComponentProps<typeof motion.div>) {
+  const context = useSegmentSpotlight()
+
+  function handlePointerLeave(event: React.PointerEvent<HTMLDivElement>) {
+    onPointerLeave?.(event)
+
+    if (
+      !event.defaultPrevented &&
+      context.activationMode === 'hover' &&
+      event.pointerType === 'mouse'
+    ) {
+      context.setActiveValue(null)
+    }
+  }
+
+  function handleBlur(event: React.FocusEvent<HTMLDivElement>) {
+    onBlur?.(event)
+
+    if (!event.defaultPrevented && !event.currentTarget.contains(event.relatedTarget)) {
+      context.setActiveValue(null)
+    }
+  }
+
   return (
     <motion.div
-      onMouseLeave={onReset}
-      initial={reduceMotion ? false : { opacity: 0, y: 10, scale: 0.96 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{
-        duration: reduceMotion ? 0 : 0.35,
-        ease: [0.16, 1, 0.3, 1],
-      }}
+      data-slot="segment-spotlight-toolbar"
+      role="toolbar"
+      initial={
+        initial ?? (context.prefersReducedMotion ? false : { opacity: 0, y: 10, scale: 0.96 })
+      }
+      animate={animate ?? { opacity: 1, y: 0, scale: 1 }}
+      transition={
+        transition ?? {
+          duration: context.prefersReducedMotion ? 0 : 0.35,
+          ease: [0.16, 1, 0.3, 1],
+        }
+      }
+      onPointerLeave={handlePointerLeave}
+      onBlur={handleBlur}
       className={cn(
-        'flex items-center gap-1 rounded-full bg-zinc-950/95 p-2 ring-1 ring-border',
-        'shadow-2xl shadow-black/20 backdrop-blur-xl',
-        toolbarClassName,
+        'flex items-center gap-1 rounded-full bg-zinc-950/95 p-2 shadow-2xl ring-1 shadow-black/20 ring-border backdrop-blur-xl',
+        className,
       )}
+      {...props}
+    />
+  )
+}
+
+type SegmentSpotlightTriggerProps = Omit<React.ComponentProps<'button'>, 'value'> & {
+  value: string
+  targets?: string[]
+  asChild?: boolean
+}
+
+function SegmentSpotlightTrigger({
+  value,
+  targets,
+  asChild = false,
+  className,
+  onPointerEnter,
+  onFocus,
+  onClick,
+  children,
+  ...props
+}: SegmentSpotlightTriggerProps) {
+  const context = useSegmentSpotlight()
+  const Comp = asChild ? Slot.Root : 'button'
+  const isActive = context.activeValue === value
+  const registerTrigger = context.registerTrigger
+  const targetValues = React.useMemo(() => targets ?? [value], [targets, value])
+
+  React.useLayoutEffect(
+    () => registerTrigger(value, targetValues),
+    [registerTrigger, targetValues, value],
+  )
+
+  function handlePointerEnter(event: React.PointerEvent<HTMLButtonElement>) {
+    onPointerEnter?.(event)
+
+    if (
+      !event.defaultPrevented &&
+      context.activationMode === 'hover' &&
+      event.pointerType !== 'touch'
+    ) {
+      context.setActiveValue(value)
+    }
+  }
+
+  function handleFocus(event: React.FocusEvent<HTMLButtonElement>) {
+    onFocus?.(event)
+    if (!event.defaultPrevented) context.setActiveValue(value)
+  }
+
+  function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+    onClick?.(event)
+
+    if (!event.defaultPrevented) {
+      context.setActiveValue(context.activationMode === 'click' && isActive ? null : value)
+    }
+  }
+
+  return (
+    <motion.div
+      whileHover={context.prefersReducedMotion ? undefined : { scale: 1.08 }}
+      whileTap={context.prefersReducedMotion ? undefined : { scale: 0.94 }}
     >
-      {focuses.map((focus) => {
-        const Icon = focus.icon
-        const isActive = activeId === focus.id
-
-        return (
-          <Fragment key={focus.id}>
-            <motion.button
-              type="button"
-              aria-label={focus.label}
-              aria-pressed={isActive}
-              title={focus.label}
-              onMouseEnter={() => onActivate(focus.id)}
-              onFocus={() => onActivate(focus.id)}
-              whileHover={reduceMotion ? undefined : { scale: 1.08 }}
-              whileTap={reduceMotion ? undefined : { scale: 0.94 }}
-              className={cn(
-                'relative grid size-10 place-items-center rounded-full',
-                'text-neutral-200 transition-colors outline-none',
-                'focus-visible:ring-2 focus-visible:ring-border',
-                isActive && 'text-white',
-              )}
-            >
-              <AnimatePresence initial={false}>
-                {isActive ? (
-                  <motion.span
-                    layoutId="segment-spotlight-active-icon"
-                    className="absolute inset-1 rounded-full bg-white/15"
-                    transition={{
-                      duration: reduceMotion ? 0 : 0.25,
-                      ease: [0.16, 1, 0.3, 1],
-                    }}
-                  />
-                ) : null}
-              </AnimatePresence>
-
-              <Icon className="relative z-10 size-5" aria-hidden />
-            </motion.button>
-
-            {focus.dividerAfter ? <span aria-hidden className="mx-1 h-6 w-px bg-white/15" /> : null}
-          </Fragment>
-        )
-      })}
+      <Comp
+        data-slot="segment-spotlight-trigger"
+        data-state={isActive ? 'active' : 'inactive'}
+        type={asChild ? undefined : 'button'}
+        aria-pressed={isActive}
+        onPointerEnter={handlePointerEnter}
+        onFocus={handleFocus}
+        onClick={handleClick}
+        className={cn(
+          'relative grid size-10 place-items-center rounded-full text-neutral-200 transition-colors outline-none',
+          'after:absolute after:inset-1 after:rounded-full after:bg-white/15 after:opacity-0 after:transition-opacity',
+          'hover:text-white focus-visible:ring-2 focus-visible:ring-white/70 data-[state=active]:text-white data-[state=active]:after:opacity-100',
+          '[&_svg]:relative [&_svg]:z-10',
+          className,
+        )}
+        {...props}
+      >
+        {children}
+      </Comp>
     </motion.div>
   )
+}
+
+function SegmentSpotlightSeparator({ className, ...props }: React.ComponentProps<'span'>) {
+  return (
+    <span
+      data-slot="segment-spotlight-separator"
+      role="separator"
+      aria-orientation="vertical"
+      className={cn('mx-1 h-6 w-px bg-white/15', className)}
+      {...props}
+    />
+  )
+}
+
+function SegmentSpotlightContent({ className, ...props }: React.ComponentProps<'div'>) {
+  return (
+    <div
+      data-slot="segment-spotlight-content"
+      className={cn('absolute inset-x-0 bottom-0 z-20 px-6 pt-24 pb-10', className)}
+      {...props}
+    />
+  )
+}
+
+export {
+  SegmentSpotlight,
+  SegmentSpotlightContent,
+  SegmentSpotlightGrid,
+  SegmentSpotlightSegment,
+  SegmentSpotlightSeparator,
+  SegmentSpotlightToolbar,
+  SegmentSpotlightTrigger,
+  SegmentSpotlightViewport,
+  type SegmentSpotlightActivationMode,
+  type SegmentSpotlightProps,
+  type SegmentSpotlightVariant,
 }

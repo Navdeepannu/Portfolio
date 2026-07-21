@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "cta-section-one",
+      "type": "registry:block",
+      "title": "CTA Section One",
+      "description": "A lead-capture call to action with a production-ready email form and clear next-step expectations.",
+      "categories": ["cta"],
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["badge", "button", "card", "input"],
+      "files": [
+        {
+          "path": "cta-section-one.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/cta/cta-section-one.tsx"
+        }
+      ]
+    }
+  ]
+}

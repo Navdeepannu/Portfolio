@@ -7,6 +7,7 @@ import ContactSectionFour from '@/components/blocks/contact/contact-section-four
 import ContactSectionOne from '@/components/blocks/contact/contact-section-one'
 import ContactSectionThree from '@/components/blocks/contact/contact-section-three'
 import ContactSectionTwo from '@/components/blocks/contact/contact-section-two'
+import CtaSectionOne from '@/components/blocks/cta/cta-section-one'
 import FaqSectionOne from '@/components/blocks/faqs/faq-section-one'
 import FaqSectionThree from '@/components/blocks/faqs/faq-section-three'
 import FaqsSectionTwo from '@/components/blocks/faqs/faqs-section-two'
@@ -23,14 +24,18 @@ import HeroSectionFour from '@/components/blocks/hero-section/hero-section-four'
 import HeroSectionOne from '@/components/blocks/hero-section/hero-section-one'
 import HeroSectionThree from '@/components/blocks/hero-section/hero-section-three'
 import HeroSectionTwo from '@/components/blocks/hero-section/hero-section-two'
+import IntegrationsSectionOne from '@/components/blocks/integrations/integrations-section-one'
 import LogoCloudFive from '@/components/blocks/logo-cloud/logo-cloud-five'
 import LogoCloudFour from '@/components/blocks/logo-cloud/logo-cloud-four'
 import LogoCloudOne from '@/components/blocks/logo-cloud/logo-cloud-one'
 import LogoCloudThree from '@/components/blocks/logo-cloud/logo-cloud-three'
 import LogoCloudTwo from '@/components/blocks/logo-cloud/logo-cloud-two'
+import PricingSectionOne from '@/components/blocks/pricing/pricing-section-one'
+import ProcessSectionOne from '@/components/blocks/process/process-section-one'
 import ProjectGalleryOne from '@/components/blocks/content/project-gallery-one'
 import SignUpOne from '@/components/blocks/auth/sign-up-one'
 import SignUpTwo from '@/components/blocks/auth/sign-up-two'
+import StatsSectionOne from '@/components/blocks/stats/stats-section-one'
 import TeamsSectionFive from '@/components/blocks/teams/teams-section-five'
 import TeamsSectionFour from '@/components/blocks/teams/teams-section-four'
 import TeamsSectionOne from '@/components/blocks/teams/teams-section-one'
@@ -89,6 +94,17 @@ export const blockRegistryEntries: BlockRegistryEntry[] = [
       sourceFiles: [{ path: 'components/blocks/contact/contact-section-two.tsx', language: 'tsx' }],
     }),
     ContactSectionTwo,
+  ),
+  entry(
+    defineBlock({
+      slug: 'cta-section-one',
+      title: 'Cta Section One',
+      description: '',
+      category: 'cta',
+      tags: ['cta', 'cta'],
+      sourceFiles: [{ path: 'components/blocks/cta/cta-section-one.tsx', language: 'tsx' }],
+    }),
+    CtaSectionOne,
   ),
   entry(
     defineBlock({
@@ -268,6 +284,17 @@ export const blockRegistryEntries: BlockRegistryEntry[] = [
   ),
   entry(
     defineBlock({
+      slug: 'integrations-section-one',
+      title: 'Integrations Section One',
+      description: '',
+      category: 'integrations',
+      tags: ['integrations', 'integrations'],
+      sourceFiles: [{ path: 'components/blocks/integrations/integrations-section-one.tsx', language: 'tsx' }],
+    }),
+    IntegrationsSectionOne,
+  ),
+  entry(
+    defineBlock({
       slug: 'logo-cloud-five',
       title: 'Logo Cloud Five',
       description: '',
@@ -323,6 +350,28 @@ export const blockRegistryEntries: BlockRegistryEntry[] = [
   ),
   entry(
     defineBlock({
+      slug: 'pricing-section-one',
+      title: 'Pricing Section One',
+      description: '',
+      category: 'pricing',
+      tags: ['pricing', 'pricing'],
+      sourceFiles: [{ path: 'components/blocks/pricing/pricing-section-one.tsx', language: 'tsx' }],
+    }),
+    PricingSectionOne,
+  ),
+  entry(
+    defineBlock({
+      slug: 'process-section-one',
+      title: 'Process Section One',
+      description: '',
+      category: 'process',
+      tags: ['process', 'process'],
+      sourceFiles: [{ path: 'components/blocks/process/process-section-one.tsx', language: 'tsx' }],
+    }),
+    ProcessSectionOne,
+  ),
+  entry(
+    defineBlock({
       slug: 'project-gallery-one',
       title: 'Project Gallery One',
       description: '',
@@ -353,6 +402,17 @@ export const blockRegistryEntries: BlockRegistryEntry[] = [
       sourceFiles: [{ path: 'components/blocks/auth/sign-up-two.tsx', language: 'tsx' }],
     }),
     SignUpTwo,
+  ),
+  entry(
+    defineBlock({
+      slug: 'stats-section-one',
+      title: 'Stats Section One',
+      description: '',
+      category: 'stats',
+      tags: ['stats', 'stats'],
+      sourceFiles: [{ path: 'components/blocks/stats/stats-section-one.tsx', language: 'tsx' }],
+    }),
+    StatsSectionOne,
   ),
   entry(
     defineBlock({
@@ -414,8 +474,8 @@ export const blockRegistryEntries: BlockRegistryEntry[] = [
       slug: 'testamonial-section-one',
       title: 'Testamonial Section One',
       description: '',
-      category: 'testamonials',
-      tags: ['testamonials', 'testamonials'],
+      category: 'testimonials',
+      tags: ['testamonials', 'testimonials'],
       sourceFiles: [{ path: 'components/blocks/testamonials/testamonial-section-one.tsx', language: 'tsx' }],
     }),
     TestamonialSectionOne,

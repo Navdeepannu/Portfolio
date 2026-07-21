@@ -1,6 +1,6 @@
-import { RailNav, type RailNavItems } from '@/components/ui/components/rail-nav'
+import { RailNav } from '@/components/ui/components/rail-nav'
 
-const onThisPageItems: RailNavItems[] = [
+const onThisPageItems = [
   { label: 'Introduction', href: '#introduction' },
   { label: 'Installation', href: '#installation' },
   { label: 'Usage', href: '#usage' },

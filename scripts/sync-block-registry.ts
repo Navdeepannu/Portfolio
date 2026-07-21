@@ -19,6 +19,7 @@ const FOLDER_CATEGORY_MAP: Record<string, string> = {
   header: 'header',
   featured: 'featured',
   'logo-cloud': 'logo-cloud',
+  testamonials: 'testimonials',
   teams: 'teams',
   footer: 'footer',
 }

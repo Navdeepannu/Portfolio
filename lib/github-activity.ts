@@ -99,7 +99,7 @@ export async function getGithubActivity(): Promise<GithubActivityPreview> {
         },
       }),
       next: {
-        revalidate: 900,
+        revalidate: 60,
         tags: ['github-activity'],
       },
     })

@@ -1,12 +1,7 @@
 'use client'
 
-import {
-  AIChatWithConversationNavigator,
-  AIChatWithConversationNavigatorDemo,
-} from '@/components/blocks/ai-chat/ai-chat-with-conversation-navigator'
 import { Button } from '@/components/ui/button'
-import { LandingHeader, LandingNavbar } from '@/site/portfolio/landing-header'
-import { PortfolioNavbar } from '@/site/portfolio/portfolio-navbar'
+import { LandingNavbar } from '@/site/portfolio/landing-header'
 import { IconCaretRightFilled } from '@tabler/icons-react'
 import { AnimatePresence, motion } from 'motion/react'
 import Image from 'next/image'
@@ -15,12 +10,12 @@ import { useState } from 'react'
 export default function Page() {
   return (
     <div className="">
-      <LandingNavbar />
     </div>
   )
 }
 
-export function HeroSection() {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function HeroSection() {
   return (
     <section className="mx-auto flex max-w-5xl flex-col border-x border-border bg-background text-foreground selection:bg-zinc-700 selection:text-white">
       <div className="flex flex-col gap-4 px-6 py-16 md:px-8">
@@ -68,7 +63,8 @@ export function HeroSection() {
   )
 }
 
-export function FeyStyleMiniNav() {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function FeyStyleMiniNav() {
   const [open, setOpen] = useState(false)
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
 
@@ -185,7 +181,8 @@ const items = [
   },
 ]
 
-export function ProductFeaturesShowcase() {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function ProductFeaturesShowcase() {
   const [activeIndex, setActiveIndex] = useState(0)
 
   return (

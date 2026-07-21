@@ -9,15 +9,21 @@ const CATEGORY_ORDER: BlockCategoryId[] = [
   'featured',
   'hero',
   'header',
+  'features',
+  'integrations',
+  'stats',
+  'pricing',
+  'process',
   'forgot-password',
   'sign-up',
   'logo-cloud',
   'content',
   'teams',
+  'testimonials',
+  'cta',
   'footer',
   'faqs',
   'contact',
-  'features',
 ]
 
 const CATEGORY_META: Record<string, { name: string; description?: string }> = {
@@ -32,6 +38,26 @@ const CATEGORY_META: Record<string, { name: string; description?: string }> = {
   header: {
     name: 'Header',
     description: 'Navigation and top-bar patterns.',
+  },
+  features: {
+    name: 'Features',
+    description: 'Product feature sections with interactive highlights and focused layouts.',
+  },
+  integrations: {
+    name: 'Integrations',
+    description: 'Connected product ecosystems, APIs, and integration showcases.',
+  },
+  stats: {
+    name: 'Stats',
+    description: 'Business outcomes, product metrics, and customer proof.',
+  },
+  pricing: {
+    name: 'Pricing',
+    description: 'Plan comparisons and conversion-ready pricing layouts.',
+  },
+  process: {
+    name: 'Process',
+    description: 'How-it-works and service delivery sections with clear next steps.',
   },
   'forgot-password': {
     name: 'Forgot Password',
@@ -53,6 +79,14 @@ const CATEGORY_META: Record<string, { name: string; description?: string }> = {
     name: 'Teams',
     description: 'Team sections, testimonials, and social proof layouts.',
   },
+  testimonials: {
+    name: 'Testimonials',
+    description: 'Customer stories, quotes, and trust-building proof.',
+  },
+  cta: {
+    name: 'Call to Action',
+    description: 'Focused conversion sections for trials, demos, and service inquiries.',
+  },
   footer: {
     name: 'Footer',
     description: 'Site footers with links, newsletter, and brand rows.',
@@ -64,10 +98,6 @@ const CATEGORY_META: Record<string, { name: string; description?: string }> = {
   contact: {
     name: 'Contact',
     description: 'Contact and support sections with cards and link lists.',
-  },
-  features: {
-    name: 'Features',
-    description: 'Product feature sections with interactive highlights and motion-driven layouts.',
   },
 }
 
