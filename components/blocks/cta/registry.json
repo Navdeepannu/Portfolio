@@ -6,10 +6,10 @@
       "name": "cta-section-one",
       "type": "registry:block",
       "title": "CTA Section One",
-      "description": "A lead-capture call to action with a production-ready email form and clear next-step expectations.",
+      "description": "A polished call to action with primary and secondary links for clear next steps.",
       "categories": ["cta"],
       "dependencies": ["lucide-react"],
-      "registryDependencies": ["badge", "button", "card", "input"],
+      "registryDependencies": ["button"],
       "files": [
         {
           "path": "cta-section-one.tsx",

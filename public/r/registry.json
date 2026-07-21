@@ -872,15 +872,12 @@
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "cta-section-one",
       "title": "CTA Section One",
-      "description": "A lead-capture call to action with a production-ready email form and clear next-step expectations.",
+      "description": "A polished call to action with primary and secondary links for clear next steps.",
       "dependencies": [
         "lucide-react"
       ],
       "registryDependencies": [
-        "badge",
-        "button",
-        "card",
-        "input"
+        "button"
       ],
       "files": [
         {

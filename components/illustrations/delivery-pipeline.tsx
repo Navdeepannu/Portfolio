@@ -8,13 +8,19 @@ export type DeliveryPipelineStage = {
   status: string
 }
 
+export type DeliveryPipelineStages = readonly [
+  DeliveryPipelineStage,
+  DeliveryPipelineStage,
+  DeliveryPipelineStage,
+]
+
 export type DeliveryPipelineIllustrationProps = {
   className?: string
-  stages?: readonly DeliveryPipelineStage[]
+  stages?: DeliveryPipelineStages
   'aria-label'?: string
 }
 
-const defaultStages: readonly DeliveryPipelineStage[] = [
+const defaultStages: DeliveryPipelineStages = [
   {
     label: 'Discover',
     detail: 'Goals aligned',
@@ -94,8 +100,6 @@ export function DeliveryPipelineIllustration({
   'aria-label':
     ariaLabel = 'A three-stage delivery pipeline moving from discovery through build to launch',
 }: DeliveryPipelineIllustrationProps) {
-  const visibleStages = stages.slice(0, stageIcons.length)
-
   return (
     <div
       role="img"
@@ -105,7 +109,7 @@ export function DeliveryPipelineIllustration({
     >
       <div aria-hidden className="absolute top-1/2 right-[12%] left-[12%] h-px bg-border" />
       <div className="grid grid-cols-3 gap-2 sm:gap-4">
-        {visibleStages.map((stage, index) => (
+        {stages.map((stage, index) => (
           <PipelineCard key={`${stage.label}-${index}`} stage={stage} index={index} />
         ))}
       </div>

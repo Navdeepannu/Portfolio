@@ -1,6 +1,5 @@
 import { CopyButton } from '@/components/ui/components/copy-button'
 import { UiLibraryNavbar } from '@/site/ui-library/ui-library-navbar'
-import { ArrowUpRight } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -57,6 +56,18 @@ export default function PagesPage() {
                 <p className="mt-2 text-sm leading-5 text-muted-foreground">
                   {template.description}
                 </p>
+
+                <div className="mt-4 flex items-center gap-2 rounded-lg border bg-muted/50 p-1 pl-3">
+                  <code className="min-w-0 flex-1 truncate text-xs text-muted-foreground">
+                    {template.command}
+                  </code>
+                  <CopyButton
+                    text={template.command}
+                    variant="ghost"
+                    className="shrink-0"
+                    aria-label={`Copy ${template.title} install command`}
+                  />
+                </div>
               </div>
             </article>
           ))}

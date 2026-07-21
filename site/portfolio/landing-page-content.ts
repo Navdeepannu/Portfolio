@@ -92,7 +92,7 @@ export const landingPageContent = {
       {
         repository: 'usekaneo/kaneo',
         repositoryHref: 'https://github.com/usekaneo/kaneo',
-        title: 'fix: prevent oversized workflow column drag preview (#1394)',
+        title: 'fix: prevent oversized workflow column drag preview (#1397)',
         date: 'Jul 15',
         dateTime: '2026-07-15T15:26:12Z',
         status: 'Merged',

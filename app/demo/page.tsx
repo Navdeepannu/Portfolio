@@ -1,17 +1,13 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { LandingNavbar } from '@/site/portfolio/landing-header'
 import { IconCaretRightFilled } from '@tabler/icons-react'
 import { AnimatePresence, motion } from 'motion/react'
 import Image from 'next/image'
 import { useState } from 'react'
 
 export default function Page() {
-  return (
-    <div className="">
-    </div>
-  )
+  return <div className=""></div>
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

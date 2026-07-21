@@ -1,7 +1,16 @@
 'use client'
 
 import { Fragment } from 'react'
-import { Accessibility, Activity, FileText, Flag, MessageCircle, Share2, Users } from 'lucide-react'
+import {
+  Accessibility,
+  Activity,
+  FileText,
+  Flag,
+  MessageCircle,
+  Share2,
+  Users,
+  type LucideIcon,
+} from 'lucide-react'
 
 import {
   SegmentSpotlight,
@@ -54,7 +63,15 @@ const segments: Array<{
   },
 ]
 
-const focuses = [
+type SpotlightFocus = {
+  value: string
+  label: string
+  icon: LucideIcon
+  targets: string[]
+  separator?: boolean
+}
+
+const focuses: SpotlightFocus[] = [
   { value: 'comments', label: 'Comments', icon: MessageCircle, targets: ['comments'] },
   { value: 'cms', label: 'CMS Drafts', icon: FileText, targets: ['cms'], separator: true },
   { value: 'flags', label: 'Feature Flags', icon: Flag, targets: ['flags'] },
