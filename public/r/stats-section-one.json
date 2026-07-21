@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stats-section-one",
+  "title": "Stats Section One",
+  "description": "A business results section that combines measurable outcomes with a customer proof point.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "badge",
+    "button",
+    "card",
+    "separator"
+  ],
+  "files": [
+    {
+      "path": "components/blocks/stats/stats-section-one.tsx",
+      "content": "import type { ComponentProps } from 'react'\nimport { ArrowUpRight, Quote } from 'lucide-react'\n\nimport { Badge } from '@/components/ui/badge'\nimport { Button } from '@/components/ui/button'\nimport { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'\nimport { Separator } from '@/components/ui/separator'\nimport { cn } from '@/lib/utils'\n\nexport type BusinessMetric = {\n  value: string\n  label: string\n  detail?: string\n}\n\nexport type StatsSectionOneProps = ComponentProps<'section'> & {\n  eyebrow?: string\n  heading?: string\n  description?: string\n  metrics?: readonly BusinessMetric[]\n  quote?: string\n  quoteAuthor?: string\n  quoteRole?: string\n  action?: { label: string; href: string }\n}\n\nconst defaultMetrics: readonly BusinessMetric[] = [\n  { value: '38%', label: 'faster delivery', detail: 'Across the first 90 days' },\n  { value: '3.2×', label: 'return on spend', detail: 'Measured over one year' },\n  { value: '18 hrs', label: 'saved each week', detail: 'Per operations team' },\n  { value: '99.9%', label: 'workflow uptime', detail: 'Across all workspaces' },\n]\n\nexport function StatsSectionOne({\n  className,\n  eyebrow = 'Measured impact',\n  heading = 'Results that stand up in the next leadership meeting',\n  description = 'Connect the work to outcomes with a section built for case studies, service results, and product proof.',\n  metrics = defaultMetrics,\n  quote = 'We moved from scattered updates to one operating rhythm. The team is faster, and leadership finally has a clear view of progress.',\n  quoteAuthor = 'Maya Chen',\n  quoteRole = 'VP of Operations, Northstar',\n  action = { label: 'Read the case study', href: '#case-study' },\n  ...props\n}: StatsSectionOneProps) {\n  return (\n    <section\n      data-slot=\"stats-section-one\"\n      className={cn('bg-muted/30 py-20 text-foreground sm:py-28', className)}\n      {...props}\n    >\n      <div className=\"mx-auto w-full max-w-6xl px-6\">\n        <div className=\"grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-end\">\n          <div>\n            <Badge variant=\"outline\" className=\"bg-background\">\n              {eyebrow}\n            </Badge>\n            <h2 className=\"mt-5 text-3xl font-semibold tracking-tight text-balance sm:text-5xl\">\n              {heading}\n            </h2>\n          </div>\n          <p className=\"max-w-xl text-base leading-7 text-muted-foreground sm:text-lg lg:justify-self-end\">\n            {description}\n          </p>\n        </div>\n\n        <div className=\"mt-12 grid gap-5 lg:grid-cols-[0.9fr_1.1fr]\">\n          <Card className=\"justify-between\">\n            <CardHeader>\n              <Quote aria-hidden className=\"size-8 text-primary\" />\n              <CardTitle className=\"mt-5 text-xl leading-8 font-medium sm:text-2xl\">\n                “{quote}”\n              </CardTitle>\n            </CardHeader>\n            <CardFooter className=\"flex items-end justify-between gap-4\">\n              <div>\n                <p className=\"font-medium text-foreground\">{quoteAuthor}</p>\n                <p className=\"mt-1 text-sm text-muted-foreground\">{quoteRole}</p>\n              </div>\n              <Button asChild variant=\"outline\" size=\"icon-lg\" aria-label={action.label}>\n                <a href={action.href}>\n                  <ArrowUpRight aria-hidden />\n                </a>\n              </Button>\n            </CardFooter>\n          </Card>\n\n          <Card className=\"py-0\">\n            <CardContent className=\"grid h-full p-0 sm:grid-cols-2\">\n              {metrics.map((metric, index) => (\n                <div\n                  key={`${metric.value}-${metric.label}`}\n                  className={cn(\n                    'p-6 sm:p-8',\n                    index % 2 === 0 && 'sm:border-r sm:border-border',\n                    index < 2 && 'border-b border-border',\n                  )}\n                >\n                  <p className=\"text-3xl font-semibold tracking-tight sm:text-4xl\">\n                    {metric.value}\n                  </p>\n                  <p className=\"mt-2 font-medium\">{metric.label}</p>\n                  {metric.detail ? (\n                    <>\n                      <Separator className=\"my-4 w-10\" />\n                      <p className=\"text-sm text-muted-foreground\">{metric.detail}</p>\n                    </>\n                  ) : null}\n                </div>\n              ))}\n            </CardContent>\n          </Card>\n        </div>\n      </div>\n    </section>\n  )\n}\n\nexport default StatsSectionOne\n",
+      "type": "registry:component",
+      "target": "@components/blocks/stats/stats-section-one.tsx"
+    }
+  ],
+  "categories": [
+    "stats"
+  ],
+  "type": "registry:block"
+}

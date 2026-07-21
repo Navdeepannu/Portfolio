@@ -1,4 +1,14 @@
-import { ExpandableCard } from '@/components/ui/components/expandable-card'
+import {
+  ExpandableCard,
+  ExpandableCardBody,
+  ExpandableCardContent,
+  ExpandableCardDescription,
+  ExpandableCardFooter,
+  ExpandableCardHeader,
+  ExpandableCardMedia,
+  ExpandableCardTitle,
+  ExpandableCardTrigger,
+} from '@/components/ui/components/expandable-card'
 
 const cards = [
   {
@@ -6,7 +16,7 @@ const cards = [
     description: 'Automate repetitive tasks and help users move faster with fewer manual steps.',
     image:
       'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop',
-    learnMore: { label: 'View docs', href: '#' },
+    href: '#automation-docs',
     items: [
       {
         title: 'What it does',
@@ -63,17 +73,59 @@ export default function Page() {
   return (
     <section className="mx-auto grid max-w-5xl gap-4 px-4 py-12 sm:grid-cols-2 lg:grid-cols-3">
       {cards.map((card) => (
-        <ExpandableCard
-          key={card.title}
-          title={card.title}
-          description={card.description}
-          image={card.image}
-          items={card.items}
-          learnMore={'learnMore' in card ? card.learnMore : undefined}
-          footer={
-            <span className="text-xs font-medium text-muted-foreground">Updated weekly</span>
-          }
-        />
+        <ExpandableCard key={card.title}>
+          <ExpandableCardTrigger>
+            <ExpandableCardMedia className="aspect-4/3 p-1">
+              <img src={card.image} alt="" className="h-full w-full rounded-xl object-cover" />
+            </ExpandableCardMedia>
+
+            <span className="block p-4">
+              <span className="block truncate text-base font-semibold tracking-tight text-foreground">
+                {card.title}
+              </span>
+              <span className="mt-2 line-clamp-2 block text-sm leading-6 text-muted-foreground">
+                {card.description}
+              </span>
+              <span className="mt-4 flex justify-end">
+                <span className="rounded-full border bg-background px-3 py-1.5 text-xs font-medium text-foreground transition-colors group-hover/expandable-card:bg-muted">
+                  View details
+                </span>
+              </span>
+            </span>
+          </ExpandableCardTrigger>
+
+          <ExpandableCardContent>
+            <ExpandableCardMedia className="aspect-video">
+              <img src={card.image} alt="" className="h-full w-full object-cover" />
+            </ExpandableCardMedia>
+
+            <ExpandableCardHeader>
+              <ExpandableCardTitle>{card.title}</ExpandableCardTitle>
+              <ExpandableCardDescription>{card.description}</ExpandableCardDescription>
+            </ExpandableCardHeader>
+
+            <ExpandableCardBody className="grid gap-4 sm:grid-cols-2">
+              {card.items.map((item) => (
+                <div key={item.title} className="rounded-2xl border bg-muted/30 p-4">
+                  <h3 className="text-sm font-medium text-foreground">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-muted-foreground">{item.description}</p>
+                </div>
+              ))}
+            </ExpandableCardBody>
+
+            <ExpandableCardFooter>
+              <span className="text-xs font-medium text-muted-foreground">Updated weekly</span>
+              {'href' in card ? (
+                <a
+                  href={card.href}
+                  className="rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background transition-opacity hover:opacity-90"
+                >
+                  View docs
+                </a>
+              ) : null}
+            </ExpandableCardFooter>
+          </ExpandableCardContent>
+        </ExpandableCard>
       ))}
     </section>
   )

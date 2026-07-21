@@ -27,7 +27,7 @@ export function FlowDeskLogoCloud() {
       <div>
         <p className="text-sm font-medium text-muted-foreground">Integrations</p>
 
-        <h3 className="mt-3 max-w-sm text-2xl font-medium tracking-tight text-balance text-foreground md:text-3xl">
+        <h3 className="mt-3 max-w-sm text-xl font-medium tracking-tight text-balance text-foreground md:text-3xl">
           Designed to work with the tools your team already depends on
         </h3>
       </div>
@@ -58,7 +58,6 @@ export function FlowDeskLogoCloud() {
                     translateY: 0,
                     filter: 'blur(0px)',
                   }}
-              
                   transition={{
                     duration: 0.65,
                     delay: index * 0.06,

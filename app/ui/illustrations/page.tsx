@@ -10,6 +10,8 @@ const illustrationSourcePaths = {
   'matching-panel': ['components/illustrations/matching-panel.tsx', SHARED_ILLUSTRATION_SOURCE],
   'report-panel': ['components/illustrations/report-panel.tsx', SHARED_ILLUSTRATION_SOURCE],
   'approval-panel': ['components/illustrations/approval-panel.tsx', SHARED_ILLUSTRATION_SOURCE],
+  'integration-orbit': ['components/illustrations/integration-orbit.tsx'],
+  'delivery-pipeline': ['components/illustrations/delivery-pipeline.tsx'],
 } as const
 
 export default async function IllustrationsPage() {

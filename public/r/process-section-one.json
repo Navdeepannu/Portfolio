@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "process-section-one",
+  "title": "Process Section One",
+  "description": "A service delivery section with typed process steps and a reusable project pipeline illustration.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "badge",
+    "button",
+    "card",
+    "https://ui.navdeepsingh.dev/r/delivery-pipeline.json"
+  ],
+  "files": [
+    {
+      "path": "components/blocks/process/process-section-one.tsx",
+      "content": "import type { ComponentProps, ReactNode } from 'react'\nimport { ArrowRight } from 'lucide-react'\n\nimport { DeliveryPipelineIllustration } from '@/components/illustrations/delivery-pipeline'\nimport { Badge } from '@/components/ui/badge'\nimport { Button } from '@/components/ui/button'\nimport { Card, CardContent } from '@/components/ui/card'\nimport { cn } from '@/lib/utils'\n\nexport type ProcessStep = {\n  title: string\n  description: string\n}\n\nexport type ProcessSectionOneProps = ComponentProps<'section'> & {\n  eyebrow?: string\n  heading?: string\n  description?: string\n  steps?: readonly ProcessStep[]\n  action?: { label: string; href: string }\n  illustration?: ReactNode\n}\n\nconst defaultSteps: readonly ProcessStep[] = [\n  {\n    title: 'Align on the outcome',\n    description: 'We turn goals, constraints, and customer context into a focused delivery plan.',\n  },\n  {\n    title: 'Build in visible sprints',\n    description:\n      'You see working progress every week and can shape decisions before they become costly.',\n  },\n  {\n    title: 'Launch with confidence',\n    description:\n      'Quality checks, documentation, and handoff are part of delivery rather than an afterthought.',\n  },\n]\n\nexport function ProcessSectionOne({\n  className,\n  eyebrow = 'How we work',\n  heading = 'A clear path from the first conversation to a confident launch',\n  description = 'A practical delivery model for service teams, studios, and product partners that keeps clients close to the work.',\n  steps = defaultSteps,\n  action = { label: 'Plan a project', href: '#contact' },\n  illustration = <DeliveryPipelineIllustration />,\n  ...props\n}: ProcessSectionOneProps) {\n  return (\n    <section\n      data-slot=\"process-section-one\"\n      className={cn('bg-background py-20 text-foreground sm:py-28', className)}\n      {...props}\n    >\n      <div className=\"mx-auto w-full max-w-6xl px-6\">\n        <div className=\"grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16\">\n          <div className=\"lg:sticky lg:top-24 lg:self-start\">\n            <Badge variant=\"outline\">{eyebrow}</Badge>\n            <h2 className=\"mt-5 text-3xl font-semibold tracking-tight text-balance sm:text-5xl\">\n              {heading}\n            </h2>\n            <p className=\"mt-5 text-base leading-7 text-muted-foreground sm:text-lg\">\n              {description}\n            </p>\n            <Button asChild size=\"lg\" className=\"mt-8\">\n              <a href={action.href}>\n                {action.label}\n                <ArrowRight aria-hidden data-icon=\"inline-end\" />\n              </a>\n            </Button>\n          </div>\n\n          <div className=\"space-y-5\">\n            <Card className=\"py-0\">\n              <CardContent className=\"p-4 sm:p-8\">{illustration}</CardContent>\n            </Card>\n\n            <ol className=\"grid gap-px overflow-hidden rounded-xl border border-border bg-border\">\n              {steps.map((step, index) => (\n                <li\n                  key={step.title}\n                  className=\"grid gap-4 bg-card p-5 sm:grid-cols-[auto_1fr] sm:p-6\"\n                >\n                  <span className=\"grid size-9 place-items-center rounded-full bg-primary text-sm font-semibold text-primary-foreground\">\n                    {String(index + 1).padStart(2, '0')}\n                  </span>\n                  <div>\n                    <h3 className=\"font-semibold text-card-foreground\">{step.title}</h3>\n                    <p className=\"mt-2 max-w-xl text-sm leading-6 text-muted-foreground\">\n                      {step.description}\n                    </p>\n                  </div>\n                </li>\n              ))}\n            </ol>\n          </div>\n        </div>\n      </div>\n    </section>\n  )\n}\n\nexport default ProcessSectionOne\n",
+      "type": "registry:component",
+      "target": "@components/blocks/process/process-section-one.tsx"
+    }
+  ],
+  "categories": [
+    "process"
+  ],
+  "type": "registry:block"
+}

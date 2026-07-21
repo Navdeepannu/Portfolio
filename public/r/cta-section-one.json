@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "cta-section-one",
+  "title": "CTA Section One",
+  "description": "A polished call to action with primary and secondary links for clear next steps.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "button"
+  ],
+  "files": [
+    {
+      "path": "components/blocks/cta/cta-section-one.tsx",
+      "content": "import type { ComponentProps } from 'react'\nimport { ArrowRight } from 'lucide-react'\nimport Link from 'next/link'\n\nimport { Button } from '@/components/ui/button'\nimport { cn } from '@/lib/utils'\n\nconst ctaSectionOneData = {\n  heading: 'Build your next product with confidence.',\n  description:\n    'Start building today or talk with our team to find the right plan for your business.',\n  primaryAction: {\n    label: 'Get started',\n    href: '/get-started',\n  },\n  secondaryAction: {\n    label: 'Contact sales',\n    href: '/contact',\n  },\n}\n\ntype CtaSectionOneProps = ComponentProps<'section'>\n\nexport function CtaSectionOne({ className, ...props }: CtaSectionOneProps) {\n  return (\n    <section\n      data-slot=\"cta-section-one\"\n      className={cn('bg-background px-4 py-20 sm:px-6 sm:py-28', className)}\n      {...props}\n    >\n      <div className=\"mx-auto max-w-6xl\">\n        <div className=\"relative isolate overflow-hidden rounded-3xl border bg-card px-6 py-16 text-center shadow-xl shadow-foreground/5 sm:px-12 sm:py-20\">\n          <div className=\"relative mx-auto max-w-3xl\">\n            <h2 className=\"text-3xl font-semibold tracking-tight text-balance text-foreground sm:text-5xl\">\n              {ctaSectionOneData.heading}\n            </h2>\n\n            <p className=\"mx-auto mt-5 max-w-2xl text-base leading-7 text-balance text-muted-foreground sm:text-lg\">\n              {ctaSectionOneData.description}\n            </p>\n\n            <div className=\"mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row\">\n              <Button asChild size=\"lg\" className=\"w-full sm:w-auto\">\n                <Link href={ctaSectionOneData.primaryAction.href}>\n                  {ctaSectionOneData.primaryAction.label}\n                  <ArrowRight aria-hidden className=\"size-4\" />\n                </Link>\n              </Button>\n\n              <Button\n                asChild\n                size=\"lg\"\n                variant=\"outline\"\n                className=\"w-full bg-background/70 shadow-sm backdrop-blur-sm sm:w-auto\"\n              >\n                <Link href={ctaSectionOneData.secondaryAction.href}>\n                  {ctaSectionOneData.secondaryAction.label}\n                </Link>\n              </Button>\n            </div>\n          </div>\n        </div>\n      </div>\n    </section>\n  )\n}\n\nexport default CtaSectionOne\n",
+      "type": "registry:component",
+      "target": "@components/blocks/cta/cta-section-one.tsx"
+    }
+  ],
+  "categories": [
+    "cta"
+  ],
+  "type": "registry:block"
+}

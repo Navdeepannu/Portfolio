@@ -766,6 +766,133 @@
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "integrations-section-one",
+      "title": "Integrations Section One",
+      "description": "A split integrations section with product benefits and a reusable connected-tools illustration.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "badge",
+        "button",
+        "card",
+        "https://ui.navdeepsingh.dev/r/integration-orbit.json"
+      ],
+      "files": [
+        {
+          "path": "components/blocks/integrations/integrations-section-one.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/integrations/integrations-section-one.tsx"
+        }
+      ],
+      "categories": [
+        "integrations"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "stats-section-one",
+      "title": "Stats Section One",
+      "description": "A business results section that combines measurable outcomes with a customer proof point.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "badge",
+        "button",
+        "card",
+        "separator"
+      ],
+      "files": [
+        {
+          "path": "components/blocks/stats/stats-section-one.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/stats/stats-section-one.tsx"
+        }
+      ],
+      "categories": [
+        "stats"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "pricing-section-one",
+      "title": "Pricing Section One",
+      "description": "A responsive three-tier pricing section with a monthly and yearly billing switcher.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "badge",
+        "button",
+        "card",
+        "tabs"
+      ],
+      "files": [
+        {
+          "path": "components/blocks/pricing/pricing-section-one.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/pricing/pricing-section-one.tsx"
+        }
+      ],
+      "categories": [
+        "pricing"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "process-section-one",
+      "title": "Process Section One",
+      "description": "A service delivery section with typed process steps and a reusable project pipeline illustration.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "badge",
+        "button",
+        "card",
+        "https://ui.navdeepsingh.dev/r/delivery-pipeline.json"
+      ],
+      "files": [
+        {
+          "path": "components/blocks/process/process-section-one.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/process/process-section-one.tsx"
+        }
+      ],
+      "categories": [
+        "process"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "cta-section-one",
+      "title": "CTA Section One",
+      "description": "A polished call to action with primary and secondary links for clear next steps.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "components/blocks/cta/cta-section-one.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/cta/cta-section-one.tsx"
+        }
+      ],
+      "categories": [
+        "cta"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "payment-card",
       "title": "Payment Card Illustration",
       "description": "A motion-ready payment card illustration.",
@@ -904,6 +1031,40 @@
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "integration-orbit",
+      "title": "Integration Orbit Illustration",
+      "description": "A semantic-token product ecosystem illustration with six configurable integration nodes.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/illustrations/integration-orbit.tsx",
+          "type": "registry:component",
+          "target": "@components/illustrations/integration-orbit.tsx"
+        }
+      ],
+      "type": "registry:component"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "delivery-pipeline",
+      "title": "Delivery Pipeline Illustration",
+      "description": "A responsive three-stage project delivery illustration for service and product workflows.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/illustrations/delivery-pipeline.tsx",
+          "type": "registry:component",
+          "target": "@components/illustrations/delivery-pipeline.tsx"
+        }
+      ],
+      "type": "registry:component"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "animated-group",
       "title": "Animated Group",
       "description": "Motion-powered staggered animation container.",
@@ -940,10 +1101,11 @@
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "segment-spotlight",
       "title": "Segment Spotlight",
-      "description": "A desktop-focused floating feature spotlight with animated chips, icon controls, hover focus, and blurred inactive states.",
+      "description": "Composable spotlight primitives with controlled state, animated segments, arbitrary controls, and hover or click activation.",
       "dependencies": [
         "motion",
-        "lucide-react"
+        "radix-ui",
+        "@radix-ui/react-use-controllable-state"
       ],
       "files": [
         {
@@ -980,7 +1142,11 @@
       "title": "Animated Tabs",
       "description": "A tab component with a moving active pill and directional content transitions.",
       "dependencies": [
-        "motion"
+        "motion",
+        "@radix-ui/react-use-controllable-state"
+      ],
+      "registryDependencies": [
+        "tabs"
       ],
       "files": [
         {
@@ -995,11 +1161,15 @@
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "expandable-card",
       "title": "Expandable Card",
-      "description": "An animated expandable card that reveals more content, actions, and optional links on interaction.",
+      "description": "Composable card-dialog primitives with accessible modal behavior, controlled state, shared media motion, and custom actions.",
       "dependencies": [
         "motion",
         "lucide-react",
+        "radix-ui",
         "@radix-ui/react-use-controllable-state"
+      ],
+      "registryDependencies": [
+        "button"
       ],
       "files": [
         {
@@ -1014,9 +1184,10 @@
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "rail-nav",
       "title": "Rail Nav",
-      "description": "A motion-powered on-this-page rail nav with collapsed line indicators and expandable section labels.",
+      "description": "Motion rail navigation with the original line-to-link reveal, controlled expansion, flexible links, and optional scroll tracking.",
       "dependencies": [
-        "motion"
+        "motion",
+        "@radix-ui/react-use-controllable-state"
       ],
       "files": [
         {

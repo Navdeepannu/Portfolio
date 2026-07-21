@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "process-section-one",
+      "type": "registry:block",
+      "title": "Process Section One",
+      "description": "A service delivery section with typed process steps and a reusable project pipeline illustration.",
+      "categories": ["process"],
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["badge", "button", "card", "@navdeep-singh/delivery-pipeline"],
+      "files": [
+        {
+          "path": "process-section-one.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/process/process-section-one.tsx"
+        }
+      ]
+    }
+  ]
+}

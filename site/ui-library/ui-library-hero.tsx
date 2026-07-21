@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowUpRight, Sparkles } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { TextLoop } from '@/components/ui/text-loop'
@@ -26,7 +26,7 @@ export function UiLibraryHero() {
     <section>
       <Container className="font-geist selection:bg-emerald-200/60 dark:selection:bg-emerald-500 dark:selection:text-white">
         <div className="flex max-w-xl flex-col gap-4 py-14">
-          <h1 className="max-w-2xl text-3xl leading-tight font-medium tracking-tight sm:text-4xl md:text-5xl">
+          <h1 className="leading-tighter max-w-2xl text-3xl font-medium tracking-tight sm:text-4xl md:text-5xl">
             Build polished interfaces with{' '}
             <TextLoop className="inline-block bg-linear-to-b from-emerald-400 to-emerald-600 bg-clip-text text-transparent">
               {hero.roles.map((role) => (

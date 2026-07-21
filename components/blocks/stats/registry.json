@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "stats-section-one",
+      "type": "registry:block",
+      "title": "Stats Section One",
+      "description": "A business results section that combines measurable outcomes with a customer proof point.",
+      "categories": ["stats"],
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["badge", "button", "card", "separator"],
+      "files": [
+        {
+          "path": "stats-section-one.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/stats/stats-section-one.tsx"
+        }
+      ]
+    }
+  ]
+}

@@ -1,74 +1,155 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import * as React from 'react'
+import { useControllableState } from '@radix-ui/react-use-controllable-state'
 import { motion } from 'motion/react'
 
-export type RailNavItems = {
-  label: string
-  href: `#${string}`
-}
+import { cn } from '@/lib/utils'
 
-type RailNavProps = {
-  items: RailNavItems[]
+export type RailNavItem = {
+  label: React.ReactNode
+  href: string
+  /** Optional selector to observe when it differs from href. */
+  target?: string
   className?: string
+  onClick?: React.MouseEventHandler<HTMLAnchorElement>
 }
 
-export function RailNav({ items, className = '' }: RailNavProps) {
-  const [open, setOpen] = useState(false)
-  const [activeHref, setActiveHref] = useState<RailNavItems['href']>(items[0]?.href ?? '#intro')
-  const [hoveredHref, setHoveredHref] = useState<RailNavItems['href'] | null>(null)
+/** @deprecated Use RailNavItem instead. */
+export type RailNavItems = RailNavItem
 
-  useEffect(() => {
-    const sections = items
-      .map((item) => document.querySelector(item.href))
-      .filter((section): section is Element => section !== null)
+export type RailNavProps = Omit<React.ComponentProps<'aside'>, 'defaultValue'> & {
+  items: readonly RailNavItem[]
+  value?: string
+  defaultValue?: string
+  onValueChange?: (value: string) => void
+  expanded?: boolean
+  defaultExpanded?: boolean
+  onExpandedChange?: (expanded: boolean) => void
+  trackActive?: boolean
+  observerOptions?: IntersectionObserverInit
+  label?: string
+}
 
-    if (!sections.length) return
+export function RailNav({
+  items,
+  value: valueProp,
+  defaultValue,
+  onValueChange,
+  expanded: expandedProp,
+  defaultExpanded = false,
+  onExpandedChange,
+  trackActive = true,
+  observerOptions,
+  label = 'On this page',
+  className,
+  onMouseEnter,
+  onMouseLeave,
+  onFocusCapture,
+  onBlurCapture,
+  ...props
+}: RailNavProps) {
+  const [activeValue = '', setActiveValue] = useControllableState({
+    prop: valueProp,
+    defaultProp: defaultValue ?? items[0]?.href ?? '',
+    onChange: onValueChange,
+  })
+  const [expanded = false, setExpanded] = useControllableState({
+    prop: expandedProp,
+    defaultProp: defaultExpanded,
+    onChange: onExpandedChange,
+  })
+  const [hoveredValue, setHoveredValue] = React.useState<string | null>(null)
 
+  React.useEffect(() => {
+    if (!trackActive || typeof IntersectionObserver === 'undefined') return
+
+    const observedItems = items.flatMap((item) => {
+      const selector = item.target ?? (item.href.startsWith('#') ? item.href : null)
+
+      if (!selector) return []
+
+      try {
+        const element = document.querySelector(selector)
+        return element ? [{ element, value: item.href }] : []
+      } catch {
+        return []
+      }
+    })
+
+    if (!observedItems.length) return
+
+    const valueByElement = new Map(observedItems.map((item) => [item.element, item.value]))
     const observer = new IntersectionObserver(
       (entries) => {
-        const visibleEntry = entries.find((entry) => entry.isIntersecting)
+        const visibleEntry = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort(
+            (first, second) =>
+              Math.abs(first.boundingClientRect.top) - Math.abs(second.boundingClientRect.top),
+          )[0]
+        const nextValue = visibleEntry ? valueByElement.get(visibleEntry.target) : undefined
 
-        if (!visibleEntry) return
-
-        const matchingItem = items.find((item) => item.href === `#${visibleEntry.target.id}`)
-
-        if (matchingItem) {
-          setActiveHref(matchingItem.href)
-        }
+        if (nextValue) setActiveValue(nextValue)
       },
-      {
+      observerOptions ?? {
         rootMargin: '-30% 0px -60% 0px',
         threshold: 0,
       },
     )
 
-    sections.forEach((section) => observer.observe(section))
+    observedItems.forEach(({ element }) => observer.observe(element))
 
     return () => observer.disconnect()
-  }, [items])
+  }, [items, observerOptions, setActiveValue, trackActive])
+
+  function handleMouseEnter(event: React.MouseEvent<HTMLElement>) {
+    onMouseEnter?.(event)
+    if (!event.defaultPrevented) setExpanded(true)
+  }
+
+  function handleMouseLeave(event: React.MouseEvent<HTMLElement>) {
+    onMouseLeave?.(event)
+
+    if (!event.defaultPrevented) {
+      setExpanded(false)
+      setHoveredValue(null)
+    }
+  }
+
+  function handleFocusCapture(event: React.FocusEvent<HTMLElement>) {
+    onFocusCapture?.(event)
+    if (!event.defaultPrevented) setExpanded(true)
+  }
+
+  function handleBlurCapture(event: React.FocusEvent<HTMLElement>) {
+    onBlurCapture?.(event)
+
+    if (!event.defaultPrevented && !event.currentTarget.contains(event.relatedTarget)) {
+      setExpanded(false)
+      setHoveredValue(null)
+    }
+  }
 
   return (
     <aside
-      className={['hidden xl:block', className].join(' ')}
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => {
-        setOpen(false)
-        setHoveredHref(null)
-      }}
+      data-slot="rail-nav"
+      data-state={expanded ? 'expanded' : 'collapsed'}
+      className={cn('hidden xl:block', className)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onFocusCapture={handleFocusCapture}
+      onBlurCapture={handleBlurCapture}
+      {...props}
     >
-      <nav
-        aria-label="On this page"
-        className="relative flex min-h-28 min-w-32 items-start justify-end"
-      >
-        {/* Collapsed lines */}
+      <nav aria-label={label} className="relative flex min-h-28 min-w-32 items-start justify-end">
         <motion.div
           aria-hidden="true"
           initial={false}
           animate={{
-            opacity: open ? 0 : 1,
-            x: open ? -8 : 0,
-            filter: open ? 'blur(6px)' : 'blur(0px)',
+            opacity: expanded ? 0 : 1,
+            x: expanded ? -8 : 0,
+            filter: expanded ? 'blur(6px)' : 'blur(0px)',
           }}
           transition={{
             duration: 0.35,
@@ -77,7 +158,7 @@ export function RailNav({ items, className = '' }: RailNavProps) {
           className="absolute top-1 right-0 flex flex-col items-end gap-[5px]"
         >
           {items.map((item) => {
-            const isActive = activeHref === item.href
+            const isActive = activeValue === item.href
 
             return (
               <motion.span
@@ -91,53 +172,57 @@ export function RailNav({ items, className = '' }: RailNavProps) {
                   duration: 0.3,
                   ease: [0.22, 1, 0.36, 1],
                 }}
-                className={[
+                className={cn(
                   'block h-px rounded-full',
                   isActive ? 'bg-neutral-950 dark:bg-white' : 'bg-neutral-400 dark:bg-neutral-600',
-                ].join(' ')}
+                )}
               />
             )
           })}
         </motion.div>
 
-        {/* Expanded text */}
         <motion.div
           initial={false}
           animate={{
-            pointerEvents: open ? 'auto' : 'none',
+            pointerEvents: expanded ? 'auto' : 'none',
           }}
           className="flex flex-col items-end gap-2"
         >
           {items.map((item, index) => {
-            const isActive = activeHref === item.href
-            const isHovered = hoveredHref === item.href
+            const isActive = activeValue === item.href
+            const isHovered = hoveredValue === item.href
 
             return (
               <motion.a
                 key={item.href}
                 href={item.href}
-                onClick={() => setActiveHref(item.href)}
-                onMouseEnter={() => setHoveredHref(item.href)}
-                onMouseLeave={() => setHoveredHref(null)}
                 initial={false}
                 animate={{
-                  opacity: open ? 1 : 0,
-                  x: open ? 0 : 8,
-                  filter: open ? 'blur(0px)' : 'blur(6px)',
+                  opacity: expanded ? 1 : 0,
+                  x: expanded ? 0 : 8,
+                  filter: expanded ? 'blur(0px)' : 'blur(6px)',
                 }}
                 transition={{
                   duration: 0.35,
-                  delay: open ? index * 0.045 : 0,
+                  delay: expanded ? index * 0.045 : 0,
                   ease: [0.22, 1, 0.36, 1],
                 }}
-                className={[
-                  'text-right text-sm leading-5 font-medium tracking-tight transition-colors duration-200',
+                aria-current={isActive ? 'location' : undefined}
+                onClick={(event) => {
+                  item.onClick?.(event)
+                  if (!event.defaultPrevented) setActiveValue(item.href)
+                }}
+                onMouseEnter={() => setHoveredValue(item.href)}
+                onMouseLeave={() => setHoveredValue(null)}
+                className={cn(
+                  'text-right text-sm leading-5 font-medium tracking-tight transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-ring',
                   isActive
                     ? 'text-neutral-950 dark:text-white'
                     : isHovered
                       ? 'text-neutral-800 dark:text-neutral-200'
                       : 'text-neutral-500 dark:text-neutral-500',
-                ].join(' ')}
+                  item.className,
+                )}
               >
                 {item.label}
               </motion.a>

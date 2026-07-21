@@ -25,9 +25,9 @@ export const componentRegistryEntries: ComponentRegistryEntry[] = [
       title: 'Segment Spotlight',
       image: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlHuf7vDqHjv3VPCtBSMksEJOn7pmfxyc9IoU5',
       description:
-        'A desktop-focused spotlight component for showcasing product features, services, or workflow steps with floating labels and an interactive icon toolbar.',
+        'A composable spotlight canvas for connecting floating content with an interactive toolbar in product tours, filters, workflows, and feature sections.',
       registryDescription:
-        'A desktop-focused floating feature spotlight with animated chips, icon controls, hover focus, and blurred inactive states.',
+        'Composable spotlight primitives with controlled state, animated segments, arbitrary controls, and hover or click activation.',
       category: 'interactive',
       tags: ['interactive', 'marketing', 'animation', 'motion', 'accessibility'],
       bento: { size: 'lg' },
@@ -36,10 +36,12 @@ export const componentRegistryEntries: ComponentRegistryEntry[] = [
         'Product landing pages',
         'SaaS feature sections',
         'AI workflow explainers',
-        'Interactive desktop previews',
+        'Interactive product previews',
         'Service or feature highlight sections',
       ],
-      notes: ['Desktop-first. Use `hidden md:flex` or add a simple mobile fallback.'],
+      notes: [
+        'Segments accept your positioning classes, so responsive layouts can reposition, hide, or restack them at any breakpoint.',
+      ],
       sourceFiles: [
         { path: 'components/ui/components/segment-spotlight.tsx', language: 'tsx' },
         {
@@ -49,77 +51,85 @@ export const componentRegistryEntries: ComponentRegistryEntry[] = [
         },
       ],
       registry: {
-        dependencies: ['motion', 'lucide-react'],
+        dependencies: ['motion', 'radix-ui', '@radix-ui/react-use-controllable-state'],
         registryDependencies: [],
       },
-      usageExample: `import { Flag, MessageCircle, Share2 } from 'lucide-react'
+      usageExample: `import { Flag, MessageCircle } from 'lucide-react'
 
 import {
   SegmentSpotlight,
-  type SegmentSpotlightSegment,
-  type SegmentSpotlightFocus,
+  SegmentSpotlightSegment,
+  SegmentSpotlightSeparator,
+  SegmentSpotlightToolbar,
+  SegmentSpotlightTrigger,
+  SegmentSpotlightViewport,
 } from '@/components/segment-spotlight'
 
-const SEGMENTS: SegmentSpotlightSegment[] = [
-  { id: 'comments', label: 'Comments', color: 'blue', className: 'left-[18%] top-[20%] -rotate-3' },
-  { id: 'flags', label: 'Feature Flags', color: 'teal', className: 'left-[22%] top-[58%] rotate-2' },
-  { id: 'share', label: 'Share', color: 'pink', className: 'right-[18%] top-[24%] rotate-6' },
-]
-
-const FOCUSES: SegmentSpotlightFocus[] = [
-  { id: 'comments', label: 'Comments', icon: MessageCircle, segmentIds: ['comments'] },
-  { id: 'flags', label: 'Feature Flags', icon: Flag, segmentIds: ['flags'] },
-  { id: 'share', label: 'Share', icon: Share2, segmentIds: ['share'] },
-]
-
 export function Example() {
-  // Desktop-focused: floating labels are absolutely positioned, so render the
-  // component on md+ screens (or provide your own mobile fallback).
   return (
-    <div className="hidden size-full items-center justify-center md:flex">
-      <SegmentSpotlight segments={SEGMENTS} focuses={FOCUSES} />
-    </div>
+    <SegmentSpotlight>
+      <SegmentSpotlightViewport>
+        <SegmentSpotlightSegment value="comments" variant="blue" className="top-16 left-[15%]">
+          Comments
+        </SegmentSpotlightSegment>
+        <SegmentSpotlightSegment value="flags" variant="teal" className="right-[15%] bottom-16">
+          Feature flags
+        </SegmentSpotlightSegment>
+
+        <SegmentSpotlightToolbar aria-label="Highlight capability" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          <SegmentSpotlightTrigger value="comments" aria-label="Comments">
+            <MessageCircle />
+          </SegmentSpotlightTrigger>
+          <SegmentSpotlightSeparator />
+          <SegmentSpotlightTrigger value="flags" aria-label="Feature flags">
+            <Flag />
+          </SegmentSpotlightTrigger>
+        </SegmentSpotlightToolbar>
+      </SegmentSpotlightViewport>
+    </SegmentSpotlight>
   )
 }`,
       api: [
         {
-          prop: 'segments',
-          type: 'SegmentSpotlightSegment[]',
+          prop: 'SegmentSpotlight',
+          type: 'React.ComponentProps<"div">',
+          default: 'value: null; activationMode: "hover"',
+          description:
+            'Root state provider. Supports value, defaultValue, onValueChange, activationMode (hover or click), and native div props.',
+        },
+        {
+          prop: 'SegmentSpotlightViewport',
+          type: 'React.ComponentProps<"div">',
+          default: '-',
+          description: 'Positioning canvas for segments, controls, grids, and custom content.',
+        },
+        {
+          prop: 'SegmentSpotlightSegment',
+          type: 'Motion div props & { value; variant? }',
+          default: 'variant: "default"',
+          description:
+            'An animated target. Children, position, color variant, and Motion animation props are fully customizable.',
+        },
+        {
+          prop: 'SegmentSpotlightToolbar',
+          type: 'Motion div props',
           default: '-',
           description:
-            'Floating label chips. Each item is { id, label, color?, className? }, where className positions the chip (e.g. "left-[18%] top-[20%]").',
+            'Accessible toolbar container that resets hover state when interaction leaves.',
         },
         {
-          prop: 'focuses',
-          type: 'SegmentSpotlightFocus[]',
+          prop: 'SegmentSpotlightTrigger',
+          type: 'Button props & { value; targets?; asChild? }',
+          default: 'targets: [value]',
+          description:
+            'Arbitrary toolbar control. targets can highlight one or many segments; asChild supports custom controls.',
+        },
+        {
+          prop: 'SegmentSpotlightGrid / Separator / Content',
+          type: 'Native element props',
           default: '-',
           description:
-            'Icon toolbar buttons; hovering/focusing one highlights its segmentIds and blurs the rest. Each item is { id, label, icon, segmentIds, dividerAfter? }.',
-        },
-        {
-          prop: 'className',
-          type: 'string',
-          default: '-',
-          description: 'Classes merged onto the outer wrapper.',
-        },
-        {
-          prop: 'viewportClassName',
-          type: 'string',
-          default: '-',
-          description:
-            'Classes merged onto the inner viewport that contains the chips and toolbar.',
-        },
-        {
-          prop: 'toolbarClassName',
-          type: 'string',
-          default: '-',
-          description: 'Classes merged onto the floating icon toolbar.',
-        },
-        {
-          prop: 'showGrid',
-          type: 'boolean',
-          default: 'false',
-          description: 'Renders a subtle background grid inside the viewport.',
+            'Optional layout primitives for the background grid, toolbar grouping, and supporting content.',
         },
       ],
     }),
@@ -150,10 +160,16 @@ export function Example() {
         dependencies: ['motion'],
         registryDependencies: ['button'],
       },
-      usageExample: `import { MagneticButton } from '@/components/magnetic-button'
+      usageExample: `import Link from 'next/link'
+
+import { MagneticButton } from '@/components/magnetic-button'
 
 export function Example() {
-  return <MagneticButton>Hover me</MagneticButton>
+  return (
+    <MagneticButton asChild movement={8} variant="outline">
+      <Link href="/docs">View documentation</Link>
+    </MagneticButton>
+  )
 }`,
       api: [
         {
@@ -163,23 +179,23 @@ export function Example() {
           description: 'How far (in px) the button drifts toward the cursor on hover.',
         },
         {
-          prop: 'children',
-          type: 'React.ReactNode',
-          default: '-',
-          description: 'Button content.',
-        },
-        {
-          prop: 'className',
+          prop: 'wrapperClassName',
           type: 'string',
           default: '-',
-          description: 'Classes merged onto the underlying button.',
+          description: 'Classes applied to the animated wrapper without changing button styles.',
+        },
+        {
+          prop: 'springOptions',
+          type: 'SpringOptions',
+          default: '{ stiffness: 180, damping: 10, mass: 0.5 }',
+          description: 'Custom Motion spring configuration for cursor movement and settling.',
         },
         {
           prop: '...props',
           type: 'React.ComponentProps<typeof Button>',
           default: '-',
           description:
-            "All native <button> props via the shadcn Button (e.g. variant, size, disabled, onClick), except 'asChild'.",
+            'The complete shadcn Button API, including variant, size, asChild, refs, event handlers, disabled, and native button props.',
         },
       ],
     }),
@@ -203,60 +219,65 @@ export function Example() {
         },
       ],
       registry: {
-        dependencies: ['motion'],
-        registryDependencies: [],
+        dependencies: ['motion', '@radix-ui/react-use-controllable-state'],
+        registryDependencies: ['tabs'],
       },
       usageExample: `import {
   AnimatedTabs,
-  type AnimatedTabItem,
+  AnimatedTabsContent,
+  AnimatedTabsList,
+  AnimatedTabsTrigger,
+  AnimatedTabsViewport,
 } from '@/components/animated-tabs'
 
-const items: AnimatedTabItem[] = [
-  { value: 'overview', label: 'Overview', content: <p>Overview content</p> },
-  { value: 'pricing', label: 'Pricing', content: <p>Pricing content</p> },
-  { value: 'faq', label: 'FAQ', content: <p>FAQ content</p> },
-]
-
 export function Example() {
-  return <AnimatedTabs items={items} defaultValue="overview" />
+  return (
+    <AnimatedTabs defaultValue="overview">
+      <AnimatedTabsList>
+        <AnimatedTabsTrigger value="overview">Overview</AnimatedTabsTrigger>
+        <AnimatedTabsTrigger value="pricing">Pricing</AnimatedTabsTrigger>
+      </AnimatedTabsList>
+
+      <AnimatedTabsViewport>
+        <AnimatedTabsContent value="overview">Overview content</AnimatedTabsContent>
+        <AnimatedTabsContent value="pricing">Pricing content</AnimatedTabsContent>
+      </AnimatedTabsViewport>
+    </AnimatedTabs>
+  )
 }`,
       api: [
         {
-          prop: 'items',
-          type: 'AnimatedTabItem[]',
+          prop: 'AnimatedTabs',
+          type: 'React.ComponentProps<typeof Tabs>',
           default: '-',
           description:
-            'Tabs to render. Each item is { value, label, content }, where content is any React node.',
+            'Accessible root with the Radix Tabs controlled and uncontrolled state API, orientation, direction, and activationMode.',
         },
         {
-          prop: 'defaultValue',
-          type: 'string',
+          prop: 'AnimatedTabsList',
+          type: 'React.ComponentProps<typeof TabsList>',
           default: '-',
-          description: 'value of the tab selected on first render. Defaults to the first tab.',
+          description:
+            'Scrollable tab list. Accepts native Radix list props and custom layout classes.',
         },
         {
-          prop: 'className',
-          type: 'string',
+          prop: 'AnimatedTabsTrigger',
+          type: 'React.ComponentProps<typeof TabsTrigger>',
           default: '-',
-          description: 'Classes merged onto the outer wrapper.',
+          description: 'Tab trigger with the shared animated active indicator.',
         },
         {
-          prop: 'listClassName',
-          type: 'string',
+          prop: 'AnimatedTabsViewport',
+          type: 'React.ComponentProps<"div">',
           default: '-',
-          description: 'Classes merged onto the tab list (the pill track).',
+          description: 'Grid viewport that layers outgoing and incoming panels during transitions.',
         },
         {
-          prop: 'triggerClassName',
-          type: 'string',
+          prop: 'AnimatedTabsContent',
+          type: 'React.ComponentProps<typeof TabsContent>',
           default: '-',
-          description: 'Classes merged onto each tab trigger button.',
-        },
-        {
-          prop: 'contentClassName',
-          type: 'string',
-          default: '-',
-          description: 'Classes merged onto the content panel wrapper.',
+          description:
+            'Accessible tab panel with directional enter and exit motion. Children can be any React content.',
         },
       ],
     }),
@@ -268,9 +289,9 @@ export function Example() {
       title: 'Expandable Card',
       image: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlx629Fkg7C4maJxGZf1yUPI6YWNcVgE0T9hXu',
       description:
-        'Expandable Card is a reusable interactive card component for showing a compact preview first, then expanding to reveal more details, supporting descriptions, actions, and optional learn-more links.',
+        'A compound card-dialog component for composing a compact trigger and a fully custom expanded experience with shared-layout motion.',
       registryDescription:
-        'An animated expandable card that reveals more content, actions, and optional links on interaction.',
+        'Composable card-dialog primitives with accessible modal behavior, controlled state, shared media motion, and custom actions.',
       category: 'interactive',
       tags: ['interactive', 'motion', 'animation', 'card', 'accessibility'],
       bento: { size: 'lg' },
@@ -292,99 +313,94 @@ export function Example() {
         },
       ],
       registry: {
-        dependencies: ['motion', 'lucide-react', '@radix-ui/react-use-controllable-state'],
-        registryDependencies: [],
+        dependencies: [
+          'motion',
+          'lucide-react',
+          'radix-ui',
+          '@radix-ui/react-use-controllable-state',
+        ],
+        registryDependencies: ['button'],
       },
-      usageExample: `import { ExpandableCard } from '@/components/expandable-card'
+      usageExample: `import {
+  ExpandableCard,
+  ExpandableCardBody,
+  ExpandableCardContent,
+  ExpandableCardDescription,
+  ExpandableCardHeader,
+  ExpandableCardTitle,
+  ExpandableCardTrigger,
+} from '@/components/expandable-card'
 
 export function Example() {
   return (
-    <ExpandableCard
-      title="Smart Automation"
-      description="Automate repetitive tasks and help users move faster with fewer manual steps."
-      image="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop"
-      learnMore={{ label: 'View docs', href: '#' }}
-      items={[
-        {
-          title: 'What it does',
-          description: 'Handles repeated actions like updates, reminders, and simple workflows.',
-        },
-        {
-          title: 'Best for',
-          description: 'Admin dashboards, productivity apps, SaaS tools, and customer portals.',
-        },
-      ]}
-    />
+    <ExpandableCard>
+      <ExpandableCardTrigger>
+        <span className="block p-4">
+          <span className="font-medium">Smart automation</span>
+          <span className="mt-1 block text-sm text-muted-foreground">View workflow details</span>
+        </span>
+      </ExpandableCardTrigger>
+
+      <ExpandableCardContent>
+        <ExpandableCardHeader>
+          <ExpandableCardTitle>Smart automation</ExpandableCardTitle>
+          <ExpandableCardDescription>
+            Automate repetitive tasks without limiting the expanded layout.
+          </ExpandableCardDescription>
+        </ExpandableCardHeader>
+        <ExpandableCardBody>Your charts, forms, links, or any React content.</ExpandableCardBody>
+      </ExpandableCardContent>
+    </ExpandableCard>
   )
 }`,
       api: [
         {
-          prop: 'title',
-          type: 'string',
-          default: '-',
-          description: 'Card title, shown in both the collapsed and expanded states.',
-        },
-        {
-          prop: 'description',
-          type: 'string',
-          default: '-',
-          description: 'Short summary shown in the preview and again when expanded.',
-        },
-        {
-          prop: 'image',
-          type: 'string',
-          default: '-',
-          description: 'Optional cover image URL shown in the media area.',
-        },
-        {
-          prop: 'icon',
-          type: 'React.ReactNode',
-          default: '-',
-          description: 'Optional icon/media node, used in the media area when no `image` is set.',
-        },
-        {
-          prop: 'items',
-          type: 'ExpandableCardItem[]',
-          default: '[]',
+          prop: 'ExpandableCard',
+          type: 'React.ComponentProps<typeof Dialog.Root>',
+          default: 'defaultOpen: false',
           description:
-            'Detail rows revealed in the expanded state. Each item is { title, description }.',
+            'Accessible controlled or uncontrolled root. Supports open, defaultOpen, onOpenChange, and modal behavior.',
         },
         {
-          prop: 'footer',
-          type: 'React.ReactNode',
-          default: '-',
-          description: 'Custom footer/actions rendered in the expanded state.',
-        },
-        {
-          prop: 'learnMore',
-          type: '{ label?: string; href?: string; onClick?: () => void }',
+          prop: 'ExpandableCardTrigger',
+          type: 'Motion button props',
           default: '-',
           description:
-            'Optional learn-more link (when `href`) or action (when `onClick`) rendered in the expanded state.',
+            'Collapsed card button. Accepts arbitrary preview content, native button props, Motion props, refs, and classes.',
         },
         {
-          prop: 'open',
-          type: 'boolean',
+          prop: 'ExpandableCardContent',
+          type: 'Dialog.Content props',
+          default: 'showCloseButton: true',
+          description:
+            'Accessible expanded dialog surface. Supports custom children, overlayClassName, closeLabel, transition, and Dialog events.',
+        },
+        {
+          prop: 'ExpandableCardMedia',
+          type: 'Motion span props',
           default: '-',
-          description: 'Controlled open state. Use with `onOpenChange`.',
+          description:
+            'Optional shared-layout media primitive. Use it in both trigger and content around any image, icon, or visual.',
         },
         {
-          prop: 'defaultOpen',
-          type: 'boolean',
-          default: 'false',
-          description: 'Uncontrolled initial open state.',
-        },
-        {
-          prop: 'onOpenChange',
-          type: '(open: boolean) => void',
+          prop: 'ExpandableCardHeader / Title / Description',
+          type: 'Native and Dialog primitive props',
           default: '-',
-          description: 'Called whenever the open state changes (controlled or uncontrolled).',
+          description:
+            'Semantic dialog heading primitives with native prop and className passthrough.',
         },
         {
-          prop: 'className',
-          type: 'string',
+          prop: 'ExpandableCardBody / Footer',
+          type: 'React.ComponentProps<"div">',
           default: '-',
-          description: 'Classes merged onto the collapsed card.',
+          description:
+            'Unopinionated content regions for application-specific details and actions.',
+        },
+        {
+          prop: 'ExpandableCardClose',
+          type: 'React.ComponentProps<typeof Dialog.Close>',
+          default: '-',
+          description: 'Optional close primitive for custom action placement; supports asChild.',
         },
       ],
     }),
@@ -396,9 +412,9 @@ export function Example() {
       title: 'Rail Nav',
       image: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlTxAO7Jhdub1qHgxLFNhzr80OKpXcDswBitAY',
       description:
-        'A compact right-side rail navigation for long docs, case studies, and portfolio pages with scroll-aware active states.',
+        'A compact motion rail that preserves its line-to-link reveal while supporting anchors, application routes, custom observer targets, and controlled state.',
       registryDescription:
-        'A motion-powered on-this-page rail nav with collapsed line indicators and expandable section labels.',
+        'Motion rail navigation with the original line-to-link reveal, controlled expansion, flexible links, and optional scroll tracking.',
       category: 'interactive',
       tags: ['interactive', 'navigation', 'docs', 'motion', 'accessibility'],
       bento: { size: 'lg' },
@@ -408,8 +424,8 @@ export function Example() {
         'Portfolio write-ups',
         'Changelog pages',
         'Product guides',
+        'Settings and dashboard navigation',
       ],
-      notes: ['Desktop-first. Hidden below the `xl` breakpoint.'],
       sourceFiles: [
         { path: 'components/ui/components/rail-nav.tsx', language: 'tsx' },
         {
@@ -419,12 +435,12 @@ export function Example() {
         },
       ],
       registry: {
-        dependencies: ['motion'],
+        dependencies: ['motion', '@radix-ui/react-use-controllable-state'],
         registryDependencies: [],
       },
-      usageExample: `import { RailNav, type RailNavItems } from '@/components/rail-nav'
+      usageExample: `import { RailNav } from '@/components/rail-nav'
 
-const items: RailNavItems[] = [
+const items = [
   { label: 'Introduction', href: '#introduction' },
   { label: 'Installation', href: '#installation' },
   { label: 'Usage', href: '#usage' },
@@ -432,28 +448,48 @@ const items: RailNavItems[] = [
 
 export function Example() {
   return (
-    <div className="relative min-h-screen">
-      <section id="introduction" className="scroll-mt-24 py-24">
-        <h2>Introduction</h2>
-      </section>
-
-      <RailNav items={items} className="fixed top-28 right-8" />
-    </div>
+    <RailNav
+      items={items}
+      label="On this page"
+      className="fixed top-28 right-8"
+    />
   )
 }`,
       api: [
         {
-          prop: 'items',
-          type: 'RailNavItems[]',
-          default: '-',
+          prop: 'RailNav',
+          type: 'React.ComponentProps<"aside"> & RailNavProps',
+          default: 'trackActive: true; defaultExpanded: false',
           description:
-            'Section links rendered in the rail. Each item is { label, href } where href is a hash anchor.',
+            'Responsive rail with native aside props, the original reveal motion, and controlled active/expanded state.',
         },
         {
-          prop: 'className',
-          type: 'string',
-          default: "''",
-          description: 'Classes merged onto the outer aside wrapper.',
+          prop: 'items',
+          type: 'readonly RailNavItem[]',
+          default: '-',
+          description:
+            'Navigation entries with React labels, any link href, optional tracking targets, classes, and click handlers.',
+        },
+        {
+          prop: 'value / defaultValue / onValueChange',
+          type: 'string / string / (value: string) => void',
+          default: 'First item href',
+          description:
+            'Controlled or uncontrolled active navigation value for anchors and application routes.',
+        },
+        {
+          prop: 'expanded / defaultExpanded / onExpandedChange',
+          type: 'boolean / boolean / (expanded: boolean) => void',
+          default: 'false',
+          description:
+            'Controlled or uncontrolled expansion without changing the original hover and focus animation.',
+        },
+        {
+          prop: 'trackActive / observerOptions',
+          type: 'boolean / IntersectionObserverInit',
+          default: 'true / tuned viewport margins',
+          description:
+            'Optional section tracking with configurable IntersectionObserver behavior and per-item selectors.',
         },
       ],
     }),

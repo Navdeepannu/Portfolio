@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "cta-section-one",
+      "type": "registry:block",
+      "title": "CTA Section One",
+      "description": "A polished call to action with primary and secondary links for clear next steps.",
+      "categories": ["cta"],
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button"],
+      "files": [
+        {
+          "path": "cta-section-one.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/cta/cta-section-one.tsx"
+        }
+      ]
+    }
+  ]
+}

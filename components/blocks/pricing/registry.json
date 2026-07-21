@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "pricing-section-one",
+      "type": "registry:block",
+      "title": "Pricing Section One",
+      "description": "A responsive three-tier pricing section with a monthly and yearly billing switcher.",
+      "categories": ["pricing"],
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["badge", "button", "card", "tabs"],
+      "files": [
+        {
+          "path": "pricing-section-one.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/pricing/pricing-section-one.tsx"
+        }
+      ]
+    }
+  ]
+}
