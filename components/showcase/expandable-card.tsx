@@ -10,67 +10,79 @@ import {
   ExpandableCardTrigger,
 } from '@/components/ui/components/expandable-card'
 
-const cards = [
+const features = [
   {
+<<<<<<< Updated upstream
     title: 'Smart Automation',
     description: 'Automate repetitive tasks and help users move faster with fewer manual steps.',
     image:
       'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop',
     href: '#automation-docs',
+=======
+    title: 'Workflow Automation',
+    description: 'Automate repetitive work so your team can focus on higher-value tasks.',
+    image: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlBE1JQ6bM0rCoZtdKDAVO8yw7eSuvUb1LhYIJ',
+>>>>>>> Stashed changes
     items: [
       {
-        title: 'What it does',
-        description:
-          'Handles repeated actions like updates, reminders, status changes, and simple workflows in the background.',
+        title: 'Automated updates',
+        description: 'Keep tasks, statuses, and notifications updated without manual work.',
       },
       {
-        title: 'Best for',
-        description:
-          'Admin dashboards, productivity apps, SaaS tools, internal systems, and customer portals.',
+        title: 'Reusable workflows',
+        description: 'Create repeatable processes for onboarding, approvals, and reporting.',
       },
     ],
+    action: {
+      label: 'Explore automation',
+      href: '#',
+    },
   },
   {
-    title: 'Real-time Insights',
+    title: 'Real-time Analytics',
+    description: 'Understand product activity and performance using clear, current data.',
+    image: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlh4cfuGJ0RlaETPbLcZQjyfg2StNvuB13w8rI',
+    items: [
+      {
+        title: 'Live metrics',
+        description: 'Monitor important product and business metrics as they change.',
+      },
+      {
+        title: 'Clear reporting',
+        description: 'Turn complex information into reports your team can understand.',
+      },
+    ],
+    action: {
+      label: 'View analytics',
+      href: '#',
+    },
+  },
+  {
+    title: 'Team Collaboration',
     description:
-      'Show important data clearly so users can understand activity, growth, and performance.',
-    image:
-      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop',
+      'Keep projects, conversations, and responsibilities organized in one shared workspace.',
+    image: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlp3ArUvDLM0p8g2PxJVvac3HKDEiQUlum9GC6',
     items: [
       {
-        title: 'What it solves',
-        description:
-          'Helps users quickly see trends, compare results, and make decisions without digging through raw data.',
+        title: 'Shared workspace',
+        description: 'Give everyone a clear view of current tasks, updates, and project progress.',
       },
       {
-        title: 'Useful for',
+        title: 'Clear ownership',
         description:
-          'Analytics pages, finance tools, CRM dashboards, reporting sections, and product usage screens.',
+          'Assign responsibilities and deadlines so every team member knows what comes next.',
       },
     ],
-  },
-  {
-    title: 'Custom Interface Design',
-    description: 'Create polished, responsive, and reusable interfaces for websites and products.',
-    image:
-      'https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1200&auto=format&fit=crop',
-    items: [
-      {
-        title: 'Service focus',
-        description:
-          'Build clean UI sections that are easy to scan, accessible, responsive, and ready to reuse.',
-      },
-      {
-        title: 'Good for',
-        description:
-          'Landing pages, portfolio sites, component libraries, product pages, and client websites.',
-      },
-    ],
+    action: {
+      label: 'Explore collaboration',
+      href: '#',
+    },
   },
 ]
 
 export default function Page() {
   return (
+<<<<<<< Updated upstream
     <section className="mx-auto grid max-w-5xl gap-4 px-4 py-12 sm:grid-cols-2 lg:grid-cols-3">
       {cards.map((card) => (
         <ExpandableCard key={card.title}>
@@ -127,6 +139,32 @@ export default function Page() {
           </ExpandableCardContent>
         </ExpandableCard>
       ))}
+=======
+    <section className="mx-auto max-w-4xl px-4 py-16">
+      <div className="mb-8 max-w-xl">
+        <h1 className="text-3xl font-semibold tracking-tight">
+          Built to help your team move faster
+        </h1>
+
+        <p className="mt-3 text-muted-foreground">
+          Explore the core features available across the platform.
+        </p>
+      </div>
+
+      <div className="flex items-center gap-4">
+        {features.map((feature, index) => (
+          <ExpandableCard
+            key={index}
+            {...feature}
+            footer={
+              <span className="text-xs font-medium text-muted-foreground">
+                Included in every plan
+              </span>
+            }
+          />
+        ))}
+      </div>
+>>>>>>> Stashed changes
     </section>
   )
 }
