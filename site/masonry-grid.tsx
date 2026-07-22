@@ -1,6 +1,7 @@
 'use client'
 
 import React, {
+  useCallback,
   useEffect,
   useLayoutEffect,
   useMemo,
@@ -66,6 +67,11 @@ interface GridItem extends Item {
   h: number
 }
 
+interface LoadedImageData {
+  items: Item[]
+  ratios: Record<string, number>
+}
+
 interface MasonryProps {
   items: Item[]
   ease?: string
@@ -119,20 +125,16 @@ const Masonry: React.FC<MasonryProps> = ({
   )
 
   const [containerRef, { width }] = useMeasure<HTMLDivElement>()
-  const [ratios, setRatios] = useState<Record<string, number>>({})
-  const [imagesReady, setImagesReady] = useState(false)
+  const [loadedImageData, setLoadedImageData] = useState<LoadedImageData | null>(null)
   const hasMounted = useRef(false)
 
   useEffect(() => {
     let cancelled = false
 
-    setImagesReady(false)
-
     preloadImagesWithRatios(items).then((result) => {
       if (cancelled) return
 
-      setRatios(result)
-      setImagesReady(true)
+      setLoadedImageData({ items, ratios: result })
     })
 
     return () => {
@@ -140,11 +142,14 @@ const Masonry: React.FC<MasonryProps> = ({
     }
   }, [items])
 
+  const imagesReady = loadedImageData?.items === items
+
   const { grid, containerHeight } = useMemo(() => {
-    if (!width || !imagesReady) {
+    if (!width || loadedImageData?.items !== items) {
       return { grid: [] as GridItem[], containerHeight: 0 }
     }
 
+    const ratios = loadedImageData.ratios
     const gap = 12
     const colHeights = new Array(columns).fill(0)
     const totalGaps = (columns - 1) * gap
@@ -174,45 +179,48 @@ const Masonry: React.FC<MasonryProps> = ({
       grid,
       containerHeight: Math.max(...colHeights, 0),
     }
-  }, [columns, imagesReady, items, ratios, width])
+  }, [columns, items, loadedImageData, width])
 
-  const getInitialPosition = (item: GridItem) => {
-    const containerRect = containerRef.current?.getBoundingClientRect()
+  const getInitialPosition = useCallback(
+    (item: GridItem) => {
+      const containerRect = containerRef.current?.getBoundingClientRect()
 
-    if (!containerRect) {
-      return { x: item.x, y: item.y }
-    }
+      if (!containerRect) {
+        return { x: item.x, y: item.y }
+      }
 
-    let direction = animateFrom
+      let direction = animateFrom
 
-    if (animateFrom === 'random') {
-      const dirs = ['top', 'bottom', 'left', 'right'] as const
-      direction = dirs[Math.floor(Math.random() * dirs.length)]
-    }
+      if (animateFrom === 'random') {
+        const dirs = ['top', 'bottom', 'left', 'right'] as const
+        direction = dirs[Math.floor(Math.random() * dirs.length)]
+      }
 
-    switch (direction) {
-      case 'top':
-        return { x: item.x, y: -item.h - 40 }
+      switch (direction) {
+        case 'top':
+          return { x: item.x, y: -item.h - 40 }
 
-      case 'bottom':
-        return { x: item.x, y: item.y + 80 }
+        case 'bottom':
+          return { x: item.x, y: item.y + 80 }
 
-      case 'left':
-        return { x: -item.w - 80, y: item.y }
+        case 'left':
+          return { x: -item.w - 80, y: item.y }
 
-      case 'right':
-        return { x: containerRect.width + 80, y: item.y }
+        case 'right':
+          return { x: containerRect.width + 80, y: item.y }
 
-      case 'center':
-        return {
-          x: containerRect.width / 2 - item.w / 2,
-          y: containerRect.height / 2 - item.h / 2,
-        }
+        case 'center':
+          return {
+            x: containerRect.width / 2 - item.w / 2,
+            y: containerRect.height / 2 - item.h / 2,
+          }
 
-      default:
-        return { x: item.x, y: item.y + 80 }
-    }
-  }
+        default:
+          return { x: item.x, y: item.y + 80 }
+      }
+    },
+    [animateFrom, containerRef],
+  )
 
   useLayoutEffect(() => {
     if (!imagesReady || grid.length === 0) return
@@ -260,7 +268,7 @@ const Masonry: React.FC<MasonryProps> = ({
     })
 
     hasMounted.current = true
-  }, [grid, imagesReady, stagger, animateFrom, blurToFocus, duration, ease])
+  }, [blurToFocus, duration, ease, getInitialPosition, grid, imagesReady, stagger])
 
   const handleMouseEnter = (id: string, element: HTMLElement) => {
     if (scaleOnHover) {
