@@ -14,7 +14,7 @@ export type LoadedBlockSourceFile = {
   code: string
 }
 
-function resolveSafeProjectPath(relativePath: string): string {
+async function resolveSafeProjectPath(relativePath: string): Promise<string> {
   if (relativePath === 'lib/utils.ts') {
     return path.join(process.cwd(), 'lib', 'utils.ts')
   }
@@ -28,20 +28,24 @@ function resolveSafeProjectPath(relativePath: string): string {
   const componentsRoot = path.join(process.cwd(), 'components')
   const componentPath = relativePath.slice(componentsPrefix.length)
   const resolved = path.resolve(componentsRoot, componentPath)
-  const componentsRootWithSep = `${componentsRoot}${path.sep}`
+  const [realComponentsRoot, realResolved] = await Promise.all([
+    fs.realpath(componentsRoot),
+    fs.realpath(resolved),
+  ])
+  const componentsRootWithSep = `${realComponentsRoot}${path.sep}`
 
-  if (!resolved.startsWith(componentsRootWithSep)) {
+  if (!realResolved.startsWith(componentsRootWithSep)) {
     throw new Error(`Refusing to read path outside components: ${relativePath}`)
   }
 
-  return resolved
+  return realResolved
 }
 
 /**
  * Read a UTF-8 file under the project root (blocks registry, components, etc.).
  */
 export async function readProjectSourceFile(relativePath: string): Promise<string> {
-  const absolute = resolveSafeProjectPath(relativePath)
+  const absolute = await resolveSafeProjectPath(relativePath)
   return fs.readFile(absolute, 'utf8')
 }
 
