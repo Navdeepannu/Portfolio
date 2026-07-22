@@ -3,6 +3,20 @@
 import React, { type ReactNode } from 'react'
 import { motion, type TargetAndTransition, type Variants } from 'motion/react'
 
+type DynamicElementProps = {
+  as: React.ElementType
+  children?: ReactNode
+  className?: string
+}
+
+const DynamicElement = React.forwardRef<HTMLElement, DynamicElementProps>(
+  ({ as: Component, ...props }, ref) => <Component ref={ref} {...props} />,
+)
+
+DynamicElement.displayName = 'DynamicElement'
+
+const MotionElement = motion.create(DynamicElement)
+
 export type PresetType =
   | 'fade'
   | 'slide'
@@ -150,23 +164,20 @@ function AnimatedGroup({
 
   const itemVariants = variants?.item ?? selectedVariants.item
 
-  const MotionComponent = React.useMemo(() => motion.create(as), [as])
-
-  const MotionChild = React.useMemo(() => motion.create(asChild), [asChild])
-
   return (
-    <MotionComponent
+    <MotionElement
+      as={as}
       initial="hidden"
       animate="visible"
       variants={containerVariants}
       className={className}
     >
       {React.Children.map(children, (child, index) => (
-        <MotionChild key={index} variants={itemVariants}>
+        <MotionElement as={asChild} key={index} variants={itemVariants}>
           {child}
-        </MotionChild>
+        </MotionElement>
       ))}
-    </MotionComponent>
+    </MotionElement>
   )
 }
 

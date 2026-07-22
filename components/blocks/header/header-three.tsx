@@ -100,12 +100,6 @@ export default function HeaderThree() {
   }, [])
 
   React.useEffect(() => {
-    if (!menuState) {
-      setMobileDropdown(null)
-    }
-  }, [menuState])
-
-  React.useEffect(() => {
     return () => {
       if (closeTimer.current) {
         clearTimeout(closeTimer.current)
@@ -129,6 +123,21 @@ export default function HeaderThree() {
 
   const toggleMobileDropdown = (name: string) => {
     setMobileDropdown((current) => (current === name ? null : name))
+  }
+
+  const toggleMobileMenu = () => {
+    const nextMenuState = !menuState
+
+    setMenuState(nextMenuState)
+
+    if (!nextMenuState) {
+      setMobileDropdown(null)
+    }
+  }
+
+  const closeMobileMenu = () => {
+    setMenuState(false)
+    setMobileDropdown(null)
   }
 
   return (
@@ -169,7 +178,7 @@ export default function HeaderThree() {
               </Link>
 
               <button
-                onClick={() => setMenuState(!menuState)}
+                onClick={toggleMobileMenu}
                 aria-label={menuState ? 'Close Menu' : 'Open Menu'}
                 className="relative z-20 -m-2.5 -mr-2 block cursor-pointer p-2.5 lg:hidden"
               >
@@ -297,7 +306,7 @@ export default function HeaderThree() {
                                     <Link
                                       key={child.name}
                                       href={child.href}
-                                      onClick={() => setMenuState(false)}
+                                      onClick={closeMobileMenu}
                                       className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-muted-foreground transition-colors duration-150 hover:bg-muted hover:text-foreground"
                                     >
                                       <Icon className="size-4" />
@@ -312,7 +321,7 @@ export default function HeaderThree() {
                       ) : (
                         <Link
                           href={item.href}
-                          onClick={() => setMenuState(false)}
+                          onClick={closeMobileMenu}
                           className="block rounded-xl px-3 py-3 font-medium text-muted-foreground transition-colors duration-150 hover:bg-muted hover:text-foreground"
                         >
                           {item.name}
@@ -332,7 +341,7 @@ export default function HeaderThree() {
                     isScrolled && 'lg:h-8 lg:px-3 lg:text-xs',
                   )}
                 >
-                  <Link href="#get-started" onClick={() => setMenuState(false)}>
+                  <Link href="#get-started" onClick={closeMobileMenu}>
                     <span>Get Started</span>
                     <ArrowRight className="ml-1 size-3.5" />
                   </Link>

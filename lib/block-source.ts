@@ -15,12 +15,25 @@ export type LoadedBlockSourceFile = {
 }
 
 function resolveSafeProjectPath(relativePath: string): string {
-  const base = process.cwd()
-  const resolved = path.resolve(base, relativePath)
-  const baseWithSep = base.endsWith(path.sep) ? base : `${base}${path.sep}`
-  if (resolved !== base && !resolved.startsWith(baseWithSep)) {
-    throw new Error(`Refusing to read path outside project: ${relativePath}`)
+  if (relativePath === 'lib/utils.ts') {
+    return path.join(process.cwd(), 'lib', 'utils.ts')
   }
+
+  const componentsPrefix = 'components/'
+
+  if (!relativePath.startsWith(componentsPrefix)) {
+    throw new Error(`Refusing to read unsupported project path: ${relativePath}`)
+  }
+
+  const componentsRoot = path.join(process.cwd(), 'components')
+  const componentPath = relativePath.slice(componentsPrefix.length)
+  const resolved = path.resolve(componentsRoot, componentPath)
+  const componentsRootWithSep = `${componentsRoot}${path.sep}`
+
+  if (!resolved.startsWith(componentsRootWithSep)) {
+    throw new Error(`Refusing to read path outside components: ${relativePath}`)
+  }
+
   return resolved
 }
 

@@ -5,11 +5,10 @@
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import {
+  useCallback,
   createContext,
   useContext,
-  useEffect,
   useMemo,
-  useState,
   useTransition,
   type ComponentProps,
   type ReactNode,
@@ -21,39 +20,30 @@ type NavigationProgressContextValue = {
   startNavigation: (href: string) => void
 }
 
-const NavigationProgressContext =
-  createContext<NavigationProgressContextValue | null>(null)
+const NavigationProgressContext = createContext<NavigationProgressContextValue | null>(null)
 
-export function NavigationProgressProvider({
-  children,
-}: {
-  children: ReactNode
-}) {
+export function NavigationProgressProvider({ children }: { children: ReactNode }) {
   const router = useRouter()
   const pathname = usePathname()
   const [isPending, startTransition] = useTransition()
-  const [targetHref, setTargetHref] = useState<string | null>(null)
 
-  function startNavigation(href: string) {
-    if (href === pathname) return
+  const startNavigation = useCallback(
+    (href: string) => {
+      if (href === pathname) return
 
-    setTargetHref(href)
-
-    startTransition(() => {
-      router.push(href)
-    })
-  }
-
-  useEffect(() => {
-    setTargetHref(null)
-  }, [pathname])
+      startTransition(() => {
+        router.push(href)
+      })
+    },
+    [pathname, router],
+  )
 
   const value = useMemo(
     () => ({
-      isPending: isPending && targetHref !== null,
+      isPending,
       startNavigation,
     }),
-    [isPending, targetHref],
+    [isPending, startNavigation],
   )
 
   return (
@@ -67,9 +57,7 @@ function useNavigationProgress() {
   const context = useContext(NavigationProgressContext)
 
   if (!context) {
-    throw new Error(
-      'useNavigationProgress must be used inside NavigationProgressProvider',
-    )
+    throw new Error('useNavigationProgress must be used inside NavigationProgressProvider')
   }
 
   return context
@@ -106,11 +94,7 @@ export function NavigationProgressBar() {
 
 type ProgressLinkProps = ComponentProps<typeof Link>
 
-export function ProgressLink({
-  href,
-  onClick,
-  ...props
-}: ProgressLinkProps) {
+export function ProgressLink({ href, onClick, ...props }: ProgressLinkProps) {
   const { startNavigation } = useNavigationProgress()
   const pathname = usePathname()
 

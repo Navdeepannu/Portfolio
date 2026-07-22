@@ -10,14 +10,15 @@ export function AboutSectionContent() {
   const sectionRef = useRef<HTMLDivElement>(null)
   const shouldReduceMotion = useReducedMotion()
   const content = landingPageContent.about
-  const words = content.split(' ')
+  const words = Array.from(content.matchAll(/\S+/g), (match) => ({
+    value: match[0],
+    startIndex: match.index,
+  }))
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start 85%', 'start 45%'],
   })
-
-  let characterIndex = 0
 
   return (
     <div ref={sectionRef} id="about">
@@ -25,29 +26,24 @@ export function AboutSectionContent() {
         <span className="sr-only">{content}</span>
 
         <span aria-hidden="true">
-          {words.map((word, wordIndex) => {
-            const wordStartIndex = characterIndex
-            characterIndex += word.length + 1
+          {words.map((word, wordIndex) => (
+            <Fragment key={`${word.value}-${wordIndex}`}>
+              <span className="inline-block whitespace-nowrap">
+                {[...word.value].map((character, index) => (
+                  <ScrollCharacter
+                    key={`${word.startIndex + index}-${character}`}
+                    character={character}
+                    index={word.startIndex + index}
+                    total={content.length}
+                    scrollYProgress={scrollYProgress}
+                    shouldReduceMotion={shouldReduceMotion}
+                  />
+                ))}
+              </span>
 
-            return (
-              <Fragment key={`${word}-${wordIndex}`}>
-                <span className="inline-block whitespace-nowrap">
-                  {[...word].map((character, index) => (
-                    <ScrollCharacter
-                      key={`${wordStartIndex + index}-${character}`}
-                      character={character}
-                      index={wordStartIndex + index}
-                      total={content.length}
-                      scrollYProgress={scrollYProgress}
-                      shouldReduceMotion={shouldReduceMotion}
-                    />
-                  ))}
-                </span>
-
-                {wordIndex < words.length - 1 && <span className="inline-block w-[0.2em]" />}
-              </Fragment>
-            )
-          })}
+              {wordIndex < words.length - 1 && <span className="inline-block w-[0.2em]" />}
+            </Fragment>
+          ))}
         </span>
       </p>
     </div>
