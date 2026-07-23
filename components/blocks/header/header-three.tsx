@@ -19,11 +19,13 @@ import React from 'react'
 
 import { Button } from '@/components/ui/button'
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from '@/components/ui/navigation-menu'
 import { cn } from '@/lib/utils'
 
 const menuItems = [
@@ -82,10 +84,8 @@ const menuItems = [
 export default function HeaderThree() {
   const [menuState, setMenuState] = React.useState(false)
   const [isScrolled, setIsScrolled] = React.useState(false)
-  const [openDropdown, setOpenDropdown] = React.useState<string | null>(null)
+  const [openDropdown, setOpenDropdown] = React.useState('')
   const [mobileDropdown, setMobileDropdown] = React.useState<string | null>(null)
-
-  const closeTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null)
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -98,28 +98,6 @@ export default function HeaderThree() {
 
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-
-  React.useEffect(() => {
-    return () => {
-      if (closeTimer.current) {
-        clearTimeout(closeTimer.current)
-      }
-    }
-  }, [])
-
-  const handleOpenDropdown = (name: string) => {
-    if (closeTimer.current) {
-      clearTimeout(closeTimer.current)
-    }
-
-    setOpenDropdown(name)
-  }
-
-  const handleCloseDropdown = () => {
-    closeTimer.current = setTimeout(() => {
-      setOpenDropdown(null)
-    }, 120)
-  }
 
   const toggleMobileDropdown = (name: string) => {
     setMobileDropdown((current) => (current === name ? null : name))
@@ -160,7 +138,7 @@ export default function HeaderThree() {
             )}
           >
             <div className="flex w-full items-center justify-between lg:w-auto">
-              <Link href="/" aria-label="home" className="flex items-center gap-2">
+              <Link href="#" aria-label="home" className="flex items-center gap-2">
                 <NfcIcon
                   className={cn(
                     'transition-all duration-500 ease-out',
@@ -189,50 +167,40 @@ export default function HeaderThree() {
 
             {/* Desktop center nav */}
             <div className="absolute inset-0 m-auto hidden size-fit lg:block">
-              <ul
+              <NavigationMenu
+                value={openDropdown}
+                onValueChange={setOpenDropdown}
+                delayDuration={0}
+                skipDelayDuration={0}
                 className={cn(
-                  'flex items-center gap-2 text-sm transition-all duration-500 ease-out',
+                  'text-sm transition-all duration-500 ease-out',
                   isScrolled && 'scale-[0.98]',
                 )}
               >
-                {menuItems.map((item) => (
-                  <li key={item.name}>
-                    {item.children ? (
-                      <div
-                        onMouseEnter={() => handleOpenDropdown(item.name)}
-                        onMouseLeave={handleCloseDropdown}
-                      >
-                        <DropdownMenu
-                          open={openDropdown === item.name}
-                          onOpenChange={(open) => setOpenDropdown(open ? item.name : null)}
-                        >
-                          <DropdownMenuTrigger asChild>
-                            <button className="flex items-center gap-1 rounded-lg px-3 py-2 text-muted-foreground transition-colors duration-150 hover:bg-muted hover:text-foreground">
-                              {item.name}
-                              <ChevronDown
-                                className={cn(
-                                  'size-3.5 transition-transform duration-200',
-                                  openDropdown === item.name && 'rotate-180',
-                                )}
-                              />
-                            </button>
-                          </DropdownMenuTrigger>
+                <NavigationMenuList className="gap-2">
+                  {menuItems.map((item) => (
+                    <NavigationMenuItem key={item.name} value={item.name}>
+                      {item.children ? (
+                        <>
+                          <NavigationMenuTrigger className="h-auto gap-1 rounded-lg bg-transparent px-3 py-2 text-muted-foreground transition-colors duration-150 hover:bg-muted hover:text-foreground focus:bg-muted data-[state=open]:bg-muted data-[state=open]:text-foreground [&>svg:last-child]:hidden">
+                            {item.name}
+                            <ChevronDown
+                              className={cn(
+                                'size-3.5 transition-transform duration-200',
+                                openDropdown === item.name && 'rotate-180',
+                              )}
+                            />
+                          </NavigationMenuTrigger>
 
-                          <DropdownMenuContent
-                            align="center"
-                            sideOffset={12}
-                            onMouseEnter={() => handleOpenDropdown(item.name)}
-                            onMouseLeave={handleCloseDropdown}
-                            className="w-72 p-2 data-[side=bottom]:slide-in-from-top-2 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95"
-                          >
+                          <NavigationMenuContent className="w-72 p-2 md:w-72">
                             {item.children.map((child) => {
                               const Icon = child.icon
 
                               return (
-                                <DropdownMenuItem key={child.name} asChild>
+                                <NavigationMenuLink key={child.name} asChild>
                                   <Link
                                     href={child.href}
-                                    className="flex cursor-pointer items-start gap-3 rounded-lg p-3"
+                                    className="flex cursor-pointer items-start gap-3 rounded-lg p-3 transition-colors outline-none hover:bg-accent focus:bg-accent"
                                   >
                                     <span className="mt-0.5 rounded-md border bg-background p-1.5">
                                       <Icon className="size-4" />
@@ -247,23 +215,25 @@ export default function HeaderThree() {
                                       </span>
                                     </span>
                                   </Link>
-                                </DropdownMenuItem>
+                                </NavigationMenuLink>
                               )
                             })}
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      </div>
-                    ) : (
-                      <Link
-                        href={item.href}
-                        className="block rounded-lg px-3 py-2 text-muted-foreground transition-colors duration-150 hover:bg-muted hover:text-foreground"
-                      >
-                        {item.name}
-                      </Link>
-                    )}
-                  </li>
-                ))}
-              </ul>
+                          </NavigationMenuContent>
+                        </>
+                      ) : (
+                        <NavigationMenuLink asChild>
+                          <Link
+                            href={item.href}
+                            className="block rounded-lg px-3 py-2 text-muted-foreground transition-colors duration-150 hover:bg-muted hover:text-foreground"
+                          >
+                            {item.name}
+                          </Link>
+                        </NavigationMenuLink>
+                      )}
+                    </NavigationMenuItem>
+                  ))}
+                </NavigationMenuList>
+              </NavigationMenu>
             </div>
 
             {/* Mobile menu + CTA */}

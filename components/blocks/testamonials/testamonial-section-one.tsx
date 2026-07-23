@@ -44,7 +44,6 @@ const members = [
 export default function TestamonialSectionOne() {
   const left = members.slice(0, 2)
   const right = members.slice(3, 5)
-  const center = members.slice(5, 7)
 
   return (
     <section className="bg-gray-50 py-16 md:py-32 dark:bg-transparent">

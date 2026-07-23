@@ -152,7 +152,6 @@
     "components/blocks/contact/registry.json",
     "components/blocks/features/registry.json",
     "components/blocks/content/registry.json",
-    "components/blocks/integrations/registry.json",
     "components/blocks/stats/registry.json",
     "components/blocks/pricing/registry.json",
     "components/blocks/process/registry.json",

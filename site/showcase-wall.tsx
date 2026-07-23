@@ -168,9 +168,9 @@ const ShowcaseWall: React.FC<ShowcaseWallProps> = ({ items }) => {
             ref={gridRef}
             className={[
               'relative left-1/2 w-[165vw] -translate-x-1/2',
-              'columns-2 [column-gap:10px]',
-              'sm:w-[140vw] sm:columns-3 sm:[column-gap:12px]',
-              'lg:w-full lg:columns-3 lg:[column-gap:12px]',
+              'columns-2 gap-x-2.5',
+              'sm:w-[140vw] sm:columns-3 sm:gap-x-3',
+              'lg:w-full lg:columns-3 lg:gap-x-3',
             ].join(' ')}
           >
             {activeItems.map((item) => (

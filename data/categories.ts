@@ -43,10 +43,6 @@ const CATEGORY_META: Record<string, { name: string; description?: string }> = {
     name: 'Features',
     description: 'Product feature sections with interactive highlights and focused layouts.',
   },
-  integrations: {
-    name: 'Integrations',
-    description: 'Connected product ecosystems, APIs, and integration showcases.',
-  },
   stats: {
     name: 'Stats',
     description: 'Business outcomes, product metrics, and customer proof.',

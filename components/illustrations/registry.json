@@ -123,21 +123,6 @@
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "integration-orbit",
-      "type": "registry:component",
-      "title": "Integration Orbit Illustration",
-      "description": "A semantic-token product ecosystem illustration with six configurable integration nodes.",
-      "dependencies": ["lucide-react"],
-      "files": [
-        {
-          "path": "integration-orbit.tsx",
-          "type": "registry:component",
-          "target": "@components/illustrations/integration-orbit.tsx"
-        }
-      ]
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "delivery-pipeline",
       "type": "registry:component",
       "title": "Delivery Pipeline Illustration",

@@ -11,7 +11,6 @@ import { CopyButton } from '@/components/ui/components/copy-button'
 import { CodeBlockCommand } from '@/components/ui/components/code-block-command'
 import ApprovalPanelIllustration from '@/components/illustrations/approval-panel'
 import DeliveryPipelineIllustration from '@/components/illustrations/delivery-pipeline'
-import IntegrationOrbitIllustration from '@/components/illustrations/integration-orbit'
 import MatchingPanelIllustration from '@/components/illustrations/matching-panel'
 import PaymentCardIllustration from '@/components/illustrations/payment-card'
 import ReceiptPanelIllustration from '@/components/illustrations/receipt-panel'
@@ -91,14 +90,6 @@ const illustrations: IllustrationItem[] = [
     registrySlug: 'approval-panel',
     size: 'wide',
     Component: ApprovalPanelIllustration,
-  },
-  {
-    slug: 'integration-orbit',
-    name: 'Integration Orbit',
-    registrySlug: 'integration-orbit',
-    size: 'wide',
-    previewClassName: 'max-w-110',
-    Component: IntegrationOrbitIllustration,
   },
   {
     slug: 'delivery-pipeline',

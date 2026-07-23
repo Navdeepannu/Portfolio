@@ -250,13 +250,38 @@
       ],
       "registryDependencies": [
         "button",
-        "dropdown-menu"
+        "navigation-menu"
       ],
       "files": [
         {
           "path": "components/blocks/header/header-three.tsx",
           "type": "registry:component",
           "target": "@components/blocks/header/header-three.tsx"
+        }
+      ],
+      "categories": [
+        "header"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "header-four",
+      "title": "Header Four",
+      "description": "Header Four — Responsive header with animated navigation menus.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "button",
+        "navigation-menu"
+      ],
+      "files": [
+        {
+          "path": "components/blocks/header/header-four.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/header/header-four.tsx"
         }
       ],
       "categories": [
@@ -766,32 +791,6 @@
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "integrations-section-one",
-      "title": "Integrations Section One",
-      "description": "A split integrations section with product benefits and a reusable connected-tools illustration.",
-      "dependencies": [
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "badge",
-        "button",
-        "card",
-        "https://ui.navdeepsingh.dev/r/integration-orbit.json"
-      ],
-      "files": [
-        {
-          "path": "components/blocks/integrations/integrations-section-one.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/integrations/integrations-section-one.tsx"
-        }
-      ],
-      "categories": [
-        "integrations"
-      ],
-      "type": "registry:block"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "stats-section-one",
       "title": "Stats Section One",
       "description": "A business results section that combines measurable outcomes with a customer proof point.",
@@ -1025,23 +1024,6 @@
           "path": "components/illustrations/_expense-workflow-parts.tsx",
           "type": "registry:component",
           "target": "@components/illustrations/_expense-workflow-parts.tsx"
-        }
-      ],
-      "type": "registry:component"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "integration-orbit",
-      "title": "Integration Orbit Illustration",
-      "description": "A semantic-token product ecosystem illustration with six configurable integration nodes.",
-      "dependencies": [
-        "lucide-react"
-      ],
-      "files": [
-        {
-          "path": "components/illustrations/integration-orbit.tsx",
-          "type": "registry:component",
-          "target": "@components/illustrations/integration-orbit.tsx"
         }
       ],
       "type": "registry:component"

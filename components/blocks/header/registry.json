@@ -43,12 +43,29 @@
       "description": "Header Three — Header block.",
       "categories": ["header"],
       "dependencies": ["lucide-react"],
-      "registryDependencies": ["button", "dropdown-menu"],
+      "registryDependencies": ["button", "navigation-menu"],
       "files": [
         {
           "path": "header-three.tsx",
           "type": "registry:component",
           "target": "@components/blocks/header/header-three.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "header-four",
+      "type": "registry:block",
+      "title": "Header Four",
+      "description": "Header Four — Responsive header with animated navigation menus.",
+      "categories": ["header"],
+      "dependencies": ["lucide-react", "motion"],
+      "registryDependencies": ["button", "navigation-menu"],
+      "files": [
+        {
+          "path": "header-four.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/header/header-four.tsx"
         }
       ]
     }

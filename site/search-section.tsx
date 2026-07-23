@@ -3,14 +3,13 @@
 import { Columns2, Columns3 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useEffect, useRef } from 'react'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 
 import { cn } from '@/lib/utils'
 import { useColumns } from './context/column-context'
 import { useBlockFilters } from './context/block-filters-context'
 
 export default function SearchSection() {
-  const router = useRouter()
   const pathname = usePathname()
   const { columns, setColumns } = useColumns()
   const { type, setType } = useBlockFilters()

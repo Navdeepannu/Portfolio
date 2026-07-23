@@ -1,5 +1,6 @@
 'use client'
 
+import HeaderFour from '@/components/blocks/header/header-four'
 import { Button } from '@/components/ui/button'
 import { IconCaretRightFilled } from '@tabler/icons-react'
 import { AnimatePresence, motion } from 'motion/react'
@@ -7,7 +8,11 @@ import Image from 'next/image'
 import { useState } from 'react'
 
 export default function Page() {
-  return <div className=""></div>
+  return (
+    <div className="">
+      <HeaderFour />
+    </div>
+  )
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

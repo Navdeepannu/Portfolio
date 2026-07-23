@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { ChevronLeft, ChevronRight, X } from 'lucide-react'
-import { motion, useReducedMotion, Variants } from 'motion/react'
+import { motion, useReducedMotion } from 'motion/react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { IconType } from 'react-icons'
 import { SiNextdotjs, SiReact, SiShadcnui, SiTailwindcss, SiTypescript } from 'react-icons/si'
@@ -16,7 +16,6 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import type { LandingLink, LandingProject } from '@/site/portfolio/landing-page-content'
-import { AnimatedGroup } from '@/components/ui/components/animated-group'
 
 type ProjectGalleryProps = {
   projects: readonly LandingProject[]
@@ -170,39 +169,6 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
   }, [activeImage, showNext, showPrevious])
 
   if (projects.length === 0) return null
-
-  const transitionVariants = {
-    container: {
-      hidden: {},
-      visible: {
-        transition: {
-          delayChildren: 0.08,
-          staggerChildren: 0.1,
-        },
-      },
-    },
-    item: {
-      hidden: {
-        opacity: 0,
-        filter: 'blur(8px)',
-        y: 8,
-      },
-      visible: {
-        opacity: 1,
-        filter: 'blur(0px)',
-        y: 0,
-        transition: {
-          type: 'spring',
-          duration: 1.25,
-          ease: [0.22, 1, 0.36, 1],
-          delay: 0.35,
-        },
-      },
-    },
-  } satisfies {
-    container: Variants
-    item: Variants
-  }
 
   return (
     <Dialog
