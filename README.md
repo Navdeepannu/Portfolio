@@ -78,9 +78,7 @@ bun run registry:build
 bun test
 bun run build
 
-```
-
 ## License
 
-Licensed under the MIT License.
-```
+Licensed under the [MIT license](./LICENSE.md).
+
