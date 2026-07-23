@@ -103,7 +103,7 @@ function ThemeVariants({
         {...props}
         backgroundColor="#0A0A0A"
         markColor="#FFFFFF"
-        textColor="#0A0A0A"
+        textColor="#FFFFFF"
         themeClassName="dark:hidden"
         variant={variant}
       />
@@ -112,7 +112,7 @@ function ThemeVariants({
         {...props}
         backgroundColor="#FFFFFF"
         markColor="#0A0A0A"
-        textColor="#FFFFFF"
+        textColor="#0A0A0A"
         themeClassName="hidden dark:block"
         variant={variant}
       />
