@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { Hexagon, Menu, X } from 'lucide-react'
 import { motion, useReducedMotion } from 'motion/react'
-import { useState, type MouseEvent, type ReactNode } from 'react'
+import React, { useState, type ComponentPropsWithoutRef, type MouseEvent } from 'react'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -143,28 +143,28 @@ const navigationItems: NavigationItem[] = [
   },
 ]
 
-type PlaceholderLinkProps = {
+type PlaceholderLinkProps = Omit<ComponentPropsWithoutRef<typeof Link>, 'href' | 'onSelect'> & {
   href: string
-  children: ReactNode
-  className?: string
   onSelect?: () => void
 }
 
-function PlaceholderLink({ href, children, className, onSelect }: PlaceholderLinkProps) {
-  const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
-    if (href === '#') {
-      event.preventDefault()
+const PlaceholderLink = React.forwardRef<HTMLAnchorElement, PlaceholderLinkProps>(
+  ({ href, onClick, onSelect, ...props }, ref) => {
+    const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
+      onClick?.(event)
+
+      if (!event.defaultPrevented && href === '#') {
+        event.preventDefault()
+      }
+
+      onSelect?.()
     }
 
-    onSelect?.()
-  }
+    return <Link ref={ref} href={href} onClick={handleClick} {...props} />
+  },
+)
 
-  return (
-    <Link href={href} onClick={handleClick} className={className}>
-      {children}
-    </Link>
-  )
-}
+PlaceholderLink.displayName = 'PlaceholderLink'
 
 export default function HeaderFour() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -192,7 +192,7 @@ export default function HeaderFour() {
         <NavigationMenu
           delayDuration={0}
           skipDelayDuration={0}
-          className="hidden lg:flex **:data-[slot=navigation-menu-viewport]:animate-none! **:data-[slot=navigation-menu-viewport]:transition-none!"
+          className="hidden **:data-[slot=navigation-menu-viewport]:animate-none! **:data-[slot=navigation-menu-viewport]:transition-none! lg:flex"
         >
           <NavigationMenuList className="gap-1" onMouseLeave={() => setHoveredItem(null)}>
             {navigationItems.map((item) => (
