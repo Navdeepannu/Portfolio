@@ -1,0 +1,36 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  fill="none"
+  viewBox="0 0 400 400"
+>
+  <style>
+    .background {
+      fill: #0a0a0a;
+    }
+
+    .mark {
+      stroke: #ffffff;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .background {
+        fill: #ffffff;
+      }
+
+      .mark {
+        stroke: #0a0a0a;
+      }
+    }
+  </style>
+
+  <rect class="background" width="384" height="384" x="8" y="8" rx="88" />
+  <g transform="translate(200 200) scale(.68) translate(-207 -130.5)">
+    <path
+      class="mark"
+      d="M48 230V76C48 46 66 29 90 29C110 29 122 42 136 61L250 211C263 228 279 232 299 232H319C347 232 366 213 366 188C366 164 352 149 331 142L279 123C255 114 244 98 244 77C244 50 264 30 291 30H366"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="32"
+    />
+  </g>
+</svg>

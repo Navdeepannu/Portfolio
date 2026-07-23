@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import { IconBrandGithub, IconBrandX, IconBrandLinkedin } from '@tabler/icons-react'
-import { Logo } from '@/site/logo'
-import Character from '@/site/character'
+import { Signature } from '@/site/logo'
 import { SITE_ORIGINS } from '@/lib/sites'
+import LogoMark from '@/site/ui-library/ui-library-logo'
 
 const links = [
   { label: 'Projects', href: '/projects' },
@@ -31,8 +31,8 @@ export function PortfolioFooter() {
       <div className="mx-auto max-w-2xl px-6">
         <div className="flex flex-col items-center text-center">
           <div className="flex items-center gap-4">
-            <Character className="size-14" />
-            <Logo />
+            <LogoMark className="h-14 w-auto" />
+            <Signature />
           </div>
           <nav className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2">
             {links.map((link) => (

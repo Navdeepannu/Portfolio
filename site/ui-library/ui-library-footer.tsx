@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { IconBrandGithub, IconBrandLinkedin, IconBrandX } from '@tabler/icons-react'
 
 import { SITE_ORIGINS } from '@/lib/sites'
-import Character from '@/site/character'
+import { LogoType } from '@/site/ui-library/ui-library-logo'
 
 const links = [
   { label: 'Components', href: '/components' },
@@ -16,13 +16,16 @@ export function UiLibraryFooter() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="bg-background py-12">
+    <footer className="bg-background py-12 font-geist">
       <div className="mx-auto flex max-w-6xl flex-col items-center px-6 text-center">
         <div className="flex items-center gap-3">
-          <Character className="size-12" />
-          <div className="text-left font-geist">
-            <h4 className="text-lg font-semibold tracking-tight">Navdeep UI</h4>
-          </div>
+          <Link
+            href={SITE_ORIGINS.ui}
+            aria-label="Nav UI home"
+            className="inline-flex rounded-3xl focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-foreground"
+          >
+            <LogoType className="h-12 w-auto" />
+          </Link>
         </div>
 
         <nav className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2">
@@ -69,7 +72,7 @@ export function UiLibraryFooter() {
           </Link>
         </div>
 
-        <p className="mt-5 text-xs text-muted-foreground">&copy; {year} Navdeep Singh.</p>
+        <p className="mt-5 text-xs text-muted-foreground">&copy; {year} Nav UI</p>
       </div>
     </footer>
   )

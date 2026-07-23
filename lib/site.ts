@@ -65,17 +65,17 @@ export const uiSiteConfig = {
 } as const
 
 const portfolioOgImage = {
-  url: '/char.jpg',
-  width: 1200,
-  height: 630,
-  alt: 'Navdeep Singh',
+  url: '/icon.svg',
+  width: 400,
+  height: 400,
+  alt: 'Navdeep Singh logo',
 } as const
 
 const uiOgImage = {
-  url: '/char.jpg',
-  width: 1200,
-  height: 630,
-  alt: 'Nav UI component and design-engineering library',
+  url: '/icon.svg',
+  width: 400,
+  height: 400,
+  alt: 'Nav UI logo',
 } as const
 
 const searchEngineRobots = {
@@ -116,7 +116,7 @@ export const portfolioMetadata: Metadata = {
     images: [portfolioOgImage],
   },
   twitter: {
-    card: 'summary_large_image',
+    card: 'summary',
     title: portfolioSiteConfig.title,
     description: portfolioSiteConfig.description,
     images: [portfolioOgImage.url],
@@ -151,7 +151,7 @@ export const uiMetadata: Metadata = {
     images: [uiOgImage],
   },
   twitter: {
-    card: 'summary_large_image',
+    card: 'summary',
     title: uiSiteConfig.title,
     description: uiSiteConfig.description,
     images: [uiOgImage.url],

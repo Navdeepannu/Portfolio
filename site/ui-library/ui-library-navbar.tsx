@@ -12,9 +12,9 @@ import { cn } from '@/lib/utils'
 import { SITE_ORIGINS } from '@/lib/sites'
 import { useCommandMenu } from '@/hooks/use-command-menu'
 import { CommandMenu } from '@/site/command/command-menu'
-import Character from '@/site/character'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { GitHubStars } from './github-star'
+import LogoMark from './ui-library-logo'
 
 const menuItems = [
   { name: 'Components', href: '/components' },
@@ -110,12 +110,18 @@ export function UiLibraryNavbar({
       <nav className="sticky top-0 z-50 border-b border-border bg-background">
         <div
           className={cn(
-            `font-geist-sans relative flex h-14 w-full items-center ${className} ${
-              fullWidth ? 'px-2 md:px-4 lg:px-6' : 'mx-auto max-w-6xl px-2'
+            `relative flex h-14 w-full items-center font-geist ${className} ${
+              fullWidth ? 'px-2 md:px-4 lg:px-6' : 'mx-auto max-w-6xl px-4'
             }`,
           )}
         >
-          <Character />
+          <Link
+            href={SITE_ORIGINS.ui}
+            aria-label="Nav UI home"
+          >
+            <LogoMark className="h-8 w-auto" />
+          </Link>
+
           <div className="flex-1" />
 
           <div className="flex items-center justify-between gap-4">
@@ -155,7 +161,7 @@ export function UiLibraryNavbar({
 
             <span className="hidden h-4 w-px bg-border md:block" />
 
-            <GitHubStars repo="navdeepannu/portfolio" stargazersCount={1} />
+            <GitHubStars repo="navdeepannu/portfolio" stargazersCount={2} />
 
             <Tooltip>
               <TooltipTrigger asChild>
@@ -218,7 +224,7 @@ export function UiLibraryNavbar({
               transition={{ type: 'spring', damping: 28, stiffness: 320 }}
             >
               <div className="mb-6 flex items-center justify-between gap-3">
-                <Character />
+                <LogoMark />
                 <Button
                   variant="ghost"
                   size="icon-sm"

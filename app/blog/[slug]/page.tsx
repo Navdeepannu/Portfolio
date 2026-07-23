@@ -35,13 +35,13 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       publishedTime: post.publishedAt,
       modifiedTime: post.updatedAt,
       authors: [portfolioSiteConfig.name],
-      images: ['/char.jpg'],
+      images: ['/icon.svg'],
     },
     twitter: {
-      card: 'summary_large_image',
+      card: 'summary',
       title: post.title,
       description: post.description,
-      images: ['/char.jpg'],
+      images: ['/icon.svg'],
     },
   }
 }
@@ -62,7 +62,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     dateModified: post.updatedAt,
     mainEntityOfPage: canonicalUrl,
     url: canonicalUrl,
-    image: `${portfolioSiteConfig.url}/char.jpg`,
+    image: `${portfolioSiteConfig.url}/icon.svg`,
     author: {
       '@type': 'Person',
       name: portfolioSiteConfig.name,
