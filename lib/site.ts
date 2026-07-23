@@ -38,7 +38,7 @@ export const portfolioSiteConfig = {
 } as const
 
 export const uiSiteConfig = {
-  name: 'Navdeep UI',
+  name: 'Nav UI',
   shortName: 'NavUI',
   domain: new URL(SITE_ORIGINS.ui).hostname,
   url: SITE_ORIGINS.ui,

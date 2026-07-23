@@ -157,7 +157,7 @@ export function PortfolioNavbar({
                     id="mobile-navigation-description"
                     className="sr-only"
                   >
-                    Navigate to portfolio sections and Navdeep UI resources.
+                    Navigate to portfolio sections and Nav UI resources.
                   </DialogPrimitive.Description>
 
                   <div className="flex items-center justify-between">
