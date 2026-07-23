@@ -69,7 +69,7 @@ export const landingPageContent = {
   identity: {
     name: 'Navdeep Singh',
     introduction:
-      'Currently building Navdeep UI, an open-source React component library and registry that helps developers ship polished, accessible interfaces without rebuilding the same foundations. I am passionate about design, contribute to open source, and bring practical full-stack experience to turning product ideas into reusable, maintainable software.',
+      'Currently building Nav UI, an open-source React component library and registry that helps developers ship polished, accessible interfaces without rebuilding the same foundations. I am passionate about design, contribute to open source, and bring practical full-stack experience to turning product ideas into reusable, maintainable software.',
     links: [
       { label: 'Resume', href: '/resume/resume.pdf', external: true, icon: 'resume' },
       {
@@ -142,7 +142,7 @@ export const landingPageContent = {
         },
         {
           src: '/sections/design2.png',
-          alt: 'Interface preview used as a temporary Navdeep UI project detail image',
+          alt: 'Interface preview used as a temporary Nav UI project detail image',
           aspect: 'wide',
           position: 'top',
           placeholder: true,
@@ -244,9 +244,9 @@ export const landingPageContent = {
       tools: 'shadcn/ui · Component architecture · Design tokens · Figma · Accessibility',
       preview: {
         src: '/sections/design3.png',
-        alt: 'Preview of a Navdeep UI component layout',
+        alt: 'Preview of a Nav UI component layout',
         href: `${SITE_ORIGINS.ui}/components`,
-        label: 'Browse Navdeep UI components',
+        label: 'Browse Nav UI components',
       },
     },
     {

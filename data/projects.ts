@@ -30,7 +30,7 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: 'ui-library',
-    title: 'Navdeep UI',
+    title: 'Nav UI',
     summary: 'Open registry for reusable components, blocks, and illustrations',
     description:
       'A shadcn-compatible React registry for reusable components, content blocks, and illustrations.',
@@ -47,13 +47,13 @@ export const projects: Project[] = [
       },
       {
         src: '/sections/design1.png',
-        alt: 'Dark interface preview used as a temporary Navdeep UI project detail image',
+        alt: 'Dark interface preview used as a temporary Nav UI project detail image',
         position: 'top',
         placeholder: true,
       },
       {
         src: '/sections/design2.png',
-        alt: 'Interface preview used as a temporary Navdeep UI project detail image',
+        alt: 'Interface preview used as a temporary Nav UI project detail image',
         position: 'top',
         placeholder: true,
       },
