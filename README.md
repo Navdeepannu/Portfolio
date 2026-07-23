@@ -80,5 +80,5 @@ bun run build
 
 ## License
 
-Licensed under the [MIT license](./LICENSE.md).
+Licensed under the [MIT license](./LICENSE).
 
