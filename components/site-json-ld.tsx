@@ -17,7 +17,7 @@ export function PortfolioJsonLd() {
     '@type': 'Person',
     name: portfolioSiteConfig.name,
     url: portfolioSiteConfig.url,
-    image: `${portfolioSiteConfig.url}/char.jpg`,
+    image: `${portfolioSiteConfig.url}/icon.svg`,
     jobTitle: 'Frontend Engineer and Design Engineer',
     sameAs: [
       portfolioSiteConfig.links.github,
