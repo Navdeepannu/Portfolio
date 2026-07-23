@@ -1,4 +1,4 @@
-import { IconHammer, IconHammerDrill } from '@tabler/icons-react'
+import { IconHammer } from '@tabler/icons-react'
 
 function PagesBuildingIllustration() {
   return (
@@ -44,7 +44,7 @@ function PagesBuildingIllustration() {
 
 export function PagesEmptyState() {
   return (
-    <div className="flex font-geist flex-col items-center justify-center px-4 py-16 md:py-24">
+    <div className="flex flex-col items-center justify-center px-4 py-16 font-geist md:py-24">
       <PagesBuildingIllustration />
 
       <div className="mt-8 max-w-md text-center">

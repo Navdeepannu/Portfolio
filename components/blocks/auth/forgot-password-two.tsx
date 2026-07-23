@@ -6,7 +6,7 @@ import { IconMail } from "@tabler/icons-react";
 
 export default function ForgotPasswordTwo() {
   return (
-    <section className="flex min-h-screen items-center justify-center bg-gradient-to-br from-neutral-50 to-neutral-100 px-4 py-16">
+    <section className="flex min-h-screen items-center justify-center bg-linear-to-br from-neutral-50 to-neutral-100 px-4 py-16">
       <div className="w-full max-w-sm">
         <div className="rounded-2xl border border-neutral-200 bg-white p-8 shadow-lg">
           <div className="text-center">

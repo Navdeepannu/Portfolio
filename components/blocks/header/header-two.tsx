@@ -1,7 +1,6 @@
 'use client'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import React from 'react'
 import { useState } from 'react'
 import { Hexagon, PanelRight, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'motion/react'

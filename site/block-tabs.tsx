@@ -15,14 +15,6 @@ import { CodeXml, Maximize, RotateCcw, ScanEye } from 'lucide-react'
 import { PackageManagerCommand } from '@/components/ui/components/package-manager-command'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 
-const TOOLBAR_SEGMENT_SHELL =
-  'rounded-lg border border-border/60 shadow-sm ring-1 ring-foreground/6.5 dark:bg-background/50'
-
-const TOOLBAR_OPEN_PREVIEW_CHROME =
-  'inline-flex h-9 min-h-9 w-9 shrink-0 items-stretch overflow-hidden ' + TOOLBAR_SEGMENT_SHELL
-const TOOLBAR_OPEN_PREVIEW_BUTTON =
-  'flex size-full min-h-0 items-center justify-center gap-0 rounded-none border-0 bg-transparent p-0 shadow-none hover:bg-muted/60 dark:hover:bg-input/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*="size-"])]:size-4'
-
 export default function BlockTabs({
   slug,
   title,

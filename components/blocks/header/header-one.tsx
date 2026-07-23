@@ -1,7 +1,6 @@
 'use client'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import React from 'react'
 import { Hexagon, PanelRight, X } from 'lucide-react'
 
 import { useState } from 'react'
@@ -18,7 +17,6 @@ export default function HeaderOne() {
   return (
     <header className="relative w-full">
       <DesktopNavbar />
-
       <MobileNavbar />
     </header>
   )

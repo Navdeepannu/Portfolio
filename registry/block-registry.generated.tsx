@@ -16,6 +16,7 @@ import FooterSectionTwo from '@/components/blocks/footer/footer-section-two'
 import ForgotPasswordOne from '@/components/blocks/auth/forgot-password-one'
 import ForgotPasswordThree from '@/components/blocks/auth/forgot-password-three'
 import ForgotPasswordTwo from '@/components/blocks/auth/forgot-password-two'
+import HeaderFour from '@/components/blocks/header/header-four'
 import HeaderOne from '@/components/blocks/header/header-one'
 import HeaderThree from '@/components/blocks/header/header-three'
 import HeaderTwo from '@/components/blocks/header/header-two'
@@ -23,7 +24,6 @@ import HeroSectionFour from '@/components/blocks/hero-section/hero-section-four'
 import HeroSectionOne from '@/components/blocks/hero-section/hero-section-one'
 import HeroSectionThree from '@/components/blocks/hero-section/hero-section-three'
 import HeroSectionTwo from '@/components/blocks/hero-section/hero-section-two'
-import IntegrationsSectionOne from '@/components/blocks/integrations/integrations-section-one'
 import LogoCloudFive from '@/components/blocks/logo-cloud/logo-cloud-five'
 import LogoCloudFour from '@/components/blocks/logo-cloud/logo-cloud-four'
 import LogoCloudOne from '@/components/blocks/logo-cloud/logo-cloud-one'
@@ -206,6 +206,17 @@ export const blockRegistryEntries: BlockRegistryEntry[] = [
   ),
   entry(
     defineBlock({
+      slug: 'header-four',
+      title: 'Header Four',
+      description: '',
+      category: 'header',
+      tags: ['header', 'header'],
+      sourceFiles: [{ path: 'components/blocks/header/header-four.tsx', language: 'tsx' }],
+    }),
+    HeaderFour,
+  ),
+  entry(
+    defineBlock({
       slug: 'header-one',
       title: 'Header One',
       description: '',
@@ -280,17 +291,6 @@ export const blockRegistryEntries: BlockRegistryEntry[] = [
       sourceFiles: [{ path: 'components/blocks/hero-section/hero-section-two.tsx', language: 'tsx' }],
     }),
     HeroSectionTwo,
-  ),
-  entry(
-    defineBlock({
-      slug: 'integrations-section-one',
-      title: 'Integrations Section One',
-      description: '',
-      category: 'integrations',
-      tags: ['integrations', 'integrations'],
-      sourceFiles: [{ path: 'components/blocks/integrations/integrations-section-one.tsx', language: 'tsx' }],
-    }),
-    IntegrationsSectionOne,
   ),
   entry(
     defineBlock({

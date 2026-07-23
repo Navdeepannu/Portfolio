@@ -13,14 +13,6 @@ import ComponentTabs, { ComponentPreview } from '@/site/component-tabs'
 import ComponentInstall from '@/site/component-install'
 import { Badge } from '@/components/ui/badge'
 
-function humanize(value: string): string {
-  return value
-    .split('-')
-    .filter(Boolean)
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join(' ')
-}
-
 function SectionHeading({ id, children }: { id: string; children: React.ReactNode }) {
   return (
     <h2 id={id} className="scroll-mt-24 text-lg font-semibold text-foreground">
@@ -75,10 +67,6 @@ export default async function ComponentRenderer({ component }: { component: Comp
   } catch {
     utilsFiles = []
   }
-
-  const usageFiles: LoadedBlockSourceFile[] = component.usageExample
-    ? [{ filename: 'example.tsx', language: 'tsx', code: component.usageExample }]
-    : demoFiles
 
   // The demo usage powers the top Code tab. Fall back to source if absent.
   const codeTabFiles = demoFiles.length > 0 ? demoFiles : componentFiles

@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Menu, Moon, Search, StarIcon, Sun, X } from 'lucide-react'
+import { Menu, Moon, Search, Sun, X } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
 import { useEffect, useState, useSyncExternalStore } from 'react'
 import { useTheme } from 'next-themes'
