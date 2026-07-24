@@ -7,10 +7,7 @@ import Link from "next/link";
 export default function ForgotPasswordThree() {
   return (
     <section className="flex min-h-screen bg-zinc-50 px-4 py-16 md:py-32 dark:bg-transparent">
-      <form
-        action=""
-        className="bg-muted m-auto h-fit w-full max-w-sm overflow-hidden rounded-[calc(var(--radius)+.125rem)] border shadow-md shadow-zinc-950/5 dark:[--color-muted:var(--color-zinc-900)]"
-      >
+      <form className="bg-muted m-auto h-fit w-full max-w-sm overflow-hidden rounded-[calc(var(--radius)+.125rem)] border shadow-md shadow-zinc-950/5 dark:[--color-muted:var(--color-zinc-900)]">
         <div className="bg-card -m-px rounded-[calc(var(--radius)+.125rem)] border p-8 pb-6">
           <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 mb-4">
             <IconMail className="size-5 text-primary" />
@@ -38,11 +35,14 @@ export default function ForgotPasswordThree() {
                 required
                 name="email"
                 id="email"
+                autoComplete="email"
                 placeholder="you@company.com"
               />
             </div>
 
-            <Button className="w-full">Email me a reset link</Button>
+            <Button type="submit" className="w-full">
+              Email me a reset link
+            </Button>
           </div>
 
           <p className="mt-5  text-xs text-muted-foreground">

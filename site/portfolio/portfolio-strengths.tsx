@@ -39,7 +39,7 @@ export function PortfolioStrengths() {
       className="relative overflow-x-clip py-16 font-schibsted selection:bg-emerald-200/60 md:py-24"
     >
       <div className="mx-auto max-w-6xl px-8 md:px-12">
-        <span className="mb-4 block font-mono text-xs text-emerald-600 dark:text-emerald-400/80">
+        <span className="mb-4 block font-mono text-xs text-emerald-700 dark:text-emerald-400/80">
           {portfolioStrengths.eyebrow}
         </span>
 

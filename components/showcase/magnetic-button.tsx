@@ -17,7 +17,7 @@ export default function MagneticButtonShowcase() {
 
         <MagneticButton variant="ghost" className="gap-2">
           Explore
-          <ArrowRight className="size-4" />
+          <ArrowRight data-icon="inline-end" className="size-4" />
         </MagneticButton>
       </div>
     </div>

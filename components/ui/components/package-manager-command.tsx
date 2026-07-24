@@ -179,7 +179,7 @@ export function PackageManagerCommand({
             doneIcon={<Check className="size-4.5 text-foreground" />}
             errorIcon={<CircleX className="size-4.5 text-destructive" />}
             className={cn(
-              'inline-flex h-full min-h-0 min-w-0 flex-1 cursor-pointer items-center justify-start gap-2 rounded-none border-0 bg-transparent px-2.5 shadow-none outline-none select-none',
+              'inline-flex h-full min-h-0 min-w-0 flex-1 cursor-pointer items-center justify-start gap-2 rounded-none border-0 bg-transparent px-2.5 shadow-none outline-none select-none focus-visible:ring-2 focus-visible:ring-ring/50',
               'hover:bg-muted/60 focus-visible:bg-muted/60 dark:hover:bg-input/40 dark:focus-visible:bg-input/40',
               '[&_svg]:size-4.5 [&_svg]:shrink-0',
               commandClassName,

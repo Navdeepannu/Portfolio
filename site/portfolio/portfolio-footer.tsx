@@ -34,7 +34,10 @@ export function PortfolioFooter() {
             <LogoMark className="h-14 w-auto" />
             <Signature />
           </div>
-          <nav className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2">
+          <nav
+            aria-label="Footer navigation"
+            className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2"
+          >
             {links.map((link) => (
               <Link
                 key={link.label}

@@ -59,35 +59,6 @@ export function UiLibraryNavbar({
   }
 
   useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.defaultPrevented || event.repeat) return
-      if (event.key.toLowerCase() !== 'd') return
-      if (event.metaKey || event.ctrlKey || event.altKey) return
-
-      const target = event.target
-
-      if (target instanceof HTMLElement) {
-        if (target.isContentEditable) return
-
-        if (
-          target instanceof HTMLInputElement ||
-          target instanceof HTMLTextAreaElement ||
-          target instanceof HTMLSelectElement
-        ) {
-          return
-        }
-      }
-
-      event.preventDefault()
-      setTheme(theme === 'dark' ? 'light' : 'dark')
-    }
-
-    document.addEventListener('keydown', onKeyDown)
-
-    return () => document.removeEventListener('keydown', onKeyDown)
-  }, [theme, setTheme])
-
-  useEffect(() => {
     if (!mobileMenuOpen) return
 
     const previousOverflow = document.body.style.overflow
@@ -107,7 +78,10 @@ export function UiLibraryNavbar({
 
   return (
     <>
-      <nav className="sticky top-0 z-50 border-b border-border bg-background">
+      <nav
+        aria-label="Primary navigation"
+        className="sticky top-0 z-50 border-b border-border bg-background"
+      >
         <div
           className={cn(
             `relative flex h-14 w-full items-center font-geist ${className} ${
@@ -236,7 +210,7 @@ export function UiLibraryNavbar({
                 </Button>
               </div>
 
-              <nav className="flex flex-1 flex-col gap-1.5">
+              <nav aria-label="Mobile navigation links" className="flex flex-1 flex-col gap-1.5">
                 {menuItems.map((item) => {
                   const isActive = isNavItemActive(pathname, item.href)
 

@@ -20,7 +20,7 @@ export function PortfolioProjects() {
       className="relative overflow-x-clip py-20 font-schibsted selection:bg-emerald-200/60 max-md:py-14 md:py-24"
     >
       <div className="mx-auto max-w-6xl px-8 md:px-12">
-        <span className="mb-4 block font-mono text-xs text-emerald-600 dark:text-emerald-400/80">
+        <span className="mb-4 block font-mono text-xs text-emerald-700 dark:text-emerald-400/80">
           {portfolioProjectsMeta.eyebrow}
         </span>
         <div className="grid items-start gap-4 lg:grid-cols-2 lg:gap-12">
@@ -92,7 +92,7 @@ function ProjectCard({ project, delay }: { project: Project; delay: number }) {
               <Button asChild size="sm">
                 <Link href={liveLink.href} target="_blank" rel="noopener noreferrer">
                   Live site
-                  <ArrowUpRight className="size-4" />
+                  <ArrowUpRight data-icon="inline-end" className="size-4" />
                 </Link>
               </Button>
             ) : null}

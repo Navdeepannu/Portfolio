@@ -74,11 +74,14 @@ export const MobileNavbar = () => {
       </div>
 
       <button
+        type="button"
+        aria-label="Open navigation menu"
+        aria-expanded={open}
         onClick={() => {
           setOpen(!open)
         }}
       >
-        <PanelRight className="size-5 text-background open:hidden" />
+        <PanelRight aria-hidden="true" className="size-5 text-background open:hidden" />
       </button>
 
       <AnimatePresence>
@@ -100,8 +103,12 @@ export const MobileNavbar = () => {
                 <Hexagon className="size-6 fill-muted stroke-neutral-300 stroke-2" />
                 <span className="font-semibold text-background">HEX UI</span>
               </div>
-              <button onClick={() => setOpen(false)}>
-                <X className="absolute top-4 right-4 size-6 text-muted" />
+              <button
+                type="button"
+                aria-label="Close navigation menu"
+                onClick={() => setOpen(false)}
+              >
+                <X aria-hidden="true" className="absolute top-4 right-4 size-6 text-muted" />
               </button>
             </div>
 

@@ -8,10 +8,7 @@ export default function SignUpOne() {
   return (
     <section className="flex min-h-screen px-4 py-16 md:py-32">
       <div className="-bg-linear-16  from-zinc-50 from-50% to-white to-50% inset-0 fixed"></div>
-      <form
-        action=""
-        className="m-auto h-fit w-full max-w-sm overflow-hidden rounded-xl z-10 border shadow-md shadow-zinc-950/5 dark:[--color-muted:var(--color-zinc-900)]"
-      >
+      <form className="m-auto h-fit w-full max-w-sm overflow-hidden rounded-xl z-10 border shadow-md shadow-zinc-950/5 dark:[--color-muted:var(--color-zinc-900)]">
         <div className="bg-card -m-px border p-8 pb-6">
           <div className="text-center">
             <Link
@@ -39,6 +36,7 @@ export default function SignUpOne() {
                   required
                   name="firstname"
                   id="firstname"
+                  autoComplete="given-name"
                   className=""
                 />
               </div>
@@ -52,6 +50,7 @@ export default function SignUpOne() {
                   required
                   name="lastname"
                   id="lastname"
+                  autoComplete="family-name"
                 />
               </div>
             </div>
@@ -66,6 +65,7 @@ export default function SignUpOne() {
                 required
                 name="email"
                 id="email"
+                autoComplete="email"
               />
             </div>
 
@@ -83,12 +83,16 @@ export default function SignUpOne() {
                 required
                 name="pwd"
                 id="pwd"
+                autoComplete="new-password"
                 placeholder="Create a password"
                 className="input sz-md variant-mixed"
               />
             </div>
 
-            <Button className="w-full ring-2 ring-ring/50  shadow-lg shadow-black/30">
+            <Button
+              type="submit"
+              className="w-full ring-2 ring-ring/50 shadow-lg shadow-black/30"
+            >
               Sign In
             </Button>
           </div>
@@ -104,6 +108,7 @@ export default function SignUpOne() {
           <div className="grid grid-cols-2 gap-3">
             <Button type="button" variant="outline">
               <svg
+                data-icon="inline-start"
                 xmlns="http://www.w3.org/2000/svg"
                 width="800px"
                 height="800px"
@@ -131,6 +136,7 @@ export default function SignUpOne() {
             </Button>
             <Button type="button" variant="outline">
               <svg
+                data-icon="inline-start"
                 xmlns="http://www.w3.org/2000/svg"
                 width="800px"
                 height="800px"

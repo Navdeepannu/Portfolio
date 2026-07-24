@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useId } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import { cn } from '@/lib/utils'
 
@@ -21,6 +21,7 @@ export const Tooltip = ({
   })
   const contentRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
+  const tooltipId = useId()
 
   useEffect(() => {
     if (isVisible && contentRef.current) {
@@ -135,6 +136,18 @@ export const Tooltip = ({
     }
   }
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Escape') {
+      setIsVisible(false)
+      return
+    }
+
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      setIsVisible((current) => !current)
+    }
+  }
+
   // Update position when tooltip becomes visible or content changes
   useEffect(() => {
     if (isVisible && contentRef.current) {
@@ -146,6 +159,10 @@ export const Tooltip = ({
   return (
     <div
       ref={containerRef}
+      role="button"
+      tabIndex={0}
+      aria-expanded={isVisible}
+      aria-describedby={isVisible ? tooltipId : undefined}
       className={cn('relative inline-block', containerClassName)}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -153,11 +170,14 @@ export const Tooltip = ({
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
       onClick={handleClick}
+      onKeyDown={handleKeyDown}
     >
       {children}
       <AnimatePresence>
         {isVisible && (
           <motion.div
+            id={tooltipId}
+            role="tooltip"
             key={String(isVisible)}
             initial={{ height: 0, opacity: 1 }}
             animate={{ height, opacity: 1 }}

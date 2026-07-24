@@ -15,7 +15,7 @@ export default function SignUpTwo() {
       <div className="grid min-h-[calc(100vh-5rem)] grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-16">
         {/* Left side */}
         <div className="flex w-full items-center justify-center px-4 md:h-170 md:pr-0 md:pl-8 lg:pl-16">
-          <form action="" className="w-full max-w-md">
+          <form className="w-full max-w-md">
             <div className="text-left">
               <Link href="/" aria-label="Go home" className="inline-flex w-fit">
                 <Logo className="h-8 w-8 text-zinc-800 dark:text-zinc-100" />
@@ -36,14 +36,28 @@ export default function SignUpTwo() {
                   <Label htmlFor="firstname" className="block text-sm">
                     First name
                   </Label>
-                  <Input type="text" placeholder="John" required name="firstname" id="firstname" />
+                  <Input
+                    type="text"
+                    placeholder="John"
+                    required
+                    name="firstname"
+                    id="firstname"
+                    autoComplete="given-name"
+                  />
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="lastname" className="block text-sm">
                     Last name
                   </Label>
-                  <Input type="text" placeholder="Doe" required name="lastname" id="lastname" />
+                  <Input
+                    type="text"
+                    placeholder="Doe"
+                    required
+                    name="lastname"
+                    id="lastname"
+                    autoComplete="family-name"
+                  />
                 </div>
               </div>
 
@@ -57,6 +71,7 @@ export default function SignUpTwo() {
                   required
                   name="email"
                   id="email"
+                  autoComplete="email"
                 />
               </div>
 
@@ -69,11 +84,15 @@ export default function SignUpTwo() {
                   required
                   name="pwd"
                   id="pwd"
+                  autoComplete="new-password"
                   placeholder="Create a password"
                 />
               </div>
 
-              <Button className="w-full shadow-lg ring-2 shadow-black/20 ring-ring/50">
+              <Button
+                type="submit"
+                className="w-full shadow-lg ring-2 shadow-black/20 ring-ring/50"
+              >
                 Create account
               </Button>
             </div>
@@ -87,6 +106,7 @@ export default function SignUpTwo() {
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <Button type="button" variant="outline">
                 <svg
+                  data-icon="inline-start"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="-3 0 262 262"
                   preserveAspectRatio="xMidYMid"
@@ -113,7 +133,7 @@ export default function SignUpTwo() {
               </Button>
 
               <Button type="button" variant="outline">
-               <SiGithub />
+               <SiGithub data-icon="inline-start" />
                 <span>Github</span>
               </Button>
             </div>

@@ -43,7 +43,7 @@ export default function FooterSectionOne() {
             </div>
             <Button variant="secondary" className="w-fit mt-2">
               Start Free trial
-              <IconArrowRight className="size-4" />
+              <IconArrowRight data-icon="inline-end" className="size-4" />
             </Button>
           </div>
 
@@ -94,8 +94,9 @@ export default function FooterSectionOne() {
               <input
                 type="email"
                 aria-label="Email for newsletter"
+                autoComplete="email"
                 placeholder="Your email"
-                className="min-w-0 flex-1 bg-transparent px-4 py-3 text-sm text-neutral-700 outline-none placeholder:text-neutral-400 dark:text-neutral-300 dark:placeholder:text-neutral-500"
+                className="min-w-0 flex-1 bg-transparent px-4 py-3 text-sm text-neutral-700 outline-none placeholder:text-neutral-400 focus-visible:ring-2 focus-visible:ring-ring/50 dark:text-neutral-300 dark:placeholder:text-neutral-500"
               />
               <button
                 type="button"

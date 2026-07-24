@@ -41,6 +41,17 @@ const members = [
 ]
 
 function MemberGrid({ data }: { data: typeof members }) {
+  if (data.length === 0) {
+    return (
+      <div className="rounded-lg border border-dashed p-8 text-center">
+        <h3 className="text-sm font-medium">No team members available</h3>
+        <p className="mt-1 text-sm text-muted-foreground">
+          New team profiles will appear here when they are published.
+        </p>
+      </div>
+    )
+  }
+
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
       {data.map((member, index) => (
@@ -58,8 +69,12 @@ function MemberGrid({ data }: { data: typeof members }) {
 
             <div className="mt-1 flex translate-y-8 items-center justify-between opacity-0 transition duration-300 ease-in-out group-hover:translate-y-0 group-hover:opacity-100">
               <span className="text-sm text-muted-foreground">{member.role}</span>
-              <Link href={member.link} className="text-sm">
-                <IconBrandLinkedin className="size-4.5" />
+              <Link
+                href={member.link}
+                aria-label={`View ${member.name} on LinkedIn`}
+                className="text-sm"
+              >
+                <IconBrandLinkedin aria-hidden="true" className="size-4.5" />
               </Link>
             </div>
           </div>

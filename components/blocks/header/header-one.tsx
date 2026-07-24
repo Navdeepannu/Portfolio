@@ -69,6 +69,9 @@ export const MobileNavbar = () => {
       </div>
 
       <button
+        type="button"
+        aria-label="Open navigation menu"
+        aria-expanded={open}
         onClick={() => {
           setOpen(!open)
         }}
@@ -95,8 +98,12 @@ export const MobileNavbar = () => {
                 <Hexagon className="size-8" />
                 <span className="font-semibold">HEX UI</span>
               </div>
-              <button onClick={() => setOpen(false)}>
-                <X className="absolute top-4 right-4 size-6" />
+              <button
+                type="button"
+                aria-label="Close navigation menu"
+                onClick={() => setOpen(false)}
+              >
+                <X aria-hidden="true" className="absolute top-4 right-4 size-6" />
               </button>
             </div>
 

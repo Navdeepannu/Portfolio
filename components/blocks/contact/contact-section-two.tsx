@@ -66,8 +66,9 @@ export default function ContactSectionTwo() {
                     type="text"
                     id="name"
                     name="name"
+                    autoComplete="name"
                     placeholder="Your name"
-                    className="mt-3 w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
+                    className="mt-3 w-full rounded-sm bg-transparent text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring/50"
                   />
                 </div>
 
@@ -79,8 +80,9 @@ export default function ContactSectionTwo() {
                     type="email"
                     id="email"
                     name="email"
+                    autoComplete="email"
                     placeholder="you@company.com"
-                    className="mt-3 w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
+                    className="mt-3 w-full rounded-sm bg-transparent text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring/50"
                   />
                 </div>
               </div>
@@ -94,7 +96,7 @@ export default function ContactSectionTwo() {
                   id="subject"
                   name="subject"
                   placeholder="What would you like to discuss?"
-                  className="mt-3 w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
+                  className="mt-3 w-full rounded-sm bg-transparent text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring/50"
                 />
               </div>
 
@@ -107,7 +109,7 @@ export default function ContactSectionTwo() {
                   name="message"
                   placeholder="Tell us about your goals, timeline, budget, or anything else we should know..."
                   rows={7}
-                  className="mt-3 w-full resize-none bg-transparent text-sm outline-none placeholder:text-muted-foreground"
+                  className="mt-3 w-full resize-none rounded-sm bg-transparent text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring/50"
                 />
               </div>
 

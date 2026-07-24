@@ -43,7 +43,7 @@ export function CtaSectionOne({ className, ...props }: CtaSectionOneProps) {
               <Button asChild size="lg" className="w-full sm:w-auto">
                 <Link href={ctaSectionOneData.primaryAction.href}>
                   {ctaSectionOneData.primaryAction.label}
-                  <ArrowRight aria-hidden className="size-4" />
+                  <ArrowRight data-icon="inline-end" aria-hidden className="size-4" />
                 </Link>
               </Button>
 

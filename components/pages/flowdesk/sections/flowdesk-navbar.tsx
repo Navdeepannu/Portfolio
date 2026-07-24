@@ -31,11 +31,11 @@ export function FlowDeskNavbar() {
           ))}
         </nav>
 
-        <Link href="#pricing">
-          <Button size="sm" className="">
+        <Button size="sm" asChild>
+          <Link href="#pricing">
             Book free audit
-          </Button>
-        </Link>
+          </Link>
+        </Button>
       </FlowDeskContainer>
     </header>
   )
