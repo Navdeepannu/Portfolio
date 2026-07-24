@@ -342,6 +342,17 @@ export type CodeBlockFilesProps = Omit<HTMLAttributes<HTMLDivElement>, 'children
 export const CodeBlockFiles = ({ className, children, ...props }: CodeBlockFilesProps) => {
   const { data } = useContext(CodeBlockContext)
 
+  if (data.length === 0) {
+    return (
+      <div
+        className={cn('flex grow items-center px-3 py-2 text-xs text-muted-foreground', className)}
+        {...props}
+      >
+        No code files available.
+      </div>
+    )
+  }
+
   return (
     <div className={cn('flex grow flex-row items-center gap-2', className)} {...props}>
       {data.map(children)}
@@ -397,6 +408,7 @@ export type CodeBlockSelectTriggerProps = ComponentProps<typeof SelectTrigger>
 
 export const CodeBlockSelectTrigger = ({ className, ...props }: CodeBlockSelectTriggerProps) => (
   <SelectTrigger
+    aria-label="Select code language"
     className={cn('w-fit border-none text-xs text-muted-foreground shadow-none', className)}
     {...props}
   />

@@ -30,6 +30,7 @@ export default function ForgotPasswordTwo() {
                 type="email"
                 id="email-2"
                 name="email"
+                autoComplete="email"
                 placeholder="you@example.com"
                 required
                 className="w-full"

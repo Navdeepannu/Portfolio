@@ -67,7 +67,7 @@ export const staggerItem: Variants = {
 export function Eyebrow({ children, className }: { children: ReactNode; className?: string }) {
   return (
     <span
-      className={cn('block font-mono text-xs text-emerald-600 dark:text-emerald-400/80', className)}
+      className={cn('block font-mono text-xs text-emerald-700 dark:text-emerald-400/80', className)}
     >
       {children}
     </span>

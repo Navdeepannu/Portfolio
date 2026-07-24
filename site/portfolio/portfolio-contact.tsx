@@ -177,7 +177,7 @@ export function PortfolioContact() {
       className="relative overflow-x-clip py-24 font-schibsted selection:bg-emerald-200/60 max-md:py-16 md:py-24"
     >
       <div className="mx-auto max-w-6xl px-8 md:px-12">
-        <span className="mb-4 block font-mono text-xs text-emerald-600 dark:text-emerald-400/80">
+        <span className="mb-4 block font-mono text-xs text-emerald-700 dark:text-emerald-400/80">
           {contactCopy.eyebrow}
         </span>
         <div className="grid items-start gap-4 lg:grid-cols-2 lg:gap-12">

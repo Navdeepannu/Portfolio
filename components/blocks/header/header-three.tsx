@@ -200,7 +200,7 @@ export default function HeaderThree() {
                                 <NavigationMenuLink key={child.name} asChild>
                                   <Link
                                     href={child.href}
-                                    className="flex cursor-pointer items-start gap-3 rounded-lg p-3 transition-colors outline-none hover:bg-accent focus:bg-accent"
+                                    className="flex cursor-pointer items-start gap-3 rounded-lg p-3 transition-colors outline-none hover:bg-accent focus:bg-accent focus-visible:ring-2 focus-visible:ring-ring/50"
                                   >
                                     <span className="mt-0.5 rounded-md border bg-background p-1.5">
                                       <Icon className="size-4" />
@@ -313,7 +313,7 @@ export default function HeaderThree() {
                 >
                   <Link href="#get-started" onClick={closeMobileMenu}>
                     <span>Get Started</span>
-                    <ArrowRight className="ml-1 size-3.5" />
+                    <ArrowRight data-icon="inline-end" className="ml-1 size-3.5" />
                   </Link>
                 </Button>
               </div>

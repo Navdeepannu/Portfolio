@@ -47,7 +47,7 @@ export function UiLibraryHero() {
             <Button asChild variant="ghost">
               <Link href={hero.secondaryCTA.href}>
                 {hero.secondaryCTA.label}
-                <ArrowUpRight aria-hidden="true" className="size-4" />
+                <ArrowUpRight data-icon="inline-end" aria-hidden="true" className="size-4" />
               </Link>
             </Button>
           </div>

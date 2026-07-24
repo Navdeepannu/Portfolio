@@ -90,7 +90,7 @@ export default function FeatureSectionOne() {
                   duration: 0.65,
                   ease: [0.22, 1, 0.36, 1],
                 }}
-                className="group relative grid min-h-20 w-full grid-cols-1 items-center overflow-hidden rounded-[1.75rem] px-5 outline-none md:min-h-30 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:px-8"
+                className="group relative grid min-h-20 w-full grid-cols-1 items-center overflow-hidden rounded-[1.75rem] px-5 outline-none focus-visible:ring-2 focus-visible:ring-ring/50 md:min-h-30 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:px-8"
               >
                 {isActive && (
                   <motion.div

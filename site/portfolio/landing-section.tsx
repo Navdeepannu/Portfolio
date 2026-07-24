@@ -30,7 +30,7 @@ export function LandingSection({
     >
       <h2
         id={headingId}
-        className="mb-8 text-sm font-medium text-emerald-600 md:mb-10 dark:text-emerald-400/80"
+        className="mb-8 text-sm font-medium text-emerald-700 md:mb-10 dark:text-emerald-400/80"
       >
         {label}
       </h2>

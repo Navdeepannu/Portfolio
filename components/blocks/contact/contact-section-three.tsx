@@ -40,37 +40,59 @@ export default function ContactSection() {
 
               <form className="space-y-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Name</label>
+                  <label htmlFor="contact-name" className="text-sm font-medium">
+                    Name
+                  </label>
                   <input
+                    id="contact-name"
+                    name="name"
                     type="text"
+                    autoComplete="name"
+                    required
                     placeholder="Your name"
-                    className="h-11 w-full rounded-lg border border-border bg-background px-3 text-sm transition outline-none placeholder:text-muted-foreground focus:border-foreground/40"
+                    className="h-11 w-full rounded-lg border border-border bg-background px-3 text-sm transition outline-none placeholder:text-muted-foreground focus:border-foreground/40 focus-visible:ring-2 focus-visible:ring-ring/40"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Email</label>
+                  <label htmlFor="contact-email" className="text-sm font-medium">
+                    Email
+                  </label>
                   <input
+                    id="contact-email"
+                    name="email"
                     type="email"
+                    autoComplete="email"
+                    required
                     placeholder="you@example.com"
-                    className="h-11 w-full rounded-lg border border-border bg-background px-3 text-sm transition outline-none placeholder:text-muted-foreground focus:border-foreground/40"
+                    className="h-11 w-full rounded-lg border border-border bg-background px-3 text-sm transition outline-none placeholder:text-muted-foreground focus:border-foreground/40 focus-visible:ring-2 focus-visible:ring-ring/40"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Subject</label>
+                  <label htmlFor="contact-subject" className="text-sm font-medium">
+                    Subject
+                  </label>
                   <input
+                    id="contact-subject"
+                    name="subject"
                     type="text"
+                    required
                     placeholder="Project inquiry"
-                    className="h-11 w-full rounded-lg border border-border bg-background px-3 text-sm transition outline-none placeholder:text-muted-foreground focus:border-foreground/40"
+                    className="h-11 w-full rounded-lg border border-border bg-background px-3 text-sm transition outline-none placeholder:text-muted-foreground focus:border-foreground/40 focus-visible:ring-2 focus-visible:ring-ring/40"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Message</label>
+                  <label htmlFor="contact-message" className="text-sm font-medium">
+                    Message
+                  </label>
                   <textarea
+                    id="contact-message"
+                    name="message"
+                    required
                     placeholder="Tell us a little about your project..."
-                    className="min-h-32 w-full resize-none rounded-lg border border-border bg-background px-3 py-3 text-sm transition outline-none placeholder:text-muted-foreground focus:border-foreground/40"
+                    className="min-h-32 w-full resize-none rounded-lg border border-border bg-background px-3 py-3 text-sm transition outline-none placeholder:text-muted-foreground focus:border-foreground/40 focus-visible:ring-2 focus-visible:ring-ring/40"
                   />
                 </div>
 

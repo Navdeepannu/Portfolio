@@ -31,7 +31,10 @@ export function FlowDeskHero() {
                 className="group inline-flex items-center gap-1 text-sm font-medium text-muted-foreground transition hover:text-foreground"
               >
                 See pricing
-                <ArrowRight className="size-4 transition duration-200 ease-out group-hover:translate-x-1" />
+                <ArrowRight
+                  data-icon="inline-end"
+                  className="size-4 transition duration-200 ease-out group-hover:translate-x-1"
+                />
               </Link>
             </div>
           </div>

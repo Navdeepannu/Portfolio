@@ -122,7 +122,7 @@ function CommandSearch({
         className={cn(
           'flex h-6 w-full min-w-0 bg-transparent text-[15px] tracking-tight text-foreground',
           'placeholder:font-normal placeholder:text-muted-foreground/70',
-          'outline-none disabled:cursor-not-allowed disabled:opacity-50',
+          'outline-none focus-visible:ring-2 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50',
         )}
       />
     </div>
@@ -174,7 +174,7 @@ function CommandRow({
       onSelect={() => onSelect(item)}
       className={cn(
         'group relative flex cursor-default items-center gap-2.5 rounded-lg px-2.5 py-2',
-        'text-sm text-foreground/75 transition-colors outline-none select-none',
+        'text-sm text-foreground/75 transition-colors outline-none select-none focus-visible:ring-2 focus-visible:ring-ring/50',
         'data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50',
         'data-selected:bg-muted/90 data-selected:text-foreground',
         'dark:data-selected:bg-foreground',

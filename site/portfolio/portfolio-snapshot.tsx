@@ -24,7 +24,7 @@ export function PortfolioSnapshot() {
       className="relative overflow-x-clip py-20 font-schibsted selection:bg-emerald-200/60 max-md:py-14 md:py-24"
     >
       <div className="mx-auto max-w-6xl px-8 md:px-12">
-        <span className="mb-4 block font-mono text-xs text-emerald-600 dark:text-emerald-400/80">
+        <span className="mb-4 block font-mono text-xs text-emerald-700 dark:text-emerald-400/80">
           {eyebrow}
         </span>
 
@@ -177,7 +177,7 @@ function QualificationsIllustration() {
               </div>
             </div>
 
-            <span className="rounded-full bg-emerald-500/10 px-2 py-1 text-[10px] font-medium text-emerald-600 dark:text-emerald-400">
+            <span className="rounded-full bg-emerald-500/10 px-2 py-1 text-[10px] font-medium text-emerald-700 dark:text-emerald-400">
               Active
             </span>
           </div>

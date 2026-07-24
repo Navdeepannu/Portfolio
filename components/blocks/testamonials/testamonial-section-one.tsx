@@ -84,7 +84,7 @@ export default function TestamonialSectionOne() {
               className="cursor-pointer rounded-full shadow-lg shadow-neutral-400"
             >
               Read Success Stories
-              <IconArrowRight />{' '}
+              <IconArrowRight data-icon="inline-end" />{' '}
             </Button>
           </div>
         </div>

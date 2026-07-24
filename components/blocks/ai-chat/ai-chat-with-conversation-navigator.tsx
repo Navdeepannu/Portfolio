@@ -6,6 +6,7 @@ import {
   ArrowUpIcon,
   BotIcon,
   FileTextIcon,
+  LoaderCircleIcon,
   MoreHorizontalIcon,
   PaperclipIcon,
   SparklesIcon,
@@ -347,6 +348,7 @@ export function AIChatWithConversationNavigator({
 
       <form
         onSubmit={submitDraft}
+        aria-busy={isSubmitting}
         className="shrink-0 border-t bg-background/95 p-3 backdrop-blur-xl sm:p-4"
       >
         <div className="mx-auto max-w-3xl rounded-xl border bg-background p-2 shadow-sm transition-shadow focus-within:ring-3 focus-within:ring-ring/20">
@@ -359,6 +361,8 @@ export function AIChatWithConversationNavigator({
             rows={1}
             placeholder="Ask a follow-up…"
             disabled={isBusy}
+            required
+            minLength={1}
             onChange={(event) => setDraft(event.target.value)}
             onKeyDown={(event) => {
               if (event.key === 'Enter' && !event.shiftKey && !event.nativeEvent.isComposing) {
@@ -376,6 +380,7 @@ export function AIChatWithConversationNavigator({
                 type="file"
                 multiple
                 accept={acceptedFileTypes}
+                aria-label="Attach files"
                 tabIndex={-1}
                 className="sr-only"
                 onChange={(event) => {
@@ -406,11 +411,15 @@ export function AIChatWithConversationNavigator({
             <Button
               type="submit"
               size="icon-sm"
-              disabled={!draft.trim() || !onSend || isBusy}
-              aria-label="Send message"
+              disabled={!draft.trim() || !onSend || isSubmitting || isGenerating}
+              aria-label={isSubmitting ? 'Sending message' : 'Send message'}
               className="rounded-full"
             >
-              <ArrowUpIcon aria-hidden="true" />
+              {isSubmitting ? (
+                <LoaderCircleIcon aria-hidden="true" className="animate-spin" />
+              ) : (
+                <ArrowUpIcon aria-hidden="true" />
+              )}
             </Button>
           </div>
         </div>

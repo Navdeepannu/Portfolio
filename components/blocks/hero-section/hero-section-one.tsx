@@ -32,7 +32,7 @@ export default function HeroSectionOne() {
         </div>
 
         <div className="w-full pt-6">
-          <form action="" className="mx-auto max-w-sm">
+          <form className="mx-auto max-w-sm">
             <div className="relative grid grid-cols-[1fr_auto] items-center rounded-full border border-border/80 bg-background pr-1 shadow-sm ring-1 shadow-zinc-950/5 ring-foreground/5 transition-all duration-200 focus-within:border-ring focus-within:ring-2 focus-within:ring-ring/30 dark:bg-muted/30 dark:shadow-black/30">
               <Mail
                 aria-hidden="true"
@@ -45,7 +45,7 @@ export default function HeroSectionOne() {
                 placeholder="Enter your email"
                 autoComplete="email"
                 aria-label="Email address"
-                className="h-12 w-full bg-transparent pl-11 text-sm text-foreground outline-none placeholder:text-muted-foreground md:text-base"
+                className="h-12 w-full bg-transparent pl-11 text-sm text-foreground outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring/50 md:text-base"
               />
 
               <div className="pr-1">
@@ -55,7 +55,12 @@ export default function HeroSectionOne() {
                   className="rounded-full bg-linear-to-t from-zinc-800 via-zinc-900 to-black px-5 text-white shadow-sm ring-1 ring-white/10 transition-all duration-200 hover:opacity-90 hover:shadow-md dark:from-zinc-200 dark:via-zinc-100 dark:to-white dark:text-zinc-950 dark:ring-black/10"
                 >
                   <span className="hidden sm:inline">Get started</span>
-                  <SendHorizontal aria-hidden="true" className="size-4 sm:hidden" strokeWidth={2} />
+                  <SendHorizontal
+                    data-icon="inline-end"
+                    aria-hidden="true"
+                    className="size-4 sm:hidden"
+                    strokeWidth={2}
+                  />
                 </Button>
               </div>
             </div>
