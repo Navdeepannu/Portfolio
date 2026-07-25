@@ -54,32 +54,49 @@ export function RailNav({
     defaultProp: defaultValue ?? items[0]?.href ?? '',
     onChange: onValueChange,
   })
+
   const [expanded = false, setExpanded] = useControllableState({
     prop: expandedProp,
     defaultProp: defaultExpanded,
     onChange: onExpandedChange,
   })
+
   const [hoveredValue, setHoveredValue] = React.useState<string | null>(null)
 
   React.useEffect(() => {
-    if (!trackActive || typeof IntersectionObserver === 'undefined') return
+    if (!trackActive || typeof IntersectionObserver === 'undefined') {
+      return
+    }
 
     const observedItems = items.flatMap((item) => {
       const selector = item.target ?? (item.href.startsWith('#') ? item.href : null)
 
-      if (!selector) return []
+      if (!selector) {
+        return []
+      }
 
       try {
         const element = document.querySelector(selector)
-        return element ? [{ element, value: item.href }] : []
+
+        return element
+          ? [
+              {
+                element,
+                value: item.href,
+              },
+            ]
+          : []
       } catch {
         return []
       }
     })
 
-    if (!observedItems.length) return
+    if (!observedItems.length) {
+      return
+    }
 
     const valueByElement = new Map(observedItems.map((item) => [item.element, item.value]))
+
     const observer = new IntersectionObserver(
       (entries) => {
         const visibleEntry = entries
@@ -88,9 +105,12 @@ export function RailNav({
             (first, second) =>
               Math.abs(first.boundingClientRect.top) - Math.abs(second.boundingClientRect.top),
           )[0]
+
         const nextValue = visibleEntry ? valueByElement.get(visibleEntry.target) : undefined
 
-        if (nextValue) setActiveValue(nextValue)
+        if (nextValue) {
+          setActiveValue(nextValue)
+        }
       },
       observerOptions ?? {
         rootMargin: '-30% 0px -60% 0px',
@@ -98,14 +118,21 @@ export function RailNav({
       },
     )
 
-    observedItems.forEach(({ element }) => observer.observe(element))
+    observedItems.forEach(({ element }) => {
+      observer.observe(element)
+    })
 
-    return () => observer.disconnect()
+    return () => {
+      observer.disconnect()
+    }
   }, [items, observerOptions, setActiveValue, trackActive])
 
   function handleMouseEnter(event: React.MouseEvent<HTMLElement>) {
     onMouseEnter?.(event)
-    if (!event.defaultPrevented) setExpanded(true)
+
+    if (!event.defaultPrevented) {
+      setExpanded(true)
+    }
   }
 
   function handleMouseLeave(event: React.MouseEvent<HTMLElement>) {
@@ -119,7 +146,10 @@ export function RailNav({
 
   function handleFocusCapture(event: React.FocusEvent<HTMLElement>) {
     onFocusCapture?.(event)
-    if (!event.defaultPrevented) setExpanded(true)
+
+    if (!event.defaultPrevented) {
+      setExpanded(true)
+    }
   }
 
   function handleBlurCapture(event: React.FocusEvent<HTMLElement>) {
@@ -210,7 +240,10 @@ export function RailNav({
                 aria-current={isActive ? 'location' : undefined}
                 onClick={(event) => {
                   item.onClick?.(event)
-                  if (!event.defaultPrevented) setActiveValue(item.href)
+
+                  if (!event.defaultPrevented) {
+                    setActiveValue(item.href)
+                  }
                 }}
                 onMouseEnter={() => setHoveredValue(item.href)}
                 onMouseLeave={() => setHoveredValue(null)}
