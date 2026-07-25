@@ -1,16 +1,34 @@
-import type { ComponentProps } from 'react'
-import { ArrowUpRight, Quote } from 'lucide-react'
+'use client'
 
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { Separator } from '@/components/ui/separator'
+import type { ComponentProps } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
+import {
+  animate,
+  motion,
+  useInView,
+  useMotionValue,
+  useReducedMotion,
+  useTransform,
+} from 'motion/react'
+
 import { cn } from '@/lib/utils'
 
 export type BusinessMetric = {
-  value: string
+  value: number
   label: string
   detail?: string
+  prefix?: string
+  suffix?: string
+  decimals?: number
+}
+
+export type AnimatedStatValueProps = {
+  value: number
+  prefix?: string
+  suffix?: string
+  decimals?: number
+  duration?: number
+  className?: string
 }
 
 export type StatsSectionOneProps = ComponentProps<'section'> & {
@@ -18,99 +36,154 @@ export type StatsSectionOneProps = ComponentProps<'section'> & {
   heading?: string
   description?: string
   metrics?: readonly BusinessMetric[]
-  quote?: string
-  quoteAuthor?: string
-  quoteRole?: string
-  action?: { label: string; href: string }
 }
 
 const defaultMetrics: readonly BusinessMetric[] = [
-  { value: '38%', label: 'faster delivery', detail: 'Across the first 90 days' },
-  { value: '3.2×', label: 'return on spend', detail: 'Measured over one year' },
-  { value: '18 hrs', label: 'saved each week', detail: 'Per operations team' },
-  { value: '99.9%', label: 'workflow uptime', detail: 'Across all workspaces' },
+  {
+    value: 38,
+    suffix: '%',
+    label: 'Faster delivery',
+    detail: 'Within the first 90 days',
+  },
+  {
+    value: 18,
+    suffix: ' hrs',
+    label: 'Saved every week',
+    detail: 'Per operations team',
+  },
+  {
+    value: 3.2,
+    suffix: '×',
+    decimals: 1,
+    label: 'Return on spend',
+    detail: 'Measured over 12 months',
+  },
+  {
+    value: 99.9,
+    suffix: '%',
+    decimals: 1,
+    label: 'Platform uptime',
+    detail: 'Across all workspaces',
+  },
 ]
+
+export function AnimatedStatValue({
+  value,
+  prefix = '',
+  suffix = '',
+  decimals = 0,
+  duration = 1.1,
+  className,
+}: AnimatedStatValueProps) {
+  const ref = useRef<HTMLSpanElement>(null)
+  const shouldReduceMotion = useReducedMotion()
+  const isInView = useInView(ref, {
+    once: true,
+    amount: 0.6,
+  })
+
+  const animatedValue = useMotionValue(shouldReduceMotion ? value : 0)
+
+  const formatter = useMemo(
+    () =>
+      new Intl.NumberFormat('en-US', {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals,
+      }),
+    [decimals],
+  )
+
+  const formattedValue = useTransform(
+    animatedValue,
+    (latest) => `${prefix}${formatter.format(latest)}${suffix}`,
+  )
+
+  const finalValue = `${prefix}${formatter.format(value)}${suffix}`
+
+  useEffect(() => {
+    if (!isInView) return
+
+    if (shouldReduceMotion) {
+      animatedValue.set(value)
+      return
+    }
+
+    const controls = animate(animatedValue, value, {
+      duration,
+      ease: [0.22, 1, 0.36, 1],
+    })
+
+    return () => controls.stop()
+  }, [animatedValue, duration, isInView, shouldReduceMotion, value])
+
+  return (
+    <span ref={ref} className={cn('inline-block tabular-nums', className)}>
+      <motion.span aria-hidden>{formattedValue}</motion.span>
+      <span className="sr-only">{finalValue}</span>
+    </span>
+  )
+}
 
 export function StatsSectionOne({
   className,
   eyebrow = 'Measured impact',
-  heading = 'Results that stand up in the next leadership meeting',
-  description = 'Connect the work to outcomes with a section built for case studies, service results, and product proof.',
+  heading = 'Outcomes you can measure',
+  description = 'Clear performance metrics that demonstrate the operational and business impact of your product.',
   metrics = defaultMetrics,
-  quote = 'We moved from scattered updates to one operating rhythm. The team is faster, and leadership finally has a clear view of progress.',
-  quoteAuthor = 'Maya Chen',
-  quoteRole = 'VP of Operations, Northstar',
-  action = { label: 'Read the case study', href: '#case-study' },
   ...props
 }: StatsSectionOneProps) {
   return (
     <section
       data-slot="stats-section-one"
-      className={cn('bg-muted/30 py-20 text-foreground sm:py-28', className)}
+      className={cn('bg-background py-20 text-foreground sm:py-28', className)}
       {...props}
     >
       <div className="mx-auto w-full max-w-6xl px-6">
-        <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
-          <div>
-            <Badge variant="outline" className="bg-background">
-              {eyebrow}
-            </Badge>
-            <h2 className="mt-5 text-3xl font-semibold tracking-tight text-balance sm:text-5xl">
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,0.72fr)] lg:items-end">
+          <div className="max-w-3xl">
+            <p className="text-sm font-medium text-muted-foreground">{eyebrow}</p>
+
+            <h2 className="mt-4 max-w-xl text-3xl font-semibold tracking-tight text-balance sm:text-4xl lg:text-5xl">
               {heading}
             </h2>
           </div>
-          <p className="max-w-xl text-base leading-7 text-muted-foreground sm:text-lg lg:justify-self-end">
+
+          <p className="max-w-xl text-base leading-7 text-pretty text-muted-foreground sm:text-lg lg:justify-self-end">
             {description}
           </p>
         </div>
 
-        <div className="mt-12 grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
-          <Card className="justify-between">
-            <CardHeader>
-              <Quote aria-hidden className="size-8 text-primary" />
-              <CardTitle className="mt-5 text-xl leading-8 font-medium sm:text-2xl">
-                “{quote}”
-              </CardTitle>
-            </CardHeader>
-            <CardFooter className="flex items-end justify-between gap-4">
-              <div>
-                <p className="font-medium text-foreground">{quoteAuthor}</p>
-                <p className="mt-1 text-sm text-muted-foreground">{quoteRole}</p>
-              </div>
-              <Button asChild variant="outline" size="icon-lg" aria-label={action.label}>
-                <a href={action.href} aria-label={action.label}>
-                  <ArrowUpRight aria-hidden />
-                </a>
-              </Button>
-            </CardFooter>
-          </Card>
+        <dl className="mt-12 grid overflow-hidden rounded-2xl border sm:grid-cols-2 lg:mt-16 lg:grid-cols-4">
+          {metrics.map((metric, index) => (
+            <div
+              key={`${metric.value}-${metric.label}`}
+              className={cn(
+                'min-w-0 p-6 sm:p-8',
+                index > 0 && 'border-t sm:border-t-0',
+                index % 2 !== 0 && 'sm:border-l',
+                index >= 2 && 'sm:border-t',
+                index > 0 && 'lg:border-t-0 lg:border-l',
+              )}
+            >
+              <dd className="text-3xl font-semibold tracking-tight sm:text-4xl">
+                <AnimatedStatValue
+                  value={metric.value}
+                  prefix={metric.prefix}
+                  suffix={metric.suffix}
+                  decimals={metric.decimals}
+                />
+              </dd>
 
-          <Card className="py-0">
-            <CardContent className="grid h-full p-0 sm:grid-cols-2">
-              {metrics.map((metric, index) => (
-                <div
-                  key={`${metric.value}-${metric.label}`}
-                  className={cn(
-                    'p-6 sm:p-8',
-                    index % 2 === 0 && 'sm:border-r sm:border-border',
-                    index < 2 && 'border-b border-border',
-                  )}
-                >
-                  <p className="text-3xl font-semibold tracking-tight sm:text-4xl">
-                    {metric.value}
-                  </p>
-                  <p className="mt-2 font-medium">{metric.label}</p>
-                  {metric.detail ? (
-                    <>
-                      <Separator className="my-4 w-10" />
-                      <p className="text-sm text-muted-foreground">{metric.detail}</p>
-                    </>
-                  ) : null}
-                </div>
-              ))}
-            </CardContent>
-          </Card>
-        </div>
+              <dt className="mt-3 font-medium">{metric.label}</dt>
+
+              {metric.detail ? (
+                <p className="mt-4 border-t pt-4 text-sm leading-6 text-muted-foreground">
+                  {metric.detail}
+                </p>
+              ) : null}
+            </div>
+          ))}
+        </dl>
       </div>
     </section>
   )

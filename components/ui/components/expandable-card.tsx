@@ -110,7 +110,7 @@ function ExpandableCardMedia({
       data-slot="expandable-card-media"
       layoutId={context.mediaLayoutId}
       transition={transition}
-      className={cn('block overflow-hidden bg-muted', className)}
+      className={cn('block overflow-hidden', className)}
       {...props}
     />
   )

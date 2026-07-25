@@ -14,8 +14,7 @@ const cards = [
   {
     title: 'Smart Automation',
     description: 'Automate repetitive tasks and help users move faster with fewer manual steps.',
-    image:
-      'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop',
+    image: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlh4cfuGJ0RlaETPbLcZQjyfg2StNvuB13w8rI',
     href: '#automation-docs',
     items: [
       {
@@ -32,10 +31,8 @@ const cards = [
   },
   {
     title: 'Real-time Insights',
-    description:
-      'Show important data clearly so users can understand activity, growth, and performance.',
-    image:
-      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop',
+    description: 'Show important data clearly so users can understand growth and performance.',
+    image: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlBE1JQ6bM0rCoZtdKDAVO8yw7eSuvUb1LhYIJ',
     items: [
       {
         title: 'What it solves',
@@ -52,8 +49,7 @@ const cards = [
   {
     title: 'Custom Interface Design',
     description: 'Create polished, responsive, and reusable interfaces for websites and products.',
-    image:
-      'https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1200&auto=format&fit=crop',
+    image: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTljn0lnIziS93GUAyT2Loud5qMEamYgj7C0BVN',
     items: [
       {
         title: 'Service focus',
