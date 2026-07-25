@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import { IconArrowUpRight, IconUser } from '@tabler/icons-react'
+import Link from 'next/link'
 
 import { Shader, Blob, FilmGrain, Swirl, TiltShift, WaveDistortion } from 'shaders/react'
 
@@ -9,7 +10,7 @@ export default function HeroSectionThree() {
   return (
     <section className="relative min-h-screen overflow-hidden bg-white dark:bg-[#1a1a1a]">
       {/* Shader background */}
-      <div className="pointer-events-none absolute inset-0 z-0">
+      <div className="pointer-events-none absolute inset-0 z-0 motion-reduce:hidden">
         {/* Oversized rotated canvas to avoid clipping */}
         <div className="absolute right-[-35%] bottom-[-55%] h-[160%] w-[150%]">
           <Shader className="h-full w-full">
@@ -60,14 +61,18 @@ export default function HeroSectionThree() {
         </p>
 
         <div className="mt-2 flex gap-4">
-          <Button size="lg" className="rounded-full">
-            Explore presents
-            <IconArrowUpRight data-icon="inline-end" />
+          <Button size="lg" className="rounded-full" asChild>
+            <Link href="#presets">
+              Explore presents
+              <IconArrowUpRight aria-hidden="true" data-icon="inline-end" />
+            </Link>
           </Button>
 
-          <Button variant="secondary" size="lg" className="rounded-full">
-            <IconUser data-icon="inline-start" />
-            Sign up
+          <Button variant="secondary" size="lg" className="rounded-full" asChild>
+            <Link href="#sign-up">
+              <IconUser aria-hidden="true" data-icon="inline-start" />
+              Sign up
+            </Link>
           </Button>
         </div>
       </div>

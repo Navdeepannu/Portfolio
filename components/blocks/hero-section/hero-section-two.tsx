@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 import HeaderTwo from '../header/header-two'
-import { motion } from 'motion/react'
+import { motion, useReducedMotion } from 'motion/react'
 import { AnimatedGroup } from '@/components/ui/components/animated-group'
 import { TextEffect } from '@/components/ui/components/text-effect'
 import { cn } from '@/lib/utils'
@@ -10,7 +10,7 @@ const Spotlight = () => {
   return (
     <svg
       className={cn(
-        'animate-spotlight pointer-events-none absolute z-1 h-[169%] w-[138%] opacity-0 lg:w-[84%]',
+        'animate-spotlight pointer-events-none absolute z-1 h-[169%] w-[138%] opacity-0 motion-reduce:animate-none lg:w-[84%]',
       )}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 3787 2842"
@@ -55,6 +55,7 @@ const Spotlight = () => {
 }
 export default function HeroSectionTwo() {
   const label = 'Download the app'
+  const shouldReduceMotion = useReducedMotion()
 
   const container = {
     rest: {},
@@ -73,7 +74,7 @@ export default function HeroSectionTwo() {
   const char = {
     rest: { y: 0, opacity: 1 },
     hover: {
-      y: -12,
+      y: shouldReduceMotion ? 0 : -12,
       opacity: 0,
       transition: { duration: 0.18 },
     },
@@ -81,7 +82,7 @@ export default function HeroSectionTwo() {
 
   const charBack = {
     rest: {
-      y: 12,
+      y: shouldReduceMotion ? 0 : 12,
       opacity: 0,
     },
     hover: {
@@ -95,14 +96,14 @@ export default function HeroSectionTwo() {
       <HeaderTwo />
 
       {/* hero section two*/}
-      <section className="bg-neutral-900">
+      <section className="relative overflow-hidden bg-neutral-900">
         <Spotlight />
 
         <div className="mx-auto flex max-w-4xl flex-col items-center justify-center gap-5 px-4 pt-20 text-center sm:pt-24">
           <TextEffect
             as="h1"
             speedReveal={2}
-            preset="fade-in-blur"
+            preset={shouldReduceMotion ? 'fade' : 'fade-in-blur'}
             per="word"
             className="text-4xl font-semibold tracking-tight text-balance text-muted selection:bg-purple-600/70 sm:text-5xl md:text-6xl lg:text-7xl dark:text-neutral-100"
           >
@@ -113,20 +114,21 @@ export default function HeroSectionTwo() {
             delay={0.2}
             speedReveal={2}
             per="char"
-            preset="fade-in-blur"
+            preset={shouldReduceMotion ? 'fade' : 'fade-in-blur'}
             className="mx-auto max-w-lg text-sm text-balance text-neutral-400 selection:bg-purple-600/70 selection:text-white sm:text-base md:text-lg dark:text-muted-foreground"
           >
             Track meals, habits, and workouts in one private app. Stay consistent and focused.
           </TextEffect>
 
           <AnimatedGroup as="div" preset="fade" className="pt-2">
-            <motion.button
+            <motion.a
+              href="#download"
               initial="rest"
               animate="rest"
-              whileHover="hover"
+              whileHover={shouldReduceMotion ? undefined : 'hover'}
               className="flex cursor-pointer items-center justify-center gap-2 rounded-full bg-white px-5 py-3 font-medium text-neutral-900"
             >
-              <div className="size-5 *:size-full">
+              <div aria-hidden="true" className="size-5 *:size-full">
                 <svg viewBox="0 0 814 1000">
                   <path
                     fill="currentColor"
@@ -150,12 +152,12 @@ export default function HeroSectionTwo() {
                   ))}
                 </span>
               </motion.span>
-            </motion.button>
+            </motion.a>
           </AnimatedGroup>
 
           {/* mockup */}
           <AnimatedGroup
-            preset="blur-slide"
+            preset={shouldReduceMotion ? 'fade' : 'blur-slide'}
             as="div"
             className="mt-12 flex w-full justify-center sm:mt-16 md:mt-20"
           >
@@ -163,8 +165,8 @@ export default function HeroSectionTwo() {
               <Image
                 src="https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTl2VlEStmnCKEMaPSHlkN9mY0IgJTt8dwQzFbx"
                 alt="iPhone held in hands showcasing the app"
-                width={600}
-                height={700}
+                width={640}
+                height={714}
                 className="relative z-0 h-auto w-full object-contain"
                 priority
               />

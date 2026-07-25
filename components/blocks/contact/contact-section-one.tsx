@@ -1,5 +1,3 @@
-'use client'
-
 import { ArrowUpRight, BookOpen, Code2, Mail, MessagesSquare } from 'lucide-react'
 import Link from 'next/link'
 
@@ -86,7 +84,10 @@ export default function ContactSectionOne() {
 
                     <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-primary">
                       {card.linkLabel}
-                      <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                      <ArrowUpRight
+                        aria-hidden="true"
+                        className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transition-none"
+                      />
                     </span>
                   </Link>
                 )
@@ -108,14 +109,20 @@ export default function ContactSectionOne() {
                         className="group flex gap-4 border-b border-border py-6 first:pt-0 last:border-b-0"
                       >
                         <div className="mt-1 flex size-9 shrink-0 items-center justify-center rounded-full border border-border bg-background transition-colors group-hover:bg-muted">
-                          <Icon className="size-4 text-muted-foreground transition-colors group-hover:text-foreground" />
+                          <Icon
+                            aria-hidden="true"
+                            className="size-4 text-muted-foreground transition-colors group-hover:text-foreground"
+                          />
                         </div>
 
                         <div className="min-w-0 flex-1">
                           <div className="flex items-center justify-between gap-4">
                             <h3 className="text-sm font-medium text-foreground">{item.title}</h3>
 
-                            <ArrowUpRight className="size-4 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+                            <ArrowUpRight
+                              aria-hidden="true"
+                              className="size-4 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100"
+                            />
                           </div>
 
                           <p className="mt-1 text-sm leading-6 text-muted-foreground">

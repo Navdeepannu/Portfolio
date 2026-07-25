@@ -47,13 +47,7 @@ export default function LogoCloudThree() {
         >
           <rect width="1024" height="256" />
           <rect x="96" y="79" width="34.6988" height="97.5904" fill="black" />
-          <rect
-            x="203.133"
-            y="79"
-            width="36.8675"
-            height="97.5904"
-            fill="black"
-          />
+          <rect x="203.133" y="79" width="36.8675" height="97.5904" fill="black" />
           <rect
             x="238.916"
             y="79"
@@ -150,19 +144,11 @@ export default function LogoCloudThree() {
               d="M1156.12 242.628L1062.1 475.184H1108.28L1128.21 424.354H1235.19L1255.12 475.184H1301.96L1208.61 242.628H1156.12ZM1143.16 385.816L1181.7 288.475L1219.9 385.816H1143.16Z"
               fill="black"
             />
-            <path
-              d="M1363.42 242.628H1319.57V475.184H1363.42V242.628Z"
-              fill="black"
-            />
+            <path d="M1363.42 242.628H1319.57V475.184H1363.42V242.628Z" fill="black" />
           </g>
           <defs>
             <clipPath id="clip0_1637_2932">
-              <rect
-                width="1603.2"
-                height="717.6"
-                fill="white"
-                transform="translate(0 0.0999756)"
-              />
+              <rect width="1603.2" height="717.6" fill="white" transform="translate(0 0.0999756)" />
             </clipPath>
           </defs>
         </svg>
@@ -237,10 +223,7 @@ export default function LogoCloudThree() {
                 id="dot_5_"
                 d="M351.5,26.7c-4.8,0-8.7,3.8-8.7,8.8c0,4.5,2.8,7.6,7.1,7.6h0.2c4.7,0,8.8-3.2,8.9-8.8    C359.1,29.8,356.1,26.7,351.5,26.7z"
               />
-              <polygon
-                id="i_5_"
-                points="330.3,103.2 345.5,103.2 355.8,49.6 340.5,49.6   "
-              />
+              <polygon id="i_5_" points="330.3,103.2 345.5,103.2 355.8,49.6 340.5,49.6   " />
               <path
                 id="f_5_"
                 d="M394.2,49.5h-10.5l0.5-2.5c0.9-5.2,3.9-9.8,9-9.8c2.7,0,4.8,0.8,4.8,0.8l3-11.8c0,0-2.6-1.3-8.2-1.3    c-5.4,0-10.7,1.5-14.8,5c-5.2,4.4-7.6,10.7-8.8,17.1l-0.4,2.5h-7l-2.2,11.4h7l-8,42.3h15.1l8-42.3h10.4L394.2,49.5z"
@@ -275,33 +258,33 @@ export default function LogoCloudThree() {
         </svg>
       ),
     },
-  ];
+  ]
 
   return (
-    <section className="flex items-center justify-center py-24 bg-white">
+    <section className="flex items-center justify-center bg-white py-24">
       <div className="w-full max-w-6xl px-8">
         {/* Header */}
-        <div className="text-center mb-16 flex justify-center">
+        <div className="mb-16 flex justify-center text-center">
           <div className="flex items-center gap-4 text-center">
             <span className="h-px w-10 bg-neutral-300" />
 
-            <h2 className="text-sm font-medium text-neutral-600 tracking-wide uppercase whitespace-nowrap">
+            <h2 className="text-sm font-medium tracking-wide whitespace-nowrap text-neutral-600 uppercase">
               Our supporting partners
             </h2>
 
             <span className="h-px w-10 bg-neutral-300" />
           </div>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-neutral-200 overflow-hidden border">
+        <div className="grid grid-cols-1 gap-px overflow-hidden border bg-neutral-200 sm:grid-cols-2 lg:grid-cols-4">
           {companies.map((company, index) => (
             <div
               key={index}
-              className="flex items-center justify-center  bg-white py-8 p-4 transition-colors relative group"
+              className="group relative flex items-center justify-center bg-white p-4 py-8 transition-colors"
             >
-              <span className="bg-linear-to-t -bottom-2 from-neutral-200 via-neutral-100 to-neutral-50 w-full h-full absolute inset-0 group-hover:opacity-100 backdrop-blur-xs group-hover:translate-y-0 translate-y-20 opacity-0 duration-400 ease-out">
-                {" "}
+              <span className="absolute inset-0 -bottom-2 h-full w-full translate-y-20 bg-linear-to-t from-neutral-200 via-neutral-100 to-neutral-50 opacity-0 backdrop-blur-xs transition-[transform,opacity] duration-400 ease-out group-hover:translate-y-0 group-hover:opacity-100 motion-reduce:transition-none">
+                {' '}
               </span>
-              <div className="flex h-10 w-full max-w-40 shrink-0 items-center group-hover:z-100 justify-center text-neutral-900 [&_svg]:h-7 [&_svg]:w-auto [&_svg]:max-w-full [&_svg]:object-contain">
+              <div className="flex h-10 w-full max-w-40 shrink-0 items-center justify-center text-neutral-900 group-hover:z-100 [&_svg]:h-7 [&_svg]:w-auto [&_svg]:max-w-full [&_svg]:object-contain">
                 {company.icon}
               </div>
             </div>
@@ -309,5 +292,5 @@ export default function LogoCloudThree() {
         </div>
       </div>
     </section>
-  );
+  )
 }

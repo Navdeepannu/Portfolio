@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+
 import { Badge } from '@/components/ui/badge'
 
 const members = [
@@ -5,25 +7,21 @@ const members = [
     name: 'Liam Brown',
     role: 'Founder - CEO',
     avatar: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlH4NUrIqHjv3VPCtBSMksEJOn7pmfxyc9IoU5',
-    link: '#',
   },
   {
     name: 'Elijah Jones',
     role: 'Co-Founder - CTO',
     avatar: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTl81tMhO4dwU2oJkmKaujTg9FMAr3QiGROq5bE',
-    link: '#',
   },
   {
     name: 'Ava Williams',
     role: 'Interaction Designer',
     avatar: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlh433XXK0RlaETPbLcZQjyfg2StNvuB13w8rI',
-    link: '#',
   },
   {
     name: 'Olivia Miller',
     role: 'Visual Designer',
     avatar: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlCsjkx0nF5BMj7T0uXqWGgbANfhcdeI8P3x9v',
-    link: '#',
   },
 ]
 
@@ -49,15 +47,15 @@ export default function TeamSectionFive() {
         </div>
 
         <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
-          {members.map((member, index) => (
+          {members.map((member) => (
             <div
-              key={index}
+              key={member.name}
               className="group relative aspect-3/4 overflow-hidden rounded-xl md:aspect-2/3"
             >
               <img
                 src={member.avatar}
                 alt={member.name}
-                className="absolute inset-0 h-full w-full object-cover object-top grayscale transition duration-500 group-hover:scale-103 group-hover:grayscale-0"
+                className="absolute inset-0 h-full w-full object-cover object-top grayscale transition-[transform,filter] duration-300 group-hover:scale-103 group-hover:grayscale-0 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
               />
 
               <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/10 to-transparent" />

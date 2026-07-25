@@ -220,7 +220,7 @@ function StatsDock() {
       >
         <div className="mx-auto flex max-w-360 items-center px-6 sm:px-8 lg:px-12">
           <div className="relative z-20 flex shrink-0 items-center gap-2 border-r border-border/70 bg-background py-3 pr-5 text-[10px] font-medium tracking-[0.14em] text-foreground uppercase">
-            <span className="absolute inset-x-0 size-2 animate-ping place-items-center rounded-full bg-green-500/90" />
+            <span className="absolute inset-x-0 size-2 animate-ping place-items-center rounded-full bg-green-500/90 motion-reduce:animate-none" />
             <span className="grid size-2 place-items-center rounded-full bg-green-400/90" />
 
             <span className="hidden sm:inline">Live:</span>

@@ -1,63 +1,61 @@
-import { Button } from "@/components/ui/button";
-import {
-  IconArrowRight,
-  IconHexagonFilled,
-  IconSend,
-} from "@tabler/icons-react";
-import Link from "next/link";
+import Link from 'next/link'
+
+import { Button } from '@/components/ui/button'
+import LogoMark from '@/site/ui-library/ui-library-logo'
+import { ArrowRight, Send } from 'lucide-react'
 
 const products = [
-  { title: "Overview", href: "#" },
-  { title: "Features", href: "#" },
-  { title: "Integrations", href: "#" },
-  { title: "Use cases", href: "#" },
-  { title: "Pricing", href: "#" },
-  { title: "Demo", href: "#" },
-];
+  { title: 'Overview', href: '#' },
+  { title: 'Features', href: '#' },
+  { title: 'Integrations', href: '#' },
+  { title: 'Use cases', href: '#' },
+  { title: 'Pricing', href: '#' },
+  { title: 'Demo', href: '#' },
+]
 
 const company = [
-  { title: "About us", href: "#" },
-  { title: "Careers", href: "#" },
-  { title: "Blog", href: "#" },
-  { title: "Customers", href: "#" },
-  { title: "Contact", href: "#" },
-  { title: "Legal & Privacy", href: "#" },
-];
+  { title: 'About us', href: '#' },
+  { title: 'Careers', href: '#' },
+  { title: 'Blog', href: '#' },
+  { title: 'Customers', href: '#' },
+  { title: 'Contact', href: '#' },
+  { title: 'Legal & Privacy', href: '#' },
+]
 
 export default function FooterSectionOne() {
   return (
-    <footer className="border-t border-neutral-200 py-8 dark:border-neutral-800">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 md:py-12 lg:py-16">
+    <footer className="border-t border-border bg-background text-foreground">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 md:py-12 lg:px-8 lg:py-16">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-5 lg:gap-12">
-          {/* Brand + CTA — full width on mobile, 2 cols on lg */}
           <div className="flex flex-col gap-2 sm:col-span-2 lg:col-span-2">
-            <div className="flex items-start gap-1 justify-start">
-              <IconHexagonFilled className="size-8 shrink-0 fill-neutral-900 stroke-1 stroke-gray-300 dark:fill-neutral-100 dark:stroke-neutral-600" />
-              <span className="text-xl font-semibold text-neutral-900 dark:text-neutral-100">
-                Hex UI
-              </span>
+            <div className="flex items-center justify-start gap-1">
+              <LogoMark aria-hidden="true" className="size-6" />
+              <span className="text-lg font-semibold text-foreground">Nav UI</span>
             </div>
 
-            <div className="text-sm font-normal pl-1 max-w-2xs ">
+            <p className="max-w-2xs pl-1 text-sm font-normal text-muted-foreground">
               Modern UI components for fast and accessible web apps.
-            </div>
-            <Button variant="secondary" className="w-fit mt-2">
-              Start Free trial
-              <IconArrowRight data-icon="inline-end" className="size-4" />
+            </p>
+
+            <Button asChild variant="secondary" className="mt-2 w-fit">
+              <Link href="#">
+                Start Free Trial
+                <ArrowRight aria-hidden="true" data-icon="inline-end" className="size-4" />
+              </Link>
             </Button>
           </div>
 
-          {/* Products */}
           <div className="flex flex-col gap-3">
-            <h4 className="text-sm font-medium uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
+            <h4 className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
               Products
             </h4>
+
             <ul className="list-none space-y-2">
               {products.map((item) => (
                 <li key={item.title}>
                   <Link
                     href={item.href}
-                    className="text-sm text-neutral-600 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
+                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                   >
                     {item.title}
                   </Link>
@@ -66,17 +64,17 @@ export default function FooterSectionOne() {
             </ul>
           </div>
 
-          {/* Company */}
           <div className="flex flex-col gap-3">
-            <h4 className="text-sm font-medium uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
+            <h4 className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
               Company
             </h4>
+
             <ul className="list-none space-y-2">
               {company.map((item) => (
                 <li key={item.title}>
                   <Link
                     href={item.href}
-                    className="text-sm text-neutral-600 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
+                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                   >
                     {item.title}
                   </Link>
@@ -85,37 +83,39 @@ export default function FooterSectionOne() {
             </ul>
           </div>
 
-          {/* Newsletter — full width on mobile/sm, 1 col on lg */}
           <div className="flex flex-col gap-3 sm:col-span-2 lg:col-span-1">
-            <h4 className="text-sm font-medium uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
+            <h4 className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
               Newsletter
             </h4>
-            <div className="flex overflow-hidden rounded-lg border border-neutral-200 bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-800/50">
+
+            <form className="flex overflow-hidden rounded-lg border border-input bg-muted/40 transition-shadow focus-within:ring-2 focus-within:ring-ring/50">
               <input
                 type="email"
-                aria-label="Email for newsletter"
+                aria-label="Email address for newsletter"
+                name="email"
+                required
                 autoComplete="email"
                 placeholder="Your email"
-                className="min-w-0 flex-1 bg-transparent px-4 py-3 text-sm text-neutral-700 outline-none placeholder:text-neutral-400 focus-visible:ring-2 focus-visible:ring-ring/50 dark:text-neutral-300 dark:placeholder:text-neutral-500"
+                className="min-w-0 flex-1 bg-transparent px-4 py-3 text-sm text-foreground outline-none placeholder:text-muted-foreground"
               />
+
               <button
-                type="button"
-                aria-label="Subscribe"
-                className="shrink-0 rounded-none bg-neutral-900 px-4 py-3 text-white transition-colors hover:bg-neutral-800 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-neutral-200"
+                type="submit"
+                aria-label="Subscribe to newsletter"
+                className="shrink-0 rounded-none bg-primary px-4 py-3 text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
               >
-                <IconSend className="size-4" />
+                <Send aria-hidden="true" className="size-4" />
               </button>
-            </div>
+            </form>
           </div>
         </div>
       </div>
 
-      <div className="border-t border-neutral-200 mt-8 pt-12">
-        <span className="text-muted-foreground block text-center text-sm">
-          {" "}
-          © {new Date().getFullYear()} Hex UI, All rights reserved
+      <div className="border-t border-border px-4 py-8">
+        <span className="block text-center text-sm text-muted-foreground">
+          © {new Date().getFullYear()} Nav UI. All rights reserved.
         </span>
       </div>
     </footer>
-  );
+  )
 }

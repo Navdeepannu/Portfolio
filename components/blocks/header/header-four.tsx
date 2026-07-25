@@ -209,11 +209,15 @@ export default function HeaderFour() {
                   <motion.span
                     layoutId="navigation-hover"
                     className="pointer-events-none absolute inset-0 rounded-md bg-muted"
-                    transition={{
-                      type: 'spring',
-                      stiffness: 500,
-                      damping: 35,
-                    }}
+                    transition={
+                      shouldReduceMotion
+                        ? { duration: 0 }
+                        : {
+                            type: 'spring',
+                            stiffness: 500,
+                            damping: 35,
+                          }
+                    }
                   />
                 )}
 
@@ -324,7 +328,7 @@ export default function HeaderFour() {
 
                       <span
                         aria-hidden="true"
-                        className="text-muted-foreground transition-transform group-open:rotate-45"
+                        className="text-muted-foreground transition-transform group-open:rotate-45 motion-reduce:transition-none"
                       >
                         +
                       </span>

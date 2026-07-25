@@ -126,28 +126,29 @@ export default function HeaderThree() {
       >
         <div
           className={cn(
-            'mx-auto mt-3 w-full max-w-7xl rounded-xl border border-transparent bg-transparent px-0 transition-all duration-500 ease-out',
+            'mx-auto mt-3 w-full max-w-7xl rounded-xl border border-transparent bg-transparent px-0 transition-[max-width,padding,background-color,border-color,box-shadow,backdrop-filter] duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transition-none',
             isScrolled &&
               'max-w-6xl border-border/60 bg-background/70 px-3 shadow-sm shadow-black/5 backdrop-blur-xl dark:bg-background/55 dark:shadow-none',
           )}
         >
           <div
             className={cn(
-              'relative flex flex-wrap items-center justify-between gap-6 transition-all duration-500 ease-out lg:gap-0',
+              'relative flex flex-wrap items-center justify-between gap-6 transition-[padding] duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transition-none lg:gap-0',
               isScrolled ? 'py-2 lg:py-2.5' : 'py-4 lg:py-5',
             )}
           >
             <div className="flex w-full items-center justify-between lg:w-auto">
               <Link href="#" aria-label="home" className="flex items-center gap-2">
                 <NfcIcon
+                  aria-hidden="true"
                   className={cn(
-                    'transition-all duration-500 ease-out',
+                    'transition-[width,height] duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transition-none',
                     isScrolled ? 'size-5' : 'size-6',
                   )}
                 />
                 <span
                   className={cn(
-                    'font-medium transition-all duration-500 ease-out',
+                    'duration-250e-[cubic-bezier(0.23,1,0.32,1)] font-medium transition-[font-size] motion-reduce:transition-none',
                     isScrolled ? 'text-sm' : 'text-base',
                   )}
                 >
@@ -156,12 +157,21 @@ export default function HeaderThree() {
               </Link>
 
               <button
+                type="button"
                 onClick={toggleMobileMenu}
                 aria-label={menuState ? 'Close Menu' : 'Open Menu'}
+                aria-expanded={menuState}
+                aria-controls="header-three-mobile-menu"
                 className="relative z-20 -m-2.5 -mr-2 block cursor-pointer p-2.5 lg:hidden"
               >
-                <Menu className="m-auto size-6 duration-200 in-data-[state=active]:scale-0 in-data-[state=active]:rotate-180 in-data-[state=active]:opacity-0" />
-                <X className="absolute inset-0 m-auto size-6 scale-0 -rotate-180 opacity-0 duration-200 in-data-[state=active]:scale-100 in-data-[state=active]:rotate-0 in-data-[state=active]:opacity-100" />
+                <Menu
+                  aria-hidden="true"
+                  className="m-auto size-6 transition-[transform,opacity] duration-200 in-data-[state=active]:scale-0 in-data-[state=active]:rotate-180 in-data-[state=active]:opacity-0 motion-reduce:transition-none"
+                />
+                <X
+                  aria-hidden="true"
+                  className="absolute inset-0 m-auto size-6 scale-0 -rotate-180 opacity-0 transition-[transform,opacity] duration-200 in-data-[state=active]:scale-100 in-data-[state=active]:rotate-0 in-data-[state=active]:opacity-100 motion-reduce:transition-none"
+                />
               </button>
             </div>
 
@@ -173,7 +183,7 @@ export default function HeaderThree() {
                 delayDuration={0}
                 skipDelayDuration={0}
                 className={cn(
-                  'text-sm transition-all duration-500 ease-out',
+                  'text-sm transition-transform duration-250 ease-[cubic-bezier(0.77,0,0.175,1)] motion-reduce:transition-none',
                   isScrolled && 'scale-[0.98]',
                 )}
               >
@@ -185,8 +195,9 @@ export default function HeaderThree() {
                           <NavigationMenuTrigger className="h-auto gap-1 rounded-lg bg-transparent px-3 py-2 text-muted-foreground transition-colors duration-150 hover:bg-muted hover:text-foreground focus:bg-muted data-[state=open]:bg-muted data-[state=open]:text-foreground [&>svg:last-child]:hidden">
                             {item.name}
                             <ChevronDown
+                              aria-hidden="true"
                               className={cn(
-                                'size-3.5 transition-transform duration-200',
+                                'size-3.5 transition-transform duration-200 motion-reduce:transition-none',
                                 openDropdown === item.name && 'rotate-180',
                               )}
                             />
@@ -203,7 +214,7 @@ export default function HeaderThree() {
                                     className="flex cursor-pointer items-start gap-3 rounded-lg p-3 transition-colors outline-none hover:bg-accent focus:bg-accent focus-visible:ring-2 focus-visible:ring-ring/50"
                                   >
                                     <span className="mt-0.5 rounded-md border bg-background p-1.5">
-                                      <Icon className="size-4" />
+                                      <Icon aria-hidden="true" className="size-4" />
                                     </span>
 
                                     <span className="space-y-1">
@@ -237,7 +248,10 @@ export default function HeaderThree() {
             </div>
 
             {/* Mobile menu + CTA */}
-            <div className="mx-auto mb-6 hidden w-full max-w-md flex-wrap items-center justify-center space-y-6 rounded-3xl border bg-background p-6 shadow-2xl shadow-zinc-300/20 in-data-[state=active]:block md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:max-w-none lg:justify-end lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none lg:in-data-[state=active]:flex dark:shadow-none dark:lg:bg-transparent">
+            <div
+              id="header-three-mobile-menu"
+              className="mx-auto mb-6 hidden w-full max-w-md flex-wrap items-center justify-center space-y-6 rounded-3xl border bg-background p-6 shadow-2xl shadow-zinc-300/20 in-data-[state=active]:block md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:max-w-none lg:justify-end lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none lg:in-data-[state=active]:flex dark:shadow-none dark:lg:bg-transparent"
+            >
               <div className="w-full lg:hidden">
                 <ul className="space-y-2 text-base">
                   {menuItems.map((item) => (
@@ -247,21 +261,25 @@ export default function HeaderThree() {
                           <button
                             type="button"
                             onClick={() => toggleMobileDropdown(item.name)}
+                            aria-expanded={mobileDropdown === item.name}
+                            aria-controls={`header-three-${item.name.toLowerCase()}-menu`}
                             className="flex w-full items-center justify-between rounded-xl px-3 py-3 text-left font-medium text-muted-foreground transition-colors duration-150 hover:bg-muted hover:text-foreground"
                           >
                             <span>{item.name}</span>
 
                             <ChevronDown
+                              aria-hidden="true"
                               className={cn(
-                                'size-4 transition-transform duration-200',
+                                'size-4 transition-transform duration-200 motion-reduce:transition-none',
                                 mobileDropdown === item.name && 'rotate-180',
                               )}
                             />
                           </button>
 
                           <div
+                            id={`header-three-${item.name.toLowerCase()}-menu`}
                             className={cn(
-                              'grid overflow-hidden transition-all duration-300 ease-in-out',
+                              'grid overflow-hidden transition-[grid-template-rows,opacity] duration-200 ease-[cubic-bezier(0.77,0,0.175,1)] motion-reduce:transition-none',
                               mobileDropdown === item.name
                                 ? 'grid-rows-[1fr] opacity-100'
                                 : 'grid-rows-[0fr] opacity-0',
@@ -279,7 +297,7 @@ export default function HeaderThree() {
                                       onClick={closeMobileMenu}
                                       className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-muted-foreground transition-colors duration-150 hover:bg-muted hover:text-foreground"
                                     >
-                                      <Icon className="size-4" />
+                                      <Icon aria-hidden="true" className="size-4" />
                                       <span>{child.name}</span>
                                     </Link>
                                   )
@@ -307,13 +325,13 @@ export default function HeaderThree() {
                   asChild
                   size="sm"
                   className={cn(
-                    'h-9 rounded-full px-4 transition-all duration-500 ease-out sm:w-auto',
+                    'h-9 rounded-full px-4 transition-[height,padding,font-size] duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transition-none sm:w-auto',
                     isScrolled && 'lg:h-8 lg:px-3 lg:text-xs',
                   )}
                 >
                   <Link href="#get-started" onClick={closeMobileMenu}>
                     <span>Get Started</span>
-                    <ArrowRight data-icon="inline-end" className="ml-1 size-3.5" />
+                    <ArrowRight aria-hidden="true" className="size-3.5 ml-1" />
                   </Link>
                 </Button>
               </div>

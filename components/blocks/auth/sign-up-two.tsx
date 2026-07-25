@@ -106,6 +106,7 @@ export default function SignUpTwo() {
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <Button type="button" variant="outline">
                 <svg
+                  aria-hidden="true"
                   data-icon="inline-start"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="-3 0 262 262"
@@ -133,7 +134,7 @@ export default function SignUpTwo() {
               </Button>
 
               <Button type="button" variant="outline">
-               <SiGithub data-icon="inline-start" />
+                <SiGithub aria-hidden="true" data-icon="inline-start" />
                 <span>Github</span>
               </Button>
             </div>
@@ -150,7 +151,7 @@ export default function SignUpTwo() {
         {/* Right side pushed to the screen edge */}
         <div className="hidden w-full items-center justify-end md:flex md:h-170">
           <div className="relative h-full w-full overflow-hidden rounded-l-2xl rounded-r-none">
-            <div className="absolute inset-0">
+            <div className="absolute inset-0 motion-reduce:hidden">
               <Shader className="h-full">
                 <Swirl
                   colorA="#7090c5"

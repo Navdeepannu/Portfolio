@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+
 import { Badge } from '@/components/ui/badge'
 
 const members = [
@@ -5,27 +7,29 @@ const members = [
     name: 'Liam Brown',
     role: 'Founder - CEO',
     avatar: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlH4NUrIqHjv3VPCtBSMksEJOn7pmfxyc9IoU5',
-    link: '#',
   },
   {
     name: 'Elijah Jones',
     role: 'Co-Founder - CTO',
     avatar: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTl81tMhO4dwU2oJkmKaujTg9FMAr3QiGROq5bE',
-    link: '#',
   },
   {
     name: 'Isabella Garcia',
     role: 'Sales Manager',
     avatar: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlnj8ad4LL1RTlFOStU5Vx6bKDsZupeXgyGkhM',
-    link: '#',
   },
   {
     name: 'Henry Lee',
-    role: 'UX Engeneer',
+    role: 'UX Engineer',
     avatar: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlKywRt8Sa4eSEgVXynrIRWAk3NL9mFjvOTM0B',
-    link: '#',
   },
 ]
+
+const bentoSpans = [
+  'md:col-span-2 md:row-span-2',
+  'md:col-span-2 md:row-span-1',
+  'md:col-span-1 md:row-span-1',
+] as const
 
 export default function TeamSectionFour() {
   return (
@@ -48,21 +52,15 @@ export default function TeamSectionFour() {
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-4 md:grid-rows-3">
           {members.map((member, index) => {
-            const bentoSpans = [
-              'md:col-span-2 md:row-span-2',
-              'md:col-span-2 md:row-span-1',
-              'md:col-span-1 md:row-span-1',
-            ]
-
             return (
               <div
-                key={index}
+                key={member.name}
                 className={`group relative overflow-hidden rounded-xl bg-muted ring-1 ring-border ${bentoSpans[index]}`}
               >
                 <img
                   src={member.avatar}
                   alt={member.name}
-                  className="h-full w-full object-cover object-top grayscale transition duration-500 ease-in-out group-hover:grayscale-0"
+                  className="h-full w-full object-cover object-top grayscale transition-[filter] duration-300 group-hover:grayscale-0 motion-reduce:transition-none"
                 />
               </div>
             )

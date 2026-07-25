@@ -4,7 +4,8 @@ import { Button } from '@/components/ui/button'
 import { Hexagon, PanelRight, X } from 'lucide-react'
 
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'motion/react'
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
+import LogoMark from '@/site/ui-library/ui-library-logo'
 
 const navLinks = [
   { name: 'About', href: '#link' },
@@ -22,72 +23,79 @@ export default function HeaderOne() {
   )
 }
 
-export const DesktopNavbar = () => {
+function DesktopNavbar() {
   return (
-    <header>
-      <nav className="sticky top-0 z-20 w-full border-b bg-background/50 backdrop-blur-3xl dark:bg-neutral-900">
-        <div className="mx-auto hidden max-w-6xl items-center justify-between gap-6 px-4 py-3 md:flex">
-          <div className="flex items-center gap-2">
-            <Hexagon className="size-8 stroke-neutral-200 stroke-2" />
-            <span className="font-semibold">HEX UI</span>
-          </div>
-
-          <div className="flex items-center justify-center gap-8">
-            {navLinks.map((item, index) => (
-              <Link
-                href={item.href}
-                key={index}
-                className="text-sm font-medium text-muted-foreground transition duration-200 hover:text-black dark:text-neutral-400"
-              >
-                {item.name}
-              </Link>
-            ))}
-          </div>
-
-          <div className="flex items-center gap-4">
-            <Button className="border ring-1 ring-muted" variant="default">
-              Login
-            </Button>
-            <Button className="" variant="outline">
-              Sign Up
-            </Button>
-          </div>
+    <nav className="sticky top-0 z-20 w-full border-b bg-background/50 backdrop-blur-3xl">
+      <div className="mx-auto hidden max-w-6xl items-center justify-between gap-6 px-4 py-3 md:flex">
+        <div className="flex items-center gap-2">
+          <LogoMark aria-hidden="true" />
+          <span className="font-semibold">Nav UI</span>
         </div>
-      </nav>
-    </header>
+
+        <div className="flex items-center justify-center gap-8">
+          {navLinks.map((item) => (
+            <Link
+              href={item.href}
+              key={item.name}
+              className="text-sm font-medium text-muted-foreground transition-colors duration-200 hover:text-black dark:text-neutral-400"
+            >
+              {item.name}
+            </Link>
+          ))}
+        </div>
+
+        <div className="flex items-center gap-4">
+          <Button className="border ring-1 ring-muted" variant="default" asChild>
+            <Link href="#login">Login</Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link href="#sign-up">Sign Up</Link>
+          </Button>
+        </div>
+      </div>
+    </nav>
   )
 }
 
-export const MobileNavbar = () => {
+function MobileNavbar() {
   const [open, setOpen] = useState(false)
+  const shouldReduceMotion = useReducedMotion()
 
   return (
     <nav className="relative flex justify-between px-4 py-3 md:hidden">
       <div className="flex items-center gap-2">
-        <Hexagon className="size-8 stroke-neutral-200 stroke-2" />
-        <span className="font-semibold">HEX UI</span>
+        <Hexagon aria-hidden="true" className="size-8 stroke-neutral-200 stroke-2" />
+        <span className="font-semibold">Nav UI</span>
       </div>
 
       <button
         type="button"
         aria-label="Open navigation menu"
         aria-expanded={open}
+        aria-controls="header-one-mobile-menu"
         onClick={() => {
           setOpen(!open)
         }}
       >
-        <PanelRight className="size-5 open:hidden" />
+        <PanelRight aria-hidden="true" className="size-5 open:hidden" />
       </button>
 
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0 }}
+            id="header-one-mobile-menu"
+            initial={
+              shouldReduceMotion ? { opacity: 0 } : { opacity: 0, backdropFilter: 'blur(0px)' }
+            }
             animate={{ opacity: 1, backdropFilter: 'blur(15px)' }}
-            exit={{
-              opacity: 0,
-              backdropFilter: 'blue(0px)',
-            }}
+            exit={
+              shouldReduceMotion
+                ? { opacity: 0 }
+                : {
+                    opacity: 0,
+                    backdropFilter: 'blur(0px)',
+                  }
+            }
             transition={{
               duration: 0.2,
             }}
@@ -95,8 +103,8 @@ export const MobileNavbar = () => {
           >
             <div className="flex justify-between">
               <div className="flex items-center gap-2">
-                <Hexagon className="size-8" />
-                <span className="font-semibold">HEX UI</span>
+                <Hexagon aria-hidden="true" className="size-8" />
+                <span className="font-semibold">Nav UI</span>
               </div>
               <button
                 type="button"
@@ -110,15 +118,15 @@ export const MobileNavbar = () => {
             <div className="my-10 flex flex-col justify-center gap-6">
               {navLinks.map((item, index) => (
                 <motion.div
-                  key={index + item.name}
-                  initial={{ opacity: 0, x: -4 }}
+                  key={item.name}
+                  initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, x: -4 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.2, delay: index * 0.1 }}
+                  transition={{ duration: 0.2, delay: shouldReduceMotion ? 0 : index * 0.06 }}
                 >
                   <Link
                     href={item.href}
-                    key={index}
-                    className="text-2xl font-medium text-muted-foreground transition duration-200 hover:text-black dark:text-neutral-400"
+                    onClick={() => setOpen(false)}
+                    className="text-2xl font-medium text-muted-foreground transition-colors duration-200 hover:text-black dark:text-neutral-400"
                   >
                     {item.name}
                   </Link>

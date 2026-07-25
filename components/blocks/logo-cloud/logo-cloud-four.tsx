@@ -1,7 +1,13 @@
 'use client'
 
 import { type ReactNode, useRef } from 'react'
-import { motion, useMotionTemplate, useMotionValue, useSpring } from 'motion/react'
+import {
+  motion,
+  useMotionTemplate,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+} from 'motion/react'
 
 import { cn } from '@/lib/utils'
 
@@ -262,6 +268,8 @@ function randomBetween(index: number, min: number, max: number, offset = 0) {
 }
 
 export default function LogoCloudFour() {
+  const shouldReduceMotion = Boolean(useReducedMotion())
+
   return (
     <section className="bg-background py-24">
       <div className="mx-auto w-full max-w-6xl px-6">
@@ -279,7 +287,12 @@ export default function LogoCloudFour() {
         <div className="relative isolate">
           <div role="list" className="relative z-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
             {companies.map((company, index) => (
-              <LogoCell key={company.name} company={company} index={index} />
+              <LogoCell
+                key={company.name}
+                company={company}
+                index={index}
+                shouldReduceMotion={shouldReduceMotion}
+              />
             ))}
           </div>
         </div>
@@ -288,7 +301,15 @@ export default function LogoCloudFour() {
   )
 }
 
-function LogoCell({ company, index }: { company: Company; index: number }) {
+function LogoCell({
+  company,
+  index,
+  shouldReduceMotion,
+}: {
+  company: Company
+  index: number
+  shouldReduceMotion: boolean
+}) {
   const cellRef = useRef<HTMLDivElement>(null)
 
   const mouseX = useMotionValue(0)
@@ -320,6 +341,10 @@ function LogoCell({ company, index }: { company: Company; index: number }) {
   )
 `
   function handlePointerMove(event: React.PointerEvent<HTMLDivElement>) {
+    const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches
+
+    if (shouldReduceMotion || !hasFinePointer) return
+
     const rect = cellRef.current?.getBoundingClientRect()
 
     if (!rect) return
@@ -329,6 +354,8 @@ function LogoCell({ company, index }: { company: Company; index: number }) {
   }
 
   function handlePointerEnter(event: React.PointerEvent<HTMLDivElement>) {
+    if (shouldReduceMotion) return
+
     handlePointerMove(event)
     glowOpacity.set(1)
   }
@@ -372,26 +399,31 @@ function LogoCell({ company, index }: { company: Company; index: number }) {
         }}
       />
 
-      <CornerDots index={index} />
+      <CornerDots index={index} shouldReduceMotion={shouldReduceMotion} />
 
       <motion.div
         className={cn(
           'relative z-10 flex items-center justify-center text-zinc-950/90 transition-transform duration-300 group-hover/cell:scale-103 dark:text-white/90',
+          'motion-reduce:transition-none motion-reduce:group-hover/cell:scale-100',
           '[&_svg]:h-8 [&_svg]:w-auto [&_svg]:max-w-32',
           '[&_svg_*]:fill-current',
         )}
-        animate={{
-          opacity: [1, 1, 0.35, 1, 0.55, 1, 1],
-          filter: [
-            'grayscale(1) brightness(0.9)',
-            'grayscale(1) brightness(0.9)',
-            'grayscale(1) brightness(1.45)',
-            'grayscale(1) brightness(0.85)',
-            'grayscale(1) brightness(1.25)',
-            'grayscale(1) brightness(0.95)',
-            'grayscale(1) brightness(0.9)',
-          ],
-        }}
+        animate={
+          shouldReduceMotion
+            ? undefined
+            : {
+                opacity: [1, 1, 0.35, 1, 0.55, 1, 1],
+                filter: [
+                  'grayscale(1) brightness(0.9)',
+                  'grayscale(1) brightness(0.9)',
+                  'grayscale(1) brightness(1.45)',
+                  'grayscale(1) brightness(0.85)',
+                  'grayscale(1) brightness(1.25)',
+                  'grayscale(1) brightness(0.95)',
+                  'grayscale(1) brightness(0.9)',
+                ],
+              }
+        }
         transition={{
           duration: blinkDuration,
           delay: blinkDelay,
@@ -416,7 +448,7 @@ function FadedCellLines() {
   )
 }
 
-function CornerDots({ index }: { index: number }) {
+function CornerDots({ index, shouldReduceMotion }: { index: number; shouldReduceMotion: boolean }) {
   const duration = randomBetween(index, 2.5, 4.8, 3)
   const delay = randomBetween(index, 0, 2.2, 4)
 
@@ -436,10 +468,14 @@ function CornerDots({ index }: { index: number }) {
             position.includes('bottom') && 'translate-y-1/2',
             position,
           )}
-          animate={{
-            opacity: [0.15, 0.95, 0.25, 0.7, 0.15],
-            scale: [1, 1.2, 0.9, 1.08, 1],
-          }}
+          animate={
+            shouldReduceMotion
+              ? undefined
+              : {
+                  opacity: [0.15, 0.95, 0.25, 0.7, 0.15],
+                  scale: [1, 1.2, 0.9, 1.08, 1],
+                }
+          }
           transition={{
             duration,
             delay: delay + dotIndex * 0.2,

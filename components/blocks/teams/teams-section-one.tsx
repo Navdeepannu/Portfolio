@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+
 import { IconBrandLinkedin } from '@tabler/icons-react'
 import Link from 'next/link'
 
@@ -22,7 +24,7 @@ const members = [
   },
   {
     name: 'Henry Lee',
-    role: 'UX Engeneer',
+    role: 'UX Engineer',
     avatar: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlKywRt8Sa4eSEgVXynrIRWAk3NL9mFjvOTM0B',
     link: '#',
   },
@@ -54,12 +56,12 @@ function MemberGrid({ data }: { data: typeof members }) {
 
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-      {data.map((member, index) => (
-        <div key={index} className="group overflow-hidden">
+      {data.map((member) => (
+        <div key={member.name} className="group overflow-hidden">
           <img
             src={member.avatar}
             alt={member.name}
-            className="h-64 w-full rounded-md object-cover object-top grayscale transition-all duration-500 group-hover:h-60 group-hover:grayscale-0"
+            className="h-64 w-full rounded-md object-cover object-top grayscale transition-[filter] duration-300 group-hover:grayscale-0 motion-reduce:transition-none"
           />
 
           <div className="pt-3">
@@ -67,7 +69,7 @@ function MemberGrid({ data }: { data: typeof members }) {
               <h3 className="text-sm font-medium">{member.name}</h3>
             </div>
 
-            <div className="mt-1 flex translate-y-8 items-center justify-between opacity-0 transition duration-300 ease-in-out group-hover:translate-y-0 group-hover:opacity-100">
+            <div className="mt-1 flex items-center justify-between transition-[transform,opacity] duration-200 motion-reduce:transition-none sm:translate-y-2 sm:opacity-0 sm:group-focus-within:translate-y-0 sm:group-focus-within:opacity-100 sm:group-hover:translate-y-0 sm:group-hover:opacity-100">
               <span className="text-sm text-muted-foreground">{member.role}</span>
               <Link
                 href={member.link}
@@ -94,8 +96,8 @@ export default function TeamSectionOne() {
         <div className="mb-12 grid grid-cols-1 gap-4 border-b pb-4 md:mb-16 md:grid-cols-2">
           <h1 className="font-times-heading text-4xl sm:text-5xl">Our team</h1>
           <p className="text-sm font-medium md:mt-6 md:text-base">
-            Our diverse team brings togather expertise from varoius financial disciplies to provide
-            comprehensive and personalized solutiosn for our clients.
+            Our diverse team brings together expertise from various financial disciplines to provide
+            comprehensive and personalized solutions for our clients.
           </p>
         </div>
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">

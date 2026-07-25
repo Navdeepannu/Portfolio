@@ -1,39 +1,35 @@
+/* eslint-disable @next/next/no-img-element */
+
 const members = [
   {
     name: 'Liam Brown',
     role: 'Founder - CEO',
     avatar: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlH4NUrIqHjv3VPCtBSMksEJOn7pmfxyc9IoU5',
-    link: '#',
   },
   {
     name: 'Elijah Jones',
     role: 'Co-Founder - CTO',
     avatar: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTl81tMhO4dwU2oJkmKaujTg9FMAr3QiGROq5bE',
-    link: '#',
   },
   {
     name: 'Isabella Garcia',
     role: 'Sales Manager',
     avatar: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlnj8ad4LL1RTlFOStU5Vx6bKDsZupeXgyGkhM',
-    link: '#',
   },
   {
     name: 'Henry Lee',
-    role: 'UX Engeneer',
+    role: 'UX Engineer',
     avatar: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlKywRt8Sa4eSEgVXynrIRWAk3NL9mFjvOTM0B',
-    link: '#',
   },
   {
     name: 'Ava Williams',
     role: 'Interaction Designer',
     avatar: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlh433XXK0RlaETPbLcZQjyfg2StNvuB13w8rI',
-    link: '#',
   },
   {
     name: 'Olivia Miller',
     role: 'Visual Designer',
     avatar: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlCsjkx0nF5BMj7T0uXqWGgbANfhcdeI8P3x9v',
-    link: '#',
   },
 ]
 
@@ -46,8 +42,8 @@ export default function TeamSectionTwo() {
         </div>
 
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
-          {members.map((member, index) => (
-            <div key={index} className="group overflow-hidden">
+          {members.map((member) => (
+            <div key={member.name} className="group overflow-hidden">
               <img
                 src={member.avatar}
                 alt={member.name}
