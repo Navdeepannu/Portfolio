@@ -12,6 +12,7 @@ import { SITE_ORIGINS } from '@/lib/sites'
 import { LandingThemeToggle } from '@/site/portfolio/landing-theme-toggle'
 import { Button } from '@/components/ui/button'
 import LogoMark from '@/site/ui-library/ui-library-logo'
+import { GitHubStars } from '../ui-library/github-star'
 
 type PortfolioNavbarProps = {
   fullWidth?: boolean
@@ -97,6 +98,8 @@ export function PortfolioNavbar({
           </nav>
 
           <div className="ml-auto flex shrink-0 items-center gap-0.5 md:ml-2">
+            <GitHubStars repo="navdeepannu/portfolio" stargazersCount={3} />
+
             <LandingThemeToggle />
 
             <DialogPrimitive.Trigger asChild>

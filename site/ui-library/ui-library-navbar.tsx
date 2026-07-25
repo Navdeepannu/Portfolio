@@ -135,7 +135,7 @@ export function UiLibraryNavbar({
 
             <span className="hidden h-4 w-px bg-border md:block" />
 
-            <GitHubStars repo="navdeepannu/portfolio" stargazersCount={2} />
+            <GitHubStars repo="navdeepannu/portfolio" stargazersCount={3} />
 
             <Tooltip>
               <TooltipTrigger asChild>
