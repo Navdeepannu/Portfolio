@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button'
 import { IconCaretRightFilled } from '@tabler/icons-react'
 import { Mail, SendHorizontal } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 import HeaderOne from '../header/header-one'
 
@@ -12,12 +13,17 @@ export default function HeroSectionOne() {
       <HeaderOne />
 
       <div className="mt-20 flex flex-col items-center justify-center gap-6 px-4 py-16 sm:mt-10 md:py-24">
-        <Badge
-          variant="outline"
-          className="group cursor-pointer gap-1 border-border/70 bg-muted/70 px-3 py-1.5 text-sm text-foreground shadow-sm ring-1 ring-foreground/5 transition-all duration-200 hover:bg-accent hover:text-accent-foreground hover:shadow-md"
-        >
-          Now available for teams and individuals
-          <IconCaretRightFilled className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+        <Badge asChild variant="outline">
+          <Link
+            href="#announcement"
+            className="group gap-1 border-border/70 bg-muted/70 px-3 py-1.5 text-sm text-foreground shadow-sm ring-1 ring-foreground/5 transition-[background-color,color,box-shadow] duration-200 hover:bg-accent hover:text-accent-foreground hover:shadow-md"
+          >
+            Now available for teams and individuals
+            <IconCaretRightFilled
+              aria-hidden="true"
+              className="size-4 transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none"
+            />
+          </Link>
         </Badge>
 
         <div className="mx-auto flex max-w-3xl flex-col items-center justify-center gap-4 text-center">
@@ -33,7 +39,7 @@ export default function HeroSectionOne() {
 
         <div className="w-full pt-6">
           <form className="mx-auto max-w-sm">
-            <div className="relative grid grid-cols-[1fr_auto] items-center rounded-full border border-border/80 bg-background pr-1 shadow-sm ring-1 shadow-zinc-950/5 ring-foreground/5 transition-all duration-200 focus-within:border-ring focus-within:ring-2 focus-within:ring-ring/30 dark:bg-muted/30 dark:shadow-black/30">
+            <div className="relative grid grid-cols-[1fr_auto] items-center rounded-full border border-border/80 bg-background pr-1 shadow-sm ring-1 shadow-zinc-950/5 ring-foreground/5 transition-[background-color,border-color,box-shadow] duration-200 focus-within:border-ring focus-within:ring-2 focus-within:ring-ring/30 dark:bg-muted/30 dark:shadow-black/30">
               <Mail
                 aria-hidden="true"
                 className="pointer-events-none absolute inset-y-0 left-4 my-auto size-4 text-muted-foreground"
@@ -42,6 +48,7 @@ export default function HeroSectionOne() {
               <input
                 type="email"
                 name="email"
+                required
                 placeholder="Enter your email"
                 autoComplete="email"
                 aria-label="Email address"
@@ -52,7 +59,7 @@ export default function HeroSectionOne() {
                 <Button
                   type="submit"
                   size="sm"
-                  className="rounded-full bg-linear-to-t from-zinc-800 via-zinc-900 to-black px-5 text-white shadow-sm ring-1 ring-white/10 transition-all duration-200 hover:opacity-90 hover:shadow-md dark:from-zinc-200 dark:via-zinc-100 dark:to-white dark:text-zinc-950 dark:ring-black/10"
+                  className="rounded-full bg-linear-to-t from-zinc-800 via-zinc-900 to-black px-5 text-white shadow-sm ring-1 ring-white/10 transition-[opacity,box-shadow] duration-200 hover:opacity-90 hover:shadow-md dark:from-zinc-200 dark:via-zinc-100 dark:to-white dark:text-zinc-950 dark:ring-black/10"
                 >
                   <span className="hidden sm:inline">Get started</span>
                   <SendHorizontal

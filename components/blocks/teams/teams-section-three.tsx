@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+
 import Link from 'next/link'
 
 const members = [
@@ -21,7 +23,7 @@ const members = [
   },
   {
     name: 'Henry Lee',
-    role: 'UX Engeneer',
+    role: 'UX Engineer',
     avatar: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlKywRt8Sa4eSEgVXynrIRWAk3NL9mFjvOTM0B',
     link: '#',
   },
@@ -55,16 +57,16 @@ export default function TeamSectionThree() {
 
           <span className="absolute right-0 bottom-0 h-px w-4 translate-x-1/2 translate-y-1/2 bg-neutral-700 dark:bg-neutral-200" />
 
-          {members.map((member, index) => (
+          {members.map((member) => (
             <div
-              key={index}
+              key={member.name}
               className="group flex flex-col items-center justify-center overflow-hidden border-r border-b p-6"
             >
               <Link href={member.link}>
                 <img
                   src={member.avatar}
                   alt={member.name}
-                  className="size-20 rounded-full object-cover object-top ring-1 ring-border grayscale-100 transition duration-500 ease-in-out group-hover:ring-2 group-hover:grayscale-0"
+                  className="size-20 rounded-full object-cover object-top ring-1 ring-border grayscale-100 transition-[filter,box-shadow] duration-300 group-hover:ring-2 group-hover:grayscale-0 motion-reduce:transition-none"
                 />
               </Link>
               <div className="pt-3">

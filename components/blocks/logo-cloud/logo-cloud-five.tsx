@@ -1,6 +1,6 @@
 'use client'
 
-import { AnimatePresence, motion } from 'motion/react'
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { useEffect, useState, type ReactNode } from 'react'
 
 type Company = {
@@ -249,20 +249,23 @@ const FLIP_INTERVAL = 3000
 
 export default function LogoCloudFive() {
   const [showSecondSet, setShowSecondSet] = useState(false)
+  const shouldReduceMotion = useReducedMotion()
 
   const firstSet = companies.slice(0, 4)
   const secondSet = companies.slice(4, 8)
 
   useEffect(() => {
+    if (shouldReduceMotion) return
+
     const interval = window.setInterval(() => {
       setShowSecondSet((current) => !current)
     }, FLIP_INTERVAL)
 
     return () => window.clearInterval(interval)
-  }, [])
+  }, [shouldReduceMotion])
 
   return (
-    <section className="bg-background  py-24">
+    <section className="bg-background py-24">
       <div className="mx-auto w-full max-w-6xl px-4">
         <div className="mx-auto mb-4 max-w-2xl text-center">
           <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
@@ -285,18 +288,23 @@ export default function LogoCloudFive() {
               return (
                 <div
                   key={index}
+                  role="img"
                   aria-label={company.name}
                   className="relative flex min-h-32 items-center justify-center overflow-hidden md:h-28"
                 >
                   <AnimatePresence initial={false}>
                     <motion.div
                       key={`${showSecondSet ? 'second' : 'first'}-${index}`}
-                      initial={{
-                        opacity: 0.35,
-                        scale: 0.96,
-                        y: 10,
-                        filter: 'blur(10px)',
-                      }}
+                      initial={
+                        shouldReduceMotion
+                          ? false
+                          : {
+                              opacity: 0.35,
+                              scale: 0.96,
+                              y: 10,
+                              filter: 'blur(10px)',
+                            }
+                      }
                       animate={{
                         opacity: 1,
                         scale: 1,
@@ -310,8 +318,8 @@ export default function LogoCloudFive() {
                         filter: 'blur(10px)',
                       }}
                       transition={{
-                        duration: 0.65,
-                        delay: index * 0.04,
+                        duration: shouldReduceMotion ? 0 : 0.65,
+                        delay: shouldReduceMotion ? 0 : index * 0.04,
                         ease: [0.22, 1, 0.36, 1],
                       }}
                       className="absolute inset-0 flex items-center justify-center px-6 text-foreground [&_path]:fill-current! [&_svg]:h-8 [&_svg]:w-auto [&_svg]:max-w-32 [&_svg]:fill-current!"

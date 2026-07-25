@@ -1,5 +1,6 @@
 'use client'
-import { motion, AnimatePresence } from 'motion/react'
+
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { useState } from 'react'
 
 const items = [
@@ -37,6 +38,7 @@ const items = [
 
 export default function FeatureSectionOne() {
   const [activeIndex, setActiveIndex] = useState(0)
+  const shouldReduceMotion = useReducedMotion()
 
   return (
     <section className="relative overflow-hidden bg-[#f4f2ee] px-4 py-24 text-[#282524] md:py-32">
@@ -52,7 +54,7 @@ export default function FeatureSectionOne() {
         </div>
 
         <motion.div
-          initial="hidden"
+          initial={shouldReduceMotion ? false : 'hidden'}
           whileInView="visible"
           viewport={{ once: true, margin: '-120px' }}
           variants={{
@@ -96,11 +98,15 @@ export default function FeatureSectionOne() {
                   <motion.div
                     layoutId="active-feature-row"
                     className="absolute inset-0 rounded-[1.75rem] bg-white shadow-[0_24px_90px_rgba(0,0,0,0.09)]"
-                    transition={{
-                      type: 'spring',
-                      stiffness: 420,
-                      damping: 38,
-                    }}
+                    transition={
+                      shouldReduceMotion
+                        ? { duration: 0 }
+                        : {
+                            type: 'spring',
+                            stiffness: 420,
+                            damping: 38,
+                          }
+                    }
                   />
                 )}
 
@@ -108,28 +114,41 @@ export default function FeatureSectionOne() {
                   {isActive && (
                     <motion.div
                       key={`${item.title}-icon`}
-                      initial={{
-                        opacity: 0,
-                        x: -24,
-                        scale: 0.9,
-                        filter: 'blur(8px)',
-                      }}
-                      animate={{
-                        opacity: 1,
-                        x: 0,
-                        scale: 1,
-                        filter: 'blur(0px)',
-                      }}
-                      exit={{
-                        opacity: 0,
-                        x: -16,
-                        scale: 0.95,
-                        filter: 'blur(8px)',
-                      }}
+                      initial={
+                        shouldReduceMotion
+                          ? { opacity: 0 }
+                          : {
+                              opacity: 0,
+                              x: -24,
+                              scale: 0.9,
+                              filter: 'blur(8px)',
+                            }
+                      }
+                      animate={
+                        shouldReduceMotion
+                          ? { opacity: 1 }
+                          : {
+                              opacity: 1,
+                              x: 0,
+                              scale: 1,
+                              filter: 'blur(0px)',
+                            }
+                      }
+                      exit={
+                        shouldReduceMotion
+                          ? { opacity: 0 }
+                          : {
+                              opacity: 0,
+                              x: -16,
+                              scale: 0.95,
+                              filter: 'blur(8px)',
+                            }
+                      }
                       transition={{
-                        duration: 0.45,
+                        duration: shouldReduceMotion ? 0.15 : 0.22,
                         ease: [0.22, 1, 0.36, 1],
                       }}
+                      aria-hidden="true"
                       className="relative z-10 hidden h-16 w-16 items-center justify-center justify-self-start rounded-2xl border border-neutral-200 bg-white text-2xl shadow-sm md:col-start-1 md:row-start-1 md:mr-16 md:flex"
                     >
                       {item.icon}
@@ -139,11 +158,11 @@ export default function FeatureSectionOne() {
 
                 <motion.h3
                   animate={{
-                    scale: isActive ? 0.94 : 1,
+                    scale: shouldReduceMotion ? 1 : isActive ? 0.94 : 1,
                     opacity: isActive ? 1 : 0.92,
                   }}
                   transition={{
-                    duration: 0.45,
+                    duration: shouldReduceMotion ? 0.15 : 0.22,
                     ease: [0.22, 1, 0.36, 1],
                   }}
                   className="relative z-10 justify-self-center text-center font-serif text-[clamp(3.4rem,7vw,6rem)] leading-[0.88] tracking-[-0.07em] whitespace-nowrap text-[#282524] md:col-start-2 md:row-start-1"
@@ -155,24 +174,36 @@ export default function FeatureSectionOne() {
                   {isActive && (
                     <motion.div
                       key={`${item.title}-content`}
-                      initial={{
-                        opacity: 0,
-                        x: 24,
-                        filter: 'blur(8px)',
-                      }}
-                      animate={{
-                        opacity: 1,
-                        x: 0,
-                        filter: 'blur(0px)',
-                      }}
-                      exit={{
-                        opacity: 0,
-                        x: 16,
-                        filter: 'blur(8px)',
-                      }}
+                      initial={
+                        shouldReduceMotion
+                          ? { opacity: 0 }
+                          : {
+                              opacity: 0,
+                              x: 24,
+                              filter: 'blur(8px)',
+                            }
+                      }
+                      animate={
+                        shouldReduceMotion
+                          ? { opacity: 1 }
+                          : {
+                              opacity: 1,
+                              x: 0,
+                              filter: 'blur(0px)',
+                            }
+                      }
+                      exit={
+                        shouldReduceMotion
+                          ? { opacity: 0 }
+                          : {
+                              opacity: 0,
+                              x: 16,
+                              filter: 'blur(8px)',
+                            }
+                      }
                       transition={{
-                        duration: 0.45,
-                        delay: 0.05,
+                        duration: shouldReduceMotion ? 0.15 : 0.22,
+                        delay: shouldReduceMotion ? 0 : 0.03,
                         ease: [0.22, 1, 0.36, 1],
                       }}
                       className="relative z-10 hidden max-w-40 justify-self-end text-left md:col-start-3 md:row-start-1 md:ml-16 md:block"

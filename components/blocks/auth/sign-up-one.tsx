@@ -1,26 +1,20 @@
-import { Logo } from "@/components/brand-logo";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import Link from "next/link";
+import { Logo } from '@/components/brand-logo'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import Link from 'next/link'
 
 export default function SignUpOne() {
   return (
     <section className="flex min-h-screen px-4 py-16 md:py-32">
-      <div className="-bg-linear-16  from-zinc-50 from-50% to-white to-50% inset-0 fixed"></div>
-      <form className="m-auto h-fit w-full max-w-sm overflow-hidden rounded-xl z-10 border shadow-md shadow-zinc-950/5 dark:[--color-muted:var(--color-zinc-900)]">
-        <div className="bg-card -m-px border p-8 pb-6">
+      <div className="fixed inset-0 -bg-linear-16 from-zinc-50 from-50% to-white to-50%"></div>
+      <form className="z-10 m-auto h-fit w-full max-w-sm overflow-hidden rounded-xl border shadow-md shadow-zinc-950/5 dark:[--color-muted:var(--color-zinc-900)]">
+        <div className="-m-px border bg-card p-8 pb-6">
           <div className="text-center">
-            <Link
-              href="/"
-              aria-label="go home"
-              className="mx-auto block w-fit "
-            >
-              <Logo className="h-8 w-8 text-zinc-800" />
+            <Link href="/" aria-label="go home" className="mx-auto block w-fit">
+              <Logo className="h-8 w-8 text-zinc-800 dark:text-zinc-100" />
             </Link>
-            <h1 className="mb-1 mt-4 text-xl font-semibold">
-              Create a Hexora Account
-            </h1>
+            <h1 className="mt-4 mb-1 text-xl font-semibold">Create a Hexora Account</h1>
             <p className="text-sm">Welcome! Create an account to get started</p>
           </div>
 
@@ -89,25 +83,21 @@ export default function SignUpOne() {
               />
             </div>
 
-            <Button
-              type="submit"
-              className="w-full ring-2 ring-ring/50 shadow-lg shadow-black/30"
-            >
-              Sign In
+            <Button type="submit" className="w-full shadow-lg ring-2 shadow-black/30 ring-ring/50">
+              Create account
             </Button>
           </div>
 
           <div className="my-6 grid grid-cols-[1fr_auto_1fr] items-center gap-3">
             <hr className="border-dashed" />
-            <span className="text-muted-foreground text-xs">
-              Or continue With
-            </span>
+            <span className="text-xs text-muted-foreground">Or continue With</span>
             <hr className="border-dashed" />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <Button type="button" variant="outline">
               <svg
+                aria-hidden="true"
                 data-icon="inline-start"
                 xmlns="http://www.w3.org/2000/svg"
                 width="800px"
@@ -136,6 +126,7 @@ export default function SignUpOne() {
             </Button>
             <Button type="button" variant="outline">
               <svg
+                aria-hidden="true"
                 data-icon="inline-start"
                 xmlns="http://www.w3.org/2000/svg"
                 width="800px"
@@ -154,8 +145,8 @@ export default function SignUpOne() {
           </div>
         </div>
 
-        <div className="p-3 ">
-          <p className="text-accent-foreground text-center text-sm ">
+        <div className="p-3">
+          <p className="text-center text-sm text-accent-foreground">
             Have an account ?
             <Button asChild variant="link" className="px-2">
               <Link href="#">Sign In</Link>
@@ -164,5 +155,5 @@ export default function SignUpOne() {
         </div>
       </form>
     </section>
-  );
+  )
 }

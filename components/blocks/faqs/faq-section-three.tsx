@@ -5,40 +5,40 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion'
 
-export default function FAQsThree() {
-  const faqItems = [
-    {
-      id: 'item-1',
-      question: 'Can I use this template for a commercial project?',
-      answer:
-        'Yes, you can use this template for personal and commercial projects. You can customize the layout, styling, and content to match your product or brand.',
-    },
-    {
-      id: 'item-2',
-      question: 'Is this section responsive on mobile devices?',
-      answer:
-        'Yes, the layout is designed to work across desktop, tablet, and mobile screens. On smaller screens, the content stacks vertically so the FAQ remains easy to read.',
-    },
-    {
-      id: 'item-3',
-      question: 'Do I need to install any extra dependencies?',
-      answer:
-        'This section uses the shadcn Accordion component. As long as Accordion is already installed in your project, you do not need anything extra for the basic version.',
-    },
-    {
-      id: 'item-4',
-      question: 'Can I customize the questions and answers?',
-      answer:
-        'Absolutely. The FAQ content is stored in a simple array, so you can update the questions, answers, IDs, and order without changing the layout logic.',
-    },
-    {
-      id: 'item-5',
-      question: 'Can this be used on a pricing or landing page?',
-      answer:
-        'Yes, this type of FAQ section works well on pricing pages, landing pages, documentation pages, and product pages where users need quick answers before taking action.',
-    },
-  ]
+const faqItems = [
+  {
+    id: 'item-1',
+    question: 'Can I use this template for a commercial project?',
+    answer:
+      'Yes, you can use this template for personal and commercial projects. You can customize the layout, styling, and content to match your product or brand.',
+  },
+  {
+    id: 'item-2',
+    question: 'Is this section responsive on mobile devices?',
+    answer:
+      'Yes, the layout is designed to work across desktop, tablet, and mobile screens. On smaller screens, the content stacks vertically so the FAQ remains easy to read.',
+  },
+  {
+    id: 'item-3',
+    question: 'Do I need to install any extra dependencies?',
+    answer:
+      'This section uses the shadcn Accordion component. As long as Accordion is already installed in your project, you do not need anything extra for the basic version.',
+  },
+  {
+    id: 'item-4',
+    question: 'Can I customize the questions and answers?',
+    answer:
+      'Absolutely. The FAQ content is stored in a simple array, so you can update the questions, answers, IDs, and order without changing the layout logic.',
+  },
+  {
+    id: 'item-5',
+    question: 'Can this be used on a pricing or landing page?',
+    answer:
+      'Yes, this type of FAQ section works well on pricing pages, landing pages, documentation pages, and product pages where users need quick answers before taking action.',
+  },
+]
 
+export default function FAQsThree() {
   return (
     <section className="mx-auto max-w-md py-8 md:max-w-7xl">
       <div
