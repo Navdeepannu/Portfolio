@@ -1179,6 +1179,23 @@
         }
       ],
       "type": "registry:ui"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "animated-numbers",
+      "title": "Animated Numbers",
+      "description": "Accessible in-view number counter with locale-aware formatting and reduced-motion support.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "components/ui/components/animated-numbers.tsx",
+          "type": "registry:ui",
+          "target": "@components/animated-numbers.tsx"
+        }
+      ],
+      "type": "registry:ui"
     }
   ]
 }
