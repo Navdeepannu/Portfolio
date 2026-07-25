@@ -9,7 +9,17 @@ export default function PagesLayout({ children }: { children: ReactNode }) {
     <PagePreviewProvider>
       {children}
 
-      <Suspense fallback={null}>
+      <Suspense
+        fallback={
+          <div
+            role="status"
+            className="fixed right-4 bottom-4 z-50 flex items-center gap-2 rounded-full border bg-background px-3 py-2 text-xs text-muted-foreground shadow-lg"
+          >
+            <span className="size-2 animate-pulse rounded-full bg-foreground" aria-hidden="true" />
+            Loading preview controls…
+          </div>
+        }
+      >
         <ConditionalPageNavbar />
       </Suspense>
     </PagePreviewProvider>

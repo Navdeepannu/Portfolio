@@ -15,14 +15,14 @@ export const metadata: Metadata = {
     title: 'Writing · Navdeep Singh',
     description:
       'Practical frontend engineering notes about Next.js, reusable UI systems, accessibility, and production debugging.',
-    images: ['/char.jpg'],
+    images: ['/icon.svg'],
   },
   twitter: {
-    card: 'summary_large_image',
+    card: 'summary',
     title: 'Writing · Navdeep Singh',
     description:
       'Practical frontend engineering notes about Next.js, reusable UI systems, accessibility, and production debugging.',
-    images: ['/char.jpg'],
+    images: ['/icon.svg'],
   },
 }
 

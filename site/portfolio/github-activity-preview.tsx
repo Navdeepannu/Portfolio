@@ -164,7 +164,7 @@ export function GithubActivityPreview({ activity }: GithubActivityPreviewProps) 
                     >
                       <RepositoryIcon allMerged={allMerged} />
                       <span className="min-w-0 flex-1 pt-0.5">
-                        <span className="block text-sm font-medium text-foreground transition-colors duration-150 group-hover/trigger:text-emerald-600 dark:group-hover/trigger:text-emerald-400">
+                        <span className="block text-sm font-medium text-foreground transition-colors duration-150 group-hover/trigger:text-emerald-700 dark:group-hover/trigger:text-emerald-400">
                           {project}
                         </span>
                         <span className="mt-0.5 block text-xs leading-5 text-muted-foreground">
@@ -213,12 +213,12 @@ export function GithubActivityPreview({ activity }: GithubActivityPreviewProps) 
                               item.comments !== undefined) && (
                               <div className="mt-1.5 ml-5.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
                                 {item.additions !== undefined && (
-                                  <span className="font-medium text-emerald-600 dark:text-emerald-400">
+                                  <span className="font-medium text-emerald-700 dark:text-emerald-400">
                                     +{item.additions}
                                   </span>
                                 )}
                                 {item.deletions !== undefined && (
-                                  <span className="font-medium text-rose-500 dark:text-rose-400">
+                                  <span className="font-medium text-rose-700 dark:text-rose-400">
                                     −{item.deletions}
                                   </span>
                                 )}

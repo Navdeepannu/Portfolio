@@ -28,7 +28,7 @@ export default function BlocksCategoryNav() {
   })()
 
   return (
-    <nav className="bg-background">
+    <nav aria-label="Block categories" className="bg-background">
       <div
         className={cn(
           'scrollbar-gutter-stable relative scrollbar-thin flex h-10 min-w-0 items-center gap-1',

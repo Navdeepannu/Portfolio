@@ -16,7 +16,7 @@ export default function ComponentsCategoryNav({
   onCategoryChange: (categoryId: ComponentCategoryId) => void
 }) {
   return (
-    <nav className="bg-background">
+    <nav aria-label="Component categories" className="bg-background">
       <div className="scrollbar-gutter-stable relative scrollbar-thin flex h-10 min-w-0 items-center gap-1 overflow-x-auto scroll-smooth px-2 scrollbar-thumb-muted-foreground/40 md:px-4 lg:px-6">
         <span className="font-inter mr-3 flex items-center gap-2 border-r border-border pr-3 text-sm text-foreground">
           <FilterIcon className="size-4 text-foreground" />

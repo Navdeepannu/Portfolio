@@ -149,7 +149,7 @@ type PlaceholderLinkProps = Omit<ComponentPropsWithoutRef<typeof Link>, 'href' |
 }
 
 const PlaceholderLink = React.forwardRef<HTMLAnchorElement, PlaceholderLinkProps>(
-  ({ href, onClick, onSelect, ...props }, ref) => {
+  ({ href, onClick, onSelect, children, ...props }, ref) => {
     const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
       onClick?.(event)
 
@@ -160,7 +160,11 @@ const PlaceholderLink = React.forwardRef<HTMLAnchorElement, PlaceholderLinkProps
       onSelect?.()
     }
 
-    return <Link ref={ref} href={href} onClick={handleClick} {...props} />
+    return (
+      <Link ref={ref} href={href} onClick={handleClick} {...props}>
+        {children}
+      </Link>
+    )
   },
 )
 
@@ -249,7 +253,7 @@ export default function HeaderFour() {
                                   <NavigationMenuLink asChild>
                                     <PlaceholderLink
                                       href={child.href}
-                                      className="block rounded-md px-2 py-1.5 text-base font-medium transition-colors outline-none hover:bg-muted focus-visible:bg-muted"
+                                      className="block rounded-md px-2 py-1.5 text-base font-medium transition-colors outline-none hover:bg-muted focus-visible:bg-muted focus-visible:ring-2 focus-visible:ring-ring/50"
                                     >
                                       {child.name}
                                     </PlaceholderLink>
@@ -266,7 +270,7 @@ export default function HeaderFour() {
                   <NavigationMenuLink asChild>
                     <PlaceholderLink
                       href={item.href}
-                      className="relative z-10 block rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors outline-none hover:text-foreground focus-visible:text-foreground"
+                      className="relative z-10 block rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors outline-none hover:text-foreground focus-visible:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50"
                     >
                       {item.name}
                     </PlaceholderLink>

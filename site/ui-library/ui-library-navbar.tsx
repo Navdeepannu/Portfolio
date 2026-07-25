@@ -12,9 +12,9 @@ import { cn } from '@/lib/utils'
 import { SITE_ORIGINS } from '@/lib/sites'
 import { useCommandMenu } from '@/hooks/use-command-menu'
 import { CommandMenu } from '@/site/command/command-menu'
-import Character from '@/site/character'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { GitHubStars } from './github-star'
+import LogoMark from './ui-library-logo'
 
 const menuItems = [
   { name: 'Components', href: '/components' },
@@ -59,35 +59,6 @@ export function UiLibraryNavbar({
   }
 
   useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.defaultPrevented || event.repeat) return
-      if (event.key.toLowerCase() !== 'd') return
-      if (event.metaKey || event.ctrlKey || event.altKey) return
-
-      const target = event.target
-
-      if (target instanceof HTMLElement) {
-        if (target.isContentEditable) return
-
-        if (
-          target instanceof HTMLInputElement ||
-          target instanceof HTMLTextAreaElement ||
-          target instanceof HTMLSelectElement
-        ) {
-          return
-        }
-      }
-
-      event.preventDefault()
-      setTheme(theme === 'dark' ? 'light' : 'dark')
-    }
-
-    document.addEventListener('keydown', onKeyDown)
-
-    return () => document.removeEventListener('keydown', onKeyDown)
-  }, [theme, setTheme])
-
-  useEffect(() => {
     if (!mobileMenuOpen) return
 
     const previousOverflow = document.body.style.overflow
@@ -107,15 +78,24 @@ export function UiLibraryNavbar({
 
   return (
     <>
-      <nav className="sticky top-0 z-50 border-b border-border bg-background">
+      <nav
+        aria-label="Primary navigation"
+        className="sticky top-0 z-50 border-b border-border bg-background"
+      >
         <div
           className={cn(
-            `font-geist-sans relative flex h-14 w-full items-center ${className} ${
-              fullWidth ? 'px-2 md:px-4 lg:px-6' : 'mx-auto max-w-6xl px-2'
+            `relative flex h-14 w-full items-center font-geist ${className} ${
+              fullWidth ? 'px-2 md:px-4 lg:px-6' : 'mx-auto max-w-6xl px-4'
             }`,
           )}
         >
-          <Character />
+          <Link
+            href={SITE_ORIGINS.ui}
+            aria-label="Nav UI home"
+          >
+            <LogoMark className="h-8 w-auto" />
+          </Link>
+
           <div className="flex-1" />
 
           <div className="flex items-center justify-between gap-4">
@@ -155,7 +135,7 @@ export function UiLibraryNavbar({
 
             <span className="hidden h-4 w-px bg-border md:block" />
 
-            <GitHubStars repo="navdeepannu/portfolio" stargazersCount={1} />
+            <GitHubStars repo="navdeepannu/portfolio" stargazersCount={3} />
 
             <Tooltip>
               <TooltipTrigger asChild>
@@ -218,7 +198,7 @@ export function UiLibraryNavbar({
               transition={{ type: 'spring', damping: 28, stiffness: 320 }}
             >
               <div className="mb-6 flex items-center justify-between gap-3">
-                <Character />
+                <LogoMark />
                 <Button
                   variant="ghost"
                   size="icon-sm"
@@ -230,7 +210,7 @@ export function UiLibraryNavbar({
                 </Button>
               </div>
 
-              <nav className="flex flex-1 flex-col gap-1.5">
+              <nav aria-label="Mobile navigation links" className="flex flex-1 flex-col gap-1.5">
                 {menuItems.map((item) => {
                   const isActive = isNavItemActive(pathname, item.href)
 

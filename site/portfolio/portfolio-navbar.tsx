@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ArrowUpRight, Menu, X } from 'lucide-react'
@@ -12,6 +11,8 @@ import { cn } from '@/lib/utils'
 import { SITE_ORIGINS } from '@/lib/sites'
 import { LandingThemeToggle } from '@/site/portfolio/landing-theme-toggle'
 import { Button } from '@/components/ui/button'
+import LogoMark from '@/site/ui-library/ui-library-logo'
+import { GitHubStars } from '../ui-library/github-star'
 
 type PortfolioNavbarProps = {
   fullWidth?: boolean
@@ -69,14 +70,7 @@ export function PortfolioNavbar({
             aria-label="Navdeep Singh — Home"
             className="inline-flex size-11 shrink-0 items-center justify-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-foreground active:scale-[0.97]"
           >
-            <Image
-              src="/char.jpg"
-              alt=""
-              width={32}
-              height={32}
-              preload
-              className="size-8 rounded-full object-cover shadow-sm ring-1 ring-border"
-            />
+            <LogoMark className="h-8 w-auto" />
           </Link>
 
           <nav aria-label="Primary navigation" className="ml-auto hidden items-center md:flex">
@@ -104,6 +98,8 @@ export function PortfolioNavbar({
           </nav>
 
           <div className="ml-auto flex shrink-0 items-center gap-0.5 md:ml-2">
+            <GitHubStars repo="navdeepannu/portfolio" stargazersCount={3} />
+
             <LandingThemeToggle />
 
             <DialogPrimitive.Trigger asChild>
@@ -164,7 +160,7 @@ export function PortfolioNavbar({
                     id="mobile-navigation-description"
                     className="sr-only"
                   >
-                    Navigate to portfolio sections and Navdeep UI resources.
+                    Navigate to portfolio sections and Nav UI resources.
                   </DialogPrimitive.Description>
 
                   <div className="flex items-center justify-between">
@@ -174,13 +170,7 @@ export function PortfolioNavbar({
                       onClick={() => setMobileMenuOpen(false)}
                       className="inline-flex size-11 items-center justify-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-foreground active:scale-[0.97]"
                     >
-                      <Image
-                        src="/char.jpg"
-                        alt=""
-                        width={36}
-                        height={36}
-                        className="size-9 rounded-full object-cover shadow-sm ring-1 ring-border"
-                      />
+                      <LogoMark className="h-9 w-auto" />
                     </Link>
 
                     <DialogPrimitive.Close asChild>

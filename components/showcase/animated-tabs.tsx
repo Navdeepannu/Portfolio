@@ -55,7 +55,7 @@ function AgentFlowPanel({ title, description, image, imageAlt }: AgentFlowPanelP
             className="mt-7 inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm"
           >
             Explore workflow
-            <ArrowRight className="size-4" aria-hidden />
+            <ArrowRight data-icon="inline-end" className="size-4" aria-hidden />
           </Button>
         </div>
 

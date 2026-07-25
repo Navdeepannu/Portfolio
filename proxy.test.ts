@@ -103,7 +103,7 @@ describe('hostname routing decisions', () => {
       '/_next/image',
       '/api/contact',
       '/r/animated-tabs.json',
-      '/char.jpg',
+      '/icon.svg',
     ]) {
       expect(resolveDomainRouting({ hostname: 'ui.navdeepsingh.dev', pathname })).toEqual({
         type: 'next',

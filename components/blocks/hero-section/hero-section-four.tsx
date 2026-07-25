@@ -260,8 +260,10 @@ export default function HeroSectionFour() {
 
                   <input
                     type="email"
+                    name="email"
+                    autoComplete="email"
                     placeholder="Enter your work email"
-                    className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
+                    className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring/50"
                   />
 
                   <Button type="submit" variant="default" className="h-10">

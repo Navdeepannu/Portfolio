@@ -2,7 +2,6 @@ import Link from 'next/link'
 
 import { FlowDeskContainer } from '../components'
 import { Button } from '@/components/ui/button'
-import { FlowerIcon } from 'lucide-react'
 import { FlowDeskLogo } from '../components/flowdesk-logo'
 
 const navItems = [
@@ -32,11 +31,11 @@ export function FlowDeskNavbar() {
           ))}
         </nav>
 
-        <Link href="#pricing">
-          <Button size="sm" className="">
+        <Button size="sm" asChild>
+          <Link href="#pricing">
             Book free audit
-          </Button>
-        </Link>
+          </Link>
+        </Button>
       </FlowDeskContainer>
     </header>
   )

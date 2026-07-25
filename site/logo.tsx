@@ -50,7 +50,7 @@ const ANIMATE = {
   strokeOpacity: 0,
 }
 
-export function Logo() {
+export function Signature() {
   return (
     <div className="text-foreground">
       <motion.svg

@@ -62,11 +62,11 @@ export default function HeroSectionThree() {
         <div className="mt-2 flex gap-4">
           <Button size="lg" className="rounded-full">
             Explore presents
-            <IconArrowUpRight />
+            <IconArrowUpRight data-icon="inline-end" />
           </Button>
 
           <Button variant="secondary" size="lg" className="rounded-full">
-            <IconUser />
+            <IconUser data-icon="inline-start" />
             Sign up
           </Button>
         </div>

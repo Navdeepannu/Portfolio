@@ -78,7 +78,7 @@ export function StatsSectionOne({
                 <p className="mt-1 text-sm text-muted-foreground">{quoteRole}</p>
               </div>
               <Button asChild variant="outline" size="icon-lg" aria-label={action.label}>
-                <a href={action.href}>
+                <a href={action.href} aria-label={action.label}>
                   <ArrowUpRight aria-hidden />
                 </a>
               </Button>

@@ -1,7 +1,7 @@
 'use client'
 
 import { Moon, Sun } from 'lucide-react'
-import { useEffect, useSyncExternalStore } from 'react'
+import { useSyncExternalStore } from 'react'
 import { useTheme } from 'next-themes'
 import { Button } from '@/components/ui/button'
 import { Tooltip, TooltipTrigger } from '@/components/ui/tooltip'
@@ -23,35 +23,6 @@ export function LandingThemeToggle() {
     setTheme(isDark ? 'light' : 'dark')
   }
 
-  useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.defaultPrevented || event.repeat) return
-      if (event.key.toLowerCase() !== 'd') return
-      if (event.metaKey || event.ctrlKey || event.altKey) return
-
-      const target = event.target
-
-      if (target instanceof HTMLElement) {
-        if (target.isContentEditable) return
-
-        if (
-          target instanceof HTMLInputElement ||
-          target instanceof HTMLTextAreaElement ||
-          target instanceof HTMLSelectElement
-        ) {
-          return
-        }
-      }
-
-      event.preventDefault()
-      setTheme(theme === 'dark' ? 'light' : 'dark')
-    }
-
-    document.addEventListener('keydown', onKeyDown)
-
-    return () => document.removeEventListener('keydown', onKeyDown)
-  }, [theme, setTheme])
-  
   return (
     <Tooltip>
       <TooltipTrigger asChild>

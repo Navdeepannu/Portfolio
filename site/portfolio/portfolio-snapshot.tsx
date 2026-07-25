@@ -10,8 +10,8 @@ import { cn } from '@/lib/utils'
 import { Card } from '@/components/ui/card'
 import { portfolioSnapshot, RESUME_HREF } from '@/site/portfolio/portfolio-content'
 import { staggerItem } from '@/site/portfolio/portfolio-primitives'
+import LogoMark from '@/site/ui-library/ui-library-logo'
 import { Safari } from './browser-mockup'
-import Character from '../character'
 import { InfiniteSlider } from '@/components/ui/infinite-slider'
 import Image from 'next/image'
 
@@ -24,7 +24,7 @@ export function PortfolioSnapshot() {
       className="relative overflow-x-clip py-20 font-schibsted selection:bg-emerald-200/60 max-md:py-14 md:py-24"
     >
       <div className="mx-auto max-w-6xl px-8 md:px-12">
-        <span className="mb-4 block font-mono text-xs text-emerald-600 dark:text-emerald-400/80">
+        <span className="mb-4 block font-mono text-xs text-emerald-700 dark:text-emerald-400/80">
           {eyebrow}
         </span>
 
@@ -177,7 +177,7 @@ function QualificationsIllustration() {
               </div>
             </div>
 
-            <span className="rounded-full bg-emerald-500/10 px-2 py-1 text-[10px] font-medium text-emerald-600 dark:text-emerald-400">
+            <span className="rounded-full bg-emerald-500/10 px-2 py-1 text-[10px] font-medium text-emerald-700 dark:text-emerald-400">
               Active
             </span>
           </div>
@@ -567,7 +567,7 @@ function StrengthsIllustration() {
 
         {/* center bridge */}
         <div className="absolute top-1/2 left-1/2 z-20 flex size-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border bg-background shadow-lg">
-          <Character />
+          <LogoMark className="h-8 w-auto" />
         </div>
 
         {/* right: code */}
@@ -607,7 +607,7 @@ function StackIllustration() {
 
       {/* center logo */}
       <div className="absolute top-1/2 left-1/2 z-30 flex size-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl bg-background/80 shadow-xl ring-1 ring-foreground/8 backdrop-blur">
-        <Character className="size-8" />
+        <LogoMark className="h-8 w-auto" />
       </div>
 
       {/* tilted marquee plane */}

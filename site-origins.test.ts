@@ -43,7 +43,7 @@ describe('site-specific metadata origins', () => {
     assert.equal(portfolioRules.sitemap, `${SITE_ORIGINS.portfolio}/sitemap.xml`)
     assert.match(uiRobots, new RegExp(`Sitemap: ${SITE_ORIGINS.ui}/sitemap\\.xml`))
     assert.match(uiRobots, new RegExp(`Host: ${SITE_ORIGINS.ui}`))
-    assert.equal(uiManifest.name, 'Navdeep UI · Components, Blocks, and Templates')
+    assert.equal(uiManifest.name, 'Nav UI · Components, Blocks, and Templates')
     assert.equal(uiManifest.start_url, '/')
   })
 })
