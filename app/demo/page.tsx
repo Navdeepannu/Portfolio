@@ -1,6 +1,6 @@
 'use client'
 
-import HeaderFour from '@/components/blocks/header/header-four'
+import FeaturesSectionTwo from '@/components/blocks/features/features-section-two'
 import { Button } from '@/components/ui/button'
 import { IconCaretRightFilled } from '@tabler/icons-react'
 import { AnimatePresence, motion } from 'motion/react'
@@ -10,7 +10,7 @@ import { useState } from 'react'
 export default function Page() {
   return (
     <div className="">
-      <HeaderFour />
+      <FeaturesSectionTwo />
     </div>
   )
 }

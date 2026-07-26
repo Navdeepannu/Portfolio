@@ -31,8 +31,7 @@ export default function ComponentTabs({
 }) {
   const [reloadKey, setReloadKey] = useState(0)
 
-  // Install commands always resolve to the production registry domain (see
-  // @/lib/registry), so they're stable across SSR and client renders.
+  // Install commands use the official @navui registry namespace.
   const commands = useMemo(() => getInstallCommands(slug), [slug])
 
   return (

@@ -1,5 +1,6 @@
 import { CopyButton } from '@/components/ui/components/copy-button'
 import { UiLibraryNavbar } from '@/site/ui-library/ui-library-navbar'
+import { getInstallCommands } from '@/site/block-install-commands'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -10,7 +11,7 @@ const templates = [
     description: 'A full-page operations workspace with navigation, data views, and product UI.',
     image: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlUpuYbnXMcP1suvnB5JoeGFDfSm7wChl8LtpH',
     href: '/pages/flowdesk',
-    command: 'pnpm dlx shadcn@latest add https://ui.navdeepsingh.dev/r/flowdesk.json',
+    command: getInstallCommands('flowdesk').pnpm,
   },
 ] as const
 

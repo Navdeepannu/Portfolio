@@ -81,7 +81,7 @@ export default function ComponentInstall({
   utilsCode: ReactNode
   showImportNote?: boolean
 }) {
-  // Install commands always resolve to the production registry domain.
+  // Install commands use the official @navui registry namespace.
   const cliCommands = useMemo(() => getInstallCommands(slug), [slug])
 
   const depCommands = useMemo(() => {
