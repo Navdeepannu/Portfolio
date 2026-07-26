@@ -61,10 +61,10 @@ Open:
 
 ## Registry
 
-Install a registry item directly with the shadcn CLI:
+Install a registry item with the official `@navui` namespace:
 
 ```bash
-bunx shadcn@latest add https://ui.navdeepsingh.dev/r/animated-tabs.json
+bunx shadcn@latest add @navui/animated-tabs
 ```
 
 Build and validate all registry artifacts:
@@ -81,4 +81,3 @@ bun run build
 ## License
 
 Licensed under the [MIT license](./LICENSE).
-

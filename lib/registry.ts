@@ -14,8 +14,7 @@
  * Two installation strategies are supported, both backed by the exact same JSON
  * files in `public/r/`:
  *
- * 1. **Direct URL (default)** — consumers paste the fully-qualified item URL and
- *    need no `components.json` changes:
+ * 1. **Direct URL (fallback)** — consumers paste the fully-qualified item URL:
  *
  *      npx shadcn@latest add https://ui.navdeepsingh.dev/r/animated-tabs.json
  *
@@ -23,10 +22,10 @@
  *    `@navdeep-singh/<item>` registryDependencies into these absolute URLs so
  *    transitive installs resolve without any namespace registration.
  *
- * 2. **Namespace (`@navui`)** — consumers register the namespace once in their
- *    `components.json` and then install by short reference:
+ * 2. **Namespace (`@navui`, default)** — the namespace is published in the
+ *    official shadcn registry directory, so consumers can install by short
+ *    reference:
  *
- *      "registries": { "@navui": "https://ui.navdeepsingh.dev/r/{name}.json" }
  *      npx shadcn@latest add @navui/animated-tabs
  *
  * Note: the public-facing consumer namespace (`@navui`) is intentionally distinct
@@ -60,8 +59,8 @@ export function getRegistryNamespaceRef(slug: string): string {
 }
 
 /**
- * The `{name}` URL template a consumer registers under the namespace in their
- * `components.json` `registries` map.
+ * The `{name}` URL template for consumers who explicitly configure the namespace
+ * in their `components.json` `registries` map.
  */
 export function getRegistryNamespaceUrlTemplate(): string {
   return `${getRegistryBaseUrl()}/r/{name}.json`
@@ -85,7 +84,7 @@ function buildShadcnAddCommands(target: string): Record<PackageManagerId, string
 }
 
 /**
- * Direct-URL install commands (the default method shown throughout the UI).
+ * Direct-URL install commands retained as an explicit fallback.
  * e.g. `npx shadcn@latest add https://ui.navdeepsingh.dev/r/animated-tabs.json`
  */
 export function getDirectInstallCommands(slug: string): Record<PackageManagerId, string> {

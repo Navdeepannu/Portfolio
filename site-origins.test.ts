@@ -11,6 +11,7 @@ import uiSitemap from '@/app/ui/sitemap'
 import { getDirectInstallCommands, getRegistryItemUrl } from '@/lib/registry'
 import { portfolioMetadata, uiMetadata } from '@/lib/site'
 import { SITE_ORIGINS } from '@/lib/sites'
+import { getInstallCommands } from '@/site/block-install-commands'
 
 describe('site-specific metadata origins', () => {
   test('uses independent metadata bases and sitemap origins', () => {
@@ -58,6 +59,10 @@ describe('registry origin', () => {
     assert.match(
       getDirectInstallCommands('animated-tabs').npm,
       /https:\/\/ui\.navdeepsingh\.dev\/r\/animated-tabs\.json$/,
+    )
+    assert.equal(
+      getInstallCommands('animated-tabs').npm,
+      'npx shadcn@latest add @navui/animated-tabs',
     )
   })
 

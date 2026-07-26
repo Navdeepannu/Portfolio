@@ -11,7 +11,8 @@ export {
   getRegistryNamespaceRef,
   getRegistryNamespaceUrlTemplate,
   getRegistryConfigSnippet,
+  getDirectInstallCommands,
   getNamespaceInstallCommands,
-  // Default install method shown in the UI = direct-URL commands.
-  getDirectInstallCommands as getInstallCommands,
+  // Default install method shown in the UI = the official @navui namespace.
+  getNamespaceInstallCommands as getInstallCommands,
 } from '@/lib/registry'
