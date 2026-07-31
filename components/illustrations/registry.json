@@ -123,16 +123,76 @@
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "delivery-pipeline",
+      "name": "fast-by-default-illustration",
       "type": "registry:component",
-      "title": "Delivery Pipeline Illustration",
-      "description": "A responsive three-stage project delivery illustration for service and product workflows.",
-      "dependencies": ["lucide-react"],
+      "title": "Fast by Default Illustration",
+      "description": "An interactive field of animated speed lines with reduced-motion support.",
+      "dependencies": ["motion"],
       "files": [
         {
-          "path": "delivery-pipeline.tsx",
+          "path": "FastByDefaultIllustration.tsx",
           "type": "registry:component",
-          "target": "@components/illustrations/delivery-pipeline.tsx"
+          "target": "@components/illustrations/FastByDefaultIllustration.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "designed-for-focus-illustration",
+      "type": "registry:component",
+      "title": "Designed for Focus Illustration",
+      "description": "An interactive focus illustration with concentric motion and reduced-motion support.",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "DesignedForFocusIllustration.tsx",
+          "type": "registry:component",
+          "target": "@components/illustrations/DesignedForFocusIllustration.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "flexible-at-scale-illustration",
+      "type": "registry:component",
+      "title": "Flexible at Scale Illustration",
+      "description": "An interactive spring-based line field that responds to pointer movement.",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "FlexibleAtScaleIllustration.tsx",
+          "type": "registry:component",
+          "target": "@components/illustrations/FlexibleAtScaleIllustration.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "release-workflow-illustration",
+      "type": "registry:component",
+      "title": "Release Workflow Illustration",
+      "description": "An interactive release tracker with configurable workflow data and autoplay.",
+      "dependencies": ["lucide-react", "motion"],
+      "files": [
+        {
+          "path": "ReleaseWorkflowIllustration.tsx",
+          "type": "registry:component",
+          "target": "@components/illustrations/ReleaseWorkflowIllustration.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "revision-cycles-illustration",
+      "type": "registry:component",
+      "title": "Revision Cycles Illustration",
+      "description": "An interactive comparison of eliminated and remaining revision rounds.",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "RevisionCyclesIllustration.tsx",
+          "type": "registry:component",
+          "target": "@components/illustrations/RevisionCyclesIllustration.tsx"
         }
       ]
     }

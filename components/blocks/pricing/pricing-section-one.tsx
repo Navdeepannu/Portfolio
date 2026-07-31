@@ -2,8 +2,9 @@
 
 import type { ComponentPropsWithoutRef } from 'react'
 import { useState } from 'react'
-import { Check, Sparkles } from 'lucide-react'
+import { Check } from 'lucide-react'
 
+import { AnimatedNumber } from '@/components/ui/components/animated-numbers'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
@@ -18,59 +19,91 @@ import { cn } from '@/lib/utils'
 
 export type PricingInterval = 'monthly' | 'yearly'
 
+export type PricingValue = number | string
+
+// Defines the content and configuration for each pricing plan.
 export type PricingPlan = {
   id: string
   name: string
   description: string
-  monthlyPrice: string
-  yearlyPrice: string
-  priceSuffix?: string
+  monthlyPrice: PricingValue
+  yearlyPrice: PricingValue
   features: readonly string[]
   ctaLabel: string
   ctaHref: string
+  prefix?: string
+  priceSuffix?: string
   featured?: boolean
   badge?: string
 }
 
-export type PricingSectionOneProps = ComponentPropsWithoutRef<'section'> & {
+// Controls the section heading content.
+export type PricingSectionCopy = {
   eyebrow?: string
-  heading?: string
-  description?: string
-  plans?: readonly PricingPlan[]
-  defaultInterval?: PricingInterval
-  billingIntervalLabel?: string
-  monthlyLabel?: string
-  yearlyLabel?: string
-  yearlyNote?: string
+  heading: string
+  description: string
 }
 
+// Controls the billing toggle labels.
+export type PricingBillingCopy = {
+  ariaLabel: string
+  monthlyLabel: string
+  yearlyLabel: string
+  yearlyNote: string
+}
+
+export type PricingSectionOneProps = ComponentPropsWithoutRef<'section'> & {
+  plans?: readonly PricingPlan[]
+  defaultInterval?: PricingInterval
+  copy?: Partial<PricingSectionCopy>
+  billing?: Partial<PricingBillingCopy>
+}
+
+// Default section content.
+const defaultCopy: PricingSectionCopy = {
+  heading: 'Simple pricing for every stage',
+  description:
+    'Start for free, upgrade when you need more, or contact us for a plan tailored to your organization.',
+}
+
+// Default billing toggle content.
+const defaultBilling: PricingBillingCopy = {
+  ariaLabel: 'Choose billing interval',
+  monthlyLabel: 'Monthly',
+  yearlyLabel: 'Yearly',
+  yearlyNote: 'Save 20%',
+}
+
+// Default pricing plans used when no custom plans are provided.
 const defaultPlans: readonly PricingPlan[] = [
   {
-    id: 'starter',
-    name: 'Starter',
-    description: 'For small teams organizing their first repeatable workflow.',
-    monthlyPrice: '$19',
-    yearlyPrice: '$15',
-    priceSuffix: '/ seat',
-    features: ['3 active projects', 'Core automations', 'Email support', 'Unlimited guests'],
+    id: 'free',
+    name: 'Free',
+    description: 'For individuals getting started with the essential tools.',
+    prefix: '$',
+    monthlyPrice: 0,
+    yearlyPrice: 0,
+    priceSuffix: '/ month',
+    features: ['1 workspace', 'Up to 3 projects', 'Basic analytics', 'Community support'],
     ctaLabel: 'Start free',
     ctaHref: '#get-started',
   },
   {
-    id: 'scale',
-    name: 'Scale',
-    description: 'For growing teams that need control, reporting, and faster execution.',
-    monthlyPrice: '$49',
-    yearlyPrice: '$39',
-    priceSuffix: '/ seat',
+    id: 'pro',
+    name: 'Pro',
+    description: 'For professionals and growing teams that need more power and flexibility.',
+    prefix: '$',
+    monthlyPrice: 29,
+    yearlyPrice: 23,
+    priceSuffix: '/ month',
     features: [
       'Unlimited projects',
-      'Advanced automations',
-      'Custom reporting',
+      'Advanced analytics',
+      'Automations and integrations',
+      'Custom branding',
       'Priority support',
-      'Role-based access',
     ],
-    ctaLabel: 'Start 14-day trial',
+    ctaLabel: 'Start 7-day free trial',
     ctaHref: '#get-started',
     featured: true,
     badge: 'Most popular',
@@ -78,15 +111,16 @@ const defaultPlans: readonly PricingPlan[] = [
   {
     id: 'enterprise',
     name: 'Enterprise',
-    description: 'For organizations with security, procurement, and support requirements.',
+    description: 'For organizations that need advanced security, support, and customization.',
     monthlyPrice: 'Custom',
     yearlyPrice: 'Custom',
     features: [
-      'Everything in Scale',
-      'SAML and SCIM',
-      'Audit logs',
-      'Dedicated success manager',
-      'Custom legal terms',
+      'Everything in Pro',
+      'Unlimited workspaces',
+      'Advanced permissions',
+      'Single sign-on',
+      'Dedicated support',
+      'Custom contracts',
     ],
     ctaLabel: 'Talk to sales',
     ctaHref: '#contact-sales',
@@ -98,42 +132,53 @@ type PricingCardProps = {
   plan: PricingPlan
 }
 
+// Renders a single pricing plan.
 function PricingCard({ interval, plan }: PricingCardProps) {
+  // Select the price based on the active billing interval.
   const price = interval === 'yearly' ? plan.yearlyPrice : plan.monthlyPrice
-
-  const hasNumericPrice = price !== 'Custom'
+  const isNumericPrice = typeof price === 'number'
 
   return (
     <Card
       className={cn(
-        'relative flex h-full flex-col gap-0 overflow-hidden py-0',
+        'relative flex h-full flex-col gap-0 overflow-visible py-0',
         plan.featured && 'border-primary/40 shadow-lg ring-1 shadow-primary/5 ring-primary/20',
       )}
     >
+      {/* Optional plan badge. */}
+      {plan.badge ? (
+        <Badge
+          variant={plan.featured ? 'default' : 'secondary'}
+          className="absolute inset-x-0 -top-3 left-1/2 shrink-0 -translate-x-1/2 gap-1.5"
+        >
+          {plan.badge}
+        </Badge>
+      ) : null}
+
+      {/* Plan name and description. */}
       <CardHeader className="gap-4 px-6 pt-6 pb-5">
-        <div className="flex items-start justify-between gap-3">
-          <CardTitle className="text-lg">{plan.name}</CardTitle>
-
-          {plan.badge ? (
-            <Badge variant={plan.featured ? 'default' : 'secondary'} className="shrink-0 gap-1.5">
-              <Sparkles aria-hidden="true" className="size-3" />
-              {plan.badge}
-            </Badge>
-          ) : null}
-        </div>
-
-        <CardDescription className="leading-6">{plan.description}</CardDescription>
+        <CardTitle className="text-lg">{plan.name}</CardTitle>
+        <CardDescription className="leading-6 text-balance">{plan.description}</CardDescription>
       </CardHeader>
 
-      <CardContent className="flex flex-1 flex-col border-t px-6 py-6">
+      <CardContent className="flex flex-1 flex-col border-t border-dashed px-6 py-6">
         <div aria-live="polite" aria-atomic="true" className="flex min-h-12 items-end gap-1.5">
-          <span className="text-4xl font-semibold tracking-tight text-foreground">{price}</span>
+          {isNumericPrice ? (
+            <AnimatedNumber
+              value={price}
+              prefix={plan.prefix}
+              className="text-4xl font-semibold tracking-tight text-foreground"
+            />
+          ) : (
+            <span className="text-4xl font-semibold tracking-tight text-foreground">{price}</span>
+          )}
 
-          {hasNumericPrice && plan.priceSuffix ? (
+          {isNumericPrice && plan.priceSuffix ? (
             <span className="pb-1 text-sm text-muted-foreground">{plan.priceSuffix}</span>
           ) : null}
         </div>
 
+        {/* Included plan features. */}
         <ul className="mt-7 space-y-3">
           {plan.features.map((feature) => (
             <li key={feature} className="flex items-start gap-2.5 text-sm text-muted-foreground">
@@ -150,6 +195,7 @@ function PricingCard({ interval, plan }: PricingCardProps) {
         </ul>
       </CardContent>
 
+      {/* Plan call to action. */}
       <CardFooter className="mt-auto px-6 py-6">
         <Button
           asChild
@@ -166,18 +212,26 @@ function PricingCard({ interval, plan }: PricingCardProps) {
 
 export function PricingSectionOne({
   className,
-  eyebrow = 'Simple pricing',
-  heading = 'Choose the plan that fits how your team works',
-  description = 'Start small, upgrade when you need to, and keep every core workflow included.',
   plans = defaultPlans,
   defaultInterval = 'monthly',
-  billingIntervalLabel = 'Choose billing interval',
-  monthlyLabel = 'Monthly',
-  yearlyLabel = 'Yearly',
-  yearlyNote = 'Save 20%',
+  copy,
+  billing,
   ...props
 }: PricingSectionOneProps) {
+  // Tracks the active billing interval.
   const [interval, setInterval] = useState<PricingInterval>(defaultInterval)
+
+  // Merge custom copy with the defaults.
+  const resolvedCopy: PricingSectionCopy = {
+    ...defaultCopy,
+    ...copy,
+  }
+
+  // Merge custom billing labels with the defaults.
+  const resolvedBilling: PricingBillingCopy = {
+    ...defaultBilling,
+    ...billing,
+  }
 
   return (
     <section
@@ -186,20 +240,26 @@ export function PricingSectionOne({
       {...props}
     >
       <div className="mx-auto w-full max-w-6xl px-6">
+        {/* Section introduction. */}
         <div className="mx-auto max-w-2xl text-center">
-          {eyebrow ? <Badge variant="outline">{eyebrow}</Badge> : null}
+          {resolvedCopy.eyebrow ? <Badge variant="outline">{resolvedCopy.eyebrow}</Badge> : null}
 
           <h2 className="mt-5 text-3xl font-semibold tracking-tight text-balance sm:text-5xl">
-            {heading}
+            {resolvedCopy.heading}
           </h2>
 
-          <p className="mt-4 text-base leading-7 text-muted-foreground sm:text-lg">{description}</p>
+          {resolvedCopy.description ? (
+            <p className="mt-4 text-base leading-7 text-balance text-muted-foreground sm:text-lg">
+              {resolvedCopy.description}
+            </p>
+          ) : null}
         </div>
 
+        {/* Monthly and yearly billing toggle. */}
         <div className="mt-8 flex justify-center sm:mt-10">
           <div
             role="group"
-            aria-label={billingIntervalLabel}
+            aria-label={resolvedBilling.ariaLabel}
             className="inline-flex rounded-lg bg-muted p-1"
           >
             <button
@@ -213,7 +273,7 @@ export function PricingSectionOne({
                 interval === 'monthly' && 'bg-background text-foreground shadow-sm',
               )}
             >
-              {monthlyLabel}
+              {resolvedBilling.monthlyLabel}
             </button>
 
             <button
@@ -227,22 +287,23 @@ export function PricingSectionOne({
                 interval === 'yearly' && 'bg-background text-foreground shadow-sm',
               )}
             >
-              <span>{yearlyLabel}</span>
+              <span>{resolvedBilling.yearlyLabel}</span>
 
-              {yearlyNote ? (
+              {resolvedBilling.yearlyNote ? (
                 <span
                   className={cn(
                     'text-xs',
                     interval === 'yearly' ? 'text-primary' : 'text-muted-foreground',
                   )}
                 >
-                  {yearlyNote}
+                  {resolvedBilling.yearlyNote}
                 </span>
               ) : null}
             </button>
           </div>
         </div>
 
+        {/* Pricing plan grid. */}
         <div className="mt-8 grid w-full gap-5 md:grid-cols-2 lg:grid-cols-3">
           {plans.map((plan) => (
             <PricingCard key={plan.id} plan={plan} interval={interval} />

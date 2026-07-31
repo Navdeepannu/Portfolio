@@ -10,7 +10,11 @@ const illustrationSourcePaths = {
   'matching-panel': ['components/illustrations/matching-panel.tsx', SHARED_ILLUSTRATION_SOURCE],
   'report-panel': ['components/illustrations/report-panel.tsx', SHARED_ILLUSTRATION_SOURCE],
   'approval-panel': ['components/illustrations/approval-panel.tsx', SHARED_ILLUSTRATION_SOURCE],
-  'delivery-pipeline': ['components/illustrations/delivery-pipeline.tsx'],
+  'fast-by-default-illustration': ['components/illustrations/FastByDefaultIllustration.tsx'],
+  'designed-for-focus-illustration': ['components/illustrations/DesignedForFocusIllustration.tsx'],
+  'flexible-at-scale-illustration': ['components/illustrations/FlexibleAtScaleIllustration.tsx'],
+  'release-workflow-illustration': ['components/illustrations/ReleaseWorkflowIllustration.tsx'],
+  'revision-cycles-illustration': ['components/illustrations/RevisionCyclesIllustration.tsx'],
 } as const
 
 export default async function IllustrationsPage() {

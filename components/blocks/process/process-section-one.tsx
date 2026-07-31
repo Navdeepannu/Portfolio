@@ -1,105 +1,158 @@
-import type { ComponentProps, ReactNode } from 'react'
-import { ArrowRight } from 'lucide-react'
+import type { ComponentProps } from 'react'
+import Image from 'next/image'
+import { ArrowUpRight } from 'lucide-react'
 
-import { DeliveryPipelineIllustration } from '@/components/illustrations/delivery-pipeline'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 
-export type ProcessStep = {
+export type ContentSectionFourContent = {
+  eyebrow: string
+  heading: string
+  description: string
+  link?: {
+    label: string
+    href: string
+  }
+}
+
+export type ContentSectionFourPanel = {
   title: string
   description: string
+  image: {
+    src: string
+    alt: string
+  }
+  metadata?: string
 }
 
-export type ProcessSectionOneProps = ComponentProps<'section'> & {
-  eyebrow?: string
-  heading?: string
-  description?: string
-  steps?: readonly ProcessStep[]
-  action?: { label: string; href: string }
-  illustration?: ReactNode
+export type ContentSectionFourProps = Omit<ComponentProps<'section'>, 'children' | 'content'> & {
+  content?: ContentSectionFourContent
+  panels?: readonly ContentSectionFourPanel[]
 }
 
-const defaultSteps: readonly ProcessStep[] = [
+const defaultHowItWorksContent: ContentSectionFourContent = {
+  eyebrow: 'How it works',
+  heading: 'Decisions stay connected from planning to release.',
+  description:
+    'Each stage builds on the last, keeping the original context visible throughout the work.',
+  link: {
+    label: 'Explore the workflow',
+    href: '#workflow',
+  },
+}
+
+const defaultPanels: readonly ContentSectionFourPanel[] = [
   {
-    title: 'Align on the outcome',
-    description: 'We turn goals, constraints, and customer context into a focused delivery plan.',
+    title: 'Frame the outcome',
+    description:
+      'Define the customer problem, intended change, and constraints before the work begins.',
+    image: {
+      src: '/projects/project-1.png',
+      alt: 'Project brief for a network infrastructure website',
+    },
+    metadata: 'Brief',
   },
   {
-    title: 'Build in visible sprints',
+    title: 'Make it tangible',
     description:
-      'You see working progress every week and can shape decisions before they become costly.',
+      'Give the team something concrete to review while decisions remain inexpensive to change.',
+    image: {
+      src: '/sections/design1.png',
+      alt: 'Dark product landing page showing a mobile health interface',
+    },
+    metadata: 'Product review',
   },
   {
-    title: 'Launch with confidence',
+    title: 'Publish the useful version',
     description:
-      'Quality checks, documentation, and handoff are part of delivery rather than an afterthought.',
+      'Carry the reason, impact, and essential details of the change into the final release.',
+    image: {
+      src: '/sections/design4.png',
+      alt: 'Concise account recovery interface',
+    },
+    metadata: 'Release',
   },
 ]
 
-export function ProcessSectionOne({
+export default function ProcessSectionOne({
   className,
-  eyebrow = 'How we work',
-  heading = 'A clear path from the first conversation to a confident launch',
-  description = 'A practical delivery model for service teams, studios, and product partners that keeps clients close to the work.',
-  steps = defaultSteps,
-  action = { label: 'Plan a project', href: '#contact' },
-  illustration = <DeliveryPipelineIllustration />,
+  content = defaultHowItWorksContent,
+  panels = defaultPanels,
   ...props
-}: ProcessSectionOneProps) {
+}: ContentSectionFourProps) {
   return (
     <section
-      data-slot="process-section-one"
-      className={cn('bg-background py-20 text-foreground sm:py-28', className)}
+      data-slot="content-section-four"
+      className={cn('bg-background py-20 text-foreground sm:py-24 lg:py-28', className)}
       {...props}
     >
-      <div className="mx-auto w-full max-w-6xl px-6">
-        <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
-          <div className="lg:sticky lg:top-24 lg:self-start">
-            <Badge variant="outline">{eyebrow}</Badge>
-            <h2 className="mt-5 text-3xl font-semibold tracking-tight text-balance sm:text-5xl">
-              {heading}
-            </h2>
-            <p className="mt-5 text-base leading-7 text-muted-foreground sm:text-lg">
-              {description}
-            </p>
-            <Button asChild size="lg" className="mt-8">
-              <a href={action.href}>
-                {action.label}
-                <ArrowRight aria-hidden data-icon="inline-end" />
-              </a>
-            </Button>
-          </div>
+      <div className="mx-auto grid w-full max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-[0.68fr_1.32fr] lg:gap-20">
+        <header className="lg:sticky lg:top-24 lg:self-start lg:pr-4">
+          <p className="text-xs tracking-wide text-muted-foreground uppercase">{content.eyebrow}</p>
 
-          <div className="space-y-5">
-            <Card className="py-0">
-              <CardContent className="p-4 sm:p-8">{illustration}</CardContent>
-            </Card>
+          <h2 className="mt-4 max-w-md text-3xl font-medium tracking-tight text-balance sm:text-4xl">
+            {content.heading}
+          </h2>
 
-            <ol className="grid gap-px overflow-hidden rounded-xl border border-border bg-border">
-              {steps.map((step, index) => (
-                <li
-                  key={step.title}
-                  className="grid gap-4 bg-card p-5 sm:grid-cols-[auto_1fr] sm:p-6"
-                >
-                  <span className="grid size-9 place-items-center rounded-full bg-primary text-sm font-semibold text-primary-foreground">
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
-                  <div>
-                    <h3 className="font-semibold text-card-foreground">{step.title}</h3>
-                    <p className="mt-2 max-w-xl text-sm leading-6 text-muted-foreground">
-                      {step.description}
+          <p className="mt-4 max-w-sm text-sm leading-6 text-muted-foreground sm:text-base sm:leading-7">
+            {content.description}
+          </p>
+
+          {content.link ? (
+            <a
+              href={content.link.href}
+              className="mt-5 inline-flex min-h-10 items-center gap-2 text-sm font-medium underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+            >
+              {content.link.label}
+
+              <ArrowUpRight aria-hidden="true" className="size-4" />
+            </a>
+          ) : null}
+        </header>
+
+        <ol id="workflow" className="scroll-mt-24 space-y-14 lg:space-y-20">
+          {panels.map((panel, index) => {
+            const step = String(index + 1).padStart(2, '0')
+
+            return (
+              <li key={`${panel.title}-${index}`}>
+                <article className="border-t pt-5 sm:pt-6">
+                  <div className="mb-4 flex items-center gap-3">
+                    <span className="font-mono text-[11px] text-muted-foreground">{step}</span>
+
+                    <span aria-hidden="true" className="h-px flex-1 bg-border/70" />
+
+                    {panel.metadata ? (
+                      <span className="text-xs text-muted-foreground">{panel.metadata}</span>
+                    ) : null}
+                  </div>
+
+                  <div className="aspect-4/3 rounded-xl bg-muted p-1 shadow-sm ring-1 shadow-black/5 ring-foreground/10 sm:aspect-16/10 dark:shadow-black/20">
+                    <figure className="relative size-full overflow-hidden rounded-lg">
+                      <Image
+                        src={panel.image.src}
+                        alt={panel.image.alt}
+                        fill
+                        className="object-cover object-top"
+                        sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 1023px) calc(100vw - 64px), 700px"
+                      />
+                    </figure>
+                  </div>
+
+                  <div className="mt-5 grid gap-2 sm:grid-cols-[0.72fr_1.28fr] sm:gap-8">
+                    <h3 className="max-w-xs text-lg font-semibold tracking-tight sm:text-xl">
+                      {panel.title}
+                    </h3>
+
+                    <p className="max-w-lg text-sm leading-6 text-muted-foreground">
+                      {panel.description}
                     </p>
                   </div>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </div>
+                </article>
+              </li>
+            )
+          })}
+        </ol>
       </div>
     </section>
   )
 }
-
-export default ProcessSectionOne

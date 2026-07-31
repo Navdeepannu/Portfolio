@@ -767,25 +767,90 @@
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "project-gallery-one",
-      "title": "Project Gallery One",
-      "description": "A horizontally scrollable project gallery with an accessible image viewer and keyboard navigation.",
+      "name": "content-section-one",
+      "title": "Content Section One",
+      "description": "A restrained principles section with a clear introduction and a responsive set of supporting ideas.",
       "dependencies": [
-        "lucide-react"
+        "motion"
       ],
       "registryDependencies": [
-        "dialog",
-        "button"
+        "https://ui.navdeepsingh.dev/r/fast-by-default-illustration.json",
+        "https://ui.navdeepsingh.dev/r/designed-for-focus-illustration.json",
+        "https://ui.navdeepsingh.dev/r/flexible-at-scale-illustration.json"
       ],
       "files": [
         {
-          "path": "components/blocks/content/project-gallery-one.tsx",
+          "path": "components/blocks/content/content-section-one.tsx",
           "type": "registry:component",
-          "target": "@components/blocks/content/project-gallery-one.tsx"
+          "target": "@components/blocks/content/content-section-one.tsx"
         }
       ],
       "categories": [
         "content"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "content-section-two",
+      "title": "Content Section Two",
+      "description": "An editorial product story with balanced copy, configurable local media, and optional caption metadata.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/blocks/content/content-section-two.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/content/content-section-two.tsx"
+        }
+      ],
+      "categories": [
+        "content"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "content-section-three",
+      "title": "Content Section Three",
+      "description": "A structured feature grid with one dominant narrative and two focused supporting ideas.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.navdeepsingh.dev/r/release-workflow-illustration.json"
+      ],
+      "files": [
+        {
+          "path": "components/blocks/content/content-section-three.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/content/content-section-three.tsx"
+        }
+      ],
+      "categories": [
+        "content"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "blog-section-one",
+      "title": "Blog Section One",
+      "description": "A semantic blog archive grouped by year, with aligned dates, useful metadata, and accessible row links.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/blocks/blog/blog-section-one.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/blog/blog-section-one.tsx"
+        }
+      ],
+      "categories": [
+        "blog"
       ],
       "type": "registry:block"
     },
@@ -843,17 +908,11 @@
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "process-section-one",
-      "title": "Process Section One",
-      "description": "A service delivery section with typed process steps and a reusable project pipeline illustration.",
+      "name": "content-section-four",
+      "title": "Content Section Four",
+      "description": "A sticky how-it-works narrative with a normal mobile flow and a sequence of image-led process panels.",
       "dependencies": [
         "lucide-react"
-      ],
-      "registryDependencies": [
-        "badge",
-        "button",
-        "card",
-        "https://ui.navdeepsingh.dev/r/delivery-pipeline.json"
       ],
       "files": [
         {
@@ -1030,17 +1089,86 @@
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "delivery-pipeline",
-      "title": "Delivery Pipeline Illustration",
-      "description": "A responsive three-stage project delivery illustration for service and product workflows.",
+      "name": "fast-by-default-illustration",
+      "title": "Fast by Default Illustration",
+      "description": "An interactive field of animated speed lines with reduced-motion support.",
       "dependencies": [
-        "lucide-react"
+        "motion"
       ],
       "files": [
         {
-          "path": "components/illustrations/delivery-pipeline.tsx",
+          "path": "components/illustrations/FastByDefaultIllustration.tsx",
           "type": "registry:component",
-          "target": "@components/illustrations/delivery-pipeline.tsx"
+          "target": "@components/illustrations/FastByDefaultIllustration.tsx"
+        }
+      ],
+      "type": "registry:component"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "designed-for-focus-illustration",
+      "title": "Designed for Focus Illustration",
+      "description": "An interactive focus illustration with concentric motion and reduced-motion support.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "components/illustrations/DesignedForFocusIllustration.tsx",
+          "type": "registry:component",
+          "target": "@components/illustrations/DesignedForFocusIllustration.tsx"
+        }
+      ],
+      "type": "registry:component"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "flexible-at-scale-illustration",
+      "title": "Flexible at Scale Illustration",
+      "description": "An interactive spring-based line field that responds to pointer movement.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "components/illustrations/FlexibleAtScaleIllustration.tsx",
+          "type": "registry:component",
+          "target": "@components/illustrations/FlexibleAtScaleIllustration.tsx"
+        }
+      ],
+      "type": "registry:component"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "release-workflow-illustration",
+      "title": "Release Workflow Illustration",
+      "description": "An interactive release tracker with configurable workflow data and autoplay.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "components/illustrations/ReleaseWorkflowIllustration.tsx",
+          "type": "registry:component",
+          "target": "@components/illustrations/ReleaseWorkflowIllustration.tsx"
+        }
+      ],
+      "type": "registry:component"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "revision-cycles-illustration",
+      "title": "Revision Cycles Illustration",
+      "description": "An interactive comparison of eliminated and remaining revision rounds.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "components/illustrations/RevisionCyclesIllustration.tsx",
+          "type": "registry:component",
+          "target": "@components/illustrations/RevisionCyclesIllustration.tsx"
         }
       ],
       "type": "registry:component"

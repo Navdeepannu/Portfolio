@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "items": [
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "blog-section-one",
+      "type": "registry:block",
+      "title": "Blog Section One",
+      "description": "A semantic blog archive grouped by year, with aligned dates, useful metadata, and accessible row links.",
+      "categories": ["blog"],
+      "dependencies": ["lucide-react"],
+      "files": [
+        {
+          "path": "blog-section-one.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/blog/blog-section-one.tsx"
+        }
+      ]
+    }
+  ]
+}

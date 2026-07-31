@@ -11,17 +11,17 @@ const ctaSectionOneData = {
     'Start building today or talk with our team to find the right plan for your business.',
   primaryAction: {
     label: 'Get started',
-    href: '/get-started',
+    href: '#',
   },
   secondaryAction: {
     label: 'Contact sales',
-    href: '/contact',
+    href: '#',
   },
 }
 
 type CtaSectionOneProps = ComponentProps<'section'>
 
-export function CtaSectionOne({ className, ...props }: CtaSectionOneProps) {
+export default function CtaSectionOne({ className, ...props }: CtaSectionOneProps) {
   return (
     <section
       data-slot="cta-section-one"
@@ -29,7 +29,7 @@ export function CtaSectionOne({ className, ...props }: CtaSectionOneProps) {
       {...props}
     >
       <div className="mx-auto max-w-6xl">
-        <div className="relative isolate overflow-hidden rounded-3xl border bg-card px-6 py-16 text-center shadow-xl shadow-foreground/5 sm:px-12 sm:py-20">
+        <div className="relative isolate overflow-hidden rounded-3xl bg-card px-6 py-16 text-center shadow-xl ring shadow-black/12 ring-foreground/10 sm:px-12 sm:py-20">
           <div className="relative mx-auto max-w-3xl">
             <h2 className="text-3xl font-semibold tracking-tight text-balance text-foreground sm:text-5xl">
               {ctaSectionOneData.heading}
@@ -64,5 +64,3 @@ export function CtaSectionOne({ className, ...props }: CtaSectionOneProps) {
     </section>
   )
 }
-
-export default CtaSectionOne
