@@ -382,7 +382,7 @@ export function Example() {
     defineComponent({
       slug: 'expandable-card',
       title: 'Expandable Card',
-      image: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlx629Fkg7C4maJxGZf1yUPI6YWNcVgE0T9hXu',
+      image: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlSoC1OywE8Bm2KWO3IgkTqwviNajx6JyfGHAQ',
       description:
         'A compound card-dialog component for composing a compact trigger and a fully custom expanded experience with shared-layout motion.',
       registryDescription:

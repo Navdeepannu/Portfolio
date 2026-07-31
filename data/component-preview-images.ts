@@ -28,8 +28,8 @@ const COMPONENT_PREVIEW_IMAGE_MAP: Partial<Record<string, ComponentPreviewImageS
     height: 1920,
   },
   'expandable-card': {
-    light: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlx629Fkg7C4maJxGZf1yUPI6YWNcVgE0T9hXu',
-    dark: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlx629Fkg7C4maJxGZf1yUPI6YWNcVgE0T9hXu',
+    light: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlSoC1OywE8Bm2KWO3IgkTqwviNajx6JyfGHAQ',
+    dark: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlU731ePXMcP1suvnB5JoeGFDfSm7wChl8LtpH',
     width: 1080,
     height: 1920,
   },
@@ -41,7 +41,9 @@ const COMPONENT_PREVIEW_IMAGE_MAP: Partial<Record<string, ComponentPreviewImageS
   },
 }
 
-export function getComponentPreviewImages(component: ComponentDefinition): ComponentPreviewImageSet {
+export function getComponentPreviewImages(
+  component: ComponentDefinition,
+): ComponentPreviewImageSet {
   const mapped = COMPONENT_PREVIEW_IMAGE_MAP[component.slug]
   if (mapped) return mapped
 

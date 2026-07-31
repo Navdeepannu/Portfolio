@@ -18,6 +18,7 @@ const CATEGORY_ORDER: BlockCategoryId[] = [
   'sign-up',
   'logo-cloud',
   'content',
+  'blog',
   'teams',
   'testimonials',
   'cta',
@@ -52,8 +53,8 @@ const CATEGORY_META: Record<string, { name: string; description?: string }> = {
     description: 'Plan comparisons and conversion-ready pricing layouts.',
   },
   process: {
-    name: 'Process',
-    description: 'How-it-works and service delivery sections with clear next steps.',
+    name: 'How It Works',
+    description: 'Step-by-step product workflows and service delivery sections.',
   },
   'forgot-password': {
     name: 'Forgot Password',
@@ -70,6 +71,10 @@ const CATEGORY_META: Record<string, { name: string; description?: string }> = {
   content: {
     name: 'Content',
     description: 'Editorial galleries, project showcases, and readable content layouts.',
+  },
+  blog: {
+    name: 'Blog',
+    description: 'Writing archives, article collections, changelogs, and publication indexes.',
   },
   teams: {
     name: 'Teams',

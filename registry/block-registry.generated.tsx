@@ -2,15 +2,23 @@
 
 import type { ComponentType } from 'react'
 
+import BlogSectionOne from '@/components/blocks/blog/blog-section-one'
 import ContactSectionFour from '@/components/blocks/contact/contact-section-four'
 import ContactSectionOne from '@/components/blocks/contact/contact-section-one'
 import ContactSectionThree from '@/components/blocks/contact/contact-section-three'
 import ContactSectionTwo from '@/components/blocks/contact/contact-section-two'
+import ContentSectionFour from '@/components/blocks/content/content-section-four'
+import ContentSectionOne from '@/components/blocks/content/content-section-one'
+import ContentSectionThree from '@/components/blocks/content/content-section-three'
+import ContentSectionTwo from '@/components/blocks/content/content-section-two'
 import CtaSectionOne from '@/components/blocks/cta/cta-section-one'
+import CtaSectionThree from '@/components/blocks/cta/cta-section-three'
+import CtaSectionTwo from '@/components/blocks/cta/cta-section-two'
 import FaqSectionOne from '@/components/blocks/faqs/faq-section-one'
 import FaqSectionThree from '@/components/blocks/faqs/faq-section-three'
 import FaqsSectionTwo from '@/components/blocks/faqs/faqs-section-two'
 import FeatureSectionOne from '@/components/blocks/features/feature-section-one'
+import FeatureSectionTwo from '@/components/blocks/features/feature-section-two'
 import FooterSectionOne from '@/components/blocks/footer/footer-section-one'
 import FooterSectionTwo from '@/components/blocks/footer/footer-section-two'
 import ForgotPasswordOne from '@/components/blocks/auth/forgot-password-one'
@@ -31,7 +39,6 @@ import LogoCloudThree from '@/components/blocks/logo-cloud/logo-cloud-three'
 import LogoCloudTwo from '@/components/blocks/logo-cloud/logo-cloud-two'
 import PricingSectionOne from '@/components/blocks/pricing/pricing-section-one'
 import ProcessSectionOne from '@/components/blocks/process/process-section-one'
-import ProjectGalleryOne from '@/components/blocks/content/project-gallery-one'
 import SignUpOne from '@/components/blocks/auth/sign-up-one'
 import SignUpTwo from '@/components/blocks/auth/sign-up-two'
 import StatsSectionOne from '@/components/blocks/stats/stats-section-one'
@@ -50,6 +57,17 @@ function entry(definition: BlockDefinition, Component: ComponentType): BlockRegi
 }
 
 export const blockRegistryEntries: BlockRegistryEntry[] = [
+  entry(
+    defineBlock({
+      slug: 'blog-section-one',
+      title: 'Blog Section One',
+      description: '',
+      category: 'blog',
+      tags: ['blog', 'blog'],
+      sourceFiles: [{ path: 'components/blocks/blog/blog-section-one.tsx', language: 'tsx' }],
+    }),
+    BlogSectionOne,
+  ),
   entry(
     defineBlock({
       slug: 'contact-section-four',
@@ -96,6 +114,50 @@ export const blockRegistryEntries: BlockRegistryEntry[] = [
   ),
   entry(
     defineBlock({
+      slug: 'content-section-four',
+      title: 'Content Section Four',
+      description: '',
+      category: 'content',
+      tags: ['content', 'content'],
+      sourceFiles: [{ path: 'components/blocks/content/content-section-four.tsx', language: 'tsx' }],
+    }),
+    ContentSectionFour,
+  ),
+  entry(
+    defineBlock({
+      slug: 'content-section-one',
+      title: 'Content Section One',
+      description: '',
+      category: 'content',
+      tags: ['content', 'content'],
+      sourceFiles: [{ path: 'components/blocks/content/content-section-one.tsx', language: 'tsx' }],
+    }),
+    ContentSectionOne,
+  ),
+  entry(
+    defineBlock({
+      slug: 'content-section-three',
+      title: 'Content Section Three',
+      description: '',
+      category: 'content',
+      tags: ['content', 'content'],
+      sourceFiles: [{ path: 'components/blocks/content/content-section-three.tsx', language: 'tsx' }],
+    }),
+    ContentSectionThree,
+  ),
+  entry(
+    defineBlock({
+      slug: 'content-section-two',
+      title: 'Content Section Two',
+      description: '',
+      category: 'content',
+      tags: ['content', 'content'],
+      sourceFiles: [{ path: 'components/blocks/content/content-section-two.tsx', language: 'tsx' }],
+    }),
+    ContentSectionTwo,
+  ),
+  entry(
+    defineBlock({
       slug: 'cta-section-one',
       title: 'Cta Section One',
       description: '',
@@ -104,6 +166,28 @@ export const blockRegistryEntries: BlockRegistryEntry[] = [
       sourceFiles: [{ path: 'components/blocks/cta/cta-section-one.tsx', language: 'tsx' }],
     }),
     CtaSectionOne,
+  ),
+  entry(
+    defineBlock({
+      slug: 'cta-section-three',
+      title: 'Cta Section Three',
+      description: '',
+      category: 'cta',
+      tags: ['cta', 'cta'],
+      sourceFiles: [{ path: 'components/blocks/cta/cta-section-three.tsx', language: 'tsx' }],
+    }),
+    CtaSectionThree,
+  ),
+  entry(
+    defineBlock({
+      slug: 'cta-section-two',
+      title: 'Cta Section Two',
+      description: '',
+      category: 'cta',
+      tags: ['cta', 'cta'],
+      sourceFiles: [{ path: 'components/blocks/cta/cta-section-two.tsx', language: 'tsx' }],
+    }),
+    CtaSectionTwo,
   ),
   entry(
     defineBlock({
@@ -148,6 +232,17 @@ export const blockRegistryEntries: BlockRegistryEntry[] = [
       sourceFiles: [{ path: 'components/blocks/features/feature-section-one.tsx', language: 'tsx' }],
     }),
     FeatureSectionOne,
+  ),
+  entry(
+    defineBlock({
+      slug: 'feature-section-two',
+      title: 'Feature Section Two',
+      description: '',
+      category: 'features',
+      tags: ['features', 'features'],
+      sourceFiles: [{ path: 'components/blocks/features/feature-section-two.tsx', language: 'tsx' }],
+    }),
+    FeatureSectionTwo,
   ),
   entry(
     defineBlock({
@@ -368,17 +463,6 @@ export const blockRegistryEntries: BlockRegistryEntry[] = [
       sourceFiles: [{ path: 'components/blocks/process/process-section-one.tsx', language: 'tsx' }],
     }),
     ProcessSectionOne,
-  ),
-  entry(
-    defineBlock({
-      slug: 'project-gallery-one',
-      title: 'Project Gallery One',
-      description: '',
-      category: 'content',
-      tags: ['content', 'content'],
-      sourceFiles: [{ path: 'components/blocks/content/project-gallery-one.tsx', language: 'tsx' }],
-    }),
-    ProjectGalleryOne,
   ),
   entry(
     defineBlock({

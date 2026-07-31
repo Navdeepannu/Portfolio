@@ -10,11 +10,15 @@ import { Button } from '@/components/ui/button'
 import { CopyButton } from '@/components/ui/components/copy-button'
 import { CodeBlockCommand } from '@/components/ui/components/code-block-command'
 import ApprovalPanelIllustration from '@/components/illustrations/approval-panel'
-import DeliveryPipelineIllustration from '@/components/illustrations/delivery-pipeline'
+import DesignedForFocusIllustration from '@/components/illustrations/DesignedForFocusIllustration'
+import FastByDefaultIllustration from '@/components/illustrations/FastByDefaultIllustration'
+import FlexibleAtScaleIllustration from '@/components/illustrations/FlexibleAtScaleIllustration'
 import MatchingPanelIllustration from '@/components/illustrations/matching-panel'
 import PaymentCardIllustration from '@/components/illustrations/payment-card'
 import ReceiptPanelIllustration from '@/components/illustrations/receipt-panel'
+import ReleaseWorkflowIllustration from '@/components/illustrations/ReleaseWorkflowIllustration'
 import ReportPanelIllustration from '@/components/illustrations/report-panel'
+import RevisionCyclesIllustration from '@/components/illustrations/RevisionCyclesIllustration'
 import WorkflowDeskIllustration from '@/components/illustrations/workflow-desk'
 import { cn } from '@/lib/utils'
 import { getInstallCommands } from '@/site/block-install-commands'
@@ -28,7 +32,7 @@ type IllustrationItem = {
   registrySlug: string
   size: IllustrationSize
   previewClassName?: string
-  Component: ComponentType<{ className?: string }>
+  Component: ComponentType
 }
 
 type IllustrationSourceFile = {
@@ -92,12 +96,41 @@ const illustrations: IllustrationItem[] = [
     Component: ApprovalPanelIllustration,
   },
   {
-    slug: 'delivery-pipeline',
-    name: 'Delivery Pipeline',
-    registrySlug: 'delivery-pipeline',
+    slug: 'fast-by-default-illustration',
+    name: 'Fast by Default',
+    registrySlug: 'fast-by-default-illustration',
+    size: 'sm',
+    Component: FastByDefaultIllustration,
+  },
+  {
+    slug: 'designed-for-focus-illustration',
+    name: 'Designed for Focus',
+    registrySlug: 'designed-for-focus-illustration',
+    size: 'sm',
+    Component: DesignedForFocusIllustration,
+  },
+  {
+    slug: 'flexible-at-scale-illustration',
+    name: 'Flexible at Scale',
+    registrySlug: 'flexible-at-scale-illustration',
+    size: 'sm',
+    Component: FlexibleAtScaleIllustration,
+  },
+  {
+    slug: 'release-workflow-illustration',
+    name: 'Release Workflow',
+    registrySlug: 'release-workflow-illustration',
     size: 'wide',
-    previewClassName: 'max-w-150',
-    Component: DeliveryPipelineIllustration,
+    previewClassName: 'w-full max-w-lg',
+    Component: ReleaseWorkflowIllustration,
+  },
+  {
+    slug: 'revision-cycles-illustration',
+    name: 'Revision Cycles',
+    registrySlug: 'revision-cycles-illustration',
+    size: 'wide',
+    previewClassName: 'w-full max-w-xl',
+    Component: RevisionCyclesIllustration,
   },
 ]
 

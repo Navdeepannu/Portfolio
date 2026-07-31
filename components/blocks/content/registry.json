@@ -3,18 +3,55 @@
   "items": [
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "project-gallery-one",
+      "name": "content-section-one",
       "type": "registry:block",
-      "title": "Project Gallery One",
-      "description": "A horizontally scrollable project gallery with an accessible image viewer and keyboard navigation.",
+      "title": "Content Section One",
+      "description": "A restrained principles section with a clear introduction and a responsive set of supporting ideas.",
       "categories": ["content"],
-      "dependencies": ["lucide-react"],
-      "registryDependencies": ["dialog", "button"],
+      "dependencies": ["motion"],
+      "registryDependencies": [
+        "@navdeep-singh/fast-by-default-illustration",
+        "@navdeep-singh/designed-for-focus-illustration",
+        "@navdeep-singh/flexible-at-scale-illustration"
+      ],
       "files": [
         {
-          "path": "project-gallery-one.tsx",
+          "path": "content-section-one.tsx",
           "type": "registry:component",
-          "target": "@components/blocks/content/project-gallery-one.tsx"
+          "target": "@components/blocks/content/content-section-one.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "content-section-two",
+      "type": "registry:block",
+      "title": "Content Section Two",
+      "description": "An editorial product story with balanced copy, configurable local media, and optional caption metadata.",
+      "categories": ["content"],
+      "dependencies": ["lucide-react"],
+      "files": [
+        {
+          "path": "content-section-two.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/content/content-section-two.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "content-section-three",
+      "type": "registry:block",
+      "title": "Content Section Three",
+      "description": "A structured feature grid with one dominant narrative and two focused supporting ideas.",
+      "categories": ["content"],
+      "dependencies": ["lucide-react", "motion"],
+      "registryDependencies": ["@navdeep-singh/release-workflow-illustration"],
+      "files": [
+        {
+          "path": "content-section-three.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/content/content-section-three.tsx"
         }
       ]
     }

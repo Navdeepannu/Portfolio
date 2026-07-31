@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "content-section-three",
+  "title": "Content Section Three",
+  "description": "A structured feature grid with one dominant narrative and two focused supporting ideas.",
+  "dependencies": [
+    "lucide-react",
+    "motion"
+  ],
+  "registryDependencies": [
+    "https://ui.navdeepsingh.dev/r/release-workflow-illustration.json"
+  ],
+  "files": [
+    {
+      "path": "components/blocks/content/content-section-three.tsx",
+      "content": "'use client'\n\nimport type { ComponentProps } from 'react'\nimport { ArrowUpRight } from 'lucide-react'\n\nimport {\n  defaultReleaseWorkflow,\n  ReleaseWorkflowIllustration,\n  type ContentSectionThreeWorkflow,\n} from '@/components/illustrations/ReleaseWorkflowIllustration'\nimport { cn } from '@/lib/utils'\n\nexport type {\n  ContentSectionThreeRelease,\n  ContentSectionThreeWorkflow,\n} from '@/components/illustrations/ReleaseWorkflowIllustration'\n\nexport type ContentSectionThreeContent = {\n  eyebrow: string\n  heading: string\n  description: string\n  link?: {\n    label: string\n    href: string\n  }\n}\n\nexport type ContentSectionThreeProps = Omit<ComponentProps<'section'>, 'children' | 'content'> & {\n  content?: ContentSectionThreeContent\n  workflow?: ContentSectionThreeWorkflow\n  autoPlay?: boolean\n  interval?: number\n}\n\nconst defaultContent: ContentSectionThreeContent = {\n  eyebrow: 'Release tracking',\n  heading: 'Show exactly what shipped and where it landed.',\n  description: 'Track every release with its status, environment, commit, and notes in one place.',\n  link: {\n    label: 'Browse release history',\n    href: '#release-workflow',\n  },\n}\n\nexport function ContentSectionThree({\n  className,\n  content = defaultContent,\n  workflow = defaultReleaseWorkflow,\n  autoPlay = true,\n  interval = 4000,\n  ...props\n}: ContentSectionThreeProps) {\n  return (\n    <section\n      data-slot=\"content-section-three\"\n      className={cn(\n        'relative overflow-hidden border-y bg-background py-20 text-foreground sm:py-28',\n        className,\n      )}\n      {...props}\n    >\n      <div className=\"relative mx-auto grid w-full max-w-6xl items-center gap-12 px-5 sm:px-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(22rem,0.75fr)] lg:gap-16\">\n        <div className=\"max-w-2xl\">\n          <p className=\"text-sm font-medium text-muted-foreground\">{content.eyebrow}</p>\n\n          <h2 className=\"mt-4 text-2xl font-semibold tracking-tight text-balance sm:text-3xl lg:text-4xl\">\n            {content.heading}\n          </h2>\n\n          <p className=\"mt-5 max-w-xl text-base leading-7 text-balance text-muted-foreground\">\n            {content.description}\n          </p>\n\n          {content.link ? (\n            <a\n              href={content.link.href}\n              className={cn(\n                'mt-12 inline-flex min-h-11 items-center gap-2 text-sm font-medium',\n                'underline-offset-4 hover:underline',\n                'focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring',\n              )}\n            >\n              {content.link.label}\n\n              <ArrowUpRight aria-hidden=\"true\" className=\"size-4\" />\n            </a>\n          ) : null}\n        </div>\n\n        <div className=\"w-full lg:justify-self-end\">\n          <ReleaseWorkflowIllustration\n            workflow={workflow}\n            autoPlay={autoPlay}\n            interval={interval}\n          />\n        </div>\n      </div>\n    </section>\n  )\n}\n\nexport default ContentSectionThree\n",
+      "type": "registry:component",
+      "target": "@components/blocks/content/content-section-three.tsx"
+    }
+  ],
+  "categories": [
+    "content"
+  ],
+  "type": "registry:block"
+}

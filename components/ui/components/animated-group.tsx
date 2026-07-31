@@ -39,6 +39,7 @@ export type AnimatedGroupProps = {
   preset?: PresetType
   as?: React.ElementType
   asChild?: React.ElementType
+  delay?: number
 }
 
 type AnimationStates = {
@@ -154,6 +155,7 @@ function AnimatedGroup({
   preset,
   as = 'div',
   asChild = 'div',
+  delay = 0,
 }: AnimatedGroupProps) {
   const selectedVariants = {
     item: addDefaultVariants(preset ? presetVariants[preset] : {}),
@@ -161,8 +163,20 @@ function AnimatedGroup({
   }
 
   const containerVariants = variants?.container ?? selectedVariants.container
+  const baseItemVariants = variants?.item ?? selectedVariants.item
 
-  const itemVariants = variants?.item ?? selectedVariants.item
+  const itemVariants: Variants = {
+    ...baseItemVariants,
+    visible: {
+      ...(typeof baseItemVariants.visible === 'object' ? baseItemVariants.visible : {}),
+      transition: {
+        ...(typeof baseItemVariants.visible === 'object' && baseItemVariants.visible.transition
+          ? baseItemVariants.visible.transition
+          : {}),
+        delay,
+      },
+    },
+  }
 
   return (
     <MotionElement
