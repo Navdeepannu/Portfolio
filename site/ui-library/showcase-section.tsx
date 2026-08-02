@@ -2,6 +2,7 @@
 
 import React from 'react'
 
+import { asset } from '@/lib/assets'
 import { SITE_ORIGINS } from '@/lib/sites'
 import Masonry from '@/site/masonry-grid'
 
@@ -11,58 +12,63 @@ interface LandingProjectsProps {
 const items = [
   {
     id: '2',
-    img: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlzyCwl1GLxvDQCGptolAdz7ghSeXqVYN9E24H',
+    img: asset('hero-light.png'),
+    imgDark: asset('hero-dark.png'),
     url: `${SITE_ORIGINS.ui}/blocks/hero`,
   },
   {
     id: '3',
-    img: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTltgWg2wAncYx8GiQaPmyboup14RwlrMzW3IA9',
-    url: `${SITE_ORIGINS.ui}/blocks/logo-cloud`,
+    img: asset('faq-light.png'),
+    imgDark: asset('faq-dark.png'),
+    url: `${SITE_ORIGINS.ui}/blocks/faqs`,
   },
   {
     id: '4',
-    img: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlQICKERjBWY7XQAxMKNls4T6nZb0U2pHvfS9G',
+    img: asset('footer-light.png'),
+    imgDark: asset('footer-dark.png'),
     url: `${SITE_ORIGINS.ui}/blocks/footer`,
   },
   {
     id: '5',
-    img: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlNP5cqDeJIMXrF35vasVbLAD0jBGhUEyeltu8',
+    img: asset('logo-cloud-light.png'),
+    imgDark: asset('logo-cloud-dark.png'),
     url: `${SITE_ORIGINS.ui}/blocks/logo-cloud`,
   },
   {
     id: '6',
-    img: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlVinCr1kua1nwvRWLo6bCcepS4YzPXjuFMh7T',
-    url: `${SITE_ORIGINS.ui}/blocks/hero`,
+    img: asset('content-light.png'),
+    imgDark: asset('content-dark.png'),
+    url: `${SITE_ORIGINS.ui}/blocks/content`,
   },
   {
     id: '7',
-    img: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTluWJOBoa0NZaY9AGeqk23D8IxEFOyV1srnSBw',
+    img: asset('teams-light.png'),
+    imgDark: asset('teams-dark.png'),
     url: `${SITE_ORIGINS.ui}/blocks/teams`,
   },
   {
     id: '8',
     img: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlTxAO7Jhdub1qHgxLFNhzr80OKpXcDswBitAY',
-    url: `${SITE_ORIGINS.ui}/blocks`,
+    imgDark: asset('rail-nav-dark.png'),
+    url: `${SITE_ORIGINS.ui}/components/rail-nav`,
   },
   {
     id: '9',
-    img: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlxMptHdg7C4maJxGZf1yUPI6YWNcVgE0T9hXu',
-    url: `${SITE_ORIGINS.ui}/blocks`,
+    img: asset('cta-light.png'),
+    imgDark: asset('cta-dark.png'),
+    url: `${SITE_ORIGINS.ui}/blocks/cta`,
   },
   {
     id: '10',
-    img: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlIU24l7uN5NM8tUJvn9haERPTBFr4HXxQoWsw',
-    url: `${SITE_ORIGINS.ui}/blocks`,
+    img: asset('stats-light.png'),
+    imgDark: asset('stats-dark.png'),
+    url: `${SITE_ORIGINS.ui}/blocks/stats`,
   },
   {
     id: '11',
-    img: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTltgWg2wAncYx8GiQaPmyboup14RwlrMzW3IA9',
-    url: `${SITE_ORIGINS.ui}/blocks/logo-cloud`,
-  },
-  {
-    id: '12',
-    img: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTla061friSJOXQxRe6zTuKjbhs70mMEZD2U1Aw',
-    url: `${SITE_ORIGINS.ui}/blocks`,
+    img: asset('Animated-tabs-light.png'),
+    imgDark: asset('Animated-tabs-dark.png'),
+    url: `${SITE_ORIGINS.ui}/components/animated-tabs`,
   },
 ]
 export const ShowcaseSection: React.FC<LandingProjectsProps> = () => {
