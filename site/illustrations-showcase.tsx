@@ -148,7 +148,6 @@ function IllustrationTile({
     <article
       className={cn(
         'group relative isolate flex items-center justify-center bg-background p-8 md:p-10 lg:p-12',
-        'transition-colors duration-200 hover:bg-muted/20 dark:hover:bg-white/2',
         sizeClassName[item.size],
       )}
     >
