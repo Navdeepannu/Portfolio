@@ -36,6 +36,7 @@ export function LandingBentoGrid({
           alt={`${title} category preview`}
           width={imageWidth}
           height={imageHeight}
+          unoptimized={process.env.NODE_ENV === 'development'}
           className="h-auto w-full object-cover dark:hidden"
           sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
         />
@@ -44,6 +45,7 @@ export function LandingBentoGrid({
           alt={`${title} category preview`}
           width={imageWidth}
           height={imageHeight}
+          unoptimized={process.env.NODE_ENV === 'development'}
           className="hidden h-auto w-full object-cover dark:block"
           sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
         />

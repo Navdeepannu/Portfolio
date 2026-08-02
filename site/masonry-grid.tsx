@@ -57,6 +57,7 @@ const useMeasure = <T extends HTMLElement>() => {
 interface Item {
   id: string
   img: string
+  imgDark?: string
   url?: string
 }
 
@@ -311,7 +312,6 @@ const Masonry: React.FC<MasonryProps> = ({
           key={item.id}
           data-key={item.id}
           href={item.url}
-          target="_blank"
           rel="noreferrer"
           className="absolute block cursor-pointer overflow-hidden rounded-lg border border-border/70 bg-muted shadow-[0px_10px_50px_-20px_rgba(0,0,0,0.35)]"
           style={{
@@ -320,7 +320,20 @@ const Masonry: React.FC<MasonryProps> = ({
           onMouseEnter={(e) => handleMouseEnter(item.id, e.currentTarget)}
           onMouseLeave={(e) => handleMouseLeave(item.id, e.currentTarget)}
         >
-          <img src={item.img} alt="" draggable={false} className="h-full w-full object-cover" />
+          <img
+            src={item.img}
+            alt=""
+            draggable={false}
+            className={`h-full w-full object-cover ${item.imgDark ? 'dark:hidden' : ''}`}
+          />
+          {item.imgDark && (
+            <img
+              src={item.imgDark}
+              alt=""
+              draggable={false}
+              className="hidden h-full w-full object-cover dark:block"
+            />
+          )}
 
           {colorShiftOnHover && (
             <div className="color-overlay pointer-events-none absolute inset-0 bg-linear-to-tr from-pink-500/50 to-sky-500/50 opacity-0" />
