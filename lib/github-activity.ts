@@ -7,7 +7,7 @@ import {
 
 const GITHUB_ACTIVITY_QUERY = `
   query GitHubActivity($searchQuery: String!) {
-    search(query: $searchQuery, type: ISSUE, first: 6) {
+    search(query: $searchQuery, type: ISSUE, first: 100) {
       nodes {
         __typename
 
@@ -71,6 +71,35 @@ const dateFormatter = new Intl.DateTimeFormat('en-CA', {
   timeZone: 'UTC',
 })
 
+const REPOSITORY_LIMIT = 2
+const ITEMS_PER_REPOSITORY = 2
+
+function selectRecentPullRequests(nodes: Array<PullRequestNode | null>) {
+  const repositories = new Map<string, Array<PullRequestNode & { mergedAt: string }>>()
+  const pullRequests = nodes
+    .filter(isMergedPullRequest)
+    .sort((a, b) => Date.parse(b.mergedAt) - Date.parse(a.mergedAt))
+
+  for (const pullRequest of pullRequests) {
+    const repositoryKey = pullRequest.repository.nameWithOwner.toLowerCase()
+    const repositoryItems = repositories.get(repositoryKey)
+
+    if (repositoryItems) {
+      if (repositoryItems.length < ITEMS_PER_REPOSITORY) {
+        repositoryItems.push(pullRequest)
+      }
+
+      continue
+    }
+
+    if (repositories.size < REPOSITORY_LIMIT) {
+      repositories.set(repositoryKey, [pullRequest])
+    }
+  }
+
+  return Array.from(repositories.values()).flat()
+}
+
 export async function getGithubActivity(): Promise<GithubActivityPreview> {
   const fallback = landingPageContent.githubActivity
   const token = process.env.GITHUB_TOKEN
@@ -114,21 +143,18 @@ export async function getGithubActivity(): Promise<GithubActivityPreview> {
       throw new Error(payload.errors?.[0]?.message ?? 'GitHub returned no activity data')
     }
 
-    const items = payload.data.search.nodes
-      .filter(isMergedPullRequest)
-      .slice(0, 3)
-      .map((pullRequest) => ({
-        repository: pullRequest.repository.nameWithOwner,
-        repositoryHref: pullRequest.repository.url,
-        title: pullRequest.title,
-        href: pullRequest.url,
-        date: dateFormatter.format(new Date(pullRequest.mergedAt)),
-        dateTime: pullRequest.mergedAt,
-        status: 'Merged' as const,
-        additions: pullRequest.additions,
-        deletions: pullRequest.deletions,
-        comments: pullRequest.comments.totalCount,
-      }))
+    const items = selectRecentPullRequests(payload.data.search.nodes).map((pullRequest) => ({
+      repository: pullRequest.repository.nameWithOwner,
+      repositoryHref: pullRequest.repository.url,
+      title: pullRequest.title,
+      href: pullRequest.url,
+      date: dateFormatter.format(new Date(pullRequest.mergedAt)),
+      dateTime: pullRequest.mergedAt,
+      status: 'Merged' as const,
+      additions: pullRequest.additions,
+      deletions: pullRequest.deletions,
+      comments: pullRequest.comments.totalCount,
+    }))
 
     if (items.length === 0) {
       return fallback

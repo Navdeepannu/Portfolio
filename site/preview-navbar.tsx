@@ -92,7 +92,7 @@ export default function PreviewShell({
 
   return (
     <div className="min-h-screen">
-      {/* <PreviewNavbar name={name} fallbackHref={fallbackHref} /> */}
+      <PreviewNavbar name={name} fallbackHref={fallbackHref} />
 
       <div >{children}</div>
     </div>
