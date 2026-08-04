@@ -1,6 +1,5 @@
 import { AboutSection } from '@/site/portfolio/about-section'
 import { CapabilitiesSection } from '@/site/portfolio/capabilities-section'
-import { EducationSection } from '@/site/portfolio/education-section'
 import { ExperienceSection } from '@/site/portfolio/experience-section'
 import { LandingClosing } from '@/site/portfolio/landing-closing'
 import { LandingHeader } from '@/site/portfolio/landing-header'
@@ -15,7 +14,6 @@ export function PortfolioPage() {
         <AboutSection />
         <ExperienceSection />
         <CapabilitiesSection />
-        <EducationSection />
       </main>
       <LandingClosing />
     </div>

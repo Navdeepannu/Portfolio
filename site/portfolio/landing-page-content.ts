@@ -1,3 +1,4 @@
+import { asset } from '@/lib/assets'
 import { portfolioSiteConfig } from '@/lib/site'
 import { SITE_ORIGINS } from '@/lib/sites'
 
@@ -16,8 +17,8 @@ export type LandingProject = {
   breakout?: boolean
   images: {
     src: string
+    darkSrc?: string
     alt: string
-    aspect: 'wide' | 'standard'
     position?: 'center' | 'top'
     placeholder?: boolean
   }[]
@@ -90,9 +91,42 @@ export const landingPageContent = {
     profileHref: portfolioSiteConfig.links.github,
     items: [
       {
+        repository: 'Navdeepannu/Portfolio',
+        repositoryHref: 'https://github.com/Navdeepannu/Portfolio',
+        title: 'refactor: remove hover background transition (UI improvement',
+        date: 'Aug 2',
+        dateTime: '2026-08-02T01:36:23Z',
+        status: 'Merged',
+        href: 'https://github.com/Navdeepannu/Portfolio/pull/29',
+        additions: 0,
+        deletions: 1,
+      },
+      {
+        repository: 'Navdeepannu/Portfolio',
+        repositoryHref: 'https://github.com/Navdeepannu/Portfolio',
+        title: 'Add new navigation assets for dark and light themes',
+        date: 'Aug 2',
+        dateTime: '2026-08-02T00:56:01Z',
+        status: 'Merged',
+        href: 'https://github.com/Navdeepannu/Portfolio/pull/28',
+        additions: 138,
+        deletions: 88,
+      },
+      {
         repository: 'usekaneo/kaneo',
         repositoryHref: 'https://github.com/usekaneo/kaneo',
-        title: 'fix: prevent oversized workflow column drag preview (#1397)',
+        title: 'feat: add Saturday week-start option',
+        date: 'Jul 28',
+        dateTime: '2026-07-28T22:21:32Z',
+        status: 'Merged',
+        href: 'https://github.com/usekaneo/kaneo/pull/1416',
+        additions: 67,
+        deletions: 28,
+      },
+      {
+        repository: 'usekaneo/kaneo',
+        repositoryHref: 'https://github.com/usekaneo/kaneo',
+        title: 'fix: prevent oversized workflow column drag preview (#1394)',
         date: 'Jul 15',
         dateTime: '2026-07-15T15:26:12Z',
         status: 'Merged',
@@ -100,22 +134,6 @@ export const landingPageContent = {
         additions: 52,
         deletions: 3,
         comments: 8,
-      },
-      {
-        repository: 'Navdeepannu/Portfolio',
-        repositoryHref: 'https://github.com/Navdeepannu/Portfolio',
-        title: 'Refactor/split portfolio UI',
-        date: 'Jul 15',
-        dateTime: '2026-07-15',
-        status: 'Merged',
-      },
-      {
-        repository: 'Navdeepannu/Portfolio',
-        repositoryHref: 'https://github.com/Navdeepannu/Portfolio',
-        title: 'Add animation improvement skills and standards documentation',
-        date: 'Jul 15',
-        dateTime: '2026-07-15',
-        status: 'Merged',
       },
     ],
   } satisfies GithubActivityPreview,
@@ -129,21 +147,21 @@ export const landingPageContent = {
       breakout: true,
       images: [
         {
-          src: '/sections/design1.png',
-          alt: 'Dark healthcare landing-page block with a focused nutrition app mockup',
-          aspect: 'wide',
+          src: asset('hero-light.png'),
+          darkSrc: asset('hero-dark.png'),
+          alt: 'Healthcare landing-page block with a focused nutrition app mockup',
           position: 'top',
         },
         {
-          src: '/sections/design3.png',
-          alt: 'Light product landing-page block with an AI workspace dashboard preview',
-          aspect: 'wide',
+          src: asset('logo-cloud-light.png'),
+          darkSrc: asset('logo-cloud-dark.png'),
+          alt: 'Product landing-page block with an AI workspace dashboard preview',
           position: 'top',
         },
         {
-          src: '/sections/design2.png',
+          src: asset('teams-light.png'),
+          darkSrc: asset('teams-dark.png'),
           alt: 'Interface preview used as a temporary Nav UI project detail image',
-          aspect: 'wide',
           position: 'top',
           placeholder: true,
         },
@@ -161,21 +179,18 @@ export const landingPageContent = {
       stack: ['Next.js', 'React', 'Tailwind CSS', 'Responsive UI', 'SEO'],
       images: [
         {
-          src: '/projects/project-1.png',
+          src: asset('cable-one.png'),
           alt: 'CableLink Solutions website with service navigation and a network cabling hero',
-          aspect: 'wide',
           position: 'top',
         },
         {
-          src: '/sections/design4.png',
+          src: asset('cable-two.png'),
           alt: 'Interface preview used as a temporary CableLink Solutions project detail image',
-          aspect: 'wide',
           placeholder: true,
         },
         {
-          src: '/sections/design5.png',
+          src: asset('cable-three.png'),
           alt: 'Interface preview used as a temporary CableLink Solutions project detail image',
-          aspect: 'wide',
           placeholder: true,
         },
       ],
@@ -191,21 +206,18 @@ export const landingPageContent = {
       stack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Data handling'],
       images: [
         {
-          src: '/projects/project-2.png',
+          src: asset('invora-one.png'),
           alt: 'Invora invoice builder showing editable form fields beside a live invoice preview',
-          aspect: 'standard',
           position: 'top',
         },
         {
-          src: '/sections/design6.png',
+          src: asset('invora-two.png'),
           alt: 'Interface preview used as a temporary Invora project detail image',
-          aspect: 'wide',
           placeholder: true,
         },
         {
-          src: '/sections/design7.png',
+          src: asset('invora-three.png'),
           alt: 'Interface preview used as a temporary Invora project detail image',
-          aspect: 'wide',
           placeholder: true,
         },
       ],

@@ -116,7 +116,7 @@ function MorphingDisclosureIcon({ open }: { open: boolean }) {
 export function GithubActivityPreview({ activity }: GithubActivityPreviewProps) {
   const groups = groupActivityByRepository(activity.items)
   const [openRepositories, setOpenRepositories] = useState(
-    () => new Set(groups[0] ? [groups[0].repository] : []),
+    () => new Set(groups.slice(0, 2).map((group) => group.repository)),
   )
 
   return (

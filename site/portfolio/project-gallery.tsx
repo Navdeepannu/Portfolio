@@ -31,6 +31,12 @@ type TechnologyLogo = {
   className: string
 }
 
+type ProjectImageProps = {
+  image: LandingProject['images'][number]
+  sizes: string
+  preload?: boolean
+}
+
 const technologyLogos: Record<string, TechnologyLogo> = {
   'Next.js': {
     Icon: SiNextdotjs,
@@ -52,6 +58,48 @@ const technologyLogos: Record<string, TechnologyLogo> = {
     Icon: SiShadcnui,
     className: 'text-foreground',
   },
+}
+
+function ProjectImage({ image, sizes, preload = false }: ProjectImageProps) {
+  const positionClassName = image.position === 'top' ? 'object-top' : 'object-center'
+  const className = `object-contain ${positionClassName}`
+
+  if (!image.darkSrc) {
+    return (
+      <Image
+        src={image.src}
+        alt={image.alt}
+        fill
+        preload={preload}
+        loading="eager"
+        sizes={sizes}
+        className={className}
+      />
+    )
+  }
+
+  return (
+    <>
+      <Image
+        src={image.src}
+        alt={image.alt}
+        fill
+        loading="eager"
+        fetchPriority={preload ? 'high' : undefined}
+        sizes={sizes}
+        className={`${className} dark:hidden`}
+      />
+      <Image
+        src={image.darkSrc}
+        alt={image.alt}
+        fill
+        loading="eager"
+        fetchPriority={preload ? 'high' : undefined}
+        sizes={sizes}
+        className={`hidden ${className} dark:block`}
+      />
+    </>
+  )
 }
 
 function ProjectTechStack({
@@ -190,7 +238,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
               <ProjectLinks links={project.links} />
             </header>
 
-            <div className="mt-5 -mr-5 [scrollbar-width:none] overflow-x-auto overscroll-x-contain pr-5 pb-2 sm:-mr-8 sm:pr-8 lg:mr-0 lg:w-[calc(50vw+25.5rem)] lg:pr-0 lg:pb-3 [&::-webkit-scrollbar]:hidden">
+            <div className="mt-5 -mr-5 [scrollbar-width:none] overflow-x-auto overscroll-x-contain pt-1 pr-5 pb-2 pl-1 sm:-mr-8 sm:pr-8 lg:mr-0 lg:w-[calc(50vw+25.5rem)] lg:pr-0 lg:pb-3 [&::-webkit-scrollbar]:hidden">
               <div className="flex w-max snap-x snap-mandatory gap-4 lg:gap-5">
                 {project.images.map((image, imageIndex) => (
                   <div key={image.src} className="snap-start">
@@ -201,18 +249,13 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
                         setActiveImage({ projectIndex, imageIndex })
                       }}
                       aria-label={`Open ${project.title} image ${imageIndex + 1} of ${project.images.length}`}
-                      className="group relative aspect-4/3 w-[min(82vw,20rem)] overflow-hidden rounded-xl bg-muted ring-1 ring-border/80 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground sm:w-[min(46vw,22rem)] sm:rounded-2xl lg:w-[min(46vw,29rem)]"
+                      className="group relative aspect-16/10 w-[min(82vw,20rem)] rounded-xl bg-muted/60 p-1 shadow-sm ring-1 ring-foreground/5 transition-transform duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] hover:-translate-y-0.5 hover:scale-[1.005] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground motion-reduce:transform-none motion-reduce:transition-none sm:w-[min(46vw,22rem)] sm:rounded-2xl lg:w-[min(46vw,29rem)]"
                     >
-                      <span className="absolute inset-0">
-                        <Image
-                          src={image.src}
-                          alt={image.alt}
-                          fill
+                      <span className="relative block size-full overflow-hidden rounded-lg bg-background sm:rounded-xl">
+                        <ProjectImage
+                          image={image}
                           preload={projectIndex === 0 && imageIndex === 0}
                           sizes="(max-width: 639px) 82vw, (max-width: 767px) 46vw, (max-width: 1023px) 352px, 464px"
-                          className={`object-cover transition-transform duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.01] motion-reduce:transform-none motion-reduce:transition-none ${
-                            image.position === 'top' ? 'object-top' : 'object-center'
-                          }`}
                         />
                       </span>
                     </button>
@@ -256,12 +299,9 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
             </DialogDescription>
 
             <div className="relative aspect-16/10 overflow-hidden rounded-lg bg-muted shadow-md ring-1 ring-foreground/5.5 sm:rounded-xl">
-              <Image
-                src={activeProjectImage.src}
-                alt={activeProjectImage.alt}
-                fill
+              <ProjectImage
+                image={activeProjectImage}
                 sizes="(max-width: 1024px) calc(100vw - 4rem), 1024px"
-                className="object-contain"
               />
 
               {activeProject.images.length > 1 ? (
