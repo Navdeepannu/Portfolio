@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 
-import { UiLibraryNavbar } from '@/site/ui-library/ui-library-navbar'
+import { UiLibraryNavbar } from '@/site/ui-library/ui-library-navbar-server'
 
 export const metadata: Metadata = {
   title: 'Components',

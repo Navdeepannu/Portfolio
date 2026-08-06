@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
-import { PortfolioNavbar } from '@/site/portfolio/portfolio-navbar'
+import { PortfolioNavbar } from '@/site/portfolio/portfolio-navbar-server'
 
 export default function NotFound() {
   return (

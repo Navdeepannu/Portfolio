@@ -38,7 +38,7 @@ export function PageFrame({
         <iframe
           src={src}
           title={title}
-          sandbox="allow-scripts"
+          sandbox="allow-scripts allow-same-origin"
           className="size-full border-0 bg-background"
         />
       </div>

@@ -1,11 +1,12 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowUpRight } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { TextLoop } from '@/components/ui/text-loop'
 import Container from '@/site/container'
+
+import { GitHubStars } from './github-star'
 
 const hero = {
   roles: ['components.', 'blocks.', 'illustrations.', 'templates.'],
@@ -16,12 +17,11 @@ const hero = {
     href: '/blocks',
   },
   secondaryCTA: {
-    label: 'Browse Components',
-    href: '/components',
+    label: 'Star on GitHub',
   },
 }
 
-export function UiLibraryHero() {
+export function UiLibraryHero({ stargazersCount }: { stargazersCount: number }) {
   return (
     <section>
       <Container className="font-geist selection:bg-emerald-200/60 dark:selection:bg-emerald-500 dark:selection:text-white">
@@ -39,17 +39,20 @@ export function UiLibraryHero() {
             {hero.description}
           </p>
 
-          <div className="mt-2 flex flex-wrap items-center gap-2">
-            <Button asChild>
+          <div className="mt-2 flex flex-wrap items-center gap-4">
+            <Button asChild variant="default" size="lg" className="rounded-md">
               <Link href={hero.primaryCTA.href}>{hero.primaryCTA.label}</Link>
             </Button>
 
-            <Button asChild variant="ghost">
-              <Link href={hero.secondaryCTA.href}>
-                {hero.secondaryCTA.label}
-                <ArrowUpRight data-icon="inline-end" aria-hidden="true" className="size-4" />
-              </Link>
-            </Button>
+            <GitHubStars
+              repo="navdeepannu/portfolio"
+              stargazersCount={stargazersCount}
+              label={hero.secondaryCTA.label}
+              variant="outline"
+              size="lg"
+              className="rounded-md"
+              showTooltip={false}
+            />
           </div>
         </div>
       </Container>
