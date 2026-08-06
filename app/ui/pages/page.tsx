@@ -1,5 +1,5 @@
 import { CopyButton } from '@/components/ui/components/copy-button'
-import { UiLibraryNavbar } from '@/site/ui-library/ui-library-navbar'
+import { UiLibraryNavbar } from '@/site/ui-library/ui-library-navbar-server'
 import { getInstallCommands } from '@/site/block-install-commands'
 import Image from 'next/image'
 import Link from 'next/link'

@@ -34,13 +34,17 @@ function isNavItemActive(pathname: string, href: string) {
   return publicPathname === href || publicPathname.startsWith(`${href}/`)
 }
 
+export type UiLibraryNavbarProps = {
+  className?: string
+  fullWidth?: boolean
+  stargazersCount: number
+}
+
 export function UiLibraryNavbar({
   fullWidth = false,
   className,
-}: {
-  className?: string
-  fullWidth?: boolean
-}) {
+  stargazersCount,
+}: UiLibraryNavbarProps) {
   const pathname = usePathname()
   const { theme, setTheme } = useTheme()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -135,7 +139,10 @@ export function UiLibraryNavbar({
 
             <span className="hidden h-4 w-px bg-border md:block" />
 
-            <GitHubStars repo="navdeepannu/portfolio" stargazersCount={3} />
+            <GitHubStars
+              repo="navdeepannu/portfolio"
+              stargazersCount={stargazersCount}
+            />
 
             <Tooltip>
               <TooltipTrigger asChild>

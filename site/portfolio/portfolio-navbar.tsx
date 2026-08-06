@@ -14,10 +14,11 @@ import { Button } from '@/components/ui/button'
 import { GitHubStars } from '../ui-library/github-star'
 import Logo from '../ui-library/ui-library-logo'
 
-type PortfolioNavbarProps = {
+export type PortfolioNavbarProps = {
   fullWidth?: boolean
   className?: string
   isHome?: boolean
+  stargazersCount: number
 }
 
 function isActive(pathname: string, href: string) {
@@ -29,6 +30,7 @@ export function PortfolioNavbar({
   fullWidth = false,
   className,
   isHome = false,
+  stargazersCount,
 }: PortfolioNavbarProps) {
   const pathname = usePathname()
   const shouldReduceMotion = useReducedMotion() ?? false
@@ -98,7 +100,10 @@ export function PortfolioNavbar({
           </nav>
 
           <div className="ml-auto flex shrink-0 items-center gap-0.5 md:ml-2">
-            <GitHubStars repo="navdeepannu/portfolio" stargazersCount={3} />
+            <GitHubStars
+              repo="navdeepannu/portfolio"
+              stargazersCount={stargazersCount}
+            />
 
             <LandingThemeToggle />
 

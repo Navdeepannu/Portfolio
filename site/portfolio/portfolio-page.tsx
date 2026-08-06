@@ -2,7 +2,7 @@ import { AboutSection } from '@/site/portfolio/about-section'
 import { CapabilitiesSection } from '@/site/portfolio/capabilities-section'
 import { ExperienceSection } from '@/site/portfolio/experience-section'
 import { LandingClosing } from '@/site/portfolio/landing-closing'
-import { LandingHeader } from '@/site/portfolio/landing-header'
+import { LandingHeader } from '@/site/portfolio/landing-header-server'
 import { SelectedWorkSection } from '@/site/portfolio/selected-work-section'
 import { PortfolioFooter } from './portfolio-footer'
 

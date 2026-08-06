@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
-import { UiLibraryNavbar } from '@/site/ui-library/ui-library-navbar'
+import { UiLibraryNavbar } from '@/site/ui-library/ui-library-navbar-server'
 
 export default function NotFound() {
   return (

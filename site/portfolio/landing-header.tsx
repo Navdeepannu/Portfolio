@@ -8,8 +8,13 @@ import { landingPageContent } from '@/site/portfolio/landing-page-content'
 import { LandingRoleLoop } from '@/site/portfolio/landing-role-loop'
 import { PortfolioNavbar } from '@/site/portfolio/portfolio-navbar'
 
-export function LandingNavbar({ isHome = false }: { isHome?: boolean }) {
-  return <PortfolioNavbar isHome={isHome} />
+type LandingNavbarProps = {
+  isHome?: boolean
+  stargazersCount: number
+}
+
+export function LandingNavbar({ isHome = false, stargazersCount }: LandingNavbarProps) {
+  return <PortfolioNavbar isHome={isHome} stargazersCount={stargazersCount} />
 }
 
 const transitionVariants = {
@@ -44,12 +49,12 @@ const transitionVariants = {
   item: Variants
 }
 
-export function LandingHeader() {
+export function LandingHeader({ stargazersCount }: { stargazersCount: number }) {
   const { identity } = landingPageContent
 
   return (
     <>
-      <LandingNavbar isHome />
+      <LandingNavbar isHome stargazersCount={stargazersCount} />
 
       <section className="mx-auto max-w-4xl px-5 pt-10 pb-10 sm:px-8 sm:pt-12 sm:pb-12 lg:px-10 lg:pt-14 lg:pb-14">
         <div className="max-w-2xl">
