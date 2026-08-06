@@ -11,8 +11,8 @@ import { cn } from '@/lib/utils'
 import { SITE_ORIGINS } from '@/lib/sites'
 import { LandingThemeToggle } from '@/site/portfolio/landing-theme-toggle'
 import { Button } from '@/components/ui/button'
-import LogoMark from '@/site/ui-library/ui-library-logo'
 import { GitHubStars } from '../ui-library/github-star'
+import Logo from '../ui-library/ui-library-logo'
 
 type PortfolioNavbarProps = {
   fullWidth?: boolean
@@ -70,7 +70,7 @@ export function PortfolioNavbar({
             aria-label="Navdeep Singh — Home"
             className="inline-flex size-11 shrink-0 items-center justify-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-foreground active:scale-[0.97]"
           >
-            <LogoMark className="h-8 w-auto" />
+            <Logo className="h-8 w-auto" />
           </Link>
 
           <nav aria-label="Primary navigation" className="ml-auto hidden items-center md:flex">
@@ -170,7 +170,7 @@ export function PortfolioNavbar({
                       onClick={() => setMobileMenuOpen(false)}
                       className="inline-flex size-11 items-center justify-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-foreground active:scale-[0.97]"
                     >
-                      <LogoMark className="h-9 w-auto" />
+                      <Logo className="h-9 w-auto" />
                     </Link>
 
                     <DialogPrimitive.Close asChild>

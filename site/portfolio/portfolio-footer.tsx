@@ -2,15 +2,13 @@ import Link from 'next/link'
 import { IconBrandGithub, IconBrandX, IconBrandLinkedin } from '@tabler/icons-react'
 import { Signature } from '@/site/logo'
 import { SITE_ORIGINS } from '@/lib/sites'
-import LogoMark from '@/site/ui-library/ui-library-logo'
+import { Logo } from '@/site/ui-library/ui-library-logo'
 
 const links = [
   { label: 'Projects', href: '/projects' },
-  { label: 'About', href: '/#about' },
-  { label: 'Strengths', href: '/#technical-strengths' },
   { label: 'Resume', href: '/resume/resume.pdf' },
-  { label: 'Contact', href: '/#contact' },
-  { label: 'UI Library', href: SITE_ORIGINS.ui },
+  { label: 'Bocks', href: `${SITE_ORIGINS.ui}/blocks` },
+  { label: 'Components', href: `${SITE_ORIGINS.ui}/components` },
 ]
 
 const social = [
@@ -31,7 +29,7 @@ export function PortfolioFooter() {
       <div className="mx-auto max-w-2xl px-6">
         <div className="flex flex-col items-center text-center">
           <div className="flex items-center gap-4">
-            <LogoMark className="h-14 w-auto" />
+            <Logo className="h-14 w-auto rounded-xl bg-foreground/20 shadow-md" />
             <Signature />
           </div>
           <nav

@@ -41,4 +41,4 @@ yarn-error.log*
 next-env.d.ts
 
 #files
-/app/demo/
+/app/(app)/playground/page.tsx
