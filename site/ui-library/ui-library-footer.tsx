@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { IconBrandGithub, IconBrandLinkedin, IconBrandX } from '@tabler/icons-react'
 
 import { SITE_ORIGINS } from '@/lib/sites'
-import { LogoType } from '@/site/ui-library/ui-library-logo'
+import Logo from './ui-library-logo'
 
 const links = [
   { label: 'Components', href: '/components' },
@@ -24,7 +24,7 @@ export function UiLibraryFooter() {
             aria-label="Nav UI home"
             className="inline-flex rounded-3xl focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-foreground"
           >
-            <LogoType className="h-12 w-auto" />
+            <Logo className="h-12 w-auto" />
           </Link>
         </div>
 

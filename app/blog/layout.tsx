@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 
-import { BlogFooter } from '@/site/blog/blog-footer'
-import { BlogHeader } from '@/site/blog/blog-header'
+import { PortfolioNavbar } from '@/site/portfolio/portfolio-navbar'
+import { PortfolioFooter } from '@/site/portfolio/portfolio-footer'
 
 export const metadata: Metadata = {
   title: 'Writing',
@@ -29,9 +29,9 @@ export const metadata: Metadata = {
 export default function BlogLayout({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <BlogHeader />
+      <PortfolioNavbar />
       {children}
-      <BlogFooter />
+      <PortfolioFooter />
     </div>
   )
 }

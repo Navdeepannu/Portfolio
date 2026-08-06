@@ -4,6 +4,7 @@ import { ExperienceSection } from '@/site/portfolio/experience-section'
 import { LandingClosing } from '@/site/portfolio/landing-closing'
 import { LandingHeader } from '@/site/portfolio/landing-header'
 import { SelectedWorkSection } from '@/site/portfolio/selected-work-section'
+import { PortfolioFooter } from './portfolio-footer'
 
 export function PortfolioPage() {
   return (
@@ -15,7 +16,7 @@ export function PortfolioPage() {
         <ExperienceSection />
         <CapabilitiesSection />
       </main>
-      <LandingClosing />
+      <PortfolioFooter />
     </div>
   )
 }
