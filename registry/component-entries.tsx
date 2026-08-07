@@ -6,6 +6,8 @@ import AnimatedTabsShowcase from '@/components/showcase/animated-tabs'
 import AnimatedNumbersShowcase from '@/components/showcase/animated-numbers'
 import ExpandableCardShowcase from '@/components/showcase/expandable-card'
 import RailNavShowcase from '@/components/showcase/rail-nav'
+import ProximityNavShowcase from '@/components/showcase/proximity-nav'
+import PackageManagerCommandShowcase from '@/components/showcase/package-manager-command'
 
 import { defineComponent } from './define-component'
 import type { ComponentDefinition } from '@/data/component-types'
@@ -32,6 +34,12 @@ export const componentRegistryEntries: ComponentRegistryEntry[] = [
       category: 'interactive',
       tags: ['interactive', 'marketing', 'animation', 'motion', 'accessibility'],
       bento: { size: 'lg' },
+      gallery: {
+        size: 'feature',
+        height: 'lg',
+        tabletSpan: 2,
+        label: 'Segment Spotlight interactive toolbar preview',
+      },
       useCases: [
         'Hero sections',
         'Product landing pages',
@@ -40,9 +48,7 @@ export const componentRegistryEntries: ComponentRegistryEntry[] = [
         'Interactive product previews',
         'Service or feature highlight sections',
       ],
-      notes: [
-        'Segments accept your positioning classes, so responsive layouts can reposition, hide, or restack them at any breakpoint.',
-      ],
+      notes: ['Use positioning classes to adjust segments at each breakpoint.'],
       sourceFiles: [
         { path: 'components/ui/components/segment-spotlight.tsx', language: 'tsx' },
         {
@@ -146,6 +152,7 @@ export function Example() {
       category: 'buttons',
       tags: ['interactive', 'motion', 'cursor', 'animation'],
       bento: { size: 'md' },
+      gallery: { size: 'compact', height: 'sm', treatment: 'muted' },
       sourceFiles: [
         {
           path: 'components/ui/components/magnetic-button.tsx',
@@ -211,6 +218,7 @@ export function Example() {
       category: 'interactive',
       tags: ['interactive', 'motion', 'animation', 'tabs', 'accessibility'],
       bento: { size: 'lg' },
+      gallery: { size: 'wide', height: 'lg' },
       sourceFiles: [
         { path: 'components/ui/components/animated-tabs.tsx', language: 'tsx' },
         {
@@ -296,6 +304,7 @@ export function Example() {
       category: 'interactive',
       tags: ['animation', 'motion', 'numbers', 'statistics', 'accessibility'],
       bento: { size: 'md' },
+      gallery: { size: 'compact', height: 'sm', treatment: 'muted' },
       useCases: [
         'Dashboard metrics',
         'Statistics sections',
@@ -303,10 +312,7 @@ export function Example() {
         'Fundraising totals',
         'Performance summaries',
       ],
-      notes: [
-        'The visible counter is hidden from assistive technology while the final formatted value is announced once, avoiding noisy intermediate updates.',
-        'When reduced motion is enabled, the component renders the final value without running the count animation.',
-      ],
+      notes: ['Reduced motion shows the final value immediately.'],
       sourceFiles: [
         { path: 'components/ui/components/animated-numbers.tsx', language: 'tsx' },
         {
@@ -390,6 +396,7 @@ export function Example() {
       category: 'interactive',
       tags: ['interactive', 'motion', 'animation', 'card', 'accessibility'],
       bento: { size: 'lg' },
+      gallery: { size: 'wide', height: 'lg', treatment: 'muted' },
       useCases: [
         'FAQ cards',
         'Product feature cards',
@@ -468,7 +475,7 @@ export function Example() {
           type: 'Dialog.Content props',
           default: 'showCloseButton: true',
           description:
-            'Accessible expanded dialog surface. Supports custom children, overlayClassName, closeLabel, transition, and Dialog events.',
+            'Accessible expanded dialog surface. Supports custom children, overlayClassName, closeLabel, transition, Dialog events, and optional contained rendering into a local portalContainer.',
         },
         {
           prop: 'ExpandableCardMedia',
@@ -513,6 +520,7 @@ export function Example() {
       category: 'interactive',
       tags: ['interactive', 'navigation', 'docs', 'motion', 'accessibility'],
       bento: { size: 'lg' },
+      gallery: { size: 'standard', height: 'lg' },
       useCases: [
         'Documentation pages',
         'Long-form case studies',
@@ -586,9 +594,206 @@ export function Example() {
           description:
             'Optional section tracking with configurable IntersectionObserver behavior and per-item selectors.',
         },
+        {
+          prop: 'preventNavigation',
+          type: 'boolean',
+          default: 'false',
+          description:
+            'Keeps selection local for embedded previews while preserving controlled active state.',
+        },
       ],
     }),
     RailNavShowcase,
+  ),
+  entry(
+    defineComponent({
+      slug: 'proximity-nav',
+      title: 'Proximity Nav',
+      image: '/component-previews/proximity-nav.svg',
+      description:
+        'A route-aware sidebar navigation whose guide lines stretch toward the pointer, with controlled active state and a navigation-free preview mode.',
+      registryDescription:
+        'Route-aware sidebar navigation with pointer-responsive guide lines, controlled active state, and a navigation-free preview mode.',
+      category: 'interactive',
+      tags: ['interactive', 'navigation', 'docs', 'motion', 'accessibility'],
+      bento: { size: 'lg' },
+      gallery: { size: 'standard', height: 'md', treatment: 'muted' },
+      useCases: [
+        'Documentation sidebars',
+        'Settings navigation',
+        'Account and workspace pages',
+        'Dashboard sections',
+        'Multi-page guides',
+      ],
+      notes: [
+        'Uses the current pathname unless activeHref is provided.',
+        'Use preventNavigation in demos and embedded previews.',
+      ],
+      sourceFiles: [
+        { path: 'components/ui/components/proximity-nav.tsx', language: 'tsx' },
+        {
+          path: 'components/showcase/proximity-nav.tsx',
+          language: 'tsx',
+          filename: 'demo.tsx',
+        },
+      ],
+      registry: {
+        dependencies: ['motion'],
+        registryDependencies: [],
+      },
+      usageExample: `import { ProximityNav } from '@/components/proximity-nav'
+
+const items = [
+  { title: 'Introduction', href: '/docs/introduction' },
+  { title: 'Installation', href: '/docs/installation' },
+  { title: 'Components', href: '/docs/components' },
+]
+
+export function DocsSidebar() {
+  return <ProximityNav items={items} label="Documentation" />
+}`,
+      api: [
+        {
+          prop: 'items',
+          type: 'readonly ProximityNavItem[]',
+          default: '-',
+          description: 'Navigation entries containing a title and destination href.',
+        },
+        {
+          prop: 'activeHref',
+          type: 'string',
+          default: 'Current pathname',
+          description:
+            'Controlled active destination. When omitted, route navigation follows the current pathname.',
+        },
+        {
+          prop: 'defaultActiveHref',
+          type: 'string',
+          default: 'First item href',
+          description:
+            'Initial active destination for the navigation-free, uncontrolled preview mode.',
+        },
+        {
+          prop: 'preventNavigation',
+          type: 'boolean',
+          default: 'false',
+          description:
+            'Prevents route changes and prefetching so clicks can demonstrate active state in an embedded preview.',
+        },
+        {
+          prop: 'onActiveHrefChange',
+          type: '(href: string) => void',
+          default: '-',
+          description:
+            'Called when an item is selected, for controlled state, analytics, or custom navigation behavior.',
+        },
+        {
+          prop: 'label',
+          type: 'string',
+          default: '"Navigation"',
+          description: 'Accessible label for the nav landmark.',
+        },
+        {
+          prop: 'className',
+          type: 'string',
+          default: '-',
+          description: 'Classes merged onto the navigation container.',
+        },
+      ],
+    }),
+    ProximityNavShowcase,
+  ),
+  entry(
+    defineComponent({
+      slug: 'package-manager-command',
+      title: 'Package Manager Command',
+      image: '/component-previews/package-manager-command.svg',
+      description:
+        'An accessible package-manager selector and copy command bar with controlled state and inline copy-status icons.',
+      registryDescription:
+        'Accessible package-manager selector and copy command bar for npm, pnpm, yarn, and Bun.',
+      category: 'interactive',
+      tags: ['interactive', 'installation', 'clipboard', 'docs', 'accessibility'],
+      bento: { size: 'lg' },
+      gallery: {
+        size: 'wide',
+        height: 'md',
+        tabletSpan: 2,
+        treatment: 'muted',
+      },
+      useCases: [
+        'Component documentation',
+        'CLI installation guides',
+        'Developer onboarding',
+        'Copyable code snippets',
+      ],
+      notes: ['Only configured package managers appear.'],
+      sourceFiles: [
+        { path: 'components/ui/components/package-manager-command.tsx', language: 'tsx' },
+        {
+          path: 'components/showcase/package-manager-command.tsx',
+          language: 'tsx',
+          filename: 'demo.tsx',
+        },
+      ],
+      registry: {
+        dependencies: ['lucide-react', '@radix-ui/react-use-controllable-state'],
+        registryDependencies: ['button', 'dropdown-menu'],
+      },
+      usageExample: `import { PackageManagerCommand } from '@/components/package-manager-command'
+
+const commands = {
+  npm: 'npx shadcn@latest add @navui/animated-tabs',
+  pnpm: 'pnpm dlx shadcn@latest add @navui/animated-tabs',
+  yarn: 'yarn dlx shadcn@latest add @navui/animated-tabs',
+  bun: 'bunx --bun shadcn@latest add @navui/animated-tabs',
+}
+
+export function Example() {
+  return <PackageManagerCommand commands={commands} defaultValue="bun" />
+}`,
+      api: [
+        {
+          prop: 'commands',
+          type: 'Partial<Record<PackageManagerId, string>>',
+          default: '-',
+          description:
+            'Commands keyed by package manager. Managers without a command are omitted from the selector.',
+        },
+        {
+          prop: 'value / defaultValue / onValueChange',
+          type: 'PackageManagerId / PackageManagerId / (value) => void',
+          default: 'npm',
+          description: 'Controlled or uncontrolled package-manager selection.',
+        },
+        {
+          prop: 'align',
+          type: '"start" | "center" | "end"',
+          default: '"end"',
+          description: 'Alignment of the package-manager menu relative to the command bar.',
+        },
+        {
+          prop: 'copyLabel / resetDelay',
+          type: 'string / number',
+          default: 'Contextual / 1600',
+          description:
+            'Customizes the accessible copy label and how long the status icon remains visible.',
+        },
+        {
+          prop: 'onCopySuccess / onCopyError',
+          type: '(command: string) => void / (error: Error) => void',
+          default: '-',
+          description: 'Optional callbacks for analytics or application-level clipboard handling.',
+        },
+        {
+          prop: 'className / commandClassName',
+          type: 'string / string',
+          default: '-',
+          description: 'Classes for the root and the copy-command button.',
+        },
+      ],
+    }),
+    PackageManagerCommandShowcase,
   ),
 ]
 

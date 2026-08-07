@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { motion } from 'motion/react'
+import { motion, useReducedMotion } from 'motion/react'
 import { useControllableState } from '@radix-ui/react-use-controllable-state'
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
@@ -12,6 +12,7 @@ type AnimatedTabsContextValue = {
   previousValue: string | null
   direction: number
   activationMode: 'automatic' | 'manual'
+  shouldReduceMotion: boolean
   setValue: (value: string) => void
   registerTrigger: (value: string) => () => void
 }
@@ -38,6 +39,7 @@ function AnimatedTabs({
   ...props
 }: React.ComponentProps<typeof Tabs>) {
   const triggerValues = React.useRef<string[]>([])
+  const shouldReduceMotion = useReducedMotion()
   const lastValue = React.useRef(valueProp ?? defaultValue ?? '')
   const [previousValue, setPreviousValue] = React.useState<string | null>(null)
   const [direction, setDirection] = React.useState(0)
@@ -85,6 +87,7 @@ function AnimatedTabs({
         previousValue,
         direction,
         activationMode,
+        shouldReduceMotion: Boolean(shouldReduceMotion),
         setValue,
         registerTrigger,
       }}
@@ -180,7 +183,11 @@ function AnimatedTabsList({
           width: indicator.width,
           opacity: indicator.ready ? 1 : 0,
         }}
-        transition={{ type: 'spring', stiffness: 420, damping: 32 }}
+        transition={
+          context.shouldReduceMotion
+            ? { duration: 0 }
+            : { type: 'spring', stiffness: 420, damping: 32 }
+        }
         className="pointer-events-none absolute top-1 bottom-1 left-0 z-0 rounded-lg bg-background shadow-sm will-change-transform"
       />
       {children}
@@ -251,15 +258,21 @@ function AnimatedTabsContent({
 }: React.ComponentProps<typeof TabsContent>) {
   const context = useAnimatedTabs()
   const isActive = context.value === value
-  const isPrevious = context.previousValue === value
+  const isPrevious = !context.shouldReduceMotion && context.previousValue === value
   const isVisible = isActive || isPrevious
 
   const animation = isActive
     ? { opacity: 1, x: 0, filter: 'blur(0px)' }
     : {
         opacity: 0,
-        x: context.direction > 0 ? -32 : context.direction < 0 ? 32 : 0,
-        filter: 'blur(4px)',
+        x: context.shouldReduceMotion
+          ? 0
+          : context.direction > 0
+            ? -32
+            : context.direction < 0
+              ? 32
+              : 0,
+        filter: context.shouldReduceMotion ? 'blur(0px)' : 'blur(4px)',
       }
 
   return (
@@ -279,7 +292,7 @@ function AnimatedTabsContent({
       <motion.div
         initial={false}
         animate={animation}
-        transition={{ duration: 0.22, ease: 'easeOut' }}
+        transition={{ duration: context.shouldReduceMotion ? 0 : 0.22, ease: 'easeOut' }}
       >
         {children}
       </motion.div>

@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { useControllableState } from '@radix-ui/react-use-controllable-state'
-import { motion } from 'motion/react'
+import { motion, useReducedMotion } from 'motion/react'
 
 import { cn } from '@/lib/utils'
 
@@ -28,6 +28,7 @@ export type RailNavProps = Omit<React.ComponentProps<'aside'>, 'defaultValue'> &
   onExpandedChange?: (expanded: boolean) => void
   trackActive?: boolean
   observerOptions?: IntersectionObserverInit
+  preventNavigation?: boolean
   label?: string
 }
 
@@ -41,6 +42,7 @@ export function RailNav({
   onExpandedChange,
   trackActive = true,
   observerOptions,
+  preventNavigation = false,
   label = 'On this page',
   className,
   onMouseEnter,
@@ -49,6 +51,7 @@ export function RailNav({
   onBlurCapture,
   ...props
 }: RailNavProps) {
+  const shouldReduceMotion = useReducedMotion()
   const [activeValue = '', setActiveValue] = useControllableState({
     prop: valueProp,
     defaultProp: defaultValue ?? items[0]?.href ?? '',
@@ -182,7 +185,7 @@ export function RailNav({
             filter: expanded ? 'blur(6px)' : 'blur(0px)',
           }}
           transition={{
-            duration: 0.35,
+            duration: shouldReduceMotion ? 0 : 0.35,
             ease: [0.22, 1, 0.36, 1],
           }}
           className="absolute top-1 right-0 flex flex-col items-end gap-[5px]"
@@ -199,7 +202,7 @@ export function RailNav({
                   opacity: isActive ? 1 : 0.45,
                 }}
                 transition={{
-                  duration: 0.3,
+                  duration: shouldReduceMotion ? 0 : 0.3,
                   ease: [0.22, 1, 0.36, 1],
                 }}
                 className={cn(
@@ -233,15 +236,17 @@ export function RailNav({
                   filter: expanded ? 'blur(0px)' : 'blur(6px)',
                 }}
                 transition={{
-                  duration: 0.35,
-                  delay: expanded ? index * 0.045 : 0,
+                  duration: shouldReduceMotion ? 0 : 0.35,
+                  delay: shouldReduceMotion ? 0 : expanded ? index * 0.045 : 0,
                   ease: [0.22, 1, 0.36, 1],
                 }}
                 aria-current={isActive ? 'location' : undefined}
                 onClick={(event) => {
                   item.onClick?.(event)
 
-                  if (!event.defaultPrevented) {
+                  if (preventNavigation) event.preventDefault()
+
+                  if (preventNavigation || !event.defaultPrevented) {
                     setActiveValue(item.href)
                   }
                 }}

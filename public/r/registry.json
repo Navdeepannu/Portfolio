@@ -1324,6 +1324,45 @@
         }
       ],
       "type": "registry:ui"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "proximity-nav",
+      "title": "Proximity Nav",
+      "description": "Route-aware sidebar navigation with pointer-responsive guide lines, controlled active state, and a navigation-free preview mode.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "components/ui/components/proximity-nav.tsx",
+          "type": "registry:ui",
+          "target": "@components/proximity-nav.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "package-manager-command",
+      "title": "Package Manager Command",
+      "description": "Accessible package-manager selector and copy command bar for npm, pnpm, yarn, and Bun.",
+      "dependencies": [
+        "lucide-react",
+        "@radix-ui/react-use-controllable-state"
+      ],
+      "registryDependencies": [
+        "button",
+        "dropdown-menu"
+      ],
+      "files": [
+        {
+          "path": "components/ui/components/package-manager-command.tsx",
+          "type": "registry:ui",
+          "target": "@components/package-manager-command.tsx"
+        }
+      ],
+      "type": "registry:ui"
     }
   ]
 }

@@ -38,11 +38,11 @@ export default function ComponentDocSidebar({
       onPointerMove={(event) => mouseY.set(event.clientY)}
       onPointerLeave={() => mouseY.set(Number.POSITIVE_INFINITY)}
       className={cn(
-        'borde-border sticky top-20 h-fit w-64 shrink-0 border border-border/70 bg-background/80 p-3 shadow-sm backdrop-blur rounded-2xl',
+        'sticky top-20 h-fit w-64 shrink-0 rounded-2xl bg-muted p-1 shadow-sm ring-1 ring-foreground/10',
         className,
       )}
     >
-      <ul className="m-0 flex list-none flex-col p-0">
+      <ul className="m-0 flex list-none flex-col rounded-[16px] bg-background p-3 shadow-sm ring-1 ring-ring/6.5">
         {items.map((item, index) => (
           <SidebarItem
             key={item.slug}
@@ -149,7 +149,7 @@ function SidebarBar({
     <motion.span
       ref={ref}
       style={{
-        width: isActive ? 42 : width,
+        width: isActive ? 40 : width,
         opacity: isActive ? 1 : opacity,
       }}
       className="block h-px rounded-full bg-foreground"

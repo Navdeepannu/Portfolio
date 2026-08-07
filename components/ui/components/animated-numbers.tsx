@@ -80,7 +80,7 @@ export function AnimatedNumber({
 
   return (
     <span ref={ref} className={cn('inline-block tabular-nums', className)} {...props}>
-      <motion.span aria-hidden>{formattedValue}</motion.span>
+      <motion.span aria-hidden="true">{formattedValue}</motion.span>
       <span className="sr-only">{accessibleValue}</span>
     </span>
   )
