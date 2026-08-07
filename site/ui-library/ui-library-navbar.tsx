@@ -93,10 +93,7 @@ export function UiLibraryNavbar({
             }`,
           )}
         >
-          <Link
-            href={SITE_ORIGINS.ui}
-            aria-label="Nav UI home"
-          >
+          <Link href={SITE_ORIGINS.ui} aria-label="Nav UI home">
             <LogoMark className="h-8 w-auto" />
           </Link>
 
@@ -139,10 +136,7 @@ export function UiLibraryNavbar({
 
             <span className="hidden h-4 w-px bg-border md:block" />
 
-            <GitHubStars
-              repo="navdeepannu/portfolio"
-              stargazersCount={stargazersCount}
-            />
+            <GitHubStars repo="navdeepannu/portfolio" stargazersCount={stargazersCount} />
 
             <Tooltip>
               <TooltipTrigger asChild>

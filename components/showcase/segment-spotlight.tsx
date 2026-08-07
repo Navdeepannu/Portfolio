@@ -94,9 +94,9 @@ const focuses: SpotlightFocus[] = [
 
 export default function SegmentSpotlightShowcase() {
   return (
-    <div className="hidden size-full items-center justify-center md:flex">
+    <div className="flex size-full items-center justify-center">
       <SegmentSpotlight className="mx-auto max-w-6xl">
-        <SegmentSpotlightViewport>
+        <SegmentSpotlightViewport className="min-h-80 sm:min-h-105">
           <SegmentSpotlightGrid />
 
           {segments.map((segment) => (
@@ -104,7 +104,7 @@ export default function SegmentSpotlightShowcase() {
               key={segment.value}
               value={segment.value}
               variant={segment.variant}
-              className={segment.className}
+              className={`${segment.className} px-2 py-1 text-[10px] sm:px-3 sm:py-1.5 sm:text-sm`}
             >
               {segment.label}
             </SegmentSpotlightSegment>
@@ -112,7 +112,7 @@ export default function SegmentSpotlightShowcase() {
 
           <SegmentSpotlightToolbar
             aria-label="Highlight product capability"
-            className="absolute top-[42%] left-1/2 z-30 -translate-x-1/2"
+            className="absolute top-[42%] left-1/2 z-30 max-w-[calc(100%-1rem)] -translate-x-1/2 gap-0 overflow-x-auto p-1.5 sm:gap-1 sm:p-2"
           >
             {focuses.map((focus) => {
               const Icon = focus.icon
@@ -124,8 +124,9 @@ export default function SegmentSpotlightShowcase() {
                     targets={focus.targets}
                     aria-label={focus.label}
                     title={focus.label}
+                    className="size-8 sm:size-10"
                   >
-                    <Icon className="size-5" aria-hidden />
+                    <Icon className="size-4 sm:size-5" aria-hidden />
                   </SegmentSpotlightTrigger>
                   {focus.separator ? <SegmentSpotlightSeparator /> : null}
                 </Fragment>

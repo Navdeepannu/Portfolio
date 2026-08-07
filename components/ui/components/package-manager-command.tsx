@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { useControllableState } from '@radix-ui/react-use-controllable-state'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -10,18 +11,25 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { cn } from '@/lib/utils'
-import { motion } from 'motion/react'
 import { Check, ChevronDown, CircleX, Copy } from 'lucide-react'
-import { CopyButton } from '@/components/ui/components/copy-button'
-import type { PackageManagerId } from '@/site/block-install-commands'
 
-type PackageManagerCommandProps = {
-  commands: Record<PackageManagerId, string>
+export type PackageManagerId = 'npm' | 'pnpm' | 'yarn' | 'bun'
+export type PackageManagerCommands = Partial<Record<PackageManagerId, string>>
+
+export type PackageManagerCommandProps = {
+  commands: PackageManagerCommands
+  value?: PackageManagerId
+  defaultValue?: PackageManagerId
+  onValueChange?: (value: PackageManagerId) => void
+  /** @deprecated Use defaultValue instead. */
   defaultPackageManager?: PackageManagerId
   className?: string
   commandClassName?: string
   align?: 'start' | 'center' | 'end'
-  showToast?: boolean
+  copyLabel?: string
+  resetDelay?: number
+  onCopySuccess?: (command: string) => void
+  onCopyError?: (error: Error) => void
 }
 
 type PackageManagerMeta = {
@@ -81,121 +89,114 @@ function BunIcon(props: React.SVGProps<SVGSVGElement>) {
   )
 }
 
-const PACKAGE_MANAGERS: PackageManagerMeta[] = [
+const PACKAGE_MANAGERS: readonly PackageManagerMeta[] = [
   { id: 'npm', name: 'npm', Icon: NpmIcon },
   { id: 'pnpm', name: 'pnpm', Icon: PnpmIcon },
   { id: 'yarn', name: 'yarn', Icon: YarnIcon },
   { id: 'bun', name: 'bun', Icon: BunIcon },
 ]
 
+export function getAvailablePackageManagers(commands: PackageManagerCommands) {
+  return PACKAGE_MANAGERS.filter((manager) => Boolean(commands[manager.id]))
+}
+
 export function PackageManagerCommand({
   commands,
+  value: valueProp,
+  defaultValue,
+  onValueChange,
   defaultPackageManager = 'npm',
   className,
   commandClassName,
   align = 'end',
-  showToast = true,
+  copyLabel,
+  resetDelay = 1600,
+  onCopySuccess,
+  onCopyError,
 }: PackageManagerCommandProps) {
-  const [selectedPm, setSelectedPm] = useState<PackageManagerId>(defaultPackageManager)
-  const [pulse, setPulse] = useState(false)
-  const [toastVisible, setToastVisible] = useState(false)
-
-  const pulseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const toastTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-
-  const selectedPackageManager = useMemo(
-    () => PACKAGE_MANAGERS.find((item) => item.id === selectedPm) ?? PACKAGE_MANAGERS[0],
-    [selectedPm],
-  )
-
-  const command = commands[selectedPm]
+  const availablePackageManagers = getAvailablePackageManagers(commands)
+  const fallbackPackageManager = availablePackageManagers[0] ?? PACKAGE_MANAGERS[0]
+  const [selectedValue = fallbackPackageManager.id, setSelectedValue] = useControllableState({
+    prop: valueProp,
+    defaultProp: defaultValue ?? defaultPackageManager,
+    onChange: onValueChange,
+  })
+  const selectedPackageManager =
+    availablePackageManagers.find((item) => item.id === selectedValue) ?? fallbackPackageManager
+  const selectedPm = selectedPackageManager.id
+  const command = commands[selectedPm] ?? ''
   const SelectedIcon = selectedPackageManager.Icon
+  const [copyState, setCopyState] = useState<'idle' | 'done' | 'error'>('idle')
+  const resetTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  const handleCopySuccess = () => {
-    setPulse(true)
+  async function handleCopy() {
+    if (resetTimeoutRef.current) clearTimeout(resetTimeoutRef.current)
 
-    if (pulseTimeoutRef.current) {
-      clearTimeout(pulseTimeoutRef.current)
+    try {
+      await navigator.clipboard.writeText(command)
+      setCopyState('done')
+      onCopySuccess?.(command)
+    } catch (error) {
+      const copyError = error instanceof Error ? error : new Error('Copy failed')
+      setCopyState('error')
+      onCopyError?.(copyError)
     }
 
-    pulseTimeoutRef.current = setTimeout(() => {
-      setPulse(false)
-      pulseTimeoutRef.current = null
-    }, 520)
-
-    if (showToast) {
-      setToastVisible(true)
-
-      if (toastTimeoutRef.current) {
-        clearTimeout(toastTimeoutRef.current)
-      }
-
-      toastTimeoutRef.current = setTimeout(() => {
-        setToastVisible(false)
-        toastTimeoutRef.current = null
-      }, 1800)
-    }
+    resetTimeoutRef.current = setTimeout(() => {
+      setCopyState('idle')
+      resetTimeoutRef.current = null
+    }, resetDelay)
   }
+
   useEffect(() => {
     return () => {
-      if (pulseTimeoutRef.current) {
-        clearTimeout(pulseTimeoutRef.current)
-      }
-
-      if (toastTimeoutRef.current) {
-        clearTimeout(toastTimeoutRef.current)
-      }
+      if (resetTimeoutRef.current) clearTimeout(resetTimeoutRef.current)
     }
   }, [])
 
+  if (availablePackageManagers.length === 0) return null
+
+  const copyActionLabel =
+    copyState === 'done'
+      ? `${selectedPackageManager.name} install command copied`
+      : copyState === 'error'
+        ? `Unable to copy ${selectedPackageManager.name} install command`
+        : (copyLabel ?? `Copy ${selectedPackageManager.name} install command`)
+
   return (
-    <>
+    <div className={cn('relative inline-flex w-35 min-w-0 sm:w-[min(82vw,22rem)]', className)}>
       <DropdownMenu modal={false}>
-        <motion.div
-          className={cn(
-            'flex h-9 min-w-0 shrink-0 items-stretch overflow-hidden rounded-lg border border-border/60 bg-background/80 text-sm font-medium text-foreground shadow-sm ring-1 ring-foreground/6.5 will-change-transform dark:bg-background/50',
-            'w-35 sm:w-[min(82vw,22rem)]',
-            className,
-          )}
-          animate={
-            pulse
-              ? {
-                  scale: [1, 0.987, 1],
-                  filter: ['blur(0px)', 'blur(1.25px)', 'blur(0px)'],
-                }
-              : {
-                  scale: 1,
-                  filter: 'blur(0px)',
-                }
-          }
-          transition={pulse ? { duration: 0.44, ease: [0.22, 1, 0.36, 1] } : { duration: 0 }}
-          style={{ transformOrigin: 'center' }}
-        >
-          <CopyButton
+        <div className="flex h-9 min-w-0 flex-1 items-stretch overflow-hidden rounded-lg border border-border/60 bg-background/80 text-sm font-medium text-foreground shadow-sm ring-1 ring-foreground/6.5 dark:bg-background/50">
+          <Button
             type="button"
             variant="ghost"
-            text={command}
-            idleIcon={<SelectedIcon className="size-4.5 shrink-0" />}
-            doneIcon={<Check className="size-4.5 text-foreground" />}
-            errorIcon={<CircleX className="size-4.5 text-destructive" />}
             className={cn(
-              'inline-flex h-full min-h-0 min-w-0 flex-1 cursor-pointer items-center justify-start gap-2 rounded-none border-0 bg-transparent px-2.5 shadow-none outline-none select-none focus-visible:ring-2 focus-visible:ring-ring/50',
+              'inline-flex h-full min-h-0 min-w-0 flex-1 cursor-pointer items-center justify-start gap-2 rounded-none border-0 bg-transparent px-2.5 shadow-none outline-none select-none focus-visible:ring-2 focus-visible:ring-ring/50 active:scale-[0.99]',
               'hover:bg-muted/60 focus-visible:bg-muted/60 dark:hover:bg-input/40 dark:focus-visible:bg-input/40',
               '[&_svg]:size-4.5 [&_svg]:shrink-0',
               commandClassName,
             )}
-            aria-label="Copy install command"
+            aria-label={copyActionLabel}
             title={command}
-            onCopySuccess={handleCopySuccess}
+            onClick={() => void handleCopy()}
           >
-            <span className="block text-xs font-medium text-muted-foreground sm:hidden">Copy</span>
+            <SelectedIcon className="shrink-0" />
 
-            <Copy className="shrink-0 text-muted-foreground sm:hidden" />
+            <span className="block text-xs font-medium text-muted-foreground sm:hidden">
+              {copyState === 'done' ? 'Copied' : 'Copy'}
+            </span>
 
             <span className="hidden min-w-0 truncate font-mono text-xs text-muted-foreground sm:block dark:text-card-foreground">
               {command}
             </span>
-          </CopyButton>
+            {copyState === 'done' ? (
+              <Check className="ml-auto shrink-0 text-foreground" aria-hidden="true" />
+            ) : copyState === 'error' ? (
+              <CircleX className="ml-auto shrink-0 text-destructive" aria-hidden="true" />
+            ) : (
+              <Copy className="ml-auto shrink-0 text-muted-foreground" aria-hidden="true" />
+            )}
+          </Button>
           <span aria-hidden className="my-1.5 w-px shrink-0 self-stretch bg-border/60" />
 
           <DropdownMenuTrigger asChild>
@@ -207,18 +208,17 @@ export function PackageManagerCommand({
               title={`Choose package manager: ${selectedPackageManager.name}`}
             >
               <SelectedIcon className="hidden size-4.5 shrink-0 sm:block" />
-
               <ChevronDown className="size-4 shrink-0 opacity-60" />
             </Button>
           </DropdownMenuTrigger>
-        </motion.div>
+        </div>
 
         <DropdownMenuContent
           align={align}
           sideOffset={6}
           className="min-w-44 overflow-hidden border-border/80 p-1"
         >
-          {PACKAGE_MANAGERS.map((pm) => {
+          {availablePackageManagers.map((pm) => {
             const PmIcon = pm.Icon
             const isSelected = pm.id === selectedPm
 
@@ -229,28 +229,16 @@ export function PackageManagerCommand({
                   'flex cursor-pointer items-center gap-2.5 px-2 py-2 text-sm',
                   'data-highlighted:bg-accent data-highlighted:text-accent-foreground',
                 )}
-                onSelect={() => setSelectedPm(pm.id)}
+                onSelect={() => setSelectedValue(pm.id)}
               >
                 <PmIcon className="size-4.5 shrink-0" />
-
                 <span className="min-w-0 flex-1">{pm.name}</span>
-
                 {isSelected ? <Check className="size-4 shrink-0" /> : null}
               </DropdownMenuItem>
             )
           })}
         </DropdownMenuContent>
       </DropdownMenu>
-
-      {toastVisible ? (
-        <output
-          role="status"
-          aria-live="polite"
-          className="pointer-events-none fixed bottom-10 left-1/2 z-100 -translate-x-1/2 rounded-lg border border-border/80 bg-popover p-1 px-3 py-2 text-sm font-medium text-muted-foreground shadow-lg ring-1 ring-foreground/5"
-        >
-          <div className="">Command Copied</div>
-        </output>
-      ) : null}
-    </>
+    </div>
   )
 }

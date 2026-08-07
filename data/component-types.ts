@@ -25,6 +25,20 @@ export type ComponentBentoSpan = {
   rowSpan?: 1 | 2
 }
 
+export type ComponentGallerySize = 'compact' | 'standard' | 'wide' | 'feature'
+export type ComponentGalleryHeight = 'sm' | 'md' | 'lg'
+export type ComponentGalleryTreatment = 'default' | 'muted' | 'contrast'
+
+/** Layout and presentation metadata for the live `/components` gallery. */
+export type ComponentGalleryConfig = {
+  size: ComponentGallerySize
+  height: ComponentGalleryHeight
+  tabletSpan?: 1 | 2
+  treatment?: ComponentGalleryTreatment
+  /** Accessible label for the interactive preview region. */
+  label?: string
+}
+
 /** A single row in a component's API reference table. */
 export type ComponentApiRow = {
   prop: string
@@ -61,6 +75,7 @@ export type ComponentDefinition = {
   sourceFiles: BlockSourceFileSpec[]
   registry: BlockRegistryMeta
   bento?: ComponentBentoSpan
+  gallery: ComponentGalleryConfig
   image: string
   /** Install command shown in the UI; optional override. */
   cli?: string

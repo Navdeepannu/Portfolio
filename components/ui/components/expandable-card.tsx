@@ -3,7 +3,13 @@
 import * as React from 'react'
 import { XIcon } from 'lucide-react'
 import { Dialog as DialogPrimitive } from 'radix-ui'
-import { AnimatePresence, LayoutGroup, motion, type Transition } from 'motion/react'
+import {
+  AnimatePresence,
+  LayoutGroup,
+  motion,
+  useReducedMotion,
+  type Transition,
+} from 'motion/react'
 import { useControllableState } from '@radix-ui/react-use-controllable-state'
 
 import { Button } from '@/components/ui/button'
@@ -74,6 +80,7 @@ function ExpandableCardTrigger({
   ...props
 }: ExpandableCardTriggerProps) {
   const context = useExpandableCard()
+  const shouldReduceMotion = useReducedMotion()
 
   return (
     <DialogPrimitive.Trigger asChild>
@@ -82,7 +89,7 @@ function ExpandableCardTrigger({
         data-state={context.open ? 'open' : 'closed'}
         type={type}
         layoutId={context.cardLayoutId}
-        transition={transition}
+        transition={shouldReduceMotion ? { duration: 0 } : transition}
         className={cn(
           'group/expandable-card block w-full max-w-80 cursor-pointer overflow-hidden rounded-2xl border bg-background text-left shadow-sm outline-none',
           'transition-[border-color,box-shadow] duration-200 hover:border-foreground/20 hover:shadow-md',
@@ -104,12 +111,13 @@ function ExpandableCardMedia({
   ...props
 }: ExpandableCardMediaProps) {
   const context = useExpandableCard()
+  const shouldReduceMotion = useReducedMotion()
 
   return (
     <motion.span
       data-slot="expandable-card-media"
       layoutId={context.mediaLayoutId}
-      transition={transition}
+      transition={shouldReduceMotion ? { duration: 0 } : transition}
       className={cn('block overflow-hidden', className)}
       {...props}
     />
@@ -124,6 +132,10 @@ type ExpandableCardContentProps = Omit<
   closeLabel?: string
   overlayClassName?: string
   transition?: Transition
+  /** Portal target for embedded canvases and preview surfaces. */
+  portalContainer?: HTMLElement | null
+  /** Positions the overlay and dialog within portalContainer instead of the viewport. */
+  contained?: boolean
 }
 
 function ExpandableCardContent({
@@ -133,12 +145,15 @@ function ExpandableCardContent({
   closeLabel = 'Close',
   overlayClassName,
   transition = expandableCardTransition,
+  portalContainer,
+  contained = false,
   ...props
 }: ExpandableCardContentProps) {
   const context = useExpandableCard()
+  const shouldReduceMotion = useReducedMotion()
 
   return (
-    <DialogPrimitive.Portal forceMount>
+    <DialogPrimitive.Portal forceMount container={portalContainer ?? undefined}>
       <AnimatePresence initial={false}>
         {context.open ? (
           <DialogPrimitive.Overlay key="overlay" forceMount asChild>
@@ -147,9 +162,10 @@ function ExpandableCardContent({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.16, ease: 'easeOut' }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.16, ease: 'easeOut' }}
               className={cn(
-                'fixed inset-0 z-50 bg-background/10 backdrop-blur-sm',
+                contained ? 'absolute' : 'fixed',
+                'inset-0 z-50 bg-background/10 backdrop-blur-sm',
                 overlayClassName,
               )}
             />
@@ -164,13 +180,21 @@ function ExpandableCardContent({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={transition}
+              transition={shouldReduceMotion ? { duration: 0 } : transition}
               className={cn(
-                'fixed top-1/2 left-1/2 z-50 max-h-[90vh] w-[calc(100%-2rem)] max-w-3xl -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-3xl border bg-background shadow-2xl outline-none',
+                contained ? 'absolute max-h-[calc(100%-1rem)]' : 'fixed max-h-[90vh]',
+                'top-1/2 left-1/2 z-50 w-[calc(100%-1rem)] max-w-3xl -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-3xl border bg-background shadow-2xl outline-none',
                 className,
               )}
             >
-              <div className="max-h-[90vh] overflow-y-auto">{children}</div>
+              <div
+                className={cn(
+                  'overflow-y-auto',
+                  contained ? 'max-h-[calc(100%-1rem)]' : 'max-h-[90vh]',
+                )}
+              >
+                {children}
+              </div>
 
               {showCloseButton ? (
                 <DialogPrimitive.Close asChild>

@@ -1,6 +1,6 @@
 'use client'
 
-import type { ComponentProps } from 'react'
+import type { ComponentProps, ReactNode } from 'react'
 import { motion } from 'motion/react'
 
 import { cn } from '@/lib/utils'
@@ -34,9 +34,12 @@ export function CopyStateIcon({ state, idleIcon, doneIcon, errorIcon }: CopyStat
   )
 }
 
-export type CopyButtonProps = ComponentProps<typeof Button> & {
+export type CopyButtonProps = Omit<ComponentProps<typeof Button>, 'children'> & {
   /** The text to copy, or a function that returns the text. */
   text: string | (() => string)
+  children?: ReactNode | ((state: CopyState) => ReactNode)
+  doneLabel?: string
+  errorLabel?: string
   /** Called with the copied text on successful copy. */
   onCopySuccess?: (text: string) => void
   /** Called with the error if the copy operation fails. */
@@ -54,6 +57,8 @@ export function CopyButton({
   onClick,
   onCopySuccess,
   onCopyError,
+  doneLabel = 'Copied',
+  errorLabel = 'Copy failed',
   ...props
 }: CopyButtonProps) {
   const { state, copy } = useCopyToClipboard({
@@ -66,14 +71,17 @@ export function CopyButton({
       className={cn('will-change-transform', className)}
       size={size}
       onClick={(e) => {
-        copy(text)
         onClick?.(e)
+        if (!e.defaultPrevented) void copy(text)
       }}
       aria-label="Copy"
       {...props}
     >
       <CopyStateIcon state={state} idleIcon={idleIcon} doneIcon={doneIcon} errorIcon={errorIcon} />
-      {children}
+      {typeof children === 'function' ? children(state) : children}
+      <span role="status" aria-live="polite" className="sr-only">
+        {state === 'done' ? doneLabel : state === 'error' ? errorLabel : ''}
+      </span>
     </Button>
   )
 }
