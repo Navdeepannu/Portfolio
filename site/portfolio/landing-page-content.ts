@@ -10,11 +10,12 @@ export type LandingLink = {
 }
 
 export type LandingProject = {
+  category: string
   title: string
-  description: string
+  problem: string
   contribution: string
+  outcome: string
   stack: string[]
-  breakout?: boolean
   images: {
     src: string
     darkSrc?: string
@@ -31,13 +32,13 @@ export type ResumeEntry = {
   organization: string
   location?: string
   description: string
+  highlights?: readonly string[]
 }
 
 export type CapabilityGroup = {
   icon: 'interface' | 'systems' | 'foundations'
   title: string
   description: string
-  tools: string
   preview?: {
     src: string
     alt: string
@@ -69,8 +70,6 @@ export type GithubActivityPreview = {
 export const landingPageContent = {
   identity: {
     name: 'Navdeep Singh',
-    introduction:
-      'Currently building Nav UI, an open-source React component library and registry that helps developers ship polished, accessible interfaces without rebuilding the same foundations. I am passionate about design, contribute to open source, and bring practical full-stack experience to turning product ideas into reusable, maintainable software.',
     links: [
       { label: 'Resume', href: '/resume/resume.pdf', external: true, icon: 'resume' },
       {
@@ -82,36 +81,17 @@ export const landingPageContent = {
       { label: 'GitHub', href: portfolioSiteConfig.links.github, external: true, icon: 'github' },
     ] satisfies LandingLink[],
   },
-  about:
-    'I enjoy turning product ideas into polished React and Next.js interfaces, with particular attention to reusable components, thoughtful motion, accessibility, and interaction details. I’m looking to grow within a product team that values both strong design and clean engineering.',
+  about: [
+    'I’m a frontend-focused software engineer interested in the intersection of interface design, component architecture, accessibility, and product engineering.',
+    'I currently build NavUI, work on independent product applications, and contribute frontend improvements to open-source projects such as Kaneo.',
+    'I’m especially interested in frontend, design-engineering, UI systems, and product-engineering roles where implementation quality matters.',
+  ],
   // Fallback content used when GitHub is unavailable or its token is not configured.
   githubActivity: {
     title: 'Contribution activity',
     description: 'A snapshot of recent pull-request work across open-source.',
     profileHref: portfolioSiteConfig.links.github,
     items: [
-      {
-        repository: 'Navdeepannu/Portfolio',
-        repositoryHref: 'https://github.com/Navdeepannu/Portfolio',
-        title: 'refactor: remove hover background transition (UI improvement',
-        date: 'Aug 2',
-        dateTime: '2026-08-02T01:36:23Z',
-        status: 'Merged',
-        href: 'https://github.com/Navdeepannu/Portfolio/pull/29',
-        additions: 0,
-        deletions: 1,
-      },
-      {
-        repository: 'Navdeepannu/Portfolio',
-        repositoryHref: 'https://github.com/Navdeepannu/Portfolio',
-        title: 'Add new navigation assets for dark and light themes',
-        date: 'Aug 2',
-        dateTime: '2026-08-02T00:56:01Z',
-        status: 'Merged',
-        href: 'https://github.com/Navdeepannu/Portfolio/pull/28',
-        additions: 138,
-        deletions: 88,
-      },
       {
         repository: 'usekaneo/kaneo',
         repositoryHref: 'https://github.com/usekaneo/kaneo',
@@ -135,16 +115,40 @@ export const landingPageContent = {
         deletions: 3,
         comments: 8,
       },
+      {
+        repository: 'Navdeepannu/Portfolio',
+        repositoryHref: 'https://github.com/Navdeepannu/Portfolio',
+        title: 'Refine portfolio navigation and GitHub activity',
+        date: 'Aug 2',
+        dateTime: '2026-08-02T01:36:23Z',
+        status: 'Merged',
+        href: 'https://github.com/Navdeepannu/Portfolio/pull/29',
+        additions: 0,
+        deletions: 1,
+      },
+      {
+        repository: 'Navdeepannu/Portfolio',
+        repositoryHref: 'https://github.com/Navdeepannu/Portfolio',
+        title: 'Add navigation assets for light and dark themes',
+        date: 'Aug 2',
+        dateTime: '2026-08-02T00:56:01Z',
+        status: 'Merged',
+        href: 'https://github.com/Navdeepannu/Portfolio/pull/28',
+        additions: 138,
+        deletions: 88,
+      },
     ],
   } satisfies GithubActivityPreview,
   projects: [
     {
-      title: 'Personal Portfolio & UI Registry',
-      description:
-        'An open-source React registry for reusable components, blocks, and illustrations.',
-      contribution: 'Design direction, frontend architecture, registry tooling, and documentation',
+      category: 'Open source · UI systems',
+      title: 'NavUI — Component Library and Registry',
+      problem: 'Teams repeatedly rebuild the same responsive sections and interaction patterns.',
+      contribution:
+        'Design direction, component APIs, registry architecture, previews, documentation, and accessibility.',
+      outcome:
+        'A shadcn-compatible registry with 40+ reusable blocks, components, and illustrations.',
       stack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'shadcn/ui'],
-      breakout: true,
       images: [
         {
           src: asset('hero-light.png'),
@@ -172,10 +176,14 @@ export const landingPageContent = {
       ],
     },
     {
+      category: 'Client work · Production',
       title: 'CableLink Solutions',
-      description: 'A responsive client website for a telecommunications services business.',
+      problem:
+        'The business needed clearer service information and a stronger path from search to enquiry.',
       contribution:
-        'Requirements, interface design, Next.js development, content polish, and deployment',
+        'Requirements, information architecture, responsive UI, service pages, SEO, and deployment.',
+      outcome:
+        'A bilingual production site with focused service journeys and a direct assessment-request flow.',
       stack: ['Next.js', 'React', 'Tailwind CSS', 'Responsive UI', 'SEO'],
       images: [
         {
@@ -199,10 +207,12 @@ export const landingPageContent = {
       ],
     },
     {
+      category: 'Independent product · Product engineering',
       title: 'Invora Invoice Builder',
-      description: 'An invoice builder with dynamic forms, live totals, and a print-ready preview.',
+      problem: 'Invoice editing, calculations, templates, and exports needed to stay consistent.',
       contribution:
-        'Product UI, form state, invoice calculations, reusable components, and document layout',
+        'Synchronized form state, live totals, reusable client data, templates, and document export.',
+      outcome: 'One invoice model drives editing, preview, calculations, and exported documents.',
       stack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Data handling'],
       images: [
         {
@@ -233,11 +243,16 @@ export const landingPageContent = {
   experience: [
     {
       period: '2024—Present',
-      title: 'Frontend Developer / Design Engineer',
+      title: 'Frontend Engineer / Design Engineer',
       organization: 'Freelance & client work',
       location: 'Toronto, Canada',
       description:
-        'Designing and developing responsive client websites, landing pages, portfolio work, and practical product interfaces from requirements through production deployment.',
+        'Independent work spanning client delivery, reusable UI systems, and practical product interfaces.',
+      highlights: [
+        'Designed and shipped responsive client websites from requirements through production deployment.',
+        'Built and documented 40+ reusable components, blocks, and interaction patterns.',
+        'Delivered responsive layouts, forms, content architecture, SEO foundations, and deployment workflows with Next.js and TypeScript.',
+      ],
     },
   ] satisfies ResumeEntry[],
   capabilities: [
@@ -246,14 +261,12 @@ export const landingPageContent = {
       title: 'Interface Engineering',
       description:
         'Responsive, accessible React interfaces with clear state, resilient layouts, and careful browser behavior.',
-      tools: 'React · Next.js App Router · TypeScript · JavaScript · Tailwind CSS · Motion',
     },
     {
       icon: 'systems',
       title: 'Design Systems & UI',
       description:
         'Reusable primitives and patterns shaped by typography, spacing, hierarchy, interaction states, and documentation.',
-      tools: 'shadcn/ui · Component architecture · Design tokens · Figma · Accessibility',
       preview: {
         src: '/sections/design3.png',
         alt: 'Preview of a Nav UI component layout',
@@ -266,26 +279,40 @@ export const landingPageContent = {
       title: 'Product Foundations',
       description:
         'Practical full-stack delivery with attention to performance, search visibility, deployment, and maintainability.',
-      tools: 'Node.js · REST APIs · SQL · Git · Vercel · Frontend performance · SEO',
     },
   ] satisfies CapabilityGroup[],
-  education: [
+  skillGroups: [
     {
-      period: 'Jan 2024—Sept 2025',
-      title: 'Computer Programming',
-      organization: 'Humber College Institute of Technology & Advanced Learning',
-      location: 'Toronto, Canada',
-      description:
-        'Coursework included web development, programming fundamentals, databases, SQL, software testing, systems analysis, and technical documentation.',
+      title: 'Core frontend',
+      items: ['JavaScript', 'TypeScript', 'React', 'Next.js', 'HTML', 'CSS', 'Tailwind CSS'],
     },
-  ] satisfies ResumeEntry[],
+    {
+      title: 'UI engineering',
+      items: [
+        'shadcn/ui',
+        'Motion',
+        'Responsive design',
+        'Accessibility',
+        'Component architecture',
+        'Design systems',
+      ],
+    },
+    {
+      title: 'Full-stack',
+      items: ['Node.js', 'REST APIs', 'PostgreSQL', 'SQL', 'Prisma'],
+    },
+    {
+      title: 'Product and delivery',
+      items: ['Figma', 'Git', 'GitHub', 'Vercel'],
+    },
+  ],
   closing: {
-    title: 'Interested in building thoughtful, production-quality interfaces together?',
+    title: 'Let’s build something thoughtful.',
+    description:
+      'I’m open to frontend and design-engineering opportunities, open-source collaboration, and selected client projects.',
     links: [
-      { label: 'Email', href: 'mailto:navdeepannu0@gmail.com' },
+      { label: 'Email me', href: 'mailto:navdeepannu0@gmail.com' },
       { label: 'LinkedIn', href: portfolioSiteConfig.links.linkedin, external: true },
-      { label: 'GitHub', href: portfolioSiteConfig.links.github, external: true },
-      { label: 'Resume', href: '/resume/resume.pdf', external: true },
     ] satisfies LandingLink[],
   },
 } as const

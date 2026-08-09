@@ -2,7 +2,8 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Menu, Moon, Search, Sun, X } from 'lucide-react'
+import { Command, Menu, Moon, Sun, X } from 'lucide-react'
+import { IconBrandGithub } from '@tabler/icons-react'
 import { AnimatePresence, motion } from 'motion/react'
 import { useEffect, useState, useSyncExternalStore } from 'react'
 import { useTheme } from 'next-themes'
@@ -12,8 +13,8 @@ import { cn } from '@/lib/utils'
 import { SITE_ORIGINS } from '@/lib/sites'
 import { useCommandMenu } from '@/hooks/use-command-menu'
 import { CommandMenu } from '@/site/command/command-menu'
+import { getSearchGroups } from '@/lib/search-data'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
-import { GitHubStars } from './github-star'
 import LogoMark from './ui-library-logo'
 
 const menuItems = [
@@ -23,6 +24,8 @@ const menuItems = [
   { name: 'Pages', href: '/pages' },
   { name: 'Portfolio', href: SITE_ORIGINS.portfolio, external: true },
 ] as const
+
+const commandGroups = getSearchGroups()
 
 function isNavItemActive(pathname: string, href: string) {
   if (href.startsWith('http')) return false
@@ -37,14 +40,9 @@ function isNavItemActive(pathname: string, href: string) {
 export type UiLibraryNavbarProps = {
   className?: string
   fullWidth?: boolean
-  stargazersCount: number
 }
 
-export function UiLibraryNavbar({
-  fullWidth = false,
-  className,
-  stargazersCount,
-}: UiLibraryNavbarProps) {
+export function UiLibraryNavbar({ fullWidth = false, className }: UiLibraryNavbarProps) {
   const pathname = usePathname()
   const { theme, setTheme } = useTheme()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -104,11 +102,10 @@ export function UiLibraryNavbar({
               variant="ghost"
               className="hover:bg-muted/40"
               onClick={() => setCommandOpen(true)}
-              aria-label="Open command menu"
+              aria-label="Open command menu (Command K)"
             >
-              <Search className="size-4" />
-              <Kbd>⌘</Kbd>
-              <Kbd>K</Kbd>
+              <Command aria-hidden="true" className="size-4" />
+              <Kbd className="hidden sm:inline-flex">K</Kbd>
             </Button>
 
             <ul className="hidden items-center gap-6 md:flex">
@@ -136,7 +133,16 @@ export function UiLibraryNavbar({
 
             <span className="hidden h-4 w-px bg-border md:block" />
 
-            <GitHubStars repo="navdeepannu/portfolio" stargazersCount={stargazersCount} />
+            <Button variant="ghost" size="icon-sm" asChild>
+              <a
+                href="https://github.com/navdeepannu/portfolio"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="View NavUI repository on GitHub (opens in a new tab)"
+              >
+                <IconBrandGithub className="size-4" aria-hidden="true" />
+              </a>
+            </Button>
 
             <Tooltip>
               <TooltipTrigger asChild>
@@ -172,7 +178,12 @@ export function UiLibraryNavbar({
         </div>
       </nav>
 
-      <CommandMenu open={commandOpen} onOpenChange={setCommandOpen} />
+      <CommandMenu
+        site="ui"
+        groups={commandGroups}
+        open={commandOpen}
+        onOpenChange={setCommandOpen}
+      />
 
       <AnimatePresence>
         {mobileMenuOpen ? (

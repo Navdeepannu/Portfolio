@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 
-import { LandingNavbar } from '@/site/portfolio/landing-header-server'
+import { LandingNavbar } from '@/site/portfolio/landing-header'
 
 export const metadata: Metadata = {
   title: 'Projects',

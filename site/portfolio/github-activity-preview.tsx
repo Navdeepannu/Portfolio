@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { ArrowUpRight, GitMerge, GitPullRequest, MessageSquare } from 'lucide-react'
+import { GitMerge, GitPullRequest, MessageSquare } from 'lucide-react'
 import { motion, useReducedMotion } from 'motion/react'
 
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
@@ -120,10 +120,13 @@ export function GithubActivityPreview({ activity }: GithubActivityPreviewProps) 
   )
 
   return (
-    <section aria-labelledby="github-activity-heading" className="mt-10 max-w-3xl sm:mt-12">
+    <section aria-labelledby="github-activity-heading" className="max-w-3xl">
       <div className="mb-6 flex items-start justify-between gap-6">
         <div>
-          <h3 id="github-activity-heading" className="text-sm font-medium text-foreground">
+          <h3
+            id="github-activity-heading"
+            className="text-sm font-medium text-emerald-700 dark:text-emerald-400/80"
+          >
             {activity.title}
           </h3>
           <p className="mt-1 max-w-xl text-sm leading-6 text-muted-foreground">
@@ -160,11 +163,11 @@ export function GithubActivityPreview({ activity }: GithubActivityPreviewProps) 
                   <CollapsibleTrigger asChild>
                     <button
                       type="button"
-                      className="group/trigger flex min-h-20 w-full items-center gap-3 rounded-md py-4 text-left transition-[background-color,color,transform] duration-150 hover:bg-muted/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring active:scale-[0.995] motion-reduce:transform-none motion-reduce:transition-none"
+                      className="group/trigger flex min-h-20 w-full items-center gap-3 rounded-md px-1 py-4 text-left transition-[background-color,color,transform] duration-150 hover:bg-muted/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
                     >
                       <RepositoryIcon allMerged={allMerged} />
                       <span className="min-w-0 flex-1 pt-0.5">
-                        <span className="block text-sm font-medium text-foreground transition-colors duration-150 group-hover/trigger:text-emerald-700 dark:group-hover/trigger:text-emerald-400">
+                        <span className="block text-sm font-medium text-foreground">
                           {project}
                         </span>
                         <span className="mt-0.5 block text-xs leading-5 text-muted-foreground">
@@ -189,7 +192,7 @@ export function GithubActivityPreview({ activity }: GithubActivityPreviewProps) 
                           <div className="min-w-0">
                             <div className="flex items-start gap-2">
                               <GitPullRequest
-                                className="mt-1 size-3.5 shrink-0 text-violet-500 dark:text-violet-400"
+                                className="mt-1 size-3.5 shrink-0 text-[#8957e5] dark:text-violet-400"
                                 aria-hidden="true"
                               />
                               {item.href ? (
@@ -248,16 +251,6 @@ export function GithubActivityPreview({ activity }: GithubActivityPreviewProps) 
           })}
         </ol>
       </div>
-
-      <a
-        href={activity.profileHref}
-        target="_blank"
-        rel="noreferrer"
-        className="group/activity mt-1 inline-flex min-h-11 items-center gap-1.5 rounded-sm text-sm text-muted-foreground transition-colors duration-150 hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
-      >
-        <span className="border-b border-dotted border-current/55 pb-px">View GitHub activity</span>
-        <ArrowUpRight className="size-3.5" aria-hidden="true" />
-      </a>
     </section>
   )
 }

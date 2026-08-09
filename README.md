@@ -73,10 +73,33 @@ Build and validate all registry artifacts:
 bun run registry:build
 ```
 
+The reusable `ContributionGraph` and `PublicInsights` components contain presentation only. Their
+portfolio data adapters remain server-only and are not included in registry installs.
+
+## Public data
+
+Copy `.env.example` to `.env.local` and add only the credentials you want to enable:
+
+- `GITHUB_TOKEN` and `GITHUB_USERNAME` load merged pull requests and the GitHub contribution
+  calendar through GitHub GraphQL. Responses are normalized on the server; contribution data is
+  cached for six hours.
+- `VERCEL_TOKEN` and `VERCEL_PROJECT_ID` load anonymous aggregate visitors and page views through
+  Vercel Web Analytics. Add `VERCEL_TEAM_ID` for a team-owned project. Current and previous 28-day
+  ranges are queried separately and cached for six hours.
+
+No credential uses a `NEXT_PUBLIC_` prefix. The public analytics section remains hidden when Vercel
+credentials are absent or the provider fails, and `/api/public-insights` returns only allowlisted
+aggregate fields.
+
 ## Checks
 
+```bash
+bun run lint
+bunx tsc --noEmit
 bun test
+bun run registry:build
 bun run build
+```
 
 ## License
 

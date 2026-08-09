@@ -16,6 +16,9 @@ export type ProjectImage = {
 export type Project = {
   slug: string
   title: string
+  type: string
+  year: string
+  status: string
   summary: string
   description: string
   role: string
@@ -30,7 +33,10 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: 'ui-library',
-    title: 'Nav UI',
+    title: 'NavUI',
+    type: 'Open source',
+    year: '2025—Present',
+    status: 'Active',
     summary: 'Open registry for reusable components, blocks, and illustrations',
     description:
       'A shadcn-compatible React registry for reusable components, content blocks, and illustrations.',
@@ -66,6 +72,9 @@ export const projects: Project[] = [
   {
     slug: 'cablelink-solutions',
     title: 'CableLink Solutions',
+    type: 'Client work',
+    year: '2025',
+    status: 'Live',
     summary: 'Marketing site for a telecommunications services company',
     description: 'A responsive client website for a telecommunications services business.',
     role: 'Requirements · Interface design · Frontend development',
@@ -96,7 +105,10 @@ export const projects: Project[] = [
   },
   {
     slug: 'invora',
-    title: 'Invora Invoice Builder',
+    title: 'Invora',
+    type: 'Independent product',
+    year: '2025—Present',
+    status: 'In development',
     summary: 'Invoice-generation app for freelancers and small businesses',
     description: 'An invoice builder with dynamic forms, live totals, and a print-ready preview.',
     role: 'Product UI · Forms · Document layout',

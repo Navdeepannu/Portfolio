@@ -17,6 +17,13 @@ export function ResumeEntry({ entry }: { entry: ResumeEntryData }) {
         <p className="mt-3 max-w-2xl text-sm leading-6 text-foreground/80 sm:text-base sm:leading-7">
           {entry.description}
         </p>
+        {entry.highlights ? (
+          <ul className="mt-4 max-w-2xl list-disc space-y-2 pl-5 text-sm leading-6 text-muted-foreground">
+            {entry.highlights.map((highlight) => (
+              <li key={highlight}>{highlight}</li>
+            ))}
+          </ul>
+        ) : null}
       </div>
     </article>
   )

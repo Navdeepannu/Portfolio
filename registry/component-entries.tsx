@@ -8,6 +8,8 @@ import ExpandableCardShowcase from '@/components/showcase/expandable-card'
 import RailNavShowcase from '@/components/showcase/rail-nav'
 import ProximityNavShowcase from '@/components/showcase/proximity-nav'
 import PackageManagerCommandShowcase from '@/components/showcase/package-manager-command'
+import ContributionGraphShowcase from '@/components/showcase/contribution-graph'
+import PublicInsightsShowcase from '@/components/showcase/public-insights'
 
 import { defineComponent } from './define-component'
 import type { ComponentDefinition } from '@/data/component-types'
@@ -794,6 +796,190 @@ export function Example() {
       ],
     }),
     PackageManagerCommandShowcase,
+  ),
+  entry(
+    defineComponent({
+      slug: 'contribution-graph',
+      title: 'Contribution Graph',
+      image: '/component-previews/contribution-graph.svg',
+      description:
+        'An accessible, responsive contribution calendar for normalized daily activity data, with monochrome intensity, month labels, day tooltips, a text summary, and graceful empty state.',
+      registryDescription:
+        'Accessible monochrome contribution calendar with latest-visible responsive clipping, day tooltips, and a graceful empty state.',
+      category: 'data-display',
+      tags: ['data display', 'analytics', 'github', 'accessibility', 'responsive'],
+      bento: { size: 'lg' },
+      gallery: {
+        size: 'wide',
+        height: 'md',
+        tabletSpan: 2,
+        treatment: 'muted',
+        label: 'Contribution graph example',
+      },
+      useCases: [
+        'Developer profiles',
+        'Open-source dashboards',
+        'Habit and activity tracking',
+        'Release or publishing calendars',
+      ],
+      notes: [
+        'Pass normalized data from any server-side provider; the component performs no authenticated requests.',
+        'Contribution intensity is exposed in text and accessible labels, not only through color.',
+        'The latest days stay visible on narrow screens; keyboard users can move between days with the arrow keys.',
+      ],
+      sourceFiles: [
+        { path: 'components/ui/components/contribution-graph.tsx', language: 'tsx' },
+        {
+          path: 'components/showcase/contribution-graph.tsx',
+          language: 'tsx',
+          filename: 'demo.tsx',
+        },
+      ],
+      registry: {
+        dependencies: [],
+        registryDependencies: [],
+      },
+      usageExample: `import { ContributionGraph } from '@/components/contribution-graph'
+
+const data = {
+  total: 3,
+  from: '2025-05-01',
+  to: '2025-05-03',
+  days: [
+    { date: '2025-05-01', count: 0, level: 0 },
+    { date: '2025-05-02', count: 1, level: 1 },
+    { date: '2025-05-03', count: 2, level: 2 },
+  ],
+}
+
+export function Example() {
+  return <ContributionGraph aria-label="Project activity" data={data} />
+}`,
+      api: [
+        {
+          prop: 'data',
+          type: 'ContributionGraphData',
+          default: '-',
+          description:
+            'Normalized daily counts, intensity levels from 0–4, total, and ISO date range.',
+        },
+        {
+          prop: 'emptyMessage',
+          type: 'string',
+          default: 'Contextual fallback message',
+          description: 'Message rendered when the daily data array is empty.',
+        },
+        {
+          prop: 'className / figure props',
+          type: 'string / ComponentPropsWithoutRef<"figure">',
+          default: '-',
+          description:
+            'Classes and native figure attributes, including aria-label, forwarded to the root.',
+        },
+      ],
+    }),
+    ContributionGraphShowcase,
+  ),
+  entry(
+    defineComponent({
+      slug: 'public-insights',
+      title: 'Public Insights',
+      image: '/component-previews/public-insights.svg',
+      description:
+        'A provider-independent analytics panel with compact metrics, equal-period comparisons, a restrained SVG trend, accessible table data, and complete loading states.',
+      registryDescription:
+        'Provider-independent public analytics panel with metrics, comparisons, an accessible SVG trend, and loading states.',
+      category: 'data-display',
+      tags: ['data display', 'analytics', 'chart', 'dashboard', 'accessibility'],
+      bento: { size: 'xl' },
+      gallery: {
+        size: 'feature',
+        height: 'lg',
+        tabletSpan: 2,
+        treatment: 'muted',
+        label: 'Public analytics example',
+      },
+      useCases: [
+        'Public product metrics',
+        'Portfolio traffic summaries',
+        'Open-source project dashboards',
+        'Privacy-conscious aggregate reporting',
+      ],
+      notes: [
+        'Keep provider credentials and response normalization in a server-only adapter.',
+        'The chart is paired with a screen-reader table and does not depend on animation or color alone.',
+      ],
+      sourceFiles: [
+        { path: 'components/ui/components/public-insights.tsx', language: 'tsx' },
+        {
+          path: 'components/showcase/public-insights.tsx',
+          language: 'tsx',
+          filename: 'demo.tsx',
+        },
+      ],
+      registry: {
+        dependencies: [],
+        registryDependencies: [],
+      },
+      usageExample: `import { PublicInsights } from '@/components/public-insights'
+
+const snapshot = {
+  period: { from: '2025-05-01', to: '2025-05-14', label: 'Last 14 days' },
+  metrics: [{ id: 'visitors', label: 'Visitors', value: 1284, change: 12.4 }],
+  series: [{ date: '2025-05-01', visitors: 62 }],
+  updatedAt: '2025-05-14T16:00:00.000Z',
+  source: 'Aggregate analytics',
+}
+
+export function Example() {
+  return <PublicInsights snapshot={snapshot} />
+}`,
+      api: [
+        {
+          prop: 'snapshot',
+          type: 'AnalyticsSnapshot | null',
+          default: '-',
+          description: 'Normalized period, metrics, dated series, source, and update timestamp.',
+        },
+        {
+          prop: 'status',
+          type: '"ready" | "loading" | "empty" | "error"',
+          default: 'Derived from snapshot',
+          description: 'Selects the ready, loading, empty, or error presentation.',
+        },
+        {
+          prop: 'seriesKey',
+          type: '"visitors" | "sessions" | "views"',
+          default: '"visitors"',
+          description: 'Chooses which normalized series is drawn in the SVG trend.',
+        },
+        {
+          prop: 'formatMetric / formatDate',
+          type: 'Formatting callbacks',
+          default: 'Locale number / short date',
+          description: 'Customizes value and date rendering without changing the data model.',
+        },
+        {
+          prop: 'title / description',
+          type: 'string / string',
+          default: 'Public insights / Privacy-conscious description',
+          description: 'Accessible section name and supporting explanation.',
+        },
+        {
+          prop: 'emptyMessage / errorMessage',
+          type: 'string / string',
+          default: 'Contextual fallback messages',
+          description: 'Custom text for unavailable analytics states.',
+        },
+        {
+          prop: 'className / section props',
+          type: 'string / ComponentPropsWithoutRef<"section">',
+          default: '-',
+          description: 'Classes and native section attributes forwarded to the root element.',
+        },
+      ],
+    }),
+    PublicInsightsShowcase,
   ),
 ]
 

@@ -1,12 +1,9 @@
-'use client'
-
 import Link from 'next/link'
+import { IconBrandGithub } from '@tabler/icons-react'
 
 import { Button } from '@/components/ui/button'
 import { TextLoop } from '@/components/ui/text-loop'
 import Container from '@/site/container'
-
-import { GitHubStars } from './github-star'
 
 const hero = {
   roles: ['components.', 'blocks.', 'illustrations.', 'templates.'],
@@ -17,11 +14,12 @@ const hero = {
     href: '/blocks',
   },
   secondaryCTA: {
-    label: 'Star on GitHub',
+    label: 'View on GitHub',
+    href: 'https://github.com/navdeepannu/portfolio',
   },
 }
 
-export function UiLibraryHero({ stargazersCount }: { stargazersCount: number }) {
+export function UiLibraryHero() {
   return (
     <section>
       <Container className="font-geist selection:bg-emerald-200/60 dark:selection:bg-emerald-500 dark:selection:text-white">
@@ -44,15 +42,13 @@ export function UiLibraryHero({ stargazersCount }: { stargazersCount: number }) 
               <Link href={hero.primaryCTA.href}>{hero.primaryCTA.label}</Link>
             </Button>
 
-            <GitHubStars
-              repo="navdeepannu/portfolio"
-              stargazersCount={stargazersCount}
-              label={hero.secondaryCTA.label}
-              variant="outline"
-              size="lg"
-              className="rounded-md"
-              showTooltip={false}
-            />
+            <Button asChild variant="outline" size="lg" className="rounded-md">
+              <a href={hero.secondaryCTA.href} target="_blank" rel="noopener noreferrer">
+                <IconBrandGithub aria-hidden="true" className="size-4" />
+                {hero.secondaryCTA.label}
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
+            </Button>
           </div>
         </div>
       </Container>

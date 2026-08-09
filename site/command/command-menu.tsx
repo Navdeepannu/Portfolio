@@ -8,16 +8,31 @@ import { ArrowUpRight, CornerDownLeft, SearchIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog'
 import { Kbd, KbdGroup } from '@/components/ui/kbd'
-import { getSearchGroups, type SearchGroup, type SearchItem } from '@/lib/search-data'
+import type { SearchGroup, SearchItem } from '@/lib/search-data'
 
 type CommandMenuProps = {
+  site: 'portfolio' | 'ui'
+  groups: SearchGroup[]
   open: boolean
   onOpenChange: (open: boolean) => void
 }
 
-export function CommandMenu({ open, onOpenChange }: CommandMenuProps) {
+const sharedShortcuts = [
+  { label: 'Open command menu', keys: ['⌘', 'K'] },
+  { label: 'Toggle theme', keys: ['D'] },
+  { label: 'Close dialogs', keys: ['Esc'] },
+] as const
+
+const siteShortcuts = {
+  portfolio: [
+    ...sharedShortcuts,
+    { label: 'Previous or next image (viewer)', keys: ['←', '→'] },
+  ],
+  ui: [...sharedShortcuts, { label: 'Toggle sidebar (component pages)', keys: ['⌘', 'B'] }],
+} as const
+
+export function CommandMenu({ site, groups, open, onOpenChange }: CommandMenuProps) {
   const router = useRouter()
-  const groups = React.useMemo(() => getSearchGroups(), [])
   const [query, setQuery] = React.useState('')
 
   const handleOpenChange = React.useCallback(
@@ -56,8 +71,10 @@ export function CommandMenu({ open, onOpenChange }: CommandMenuProps) {
       >
         <DialogTitle className="sr-only">Command Menu</DialogTitle>
         <DialogDescription className="sr-only">
-          Search across UI-library pages, blocks, and components. Use arrow keys to navigate and
-          Enter to open.
+          {site === 'ui'
+            ? 'Search across NavUI pages, blocks, and components.'
+            : 'Search across portfolio pages and links.'}{' '}
+          Use arrow keys to navigate and Enter to open.
         </DialogDescription>
 
         <CommandPrimitive
@@ -83,8 +100,10 @@ export function CommandMenu({ open, onOpenChange }: CommandMenuProps) {
                 )}
               >
                 <CommandPrimitive.Empty asChild>
-                  <CommandEmpty query={query} />
+                  <CommandEmpty query={query} site={site} />
                 </CommandPrimitive.Empty>
+
+                {query ? null : <CommandShortcuts site={site} />}
 
                 {groups.map((group) => (
                   <CommandGroupRender key={group.id} group={group} onSelect={handleSelect} />
@@ -97,6 +116,35 @@ export function CommandMenu({ open, onOpenChange }: CommandMenuProps) {
         </CommandPrimitive>
       </DialogContent>
     </Dialog>
+  )
+}
+
+function CommandShortcuts({ site }: { site: CommandMenuProps['site'] }) {
+  return (
+    <section aria-labelledby={`${site}-keyboard-shortcuts`} className="px-4 pt-3 pb-2">
+      <h2
+        id={`${site}-keyboard-shortcuts`}
+        className="text-[11px] font-medium tracking-wide text-muted-foreground/80"
+      >
+        Keyboard shortcuts
+      </h2>
+      <dl className="mt-1.5 divide-y divide-border/50">
+        {siteShortcuts[site].map((shortcut) => (
+          <div key={shortcut.label} className="flex min-h-10 items-center gap-4 py-1.5">
+            <dt className="text-sm text-foreground/75">{shortcut.label}</dt>
+            <dd className="ml-auto">
+              <KbdGroup>
+                {shortcut.keys.map((key) => (
+                  <Kbd key={key} className="bg-background/80 dark:bg-background/40">
+                    {key}
+                  </Kbd>
+                ))}
+              </KbdGroup>
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </section>
   )
 }
 
@@ -214,14 +262,16 @@ function CommandRow({
   )
 }
 
-function CommandEmpty({ query }: { query: string }) {
+function CommandEmpty({ query, site }: { query: string; site: CommandMenuProps['site'] }) {
   return (
     <div className="flex flex-col items-center justify-center gap-1 px-4 py-12 text-center">
       <p className="text-sm font-medium text-foreground">No results found</p>
       <p className="max-w-xs text-xs text-muted-foreground">
         {query
           ? `Nothing matched “${query}”. Try a different query.`
-          : 'Try searching for a page, block or component.'}
+          : site === 'ui'
+            ? 'Try searching for a page, block or component.'
+            : 'Try searching for a project, page or profile.'}
       </p>
     </div>
   )

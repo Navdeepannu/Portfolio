@@ -92,12 +92,21 @@ function selectRecentPullRequests(nodes: Array<PullRequestNode | null>) {
       continue
     }
 
-    if (repositories.size < REPOSITORY_LIMIT) {
-      repositories.set(repositoryKey, [pullRequest])
-    }
+    repositories.set(repositoryKey, [pullRequest])
   }
 
-  return Array.from(repositories.values()).flat()
+  return Array.from(repositories.entries())
+    .sort(([firstRepository], [secondRepository]) => {
+      const priority = (repository: string) => {
+        if (repository === 'usekaneo/kaneo') return 0
+        if (repository === 'navdeepannu/portfolio') return 1
+        return 2
+      }
+
+      return priority(firstRepository) - priority(secondRepository)
+    })
+    .slice(0, REPOSITORY_LIMIT)
+    .flatMap(([, items]) => items)
 }
 
 export async function getGithubActivity(): Promise<GithubActivityPreview> {
