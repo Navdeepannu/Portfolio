@@ -9,7 +9,7 @@ import { GET as getUiManifest } from '@/app/ui/manifest.webmanifest/route'
 import { GET as getUiRobots } from '@/app/ui/robots.txt/route'
 import uiSitemap from '@/app/ui/sitemap'
 import { getDirectInstallCommands, getRegistryItemUrl } from '@/lib/registry'
-import { portfolioMetadata, uiMetadata } from '@/lib/site'
+import { portfolioMetadata, uiMetadata, uiSiteConfig } from '@/lib/site'
 import { SITE_ORIGINS } from '@/lib/sites'
 import { getInstallCommands } from '@/site/block-install-commands'
 
@@ -44,7 +44,7 @@ describe('site-specific metadata origins', () => {
     assert.equal(portfolioRules.sitemap, `${SITE_ORIGINS.portfolio}/sitemap.xml`)
     assert.match(uiRobots, new RegExp(`Sitemap: ${SITE_ORIGINS.ui}/sitemap\\.xml`))
     assert.match(uiRobots, new RegExp(`Host: ${SITE_ORIGINS.ui}`))
-    assert.equal(uiManifest.name, 'Nav UI · Components, Blocks, and Templates')
+    assert.equal(uiManifest.name, uiSiteConfig.title)
     assert.equal(uiManifest.start_url, '/')
   })
 })

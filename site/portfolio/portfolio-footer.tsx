@@ -1,19 +1,18 @@
 import Link from 'next/link'
-import { IconBrandGithub, IconBrandX, IconBrandLinkedin } from '@tabler/icons-react'
+import { IconBrandGithub, IconBrandLinkedin } from '@tabler/icons-react'
 import { Signature } from '@/site/logo'
 import { SITE_ORIGINS } from '@/lib/sites'
 import { Logo } from '@/site/ui-library/ui-library-logo'
 
 const links = [
-  { label: 'Projects', href: '/projects' },
-  { label: 'Resume', href: '/resume/resume.pdf' },
-  { label: 'Bocks', href: `${SITE_ORIGINS.ui}/blocks` },
-  { label: 'Components', href: `${SITE_ORIGINS.ui}/components` },
+  { label: 'Work', href: '/projects' },
+  { label: 'Writing', href: '/blog' },
+  { label: 'NavUI', href: SITE_ORIGINS.ui, external: true },
+  { label: 'Resume', href: '/resume/resume.pdf', external: true },
 ]
 
 const social = [
-  { icon: IconBrandX, href: 'https://x.com/navdeepannu0', label: 'Twitter' },
-  { icon: IconBrandGithub, href: 'https://github.com/Navdeepannu/Portfolio', label: 'GitHub' },
+  { icon: IconBrandGithub, href: 'https://github.com/navdeepannu', label: 'GitHub' },
   {
     icon: IconBrandLinkedin,
     href: 'https://www.linkedin.com/in/navdeepsingh0/',
@@ -25,11 +24,11 @@ export function PortfolioFooter() {
   const date = new Date().getFullYear()
 
   return (
-    <footer className="@container bg-background py-12">
+    <footer className="@container border-t border-border/70 bg-background py-9">
       <div className="mx-auto max-w-2xl px-6">
         <div className="flex flex-col items-center text-center">
           <div className="flex items-center gap-4">
-            <Logo className="h-14 w-auto rounded-xl bg-foreground/20 shadow-md" />
+            <Logo title="Navdeep Singh" className="h-12 w-auto rounded-xl" />
             <Signature />
           </div>
           <nav
@@ -40,25 +39,32 @@ export function PortfolioFooter() {
               <Link
                 key={link.label}
                 href={link.href}
-                className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                target={link.external ? '_blank' : undefined}
+                rel={link.external ? 'noopener noreferrer' : undefined}
+                className="inline-flex min-h-11 items-center text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-foreground"
               >
                 {link.label}
+                {link.external ? <span className="sr-only"> (opens in a new tab)</span> : null}
               </Link>
             ))}
           </nav>
-          <div className="mt-8 flex gap-4">
+          <div className="mt-5 flex gap-2">
             {social.map((item) => (
               <Link
                 key={item.label}
                 href={item.href}
-                className="size-8 rounded-full text-muted-foreground transition-colors hover:text-foreground"
-                aria-label={item.label}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex size-11 items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
+                aria-label={`${item.label} (opens in a new tab)`}
               >
-                <item.icon className="size-4" />
+                <item.icon aria-hidden="true" className="size-4" />
               </Link>
             ))}
           </div>
-          <p className="mt-8 text-xs text-muted-foreground">&copy; {date} Navdeep Singh.</p>
+          <p className="mt-5 text-xs text-muted-foreground">
+            &copy; {date} Navdeep Singh · Toronto, Canada
+          </p>
         </div>
       </div>
     </footer>

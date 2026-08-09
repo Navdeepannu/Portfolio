@@ -109,7 +109,6 @@ export default async function ComponentRenderer({ component }: { component: Comp
       <div className="flex flex-col gap-3">
         <ComponentTabs
           slug={component.slug}
-          title={component.title}
           preview={<ComponentPreview slug={component.slug} />}
           code={<BlockCode files={codeTabFiles} />}
         />

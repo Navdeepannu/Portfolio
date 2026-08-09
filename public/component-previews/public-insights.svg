@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" fill="none">
+  <rect width="1200" height="800" rx="32" fill="#f5f5f4"/>
+  <rect x="120" y="110" width="960" height="580" rx="24" fill="white" stroke="#d6d3d1"/>
+  <text x="170" y="175" fill="#1c1917" font-family="Arial, sans-serif" font-size="24" font-weight="600">Public insights</text>
+  <text x="170" y="212" fill="#78716c" font-family="Arial, sans-serif" font-size="17">Provider-independent aggregate activity</text>
+  <rect x="170" y="260" width="410" height="125" rx="14" fill="#fafaf9" stroke="#e7e5e4"/>
+  <text x="195" y="300" fill="#78716c" font-family="Arial, sans-serif" font-size="16">Visitors</text><text x="195" y="350" fill="#1c1917" font-family="Arial, sans-serif" font-size="36" font-weight="600">1,284</text><text x="315" y="350" fill="#047857" font-family="Arial, sans-serif" font-size="16">+12.4%</text>
+  <rect x="600" y="260" width="410" height="125" rx="14" fill="#fafaf9" stroke="#e7e5e4"/>
+  <text x="625" y="300" fill="#78716c" font-family="Arial, sans-serif" font-size="16">Page views</text><text x="625" y="350" fill="#1c1917" font-family="Arial, sans-serif" font-size="36" font-weight="600">3,072</text><text x="745" y="350" fill="#047857" font-family="Arial, sans-serif" font-size="16">+8.1%</text>
+  <path d="M170 575C250 555 275 520 340 535C410 550 445 475 515 500C575 522 620 430 690 465C750 495 805 410 870 440C920 463 965 405 1010 420V610H170V575Z" fill="#10b981" fill-opacity=".09"/>
+  <path d="M170 575C250 555 275 520 340 535C410 550 445 475 515 500C575 522 620 430 690 465C750 495 805 410 870 440C920 463 965 405 1010 420" stroke="#059669" stroke-width="4" stroke-linecap="round"/>
+  <text x="170" y="650" fill="#78716c" font-family="Arial, sans-serif" font-size="15">May 1–14, 2025 · Example data</text>
+</svg>

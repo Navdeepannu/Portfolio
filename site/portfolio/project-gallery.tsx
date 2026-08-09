@@ -19,6 +19,7 @@ import type { LandingLink, LandingProject } from '@/site/portfolio/landing-page-
 
 type ProjectGalleryProps = {
   projects: readonly LandingProject[]
+  showDetails?: boolean
 }
 
 type ActiveImage = {
@@ -68,10 +69,10 @@ function ProjectImage({ image, sizes, preload = false }: ProjectImageProps) {
     return (
       <Image
         src={image.src}
-        alt={image.alt}
+        alt=""
+        aria-hidden="true"
         fill
         preload={preload}
-        loading="eager"
         sizes={sizes}
         className={className}
       />
@@ -82,18 +83,20 @@ function ProjectImage({ image, sizes, preload = false }: ProjectImageProps) {
     <>
       <Image
         src={image.src}
-        alt={image.alt}
+        alt=""
+        aria-hidden="true"
         fill
-        loading="eager"
+        loading={preload ? 'eager' : 'lazy'}
         fetchPriority={preload ? 'high' : undefined}
         sizes={sizes}
         className={`${className} dark:hidden`}
       />
       <Image
         src={image.darkSrc}
-        alt={image.alt}
+        alt=""
+        aria-hidden="true"
         fill
-        loading="eager"
+        loading={preload ? 'eager' : 'lazy'}
         fetchPriority={preload ? 'high' : undefined}
         sizes={sizes}
         className={`hidden ${className} dark:block`}
@@ -143,13 +146,13 @@ function ProjectTechStack({
 function ProjectLinks({ links }: { links: readonly LandingLink[] }) {
   return (
     <ul className="flex flex-wrap gap-x-4 gap-y-0.5">
-      {links.map((link) => (
+      {links.map((link, index) => (
         <li key={link.label}>
           <Link
             href={link.href}
             target={link.external ? '_blank' : undefined}
             rel={link.external ? 'noopener noreferrer' : undefined}
-            className="group inline-flex min-h-11 items-center gap-0.5 text-sm font-medium text-muted-foreground transition-colors duration-150 hover:text-foreground focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-foreground"
+            className={`group inline-flex min-h-11 items-center gap-0.5 text-sm font-medium transition-colors duration-150 hover:text-foreground focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-foreground ${index === 0 ? 'text-foreground' : 'text-muted-foreground'}`}
           >
             <span className="border-b border-dotted border-current/55 pb-px">{link.label}</span>
             {link.external ? <span className="sr-only"> (opens in a new tab)</span> : null}
@@ -160,7 +163,7 @@ function ProjectLinks({ links }: { links: readonly LandingLink[] }) {
   )
 }
 
-export function ProjectGallery({ projects }: ProjectGalleryProps) {
+export function ProjectGallery({ projects, showDetails = true }: ProjectGalleryProps) {
   const shouldReduceMotion = useReducedMotion() ?? false
   const [activeImage, setActiveImage] = useState<ActiveImage | null>(null)
   const lastTriggerRef = useRef<HTMLButtonElement | null>(null)
@@ -225,20 +228,28 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
         if (!open) setActiveImage(null)
       }}
     >
-      <div className="mt-7 space-y-12 sm:space-y-16">
+      <div className="mt-8 space-y-12 sm:space-y-16">
         {projects.map((project, projectIndex) => (
           <article
             key={project.title}
             className={projectIndex > 0 ? 'border-t border-border/70 pt-12 sm:pt-16' : undefined}
           >
-            <header className="flex flex-wrap items-center justify-between gap-x-6 gap-y-1">
-              <h3 className="text-lg font-medium tracking-[-0.02em] text-foreground sm:text-xl">
-                {project.title}
-              </h3>
+            <header className="grid gap-2 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end sm:gap-x-6">
+              <div>
+                <p className="text-xs font-medium text-muted-foreground">{project.category}</p>
+                <h3 className="mt-1.5 text-lg font-medium tracking-[-0.02em] text-foreground sm:text-xl">
+                  {project.title}
+                </h3>
+              </div>
               <ProjectLinks links={project.links} />
             </header>
 
-            <div className="mt-5 -mr-5 [scrollbar-width:none] overflow-x-auto overscroll-x-contain pt-1 pr-5 pb-2 pl-1 sm:-mr-8 sm:pr-8 lg:mr-0 lg:w-[calc(50vw+25.5rem)] lg:pr-0 lg:pb-3 [&::-webkit-scrollbar]:hidden">
+            <div
+              role="region"
+              aria-label={`${project.title} media gallery`}
+              tabIndex={0}
+              className="mt-5 -mr-5 touch-pan-x scroll-px-1 [scrollbar-width:none] overflow-x-auto overscroll-x-contain rounded-xl pt-1 pr-5 pb-2 pl-1 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground sm:-mr-8 sm:pr-8 lg:mr-0 lg:w-[calc(50vw+25.5rem)] lg:pr-0 lg:pb-3 [&::-webkit-scrollbar]:hidden"
+            >
               <div className="flex w-max snap-x snap-mandatory gap-4 lg:gap-5">
                 {project.images.map((image, imageIndex) => (
                   <div key={image.src} className="snap-start">
@@ -248,7 +259,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
                         lastTriggerRef.current = event.currentTarget
                         setActiveImage({ projectIndex, imageIndex })
                       }}
-                      aria-label={`Open ${project.title} image ${imageIndex + 1} of ${project.images.length}`}
+                      aria-label={`${image.alt}. Open image ${imageIndex + 1} of ${project.images.length}.`}
                       className="group relative aspect-16/10 w-[min(82vw,20rem)] rounded-xl bg-muted/60 p-1 shadow-sm ring-1 ring-foreground/5 transition-transform duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] hover:-translate-y-0.5 hover:scale-[1.005] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground motion-reduce:transform-none motion-reduce:transition-none sm:w-[min(46vw,22rem)] sm:rounded-2xl lg:w-[min(46vw,29rem)]"
                     >
                       <span className="relative block size-full overflow-hidden rounded-lg bg-background sm:rounded-xl">
@@ -264,20 +275,32 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
               </div>
             </div>
 
-            <div className="mt-3 max-w-[68ch]">
-              <p className="text-sm leading-6 text-muted-foreground md:text-base md:leading-7">
-                {project.description}
+            {showDetails ? (
+              <dl className="mt-4 grid gap-4 text-sm leading-6 sm:grid-cols-3">
+                <div>
+                  <dt className="font-medium text-foreground">Problem</dt>
+                  <dd className="mt-1 text-muted-foreground">{project.problem}</dd>
+                </div>
+                <div>
+                  <dt className="font-medium text-foreground">My contribution</dt>
+                  <dd className="mt-1 text-muted-foreground">{project.contribution}</dd>
+                </div>
+                <div>
+                  <dt className="font-medium text-foreground">Outcome</dt>
+                  <dd className="mt-1 text-muted-foreground">{project.outcome}</dd>
+                </div>
+              </dl>
+            ) : null}
+
+            <div className="mt-5 flex items-center gap-4">
+              <ProjectTechStack
+                projectTitle={project.title}
+                stack={project.stack}
+                shouldReduceMotion={shouldReduceMotion}
+              />
+              <p className="text-xs leading-5 text-muted-foreground">
+                {project.stack.join(' · ')}
               </p>
-              <div className="mt-3 grid items-center gap-3 sm:grid-cols-[auto_minmax(0,1fr)] sm:gap-4">
-                <ProjectTechStack
-                  projectTitle={project.title}
-                  stack={project.stack}
-                  shouldReduceMotion={shouldReduceMotion}
-                />
-                <p className="max-w-[58ch] text-sm leading-6 text-muted-foreground">
-                  {project.contribution}
-                </p>
-              </div>
             </div>
           </article>
         ))}
@@ -295,7 +318,8 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
           <>
             <DialogTitle className="sr-only">{activeProject.title}</DialogTitle>
             <DialogDescription className="sr-only">
-              Use the left and right arrow keys to move between images for this project.
+              {activeProjectImage.alt}. Use the left and right arrow keys to move between images for
+              this project.
             </DialogDescription>
 
             <div className="relative aspect-16/10 overflow-hidden rounded-lg bg-muted shadow-md ring-1 ring-foreground/5.5 sm:rounded-xl">
@@ -309,7 +333,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
                   <button
                     type="button"
                     onClick={showPrevious}
-                    className="absolute top-1/2 left-3 inline-flex size-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-background/90 text-foreground shadow-sm ring-1 ring-foreground/10 backdrop-blur-sm transition-colors duration-100 hover:bg-background focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground active:scale-[0.95] active:transition-all"
+                    className="absolute top-1/2 left-3 inline-flex size-11 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-background/90 text-foreground shadow-sm ring-1 ring-foreground/10 backdrop-blur-sm transition-[background-color,transform] duration-100 hover:bg-background focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground active:scale-[0.97]"
                     aria-label="Previous project image"
                   >
                     <ChevronLeft aria-hidden="true" className="size-4" />
@@ -317,7 +341,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
                   <button
                     type="button"
                     onClick={showNext}
-                    className="avtive:transition-all absolute top-1/2 right-3 inline-flex size-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-background/90 text-foreground shadow-sm ring-1 ring-foreground/10 backdrop-blur-sm transition-colors duration-100 hover:bg-background focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground active:scale-[0.95]"
+                    className="absolute top-1/2 right-3 inline-flex size-11 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-background/90 text-foreground shadow-sm ring-1 ring-foreground/10 backdrop-blur-sm transition-[background-color,transform] duration-100 hover:bg-background focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground active:scale-[0.97]"
                     aria-label="Next project image"
                   >
                     <ChevronRight aria-hidden="true" className="size-4" />
@@ -328,7 +352,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
               <DialogClose asChild>
                 <button
                   type="button"
-                  className="absolute top-3 right-3 inline-flex size-9 items-center justify-center rounded-full bg-background/90 text-foreground shadow-sm ring-1 ring-foreground/10 backdrop-blur-sm transition-colors hover:bg-background focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
+                  className="absolute top-3 right-3 inline-flex size-11 items-center justify-center rounded-full bg-background/90 text-foreground shadow-sm ring-1 ring-foreground/10 backdrop-blur-sm transition-colors hover:bg-background focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
                   aria-label="Close project image"
                 >
                   <X aria-hidden="true" className="size-4" />

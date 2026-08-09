@@ -1363,6 +1363,34 @@
         }
       ],
       "type": "registry:ui"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "contribution-graph",
+      "title": "Contribution Graph",
+      "description": "Accessible monochrome contribution calendar with latest-visible responsive clipping, day tooltips, and a graceful empty state.",
+      "files": [
+        {
+          "path": "components/ui/components/contribution-graph.tsx",
+          "type": "registry:ui",
+          "target": "@components/contribution-graph.tsx"
+        }
+      ],
+      "type": "registry:ui"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "public-insights",
+      "title": "Public Insights",
+      "description": "Provider-independent public analytics panel with metrics, comparisons, an accessible SVG trend, and loading states.",
+      "files": [
+        {
+          "path": "components/ui/components/public-insights.tsx",
+          "type": "registry:ui",
+          "target": "@components/public-insights.tsx"
+        }
+      ],
+      "type": "registry:ui"
     }
   ]
 }

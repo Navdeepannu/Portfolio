@@ -20,12 +20,10 @@ export function ComponentPreview({ slug }: { slug: string }) {
 
 export default function ComponentTabs({
   slug,
-  title: _title,
   preview,
   code,
 }: {
   slug: string
-  title: string
   preview: ReactNode
   code: ReactNode
 }) {
@@ -36,7 +34,7 @@ export default function ComponentTabs({
 
   return (
     <Tabs defaultValue="preview" className="flex w-full flex-col gap-0">
-      <div className="mb-3 flex min-h-9 w-full min-w-0 items-center justify-between gap-3 sm:gap-4">
+      <div className="mb-3 flex min-h-9 w-full min-w-0 flex-col items-stretch justify-between gap-3 sm:gap-4 md:flex-row md:items-center">
         <TabsList className="rounded-lg p-1">
           <TabsTrigger value="preview" aria-label="Preview" title="Preview">
             <ScanEye />

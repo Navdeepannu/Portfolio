@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 
-import { PortfolioNavbar } from '@/site/portfolio/portfolio-navbar-server'
+import { PortfolioNavbar } from '@/site/portfolio/portfolio-navbar'
 import { PortfolioFooter } from '@/site/portfolio/portfolio-footer'
 
 export const metadata: Metadata = {

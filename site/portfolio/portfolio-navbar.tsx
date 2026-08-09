@@ -2,7 +2,8 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { ArrowUpRight, Menu, X } from 'lucide-react'
+import { ArrowUpRight, Command, Menu, X } from 'lucide-react'
+import { IconBrandGithub, IconBrandLinkedin } from '@tabler/icons-react'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { useEffect, useState } from 'react'
 import { Dialog as DialogPrimitive } from 'radix-ui'
@@ -11,14 +12,16 @@ import { cn } from '@/lib/utils'
 import { SITE_ORIGINS } from '@/lib/sites'
 import { LandingThemeToggle } from '@/site/portfolio/landing-theme-toggle'
 import { Button } from '@/components/ui/button'
-import { GitHubStars } from '../ui-library/github-star'
 import Logo from '../ui-library/ui-library-logo'
+import { portfolioSiteConfig } from '@/lib/site'
+import { portfolioSearchGroups } from '@/lib/portfolio-search-data'
+import { useCommandMenu } from '@/hooks/use-command-menu'
+import { CommandMenu } from '@/site/command/command-menu'
 
 export type PortfolioNavbarProps = {
   fullWidth?: boolean
   className?: string
   isHome?: boolean
-  stargazersCount: number
 }
 
 function isActive(pathname: string, href: string) {
@@ -30,17 +33,22 @@ export function PortfolioNavbar({
   fullWidth = false,
   className,
   isHome = false,
-  stargazersCount,
 }: PortfolioNavbarProps) {
   const pathname = usePathname()
   const shouldReduceMotion = useReducedMotion() ?? false
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const { open: commandOpen, setOpen: setCommandOpen } = useCommandMenu()
   const navigation = [
-    { label: 'Projects', href: isHome ? '#work' : '/projects', external: false },
+    { label: 'Work', href: isHome ? '#work' : '/projects', external: false },
     { label: 'About', href: isHome ? '#about' : '/#about', external: false },
-    { label: 'Blocks', href: `${SITE_ORIGINS.ui}/blocks`, external: true },
-    { label: 'Components', href: `${SITE_ORIGINS.ui}/components`, external: true },
-    { label: 'Illustrations', href: `${SITE_ORIGINS.ui}/illustrations`, external: true },
+    { label: 'Writing', href: '/blog', external: false },
+    { label: 'NavUI', href: SITE_ORIGINS.ui, external: true },
+    { label: 'Resume', href: '/resume/resume.pdf', external: true },
+  ] as const
+
+  const socialLinks = [
+    { label: 'GitHub', href: portfolioSiteConfig.links.github, Icon: IconBrandGithub },
+    { label: 'LinkedIn', href: portfolioSiteConfig.links.linkedin, Icon: IconBrandLinkedin },
   ] as const
 
   useEffect(() => {
@@ -100,10 +108,29 @@ export function PortfolioNavbar({
           </nav>
 
           <div className="ml-auto flex shrink-0 items-center gap-0.5 md:ml-2">
-            <GitHubStars
-              repo="navdeepannu/portfolio"
-              stargazersCount={stargazersCount}
-            />
+            {socialLinks.map(({ label, href, Icon }) => (
+              <Link
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${label} (opens in a new tab)`}
+                className="hidden size-11 items-center justify-center rounded-full text-muted-foreground transition-colors duration-150 hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground md:inline-flex"
+              >
+                <Icon aria-hidden="true" className="size-4" />
+              </Link>
+            ))}
+
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              onClick={() => setCommandOpen(true)}
+              aria-label="Open command menu (Command K)"
+              className="size-11 rounded-full text-muted-foreground hover:bg-muted/80 hover:text-foreground"
+            >
+              <Command aria-hidden="true" className="size-4" />
+            </Button>
 
             <LandingThemeToggle />
 
@@ -122,6 +149,13 @@ export function PortfolioNavbar({
           </div>
         </div>
       </header>
+
+      <CommandMenu
+        site="portfolio"
+        groups={portfolioSearchGroups}
+        open={commandOpen}
+        onOpenChange={setCommandOpen}
+      />
 
       <DialogPrimitive.Portal forceMount>
         <AnimatePresence>
@@ -212,6 +246,21 @@ export function PortfolioNavbar({
                       </Link>
                     ))}
                   </nav>
+
+                  <div className="mt-auto flex items-center gap-1 border-t border-border/70 pt-5">
+                    {socialLinks.map(({ label, href, Icon }) => (
+                      <Link
+                        key={label}
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`${label} (opens in a new tab)`}
+                        className="inline-flex size-11 items-center justify-center rounded-full text-muted-foreground transition-colors duration-150 hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
+                      >
+                        <Icon aria-hidden="true" className="size-4.5" />
+                      </Link>
+                    ))}
+                  </div>
                 </motion.aside>
               </DialogPrimitive.Content>
             </motion.div>

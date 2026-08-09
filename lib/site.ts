@@ -6,7 +6,7 @@ const author = {
   name: 'Navdeep Singh',
   twitterHandle: '@navdeepannu0',
   links: {
-    github: 'https://github.com/navdeepannu',
+    github: 'https://github.com/Navdeepannu?tab=repositories',
     linkedin: 'https://www.linkedin.com/in/navdeepsingh0/',
     twitter: 'https://x.com/navdeepannu0',
   },
@@ -17,13 +17,14 @@ export const portfolioSiteConfig = {
   shortName: 'Navdeep Singh',
   domain: new URL(SITE_ORIGINS.portfolio).hostname,
   url: SITE_ORIGINS.portfolio,
-  title: 'Navdeep Singh · Design Engineer & Frontend Engineer',
+  title: 'Navdeep Singh · Frontend Engineer & Design Engineer',
   description:
     'Portfolio of Navdeep Singh, a Toronto-based frontend engineer and design engineer building polished, accessible interfaces and reusable UI systems.',
   keywords: [
     'Navdeep Singh',
     'NavUI',
     'Nav UI',
+    'frontend engineer',
     'frontend developer',
     'design engineer',
     'React',
