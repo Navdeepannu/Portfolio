@@ -3,7 +3,6 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Command, Menu, Moon, Sun, X } from 'lucide-react'
-import { IconBrandGithub } from '@tabler/icons-react'
 import { AnimatePresence, motion } from 'motion/react'
 import { useEffect, useState, useSyncExternalStore } from 'react'
 import { useTheme } from 'next-themes'
@@ -15,6 +14,7 @@ import { useCommandMenu } from '@/hooks/use-command-menu'
 import { CommandMenu } from '@/site/command/command-menu'
 import { getSearchGroups } from '@/lib/search-data'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { GitHubStars } from './github-stars'
 import LogoMark from './ui-library-logo'
 
 const menuItems = [
@@ -40,9 +40,14 @@ function isNavItemActive(pathname: string, href: string) {
 export type UiLibraryNavbarProps = {
   className?: string
   fullWidth?: boolean
+  stargazersCount: number | null
 }
 
-export function UiLibraryNavbar({ fullWidth = false, className }: UiLibraryNavbarProps) {
+export function UiLibraryNavbar({
+  fullWidth = false,
+  className,
+  stargazersCount,
+}: UiLibraryNavbarProps) {
   const pathname = usePathname()
   const { theme, setTheme } = useTheme()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -91,7 +96,7 @@ export function UiLibraryNavbar({ fullWidth = false, className }: UiLibraryNavba
             }`,
           )}
         >
-          <Link href={SITE_ORIGINS.ui} aria-label="Nav UI home">
+          <Link href="/" aria-label="Nav UI home">
             <LogoMark className="h-8 w-auto" />
           </Link>
 
@@ -133,16 +138,7 @@ export function UiLibraryNavbar({ fullWidth = false, className }: UiLibraryNavba
 
             <span className="hidden h-4 w-px bg-border md:block" />
 
-            <Button variant="ghost" size="icon-sm" asChild>
-              <a
-                href="https://github.com/navdeepannu/portfolio"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="View NavUI repository on GitHub (opens in a new tab)"
-              >
-                <IconBrandGithub className="size-4" aria-hidden="true" />
-              </a>
-            </Button>
+            <GitHubStars repo="navdeepannu/portfolio" stargazersCount={stargazersCount} />
 
             <Tooltip>
               <TooltipTrigger asChild>

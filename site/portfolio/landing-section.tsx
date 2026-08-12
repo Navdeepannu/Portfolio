@@ -32,7 +32,7 @@ export function LandingSection({
     >
       {heading ? (
         <header className="mb-8 max-w-2xl md:mb-10">
-          <p className="text-sm font-medium">{label}</p>
+          <p className="text-sm font-medium text-muted-foreground">{label}</p>
           <h2
             id={headingId}
             className="mt-2 text-xl font-semibold tracking-tight text-foreground sm:text-2xl"
@@ -41,10 +41,7 @@ export function LandingSection({
           </h2>
         </header>
       ) : (
-        <h2
-          id={headingId}
-          className="mb-8 text-sm font-medium text-emerald-700 md:mb-10 dark:text-emerald-400/80"
-        >
+        <h2 id={headingId} className="mb-8 text-sm font-medium text-muted-foreground md:mb-10">
           {label}
         </h2>
       )}

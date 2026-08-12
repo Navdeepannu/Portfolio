@@ -8,10 +8,10 @@ import { ComponentPreviewCard } from '@/site/component-preview-card'
 import { cn } from '@/lib/utils'
 
 const copy = {
-  eyebrow: 'Components',
-  title: 'Reusable React components with polished interaction details',
+  eyebrow: 'Built to be used',
+  title: 'Start with the interaction. Keep control of the code.',
   description:
-    'Copy-paste components with accessible patterns, restrained motion, and shadcn-compatible registry entries.',
+    'Every component comes with a live preview, a documented API, and copy-paste source. Install one or take the pattern apart.',
   cta: { label: 'Browse components', href: '/components' },
 }
 
@@ -24,9 +24,7 @@ export function ComponentsPreviewSection() {
       className="relative overflow-x-clip py-24 font-schibsted selection:bg-emerald-200/60 max-md:py-16 md:py-24"
     >
       <div className="mx-auto max-w-6xl px-8 md:px-12">
-        <span className="mb-4 block font-mono text-xs text-emerald-700 dark:text-emerald-400/80">
-          {copy.eyebrow}
-        </span>
+        <span className="mb-4 block font-mono text-xs text-muted-foreground">{copy.eyebrow}</span>
         <div className="grid items-start gap-4 lg:grid-cols-2 lg:gap-12">
           <div className="max-w-md text-left text-balance">
             <h2 className="font-times-heading font-normal tracking-tight text-foreground md:text-xl">

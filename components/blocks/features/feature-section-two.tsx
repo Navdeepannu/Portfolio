@@ -464,7 +464,7 @@ function LogLine({
       <span className="text-white/20">{prefix}</span>
 
       <span className={active ? 'text-emerald-300' : 'text-white/45'}>
-        {active ? '✓' : '›'} {text}
+        {active ? '✓' : '>'} {text}
       </span>
     </div>
   )

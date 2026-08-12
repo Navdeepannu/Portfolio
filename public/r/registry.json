@@ -747,26 +747,6 @@
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "feature-section-one",
-      "title": "Feature Section One",
-      "description": "Interactive product features list with hover-activated row spotlight and motion transitions.",
-      "dependencies": [
-        "motion"
-      ],
-      "files": [
-        {
-          "path": "components/blocks/features/feature-section-one.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/features/feature-section-one.tsx"
-        }
-      ],
-      "categories": [
-        "features"
-      ],
-      "type": "registry:block"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "content-section-one",
       "title": "Content Section One",
       "description": "A restrained principles section with a clear introduction and a responsive set of supporting ideas.",
@@ -1368,7 +1348,7 @@
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "contribution-graph",
       "title": "Contribution Graph",
-      "description": "Accessible monochrome contribution calendar with latest-visible responsive clipping, day tooltips, and a graceful empty state.",
+      "description": "Clean contribution calendar with built-in normalization, keyboard navigation, and responsive latest-day visibility.",
       "files": [
         {
           "path": "components/ui/components/contribution-graph.tsx",
@@ -1382,7 +1362,13 @@
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "public-insights",
       "title": "Public Insights",
-      "description": "Provider-independent public analytics panel with metrics, comparisons, an accessible SVG trend, and loading states.",
+      "description": "Public analytics panel with animated metrics, comparison context, an accessible responsive trend, and loading states.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.navdeepsingh.dev/r/animated-numbers.json"
+      ],
       "files": [
         {
           "path": "components/ui/components/public-insights.tsx",

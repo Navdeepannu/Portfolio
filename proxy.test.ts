@@ -41,6 +41,15 @@ describe('hostname routing decisions', () => {
     ).toEqual({ type: 'rewrite', pathname: '/ui/blocks/hero' })
   })
 
+  test('keeps the internal route tree on ui.localhost during rewrites', () => {
+    expect(
+      resolveDomainRouting({
+        hostname: 'ui.localhost:3000',
+        pathname: '/ui/components',
+      }),
+    ).toEqual({ type: 'next' })
+  })
+
   test('does not classify generic Vercel previews as the UI site', () => {
     expect(
       resolveDomainRouting({

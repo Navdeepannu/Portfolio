@@ -20,7 +20,7 @@ export function UiLibraryFooter() {
       <div className="mx-auto flex max-w-6xl flex-col items-center px-6 text-center">
         <div className="flex items-center gap-3">
           <Link
-            href={SITE_ORIGINS.ui}
+            href="/"
             aria-label="Nav UI home"
             className="inline-flex rounded-3xl focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-foreground"
           >

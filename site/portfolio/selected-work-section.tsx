@@ -13,13 +13,7 @@ export function SelectedWorkSection({
   showProjectsLink = false,
 }: SelectedWorkSectionProps) {
   return (
-    <LandingSection
-      id="work"
-      label="Selected work"
-      heading="Products and interfaces I've shipped"
-      showDivider={false}
-      compactTop
-    >
+    <LandingSection id="work" label="Selected work" showDivider={false} compactTop>
       <ProjectGallery projects={landingPageContent.projects} showDetails={showDetails} />
       {showProjectsLink ? (
         <div className="mt-8">

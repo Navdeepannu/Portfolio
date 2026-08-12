@@ -17,7 +17,6 @@ import CtaSectionTwo from '@/components/blocks/cta/cta-section-two'
 import FaqSectionOne from '@/components/blocks/faqs/faq-section-one'
 import FaqSectionThree from '@/components/blocks/faqs/faq-section-three'
 import FaqsSectionTwo from '@/components/blocks/faqs/faqs-section-two'
-import FeatureSectionOne from '@/components/blocks/features/feature-section-one'
 import FeatureSectionTwo from '@/components/blocks/features/feature-section-two'
 import FooterSectionOne from '@/components/blocks/footer/footer-section-one'
 import FooterSectionTwo from '@/components/blocks/footer/footer-section-two'
@@ -221,17 +220,6 @@ export const blockRegistryEntries: BlockRegistryEntry[] = [
       sourceFiles: [{ path: 'components/blocks/faqs/faqs-section-two.tsx', language: 'tsx' }],
     }),
     FaqsSectionTwo,
-  ),
-  entry(
-    defineBlock({
-      slug: 'feature-section-one',
-      title: 'Feature Section One',
-      description: '',
-      category: 'features',
-      tags: ['features', 'features'],
-      sourceFiles: [{ path: 'components/blocks/features/feature-section-one.tsx', language: 'tsx' }],
-    }),
-    FeatureSectionOne,
   ),
   entry(
     defineBlock({

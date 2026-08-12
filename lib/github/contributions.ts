@@ -4,6 +4,7 @@ import type {
   ContributionDay,
   ContributionGraphData,
 } from '@/components/ui/components/contribution-graph'
+import { parseGithubContributionHtml } from '@/lib/github/contribution-parser'
 
 const GITHUB_CONTRIBUTIONS_QUERY = `
   query GitHubContributions($login: String!) {
@@ -55,12 +56,10 @@ const levelMap: Record<GithubContributionLevel, ContributionDay['level']> = {
   FOURTH_QUARTILE: 4,
 }
 
-export async function getGithubContributions(): Promise<ContributionGraphData | null> {
-  const token = process.env.GITHUB_TOKEN
-  const login = process.env.GITHUB_USERNAME ?? 'navdeepannu'
-
-  if (!token) return null
-
+async function fetchGithubGraphqlContributions(
+  token: string,
+  login: string,
+): Promise<ContributionGraphData> {
   const controller = new AbortController()
   const timeoutId = setTimeout(() => controller.abort(), 5_000)
 
@@ -83,7 +82,7 @@ export async function getGithubContributions(): Promise<ContributionGraphData | 
       },
     })
 
-    if (!response.ok) throw new Error(`GitHub returned ${response.status}`)
+    if (!response.ok) throw new Error(`GitHub GraphQL returned ${response.status}`)
 
     const payload = (await response.json()) as GithubContributionsResponse
     const calendar = payload.data?.user?.contributionsCollection.contributionCalendar
@@ -100,21 +99,70 @@ export async function getGithubContributions(): Promise<ContributionGraphData | 
       })),
     )
 
-    if (days.length === 0) return null
+    if (days.length === 0) throw new Error('GitHub returned an empty contribution calendar')
 
     return {
       days,
       total: calendar.totalContributions,
       from: days[0].date,
       to: days.at(-1)?.date ?? days[0].date,
+      source: 'GitHub',
     }
+  } finally {
+    clearTimeout(timeoutId)
+  }
+}
+
+async function fetchGithubPublicContributions(login: string): Promise<ContributionGraphData> {
+  const controller = new AbortController()
+  const timeoutId = setTimeout(() => controller.abort(), 5_000)
+
+  try {
+    const response = await fetch(
+      `https://github.com/users/${encodeURIComponent(login)}/contributions`,
+      {
+        signal: controller.signal,
+        headers: { 'User-Agent': 'navdeepsingh.dev' },
+        next: {
+          revalidate: 21_600,
+          tags: ['github-contributions'],
+        },
+      },
+    )
+
+    if (!response.ok) throw new Error(`GitHub public profile returned ${response.status}`)
+
+    const data = parseGithubContributionHtml(await response.text())
+    if (!data) throw new Error('GitHub public profile returned no contribution data')
+
+    return data
+  } finally {
+    clearTimeout(timeoutId)
+  }
+}
+
+export async function getGithubContributions(): Promise<ContributionGraphData | null> {
+  const token = process.env.GITHUB_TOKEN
+  const login = process.env.GITHUB_USERNAME ?? 'navdeepannu'
+
+  if (token) {
+    try {
+      return await fetchGithubGraphqlContributions(token, login)
+    } catch (error) {
+      console.warn(
+        '[github-contributions] Authenticated request failed; trying the public profile.',
+        error instanceof Error ? error.message : 'Unknown GitHub error',
+      )
+    }
+  }
+
+  try {
+    return await fetchGithubPublicContributions(login)
   } catch (error) {
     console.error(
       '[github-contributions]',
       error instanceof Error ? error.message : 'Unable to load GitHub contributions',
     )
     return null
-  } finally {
-    clearTimeout(timeoutId)
   }
 }
