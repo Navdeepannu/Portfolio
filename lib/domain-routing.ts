@@ -13,6 +13,7 @@ type DomainRoutingInput = {
 
 const UI_INTERNAL_PREFIX = '/ui'
 const UI_PUBLIC_PREFIXES = [
+  '/component',
   '/components',
   '/blocks',
   '/illustrations',
@@ -62,6 +63,10 @@ function isUiHostname(hostname: string): boolean {
   return hostname === UI_HOSTNAME || hostname === 'ui.localhost'
 }
 
+function isLocalUiHostname(hostname: string): boolean {
+  return hostname === 'ui.localhost'
+}
+
 function isInfrastructurePath(pathname: string): boolean {
   if (UI_METADATA_PATHS.has(pathname)) return false
 
@@ -89,6 +94,10 @@ export function resolveDomainRouting({
 
   if (isUiHostname(hostname)) {
     if (matchesPrefix(pathname, UI_INTERNAL_PREFIX)) {
+      // Rewrites on ui.localhost resolve through the internal /ui route tree.
+      // Keep that tree local instead of canonicalizing it to the production host.
+      if (isLocalUiHostname(hostname)) return { type: 'next' }
+
       return {
         type: 'redirect',
         destination: toUiPublicUrl(removeUiPrefix(pathname), search),

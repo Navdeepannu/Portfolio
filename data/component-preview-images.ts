@@ -1,4 +1,5 @@
 import type { ComponentDefinition } from './component-types'
+import { asset } from '@/lib/assets'
 
 export type ComponentPreviewImageSet = {
   light: string
@@ -22,8 +23,8 @@ const COMPONENT_PREVIEW_IMAGE_MAP: Partial<Record<string, ComponentPreviewImageS
     height: 1920,
   },
   'animated-tabs': {
-    light: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlX3opSU2u3zKHak0FTUAL7ZrsNJE5jQiOYwtd',
-    dark: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlX3opSU2u3zKHak0FTUAL7ZrsNJE5jQiOYwtd',
+    light: asset('Animated-tabs-light.png'),
+    dark: asset('Animated-tabs-dark.png'),
     width: 1080,
     height: 1920,
   },
@@ -35,9 +36,21 @@ const COMPONENT_PREVIEW_IMAGE_MAP: Partial<Record<string, ComponentPreviewImageS
   },
   'rail-nav': {
     light: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlTxAO7Jhdub1qHgxLFNhzr80OKpXcDswBitAY',
-    dark: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlTxAO7Jhdub1qHgxLFNhzr80OKpXcDswBitAY',
+    dark: asset('rail-nav-dark.png'),
     width: 1080,
     height: 1920,
+  },
+  'package-manager-command': {
+    light: asset('package-manager-light.png'),
+    dark: asset('package-manager-dark.png'),
+    width: 1080,
+    height: 1920,
+  },
+  'public-insights': {
+    light: '/component-previews/public-insights.svg',
+    dark: asset('public-insights-dark.png'),
+    width: 1200,
+    height: 800,
   },
 }
 

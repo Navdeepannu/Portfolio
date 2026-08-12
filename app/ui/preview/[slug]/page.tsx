@@ -52,9 +52,13 @@ export default async function PreviewPage({ params }: { params: Promise<{ slug: 
   if (componentEntry) {
     return (
       <PreviewShell name={componentEntry.definition.title} fallbackHref={`/components/${slug}`}>
-        <BlockPreviewBoundary slug={slug}>
-          <ComponentPreview slug={slug} />
-        </BlockPreviewBoundary>
+        <div className="flex min-h-dvh w-full min-w-0 overflow-x-hidden px-4 py-28 sm:px-8">
+          <div className="m-auto flex w-full min-w-0 justify-center">
+            <BlockPreviewBoundary slug={slug}>
+              <ComponentPreview slug={slug} />
+            </BlockPreviewBoundary>
+          </div>
+        </div>
       </PreviewShell>
     )
   }

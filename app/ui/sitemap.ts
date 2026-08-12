@@ -7,6 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const paths = [
     '/',
     '/components',
+    '/components/showcase',
     ...getAllComponents().map((component) => `/components/${component.slug}`),
     '/blocks',
     ...blockCategories

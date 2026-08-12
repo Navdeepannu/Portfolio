@@ -10,7 +10,6 @@ const CATEGORY_ORDER: BlockCategoryId[] = [
   'hero',
   'header',
   'features',
-  'integrations',
   'stats',
   'pricing',
   'process',

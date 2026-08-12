@@ -514,7 +514,7 @@ export function Example() {
     defineComponent({
       slug: 'rail-nav',
       title: 'Rail Nav',
-      image: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlTxAO7Jhdub1qHgxLFNhzr80OKpXcDswBitAY',
+      image: 'https://assets.navdeepsingh.dev/rail-nav-light.png',
       description:
         'A compact motion rail that preserves its line-to-link reveal while supporting anchors, application routes, custom observer targets, and controlled state.',
       registryDescription:
@@ -611,7 +611,7 @@ export function Example() {
     defineComponent({
       slug: 'proximity-nav',
       title: 'Proximity Nav',
-      image: '/component-previews/proximity-nav.svg',
+      image: 'https://assets.navdeepsingh.dev/proxomity-nav-light.png',
       description:
         'A route-aware sidebar navigation whose guide lines stretch toward the pointer, with controlled active state and a navigation-free preview mode.',
       registryDescription:
@@ -709,7 +709,7 @@ export function DocsSidebar() {
     defineComponent({
       slug: 'package-manager-command',
       title: 'Package Manager Command',
-      image: '/component-previews/package-manager-command.svg',
+      image: 'https://assets.navdeepsingh.dev/package-manager-light.png',
       description:
         'An accessible package-manager selector and copy command bar with controlled state and inline copy-status icons.',
       registryDescription:
@@ -803,9 +803,9 @@ export function Example() {
       title: 'Contribution Graph',
       image: '/component-previews/contribution-graph.svg',
       description:
-        'An accessible, responsive contribution calendar for normalized daily activity data, with monochrome intensity, month labels, day tooltips, a text summary, and graceful empty state.',
+        'A clean, accessible contribution calendar with built-in data normalization, keyboard navigation, day tooltips, and responsive latest-day visibility.',
       registryDescription:
-        'Accessible monochrome contribution calendar with latest-visible responsive clipping, day tooltips, and a graceful empty state.',
+        'Clean contribution calendar with built-in normalization, keyboard navigation, and responsive latest-day visibility.',
       category: 'data-display',
       tags: ['data display', 'analytics', 'github', 'accessibility', 'responsive'],
       bento: { size: 'lg' },
@@ -823,8 +823,8 @@ export function Example() {
         'Release or publishing calendars',
       ],
       notes: [
-        'Pass normalized data from any server-side provider; the component performs no authenticated requests.',
-        'Contribution intensity is exposed in text and accessible labels, not only through color.',
+        'Fetch your API on the server and map each result to { date, count }; the component fills missing dates and calculates intensity for you.',
+        'Every square has a readable date and count, so activity is understandable without relying on color.',
         'The latest days stay visible on narrow screens; keyboard users can move between days with the arrow keys.',
       ],
       sourceFiles: [
@@ -841,18 +841,20 @@ export function Example() {
       },
       usageExample: `import { ContributionGraph } from '@/components/contribution-graph'
 
-const data = {
-  total: 3,
-  from: '2025-05-01',
-  to: '2025-05-03',
-  days: [
-    { date: '2025-05-01', count: 0, level: 0 },
-    { date: '2025-05-02', count: 1, level: 1 },
-    { date: '2025-05-03', count: 2, level: 2 },
-  ],
+async function getActivity() {
+  const response = await fetch(process.env.ACTIVITY_API_URL!, {
+    headers: { Authorization: \`Bearer \${process.env.ACTIVITY_API_TOKEN}\` },
+  })
+  const providerDays = await response.json()
+
+  return {
+    days: providerDays.map((day) => ({ date: day.date, count: day.count })),
+    source: 'My API',
+  }
 }
 
-export function Example() {
+export default async function Example() {
+  const data = await getActivity()
   return <ContributionGraph aria-label="Project activity" data={data} />
 }`,
       api: [
@@ -861,13 +863,26 @@ export function Example() {
           type: 'ContributionGraphData',
           default: '-',
           description:
-            'Normalized daily counts, intensity levels from 0–4, total, and ISO date range.',
+            'Daily { date, count } values. Intensity, total, and date range are calculated when omitted.',
         },
         {
           prop: 'emptyMessage',
           type: 'string',
           default: 'Contextual fallback message',
           description: 'Message rendered when the daily data array is empty.',
+        },
+        {
+          prop: 'title / description',
+          type: 'string / string',
+          default: 'Contribution activity / -',
+          description: 'Visible heading with optional supporting context.',
+        },
+        {
+          prop: 'showHeader',
+          type: 'boolean',
+          default: 'true',
+          description:
+            'Hides the visible heading and total for compact embeds while preserving an accessible summary.',
         },
         {
           prop: 'className / figure props',
@@ -884,11 +899,11 @@ export function Example() {
     defineComponent({
       slug: 'public-insights',
       title: 'Public Insights',
-      image: '/component-previews/public-insights.svg',
+      image: 'https://assets.navdeepsingh.dev/public-insights-dark.png',
       description:
-        'A provider-independent analytics panel with compact metrics, equal-period comparisons, a restrained SVG trend, accessible table data, and complete loading states.',
+        'An informative public analytics panel with animated metrics, period comparisons, peak and daily-average context, a responsive Motion trend, accessible table data, and complete loading states.',
       registryDescription:
-        'Provider-independent public analytics panel with metrics, comparisons, an accessible SVG trend, and loading states.',
+        'Public analytics panel with animated metrics, comparison context, an accessible responsive trend, and loading states.',
       category: 'data-display',
       tags: ['data display', 'analytics', 'chart', 'dashboard', 'accessibility'],
       bento: { size: 'xl' },
@@ -906,8 +921,9 @@ export function Example() {
         'Privacy-conscious aggregate reporting',
       ],
       notes: [
-        'Keep provider credentials and response normalization in a server-only adapter.',
-        'The chart is paired with a screen-reader table and does not depend on animation or color alone.',
+        'Fetch analytics on the server so API keys never reach the browser, then convert the provider response to the snapshot shape shown below.',
+        'Numeric metrics use Animated Numbers automatically; add prefix, suffix, or decimalPlaces to control their display. String values and custom formatMetric output remain static.',
+        'A hidden data table gives screen readers every date and value; reduced-motion users receive final metric values and the complete chart immediately.',
       ],
       sourceFiles: [
         { path: 'components/ui/components/public-insights.tsx', language: 'tsx' },
@@ -918,14 +934,17 @@ export function Example() {
         },
       ],
       registry: {
-        dependencies: [],
-        registryDependencies: [],
+        dependencies: ['motion'],
+        registryDependencies: ['@navdeep-singh/animated-numbers'],
       },
       usageExample: `import { PublicInsights } from '@/components/public-insights'
 
 const snapshot = {
   period: { from: '2025-05-01', to: '2025-05-14', label: 'Last 14 days' },
-  metrics: [{ id: 'visitors', label: 'Visitors', value: 1284, change: 12.4 }],
+  metrics: [
+    { id: 'visitors', label: 'Visitors', value: 1284, change: 12.4 },
+    { id: 'returning', label: 'Returning visitors', value: 31.8, suffix: '%', decimalPlaces: 1 },
+  ],
   series: [{ date: '2025-05-01', visitors: 62 }],
   updatedAt: '2025-05-14T16:00:00.000Z',
   source: 'Aggregate analytics',
@@ -939,7 +958,8 @@ export function Example() {
           prop: 'snapshot',
           type: 'AnalyticsSnapshot | null',
           default: '-',
-          description: 'Normalized period, metrics, dated series, source, and update timestamp.',
+          description:
+            'Normalized period, metrics, dated series, source, and update timestamp. Numeric metrics accept prefix, suffix, and decimalPlaces formatting.',
         },
         {
           prop: 'status',
@@ -954,10 +974,18 @@ export function Example() {
           description: 'Chooses which normalized series is drawn in the SVG trend.',
         },
         {
+          prop: 'animateMetrics / locale',
+          type: 'boolean / string',
+          default: 'true / "en-US"',
+          description:
+            'Controls Animated Number rendering and locale-aware number formatting. Reduced motion always shows final values immediately.',
+        },
+        {
           prop: 'formatMetric / formatDate',
           type: 'Formatting callbacks',
-          default: 'Locale number / short date',
-          description: 'Customizes value and date rendering without changing the data model.',
+          default: 'Animated locale number / short date',
+          description:
+            'Customizes value and date rendering. Providing formatMetric replaces the built-in animation for primary metric values.',
         },
         {
           prop: 'title / description',

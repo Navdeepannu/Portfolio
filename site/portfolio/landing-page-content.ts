@@ -81,11 +81,6 @@ export const landingPageContent = {
       { label: 'GitHub', href: portfolioSiteConfig.links.github, external: true, icon: 'github' },
     ] satisfies LandingLink[],
   },
-  about: [
-    'I’m a frontend-focused software engineer interested in the intersection of interface design, component architecture, accessibility, and product engineering.',
-    'I currently build NavUI, work on independent product applications, and contribute frontend improvements to open-source projects such as Kaneo.',
-    'I’m especially interested in frontend, design-engineering, UI systems, and product-engineering roles where implementation quality matters.',
-  ],
   // Fallback content used when GitHub is unavailable or its token is not configured.
   githubActivity: {
     title: 'Contribution activity',

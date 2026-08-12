@@ -180,7 +180,7 @@ export const portfolioProof = {
       description:
         'Accessible, copy-paste React components with motion and shadcn-compatible registry entries.',
       metrics: [
-        { value: '40+', label: 'Components' },
+        { value: '10', label: 'Components' },
         { value: 'a11y', label: 'Accessible' },
       ],
       preview: '/sections/design1.png',
@@ -195,7 +195,7 @@ export const portfolioProof = {
       description:
         'Full sections — heroes, auth, footers, logo clouds — ready to drop into real applications.',
       metrics: [
-        { value: '7', label: 'Categories' },
+        { value: '46', label: 'Blocks' },
         { value: 'Live', label: 'Previews' },
       ],
       preview: '/sections/design5.png',

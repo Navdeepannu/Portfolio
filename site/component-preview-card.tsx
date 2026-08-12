@@ -23,7 +23,7 @@ export function ComponentPreviewCard({
     <Link
       href={getComponentHref(component.slug)}
       className={cn(
-        'group block overflow-hidden rounded-xl bg-card p-2 shadow-md ring-1 ring-foreground/6.5 transition-all',
+        'group block overflow-hidden rounded-xl bg-card p-2 shadow-md ring-1 ring-foreground/6.5 transition-[box-shadow,transform] duration-150 active:scale-[0.99]',
         'hover:shadow-lg hover:ring-foreground/10',
         className,
       )}
@@ -35,10 +35,7 @@ export function ComponentPreviewCard({
           width={preview.width}
           height={preview.height}
           loading="lazy"
-          className={cn(
-            'h-auto w-full object-cover dark:hidden',
-            'ring-1 ring-foreground/5 transition-transform duration-300 group-hover:scale-[1.015]',
-          )}
+          className={cn('h-auto w-full object-cover dark:hidden', 'ring-1 ring-foreground/5')}
           sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
         />
         <Image
@@ -47,10 +44,7 @@ export function ComponentPreviewCard({
           width={preview.width}
           height={preview.height}
           loading="lazy"
-          className={cn(
-            'hidden h-auto w-full object-cover dark:block',
-            'ring-1 ring-foreground/5 transition-transform duration-300 group-hover:scale-[1.015]',
-          )}
+          className={cn('hidden h-auto w-full object-cover dark:block', 'ring-1 ring-foreground/5')}
           sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
         />
       </div>

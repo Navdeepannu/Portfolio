@@ -20,6 +20,8 @@ const galleryPreviewBySlug = {
   'rail-nav': dynamic(() => import('@/components/showcase/gallery/rail-nav')),
   'proximity-nav': dynamic(() => import('@/components/showcase/proximity-nav')),
   'package-manager-command': dynamic(() => import('@/components/showcase/package-manager-command')),
+  'contribution-graph': dynamic(() => import('@/components/showcase/contribution-graph')),
+  'public-insights': dynamic(() => import('@/components/showcase/public-insights')),
 } satisfies Record<string, React.ComponentType<ComponentGalleryPreviewProps>>
 
 const heightClassNames: Record<ComponentGalleryHeight, string> = {
@@ -65,7 +67,7 @@ export function ComponentGalleryPreview({
       aria-busy={!isInView}
       data-gallery-preview={slug}
       className={cn(
-        'relative isolate flex w-full items-center px-2 justify-center overflow-hidden rounded-xl border border-border/70 contain-[layout_paint]',
+        'relative isolate flex w-full items-center justify-center overflow-hidden rounded-xl border border-border/70 p-2 contain-[layout_paint]',
         heightClassNames[height],
         treatmentClassNames[treatment],
       )}

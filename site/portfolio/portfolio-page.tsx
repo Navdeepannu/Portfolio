@@ -13,7 +13,7 @@ import { PortfolioFooter } from './portfolio-footer'
 
 export function PortfolioPage() {
   return (
-    <div className="landing-page min-h-screen overflow-x-clip bg-background font-schibsted text-foreground">
+    <div className="landing-page min-h-screen overflow-x-clip bg-background font-schibsted text-foreground selection:bg-emerald-200/70 dark:selection:bg-emerald-500 dark:selection:text-white">
       <LandingHeader />
       <main id="main-content" className="mx-auto max-w-4xl px-5 sm:px-8 lg:px-10">
         <SelectedWorkSection showDetails={false} showProjectsLink />

@@ -199,7 +199,7 @@
       "name": "contribution-graph",
       "type": "registry:ui",
       "title": "Contribution Graph",
-      "description": "Accessible monochrome contribution calendar with latest-visible responsive clipping, day tooltips, and a graceful empty state.",
+      "description": "Clean contribution calendar with built-in normalization, keyboard navigation, and responsive latest-day visibility.",
       "files": [
         {
           "path": "components/ui/components/contribution-graph.tsx",
@@ -213,7 +213,13 @@
       "name": "public-insights",
       "type": "registry:ui",
       "title": "Public Insights",
-      "description": "Provider-independent public analytics panel with metrics, comparisons, an accessible SVG trend, and loading states.",
+      "description": "Public analytics panel with animated metrics, comparison context, an accessible responsive trend, and loading states.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "@navdeep-singh/animated-numbers"
+      ],
       "files": [
         {
           "path": "components/ui/components/public-insights.tsx",

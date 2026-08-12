@@ -9,6 +9,14 @@ const snapshot: AnalyticsSnapshot = {
   metrics: [
     { id: 'visitors', label: 'Visitors', value: 1284, change: 12.4 },
     { id: 'views', label: 'Page views', value: 3072, change: 8.1 },
+    {
+      id: 'returning',
+      label: 'Returning visitors',
+      value: 31.8,
+      suffix: '%',
+      decimalPlaces: 1,
+      change: 3.6,
+    },
   ],
   series: [62, 84, 76, 105, 91, 120, 134, 118, 142, 151, 139, 168, 174, 182].map(
     (visitors, index) => ({
@@ -26,7 +34,7 @@ export default function PublicInsightsShowcase() {
     <PublicInsights
       className="w-full max-w-3xl"
       snapshot={snapshot}
-      description="Provider-independent aggregate metrics with an accessible chart equivalent."
+      description="Anonymous traffic, period-over-period context, and a daily trend without exposing visitor identities."
     />
   )
 }

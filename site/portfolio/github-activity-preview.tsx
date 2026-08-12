@@ -120,21 +120,7 @@ export function GithubActivityPreview({ activity }: GithubActivityPreviewProps) 
   )
 
   return (
-    <section aria-labelledby="github-activity-heading" className="max-w-3xl">
-      <div className="mb-6 flex items-start justify-between gap-6">
-        <div>
-          <h3
-            id="github-activity-heading"
-            className="text-sm font-medium text-emerald-700 dark:text-emerald-400/80"
-          >
-            {activity.title}
-          </h3>
-          <p className="mt-1 max-w-xl text-sm leading-6 text-muted-foreground">
-            {activity.description}
-          </p>
-        </div>
-      </div>
-
+    <section aria-label={activity.title} className="max-w-3xl">
       <div>
         <ol className="divide-y divide-dashed divide-border/70">
           {groups.map((group) => {
@@ -167,9 +153,7 @@ export function GithubActivityPreview({ activity }: GithubActivityPreviewProps) 
                     >
                       <RepositoryIcon allMerged={allMerged} />
                       <span className="min-w-0 flex-1 pt-0.5">
-                        <span className="block text-sm font-medium text-foreground">
-                          {project}
-                        </span>
+                        <span className="block text-sm font-medium text-foreground">{project}</span>
                         <span className="mt-0.5 block text-xs leading-5 text-muted-foreground">
                           {owner && `${owner} · `}
                           {getActivitySummary(group.items)}
