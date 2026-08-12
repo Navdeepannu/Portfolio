@@ -1357,26 +1357,6 @@
         }
       ],
       "type": "registry:ui"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "public-insights",
-      "title": "Public Insights",
-      "description": "Public analytics panel with animated metrics, comparison context, an accessible responsive trend, and loading states.",
-      "dependencies": [
-        "motion"
-      ],
-      "registryDependencies": [
-        "https://ui.navdeepsingh.dev/r/animated-numbers.json"
-      ],
-      "files": [
-        {
-          "path": "components/ui/components/public-insights.tsx",
-          "type": "registry:ui",
-          "target": "@components/public-insights.tsx"
-        }
-      ],
-      "type": "registry:ui"
     }
   ]
 }

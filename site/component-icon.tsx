@@ -1,6 +1,5 @@
 import type { ComponentProps } from 'react'
 import {
-  BarChart3,
   CalendarDays,
   Command,
   Expand,
@@ -22,7 +21,6 @@ const icons = {
   'proximity-nav': Gauge,
   'package-manager-command': Command,
   'contribution-graph': CalendarDays,
-  'public-insights': BarChart3,
 } as const
 
 export function ComponentIcon({ slug, ...props }: { slug: string } & ComponentProps<'svg'>) {

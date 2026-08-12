@@ -5,11 +5,11 @@ import {
   DEFAULT_COMPONENT_CATEGORY_ID,
   getAllComponents,
   getComponentBySlug,
+  getComponentHref,
   isValidComponentCategoryId,
 } from '@/data'
 import ComponentRenderer from '@/site/component-renderer'
 import ComponentDocSidebar from '@/site/component-doc-sidebar'
-import { SidebarProvider } from '@/components/ui/sidebar'
 
 export function generateStaticParams() {
   return getAllComponents().map((component) => ({ slug: component.slug }))
@@ -48,31 +48,50 @@ export default async function ComponentsSlugPage({
   const component = getComponentBySlug(slug)
 
   if (!component) {
-    // Old category routes (e.g. /components/interactive) are now in-page filters.
     if (isValidComponentCategoryId(slug) && slug !== DEFAULT_COMPONENT_CATEGORY_ID) {
       redirect('/components')
     }
     notFound()
   }
 
-  const sidebarItems = getAllComponents().map((item) => ({
+  const components = getAllComponents()
+  const componentIndex = components.findIndex((item) => item.slug === component.slug)
+  const previousComponent = componentIndex > 0 ? components[componentIndex - 1] : undefined
+  const nextComponent =
+    componentIndex >= 0 && componentIndex < components.length - 1
+      ? components[componentIndex + 1]
+      : undefined
+
+  const sidebarItems = components.map((item) => ({
     slug: item.slug,
     title: item.title,
   }))
 
+  const previous = previousComponent
+    ? {
+        title: previousComponent.title,
+        href: getComponentHref(previousComponent.slug),
+      }
+    : undefined
+  const next = nextComponent
+    ? {
+        title: nextComponent.title,
+        href: getComponentHref(nextComponent.slug),
+      }
+    : undefined
+
   return (
     <>
-      {/* pattern */}
-      <div className="inset-x-0 mt-1.5 h-12 w-full bg-[repeating-linear-gradient(to_bottom,var(--color-border)_0,var(--color-border)_1px,transparent_1px,transparent_0.4rem)] mask-b-from-10% dark:bg-[repeating-linear-gradient(to_bottom,var(--color-border)_0,var(--color-border)_1px,transparent_1px,transparent_0.4rem)]" />
-
       <div className="mx-auto flex w-full gap-8 px-4 py-8 md:px-6 lg:gap-16">
-        <aside className="hidden shrink-0 lg:block">
-          <SidebarProvider>
-            <ComponentDocSidebar items={sidebarItems} activeSlug={component.slug} />
-          </SidebarProvider>
+        <aside className="sticky top-20 hidden h-fit shrink-0 self-start lg:block">
+          <ComponentDocSidebar
+            items={sidebarItems}
+            activeSlug={component.slug}
+            className="static"
+          />
         </aside>
         <main className="w-full max-w-5xl min-w-0">
-          <ComponentRenderer component={component} />
+          <ComponentRenderer component={component} previous={previous} next={next} />
         </main>
       </div>
     </>

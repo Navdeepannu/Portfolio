@@ -17,6 +17,7 @@ import { portfolioSiteConfig } from '@/lib/site'
 import { portfolioSearchGroups } from '@/lib/portfolio-search-data'
 import { useCommandMenu } from '@/hooks/use-command-menu'
 import { CommandMenu } from '@/site/command/command-menu'
+import { Kbd } from '@/components/ui/kbd'
 
 export type PortfolioNavbarProps = {
   fullWidth?: boolean
@@ -124,12 +125,13 @@ export function PortfolioNavbar({
             <Button
               type="button"
               variant="ghost"
-              size="icon"
+              size="icon-sm"
               onClick={() => setCommandOpen(true)}
               aria-label="Open command menu (Command K)"
-              className="size-11 rounded-full text-muted-foreground hover:bg-muted/80 hover:text-foreground"
+              className="px-6 gap-1 text-muted-foreground hover:bg-muted/80 hover:text-foreground"
             >
-              <Command aria-hidden="true" className="size-4" />
+              <Command aria-hidden="true" className="size-3.5" />
+              <Kbd>k</Kbd>
             </Button>
 
             <LandingThemeToggle />

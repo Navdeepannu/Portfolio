@@ -44,7 +44,6 @@ function ComponentList({
               ) : null}
             </span>
             <span className="flex shrink-0 items-center gap-0.5 text-xs font-medium text-muted-foreground transition-colors group-hover:text-foreground">
-              <span className="hidden xl:inline">View</span>
               <ChevronRight
                 className="size-3.5 transition-transform duration-150 group-hover:translate-x-0.5 motion-reduce:transform-none"
                 aria-hidden="true"

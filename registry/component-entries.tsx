@@ -9,7 +9,6 @@ import RailNavShowcase from '@/components/showcase/rail-nav'
 import ProximityNavShowcase from '@/components/showcase/proximity-nav'
 import PackageManagerCommandShowcase from '@/components/showcase/package-manager-command'
 import ContributionGraphShowcase from '@/components/showcase/contribution-graph'
-import PublicInsightsShowcase from '@/components/showcase/public-insights'
 
 import { defineComponent } from './define-component'
 import type { ComponentDefinition } from '@/data/component-types'
@@ -894,120 +893,6 @@ export default async function Example() {
       ],
     }),
     ContributionGraphShowcase,
-  ),
-  entry(
-    defineComponent({
-      slug: 'public-insights',
-      title: 'Public Insights',
-      image: 'https://assets.navdeepsingh.dev/public-insights-dark.png',
-      description:
-        'An informative public analytics panel with animated metrics, period comparisons, peak and daily-average context, a responsive Motion trend, accessible table data, and complete loading states.',
-      registryDescription:
-        'Public analytics panel with animated metrics, comparison context, an accessible responsive trend, and loading states.',
-      category: 'data-display',
-      tags: ['data display', 'analytics', 'chart', 'dashboard', 'accessibility'],
-      bento: { size: 'xl' },
-      gallery: {
-        size: 'feature',
-        height: 'lg',
-        tabletSpan: 2,
-        treatment: 'muted',
-        label: 'Public analytics example',
-      },
-      useCases: [
-        'Public product metrics',
-        'Portfolio traffic summaries',
-        'Open-source project dashboards',
-        'Privacy-conscious aggregate reporting',
-      ],
-      notes: [
-        'Fetch analytics on the server so API keys never reach the browser, then convert the provider response to the snapshot shape shown below.',
-        'Numeric metrics use Animated Numbers automatically; add prefix, suffix, or decimalPlaces to control their display. String values and custom formatMetric output remain static.',
-        'A hidden data table gives screen readers every date and value; reduced-motion users receive final metric values and the complete chart immediately.',
-      ],
-      sourceFiles: [
-        { path: 'components/ui/components/public-insights.tsx', language: 'tsx' },
-        {
-          path: 'components/showcase/public-insights.tsx',
-          language: 'tsx',
-          filename: 'demo.tsx',
-        },
-      ],
-      registry: {
-        dependencies: ['motion'],
-        registryDependencies: ['@navdeep-singh/animated-numbers'],
-      },
-      usageExample: `import { PublicInsights } from '@/components/public-insights'
-
-const snapshot = {
-  period: { from: '2025-05-01', to: '2025-05-14', label: 'Last 14 days' },
-  metrics: [
-    { id: 'visitors', label: 'Visitors', value: 1284, change: 12.4 },
-    { id: 'returning', label: 'Returning visitors', value: 31.8, suffix: '%', decimalPlaces: 1 },
-  ],
-  series: [{ date: '2025-05-01', visitors: 62 }],
-  updatedAt: '2025-05-14T16:00:00.000Z',
-  source: 'Aggregate analytics',
-}
-
-export function Example() {
-  return <PublicInsights snapshot={snapshot} />
-}`,
-      api: [
-        {
-          prop: 'snapshot',
-          type: 'AnalyticsSnapshot | null',
-          default: '-',
-          description:
-            'Normalized period, metrics, dated series, source, and update timestamp. Numeric metrics accept prefix, suffix, and decimalPlaces formatting.',
-        },
-        {
-          prop: 'status',
-          type: '"ready" | "loading" | "empty" | "error"',
-          default: 'Derived from snapshot',
-          description: 'Selects the ready, loading, empty, or error presentation.',
-        },
-        {
-          prop: 'seriesKey',
-          type: '"visitors" | "sessions" | "views"',
-          default: '"visitors"',
-          description: 'Chooses which normalized series is drawn in the SVG trend.',
-        },
-        {
-          prop: 'animateMetrics / locale',
-          type: 'boolean / string',
-          default: 'true / "en-US"',
-          description:
-            'Controls Animated Number rendering and locale-aware number formatting. Reduced motion always shows final values immediately.',
-        },
-        {
-          prop: 'formatMetric / formatDate',
-          type: 'Formatting callbacks',
-          default: 'Animated locale number / short date',
-          description:
-            'Customizes value and date rendering. Providing formatMetric replaces the built-in animation for primary metric values.',
-        },
-        {
-          prop: 'title / description',
-          type: 'string / string',
-          default: 'Public insights / Privacy-conscious description',
-          description: 'Accessible section name and supporting explanation.',
-        },
-        {
-          prop: 'emptyMessage / errorMessage',
-          type: 'string / string',
-          default: 'Contextual fallback messages',
-          description: 'Custom text for unavailable analytics states.',
-        },
-        {
-          prop: 'className / section props',
-          type: 'string / ComponentPropsWithoutRef<"section">',
-          default: '-',
-          description: 'Classes and native section attributes forwarded to the root element.',
-        },
-      ],
-    }),
-    PublicInsightsShowcase,
   ),
 ]
 
