@@ -153,10 +153,8 @@ export function UiLibraryNavbar({
               </TooltipTrigger>
 
               <TooltipContent side="bottom" align="center">
-                <div className="flex items-center gap-1 text-sm font-medium">
                   <span>Toggle theme</span>
-                  <kbd className="rounded bg-muted-foreground px-1.5">D</kbd>
-                </div>
+                  <kbd>D</kbd>
               </TooltipContent>
             </Tooltip>
 

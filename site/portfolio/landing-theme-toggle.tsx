@@ -4,7 +4,8 @@ import { Moon, Sun } from 'lucide-react'
 import { useSyncExternalStore } from 'react'
 import { useTheme } from 'next-themes'
 import { Button } from '@/components/ui/button'
-import { Tooltip, TooltipTrigger } from '@/components/ui/tooltip'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { Kbd } from '@/components/ui/kbd'
 
 const subscribeNoop = () => () => {}
 
@@ -30,6 +31,10 @@ export function LandingThemeToggle() {
           {mounted && isDark ? <Sun className="size-4" /> : <Moon className="size-4" />}
         </Button>
       </TooltipTrigger>
+      <TooltipContent>
+        <span>Toggle theme</span>
+        <Kbd>D</Kbd>
+      </TooltipContent>
     </Tooltip>
   )
 }

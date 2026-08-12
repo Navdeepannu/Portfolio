@@ -207,26 +207,6 @@
           "target": "@components/contribution-graph.tsx"
         }
       ]
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "public-insights",
-      "type": "registry:ui",
-      "title": "Public Insights",
-      "description": "Public analytics panel with animated metrics, comparison context, an accessible responsive trend, and loading states.",
-      "dependencies": [
-        "motion"
-      ],
-      "registryDependencies": [
-        "@navdeep-singh/animated-numbers"
-      ],
-      "files": [
-        {
-          "path": "components/ui/components/public-insights.tsx",
-          "type": "registry:ui",
-          "target": "@components/public-insights.tsx"
-        }
-      ]
     }
   ],
   "include": [

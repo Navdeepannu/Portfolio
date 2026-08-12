@@ -11,7 +11,14 @@ import { getComponentShowcase } from '@/registry/component-entries'
 import BlockCode from '@/site/block-code'
 import ComponentTabs, { ComponentPreview } from '@/site/component-tabs'
 import ComponentInstall from '@/site/component-install'
+import { ComponentNavigation, type ComponentNavigationItem } from '@/site/component-navigation'
 import { Badge } from '@/components/ui/badge'
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+} from '@/components/ui/breadcrumb'
 
 function SectionHeading({ id, children }: { id: string; children: React.ReactNode }) {
   return (
@@ -40,7 +47,15 @@ function ComponentNotes({ notes }: { notes?: string[] }) {
   )
 }
 
-export default async function ComponentRenderer({ component }: { component: ComponentDefinition }) {
+export default async function ComponentRenderer({
+  component,
+  previous,
+  next,
+}: {
+  component: ComponentDefinition
+  previous?: ComponentNavigationItem
+  next?: ComponentNavigationItem
+}) {
   const ShowcaseComponent = getComponentShowcase(component.slug)
 
   if (!ShowcaseComponent) {
@@ -81,20 +96,29 @@ export default async function ComponentRenderer({ component }: { component: Comp
   return (
     <article className="flex w-full min-w-0 flex-col gap-10">
       <div className="flex flex-col gap-4">
-        <Link
-          href="/components"
-          className="inline-flex w-fit items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
-        >
-          <ArrowLeft className="size-4" aria-hidden />
-          Components
-        </Link>
+        <Breadcrumb className="flex-1">
+          <BreadcrumbList className="text-xs">
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href="/components" className="flex w-fit items-center gap-1.5">
+                  <ArrowLeft className="size-3.5" aria-hidden="true" />
+                  Components
+                </Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
 
         <header className="flex flex-col gap-3 pb-2">
-          <h1 className="text-2xl font-semibold tracking-tight text-foreground">
-            {component.title}
-          </h1>
+          <div className="flex items-start justify-between gap-4">
+            <h1 className="min-w-0 flex-1 text-3xl font-semibold tracking-tight text-foreground">
+              {component.title}
+            </h1>
 
-          <p className="max-w-2xl text-sm text-muted-foreground">{component.description}</p>
+            <ComponentNavigation previous={previous} next={next} />
+          </div>
+
+          <p className="max-w-xl text-sm text-muted-foreground">{component.description}</p>
 
           <div className="flex flex-wrap items-center gap-2">
             {component.tags.map((tag) => (
