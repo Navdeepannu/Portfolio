@@ -9,17 +9,33 @@ import RailNavShowcase from '@/components/showcase/rail-nav'
 import ProximityNavShowcase from '@/components/showcase/proximity-nav'
 import PackageManagerCommandShowcase from '@/components/showcase/package-manager-command'
 import ContributionGraphShowcase from '@/components/showcase/contribution-graph'
+import KeyboardShortcutShowcase from '@/components/showcase/keyboard-shortcut'
+import KeyboardShortcutWithSoundShowcase from '@/components/showcase/keyboard-shortcut-with-sound'
 
 import { defineComponent } from './define-component'
 import type { ComponentDefinition } from '@/data/component-types'
+import type { BlockSourceFileSpec } from './types'
+
+export type ComponentExampleRegistryEntry = {
+  id: string
+  title: string
+  description?: string
+  sourceFiles: BlockSourceFileSpec[]
+  Showcase: ComponentType
+}
 
 export type ComponentRegistryEntry = {
   definition: ComponentDefinition
   Showcase: ComponentType
+  examples: ComponentExampleRegistryEntry[]
 }
 
-function entry(definition: ComponentDefinition, Showcase: ComponentType): ComponentRegistryEntry {
-  return { definition, Showcase }
+function entry(
+  definition: ComponentDefinition,
+  Showcase: ComponentType,
+  examples: ComponentExampleRegistryEntry[] = [],
+): ComponentRegistryEntry {
+  return { definition, Showcase, examples }
 }
 
 export const componentRegistryEntries: ComponentRegistryEntry[] = [
@@ -894,6 +910,150 @@ export default async function Example() {
     }),
     ContributionGraphShowcase,
   ),
+  entry(
+    defineComponent({
+      slug: 'keyboard-shortcut',
+      title: 'Keyboard Shortcut',
+      image: '/component-previews/keyboard-shortcut.svg',
+      description:
+        'A keyboard shortcut display that reacts to each pressed key, triggers a callback when the full chord is held, and optionally plays key sounds.',
+      registryDescription:
+        'Interactive keyboard shortcut display with pressed-key feedback, callback handling, optional sound, and shadcn Kbd styling.',
+      category: 'interactive',
+      tags: ['keyboard', 'shortcut', 'command menu', 'interaction', 'accessibility'],
+      bento: { size: 'md' },
+      gallery: {
+        size: 'wide',
+        height: 'lg',
+        tabletSpan: 2,
+        treatment: 'muted',
+        label: 'Keyboard shortcut examples with silent and sound-enabled styles',
+      },
+      useCases: [
+        'Navbar command-menu triggers',
+        'Search and command palettes',
+        'Editor and dashboard shortcuts',
+        'Keyboard-driven onboarding',
+      ],
+      notes: [
+        'The default presentation keeps the installed shadcn Kbd size; use keyClassName for larger keys or custom shadows.',
+        'Sound is optional and plays for each matching key press. Pass a browser-readable audio URL when enabling it.',
+      ],
+      sourceFiles: [
+        { path: 'components/ui/components/keyboard-shortcut.tsx', language: 'tsx' },
+        {
+          path: 'components/showcase/keyboard-shortcut.tsx',
+          language: 'tsx',
+          filename: 'demo.tsx',
+        },
+      ],
+      registry: {
+        dependencies: [],
+        registryDependencies: ['kbd'],
+      },
+      usageExample: `'use client'
+
+import { KeyboardShortcut } from '@/components/keyboard-shortcut'
+
+const commandKeys = [
+  { key: 'Meta', label: '⌘' },
+  { key: 'k', label: 'K' },
+]
+
+export function NavbarShortcut({ onOpenCommand }: { onOpenCommand: () => void }) {
+  return (
+    <button onClick={onOpenCommand} className="flex items-center gap-3 rounded-lg border px-3 py-2">
+      Open command menu
+      <KeyboardShortcut keys={commandKeys} onTrigger={onOpenCommand} />
+    </button>
+  )
+}
+
+export function RaisedShortcut() {
+  return (
+    <KeyboardShortcut
+      keys={[
+        { key: 'Shift', label: '⇧' },
+        { key: 'p', label: 'P' },
+      ]}
+      sound="/sounds/key-press.mp3"
+      keyClassName="size-10 rounded-md shadow-sm"
+    />
+  )
+}`,
+      api: [
+        {
+          prop: 'keys',
+          type: 'readonly KeyboardShortcutKey[]',
+          default: '-',
+          description:
+            'The event.key values to match, with optional React labels for the visible Kbd keys.',
+        },
+        {
+          prop: 'onTrigger',
+          type: '(event: KeyboardEvent) => void',
+          default: '-',
+          description:
+            'Called once when every configured key is held; it can open a command menu or run any shortcut action.',
+        },
+        {
+          prop: 'sound / soundVolume',
+          type: 'string / number',
+          default: '- / 0.5',
+          description:
+            'Optional audio URL and volume from 0 to 1. The sound plays as each matching key is pressed.',
+        },
+        {
+          prop: 'preventDefault',
+          type: 'boolean',
+          default: 'true',
+          description: 'Prevents the browser default only after the full shortcut is matched.',
+        },
+        {
+          prop: 'disabled',
+          type: 'boolean',
+          default: 'false',
+          description: 'Stops listening for the shortcut while preserving its visual presentation.',
+        },
+        {
+          prop: 'className',
+          type: 'string',
+          default: '-',
+          description: 'Classes merged onto the Kbd group, such as a custom gap.',
+        },
+        {
+          prop: 'keyClassName / pressedKeyClassName',
+          type: 'string / string',
+          default: '- / focus-ring treatment',
+          description:
+            'Classes applied to every key and to its active state. Use keyClassName for size-10 or raised shadows.',
+        },
+        {
+          prop: 'aria-label',
+          type: 'string',
+          default: 'Generated from keys',
+          description: 'Accessible name for the displayed shortcut group.',
+        },
+      ],
+    }),
+    KeyboardShortcutShowcase,
+    [
+      {
+        id: 'with-sound',
+        title: 'With sound',
+        description:
+          'Pass a browser-readable audio URL to add audible feedback while preserving the same pressed-key ring.',
+        sourceFiles: [
+          {
+            path: 'components/showcase/keyboard-shortcut-with-sound.tsx',
+            language: 'tsx',
+            filename: 'with-sound.tsx',
+          },
+        ],
+        Showcase: KeyboardShortcutWithSoundShowcase,
+      },
+    ],
+  ),
 ]
 
 export const componentDefinitions: ComponentDefinition[] = componentRegistryEntries.map(
@@ -911,4 +1071,17 @@ export function getComponentEntry(slug: string): ComponentRegistryEntry | undefi
 /** Resolve the showcase/demo component for a slug (docs + preview rendering). */
 export function getComponentShowcase(slug: string): ComponentType | undefined {
   return showcaseBySlug.get(slug)
+}
+
+/** Resolve the secondary documentation examples registered for a component. */
+export function getComponentExamples(slug: string): ComponentExampleRegistryEntry[] {
+  return getComponentEntry(slug)?.examples ?? []
+}
+
+/** Resolve one secondary documentation example by its stable id. */
+export function getComponentExample(
+  slug: string,
+  exampleId: string,
+): ComponentExampleRegistryEntry | undefined {
+  return getComponentExamples(slug).find((example) => example.id === exampleId)
 }

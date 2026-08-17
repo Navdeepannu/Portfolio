@@ -1357,6 +1357,23 @@
         }
       ],
       "type": "registry:ui"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "keyboard-shortcut",
+      "title": "Keyboard Shortcut",
+      "description": "Interactive keyboard shortcut display with pressed-key feedback, callback handling, optional sound, and shadcn Kbd styling.",
+      "registryDependencies": [
+        "kbd"
+      ],
+      "files": [
+        {
+          "path": "components/ui/components/keyboard-shortcut.tsx",
+          "type": "registry:ui",
+          "target": "@components/keyboard-shortcut.tsx"
+        }
+      ],
+      "type": "registry:ui"
     }
   ]
 }

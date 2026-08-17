@@ -5,6 +5,7 @@ import {
   Expand,
   Gauge,
   Hash,
+  Keyboard,
   MousePointer2,
   PanelTop,
   Route,
@@ -21,6 +22,7 @@ const icons = {
   'proximity-nav': Gauge,
   'package-manager-command': Command,
   'contribution-graph': CalendarDays,
+  'keyboard-shortcut': Keyboard,
 } as const
 
 export function ComponentIcon({ slug, ...props }: { slug: string } & ComponentProps<'svg'>) {

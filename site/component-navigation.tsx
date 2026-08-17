@@ -80,7 +80,7 @@ export function ComponentNavigation({ previous, next }: ComponentNavigationProps
             </Button>
           </TooltipTrigger>
 
-          <TooltipContent>
+          <TooltipContent className="mb-4">
             <span>Previous: {previous.title}</span>
             <Kbd>
               <ArrowLeft aria-hidden="true" />
@@ -101,7 +101,7 @@ export function ComponentNavigation({ previous, next }: ComponentNavigationProps
             </Button>
           </TooltipTrigger>
 
-          <TooltipContent>
+          <TooltipContent className="mb-4">
             <span>Next: {next.title}</span>
             <Kbd>
               <ArrowRight aria-hidden="true" />

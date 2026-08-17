@@ -52,6 +52,12 @@ const COMPONENT_PREVIEW_IMAGE_MAP: Partial<Record<string, ComponentPreviewImageS
     width: 1200,
     height: 800,
   },
+  'keyboard-shortcut': {
+    light: '/component-previews/keyboard-shortcut.svg',
+    dark: '/component-previews/keyboard-shortcut.svg',
+    width: 1200,
+    height: 800,
+  },
 }
 
 export function getComponentPreviewImages(

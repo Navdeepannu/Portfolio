@@ -57,7 +57,7 @@ export default function FeatureSectionTwo({
   items = expandableFeatures,
   defaultActiveId,
   autoPlay = true,
-  interval = 5000,
+  interval = 8000,
   className,
   ...props
 }: ExpandableFeaturesProps) {
@@ -139,7 +139,7 @@ export default function FeatureSectionTwo({
                         'last:border-b-0 sm:border-b-0 lg:border-b lg:last:border-b-0',
                         'focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:outline-none',
                         isActive
-                          ? 'text-foreground'
+                          ? 'text-foreground focus-within:invisible'
                           : 'text-muted-foreground hover:text-foreground',
                       )}
                     >
@@ -154,13 +154,12 @@ export default function FeatureSectionTwo({
 
                       <span className="text-sm font-medium">{item.label}</span>
 
-                      <span
-                        aria-hidden="true"
-                        className={cn(
-                          'ml-auto size-2.5 rounded-full border-2 transition-all duration-300',
-                          isActive ? 'border-foreground' : 'border-muted',
-                        )}
-                      ></span>
+                      <FeatureTimer
+                        key={isActive ? `${item.id}-${interval}` : item.id}
+                        active={isActive}
+                        autoPlay={autoPlay}
+                        duration={interval}
+                      />
                     </button>
                   )
                 })}
@@ -173,7 +172,7 @@ export default function FeatureSectionTwo({
               aria-labelledby={`${panelId}-${activeItem.id}-tab`}
               className="relative min-h-[30rem] overflow-hidden rounded-[1.4rem] lg:min-h-[36rem]"
             >
-              <AnimatePresence mode="wait">
+              <AnimatePresence mode="sync" initial={false}>
                 <motion.div
                   key={activeItem.id}
                   className="absolute inset-0"
@@ -182,7 +181,7 @@ export default function FeatureSectionTwo({
                       ? false
                       : {
                           opacity: 0,
-                          scale: 1.015,
+                          scale: 1.006,
                         }
                   }
                   animate={{
@@ -191,10 +190,10 @@ export default function FeatureSectionTwo({
                   }}
                   exit={{
                     opacity: 0,
-                    scale: shouldReduceMotion ? 1 : 0.99,
+                    scale: shouldReduceMotion ? 1 : 0.996,
                   }}
                   transition={{
-                    duration: shouldReduceMotion ? 0 : 0.4,
+                    duration: shouldReduceMotion ? 0 : 0.22,
                     ease: [0.22, 1, 0.36, 1],
                   }}
                 >
@@ -202,18 +201,18 @@ export default function FeatureSectionTwo({
                     aria-hidden="true"
                     className="absolute inset-0 bg-cover bg-center"
                     style={{
-                      backgroundImage: `url(${activeItem.backgroundImage})`,
+                      backgroundImage: `url("${activeItem.backgroundImage}")`,
                     }}
                   />
 
                   <div
                     aria-hidden="true"
-                    className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,23,0.08),rgba(2,6,23,0.66))]"
+                    className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,23,0.04),rgba(2,6,23,0.64))]"
                   />
 
                   <div
                     aria-hidden="true"
-                    className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,transparent_0%,rgba(2,6,23,0.18)_58%,rgba(2,6,23,0.42)_100%)]"
+                    className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,transparent_0%,rgba(2,6,23,0.14)_58%,rgba(2,6,23,0.4)_100%)]"
                   />
 
                   <div className="relative flex h-full min-h-[30rem] items-center justify-center px-4 py-12 sm:px-8 lg:min-h-[36rem]">
@@ -234,76 +233,122 @@ export default function FeatureSectionTwo({
   )
 }
 
+function FeatureTimer({
+  active,
+  autoPlay,
+  duration,
+}: {
+  active: boolean
+  autoPlay: boolean
+  duration: number
+}) {
+  const radius = 8
+  const circumference = 2 * Math.PI * radius
+
+  return (
+    <span aria-hidden="true" className="ml-auto grid size-5 shrink-0 place-items-center">
+      <AnimatePresence initial={false}>
+        {active && (
+          <motion.span
+            key="timer"
+            className="grid size-5 place-items-center"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.15 }}
+          >
+            {autoPlay ? (
+              <svg viewBox="0 0 24 24" className="size-5">
+                <circle
+                  cx="15"
+                  cy="15"
+                  r={radius}
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  className="text-foreground/15"
+                />
+
+                <motion.circle
+                  cx="15"
+                  cy="15"
+                  r={radius}
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeDasharray={circumference}
+                  initial={{
+                    strokeDashoffset: circumference,
+                  }}
+                  animate={{
+                    strokeDashoffset: 0,
+                  }}
+                  transition={{
+                    duration: duration / 1000,
+                    ease: 'linear',
+                  }}
+                  className="text-foreground"
+                />
+              </svg>
+            ) : (
+              <span className="size-2 rounded-full bg-foreground" />
+            )}
+          </motion.span>
+        )}
+      </AnimatePresence>
+    </span>
+  )
+}
 const illustrationMap = {
   one: IllustrationOne,
   two: IllustrationTwo,
   three: IllustrationThree,
 }
 
+/**
+ * Capture
+ * Turns scattered input into structured work.
+ */
 export function IllustrationOne({ className }: FeatureIllustrationProps) {
-  const tasks = [
-    { label: 'Product brief', completed: true },
-    { label: 'Homepage direction', completed: true },
-    { label: 'Launch checklist', completed: false },
-  ]
+  const items = ['Message', 'Note', 'File']
 
   return (
-    <div aria-hidden="true" className={cn('w-[88%] max-w-120', className)}>
-      <div className="overflow-hidden rounded-2xl border border-white/15 bg-neutral-950/85 text-white shadow-2xl backdrop-blur-xl">
-        <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
-          <div className="flex items-center gap-2">
-            <span className="size-2 rounded-full bg-white/25" />
-            <span className="size-2 rounded-full bg-white/15" />
-          </div>
-
-          <span className="text-xs text-white/45">Workspace</span>
+    <div aria-hidden="true" className={cn('w-[88%] max-w-md', className)}>
+      <div className="rounded-2xl border bg-background/90 p-4 text-foreground shadow-2xl backdrop-blur-xl sm:p-5">
+        <div className="flex items-center gap-2 border-b pb-4">
+          <span className="size-2 rounded-full bg-foreground/20" />
+          <span className="size-2 rounded-full bg-foreground/10" />
+          <span className="ml-auto text-[10px] text-muted-foreground">Inbox</span>
         </div>
 
-        <div className="p-5 sm:p-6">
-          <div className="flex items-start justify-between gap-6">
-            <div>
-              <p className="text-xs text-white/45">Current project</p>
-              <h3 className="mt-1 font-medium">Product launch</h3>
-            </div>
-
-            <span className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-2.5 py-1 text-[11px] text-emerald-300">
-              On track
-            </span>
-          </div>
-
-          <div className="mt-6">
-            <div className="flex justify-between text-xs text-white/45">
-              <span>Progress</span>
-              <span>68%</span>
-            </div>
-
-            <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white/10">
-              <div className="h-full w-[68%] rounded-full bg-white" />
-            </div>
-          </div>
-
-          <div className="mt-6 space-y-2">
-            {tasks.map((task) => (
-              <div
-                key={task.label}
-                className="flex items-center gap-3 rounded-xl border border-white/8 bg-white/[0.035] px-3.5 py-3"
-              >
-                <span
-                  className={cn(
-                    'grid size-5 place-items-center rounded-full border text-[10px]',
-                    task.completed
-                      ? 'border-white bg-white text-neutral-950'
-                      : 'border-white/20 text-transparent',
-                  )}
-                >
-                  ✓
+        <div className="mt-4 grid items-center gap-4 sm:grid-cols-[1fr_auto_1.15fr]">
+          <div className="space-y-2">
+            {items.map((item, index) => (
+              <div key={item} className="flex items-center gap-3 rounded-lg border bg-muted/40 p-3">
+                <span className="grid size-7 place-items-center rounded-md bg-background text-[10px] font-medium shadow-sm">
+                  {index + 1}
                 </span>
-
-                <span className={cn('text-sm', task.completed ? 'text-white/55' : 'text-white/90')}>
-                  {task.label}
-                </span>
+                <span className="text-xs text-muted-foreground">{item}</span>
               </div>
             ))}
+          </div>
+
+          <span className="hidden text-muted-foreground sm:block">→</span>
+
+          <div className="rounded-xl border bg-card p-4 shadow-sm">
+            <div className="flex items-center justify-between gap-3">
+              <span className="text-xs font-medium">New item</span>
+              <span className="rounded-full bg-primary/10 px-2 py-1 text-[9px] text-primary">
+                Ready
+              </span>
+            </div>
+            <div className="mt-4 h-2 w-3/4 rounded-full bg-muted" />
+            <div className="mt-2 h-2 w-1/2 rounded-full bg-muted" />
+            <div className="mt-5 flex gap-2">
+              <span className="h-6 w-14 rounded-md bg-muted" />
+              <span className="h-6 w-10 rounded-md bg-muted/60" />
+            </div>
           </div>
         </div>
       </div>
@@ -312,116 +357,70 @@ export function IllustrationOne({ className }: FeatureIllustrationProps) {
 }
 
 /**
- * Illustration Two
- * A lightweight collaboration/network canvas.
+ * Coordinate
+ * Shows cross-functional work moving through a shared workflow.
  */
 export function IllustrationTwo({ className }: FeatureIllustrationProps) {
+  const stages = [
+    { label: 'Plan', state: 'Done', complete: true },
+    { label: 'Build', state: 'In progress', active: true },
+    { label: 'Review', state: 'Next' },
+  ]
+
   return (
     <div
       aria-hidden="true"
       className={cn(
-        'relative aspect-[1.25/1] w-[92%] max-w-[540px] overflow-hidden rounded-2xl',
-        'border border-white/15 bg-neutral-950/80 text-white shadow-2xl backdrop-blur-xl',
+        'w-[88%] max-w-md rounded-2xl border bg-background/90 p-4 text-foreground shadow-2xl backdrop-blur-xl sm:p-5',
         className,
       )}
     >
-      <div
-        className="absolute inset-0 opacity-30"
-        style={{
-          backgroundImage: 'radial-gradient(rgba(255,255,255,0.2) 1px, transparent 1px)',
-          backgroundSize: '22px 22px',
-        }}
-      />
-
-      <div className="absolute inset-x-0 top-0 flex items-center justify-between border-b border-white/10 px-5 py-4">
-        <span className="text-xs text-white/55">Live workspace</span>
-
-        <span className="flex items-center gap-2 text-xs text-white/55">
-          <span className="size-1.5 rounded-full bg-emerald-400" />4 online
-        </span>
-      </div>
-
-      <svg
-        viewBox="0 0 500 330"
-        className="absolute inset-0 h-full w-full text-white/20"
-        fill="none"
-      >
-        <path d="M250 165L115 105" stroke="currentColor" />
-        <path d="M250 165L390 98" stroke="currentColor" />
-        <path d="M250 165L115 250" stroke="currentColor" />
-        <path d="M250 165L393 250" stroke="currentColor" />
-      </svg>
-
-      <div className="absolute top-1/2 left-1/2 z-10 w-40 -translate-x-1/2 -translate-y-1/2 rounded-xl border border-white/15 bg-white/10 p-4 text-center shadow-xl backdrop-blur-md">
-        <span className="mx-auto grid size-8 place-items-center rounded-lg bg-white text-xs font-semibold text-neutral-950">
-          NS
-        </span>
-        <p className="mt-3 text-sm font-medium">Design system</p>
-        <p className="mt-1 text-[11px] text-white/45">12 active updates</p>
-      </div>
-
-      <MemberNode initials="MK" label="Research" className="top-[23%] left-[10%]" />
-
-      <MemberNode initials="AL" label="Product" className="top-[21%] right-[9%]" />
-
-      <MemberNode initials="SR" label="Design" className="bottom-[13%] left-[10%]" />
-
-      <MemberNode initials="JN" label="Engineering" className="right-[7%] bottom-[13%]" />
-    </div>
-  )
-}
-
-/**
- * Illustration Three
- * A restrained deployment/release interface.
- */
-export function IllustrationThree({ className }: FeatureIllustrationProps) {
-  return (
-    <div
-      aria-hidden="true"
-      className={cn('relative aspect-[1.15/1] w-[90%] max-w-[520px]', className)}
-    >
-      <div className="absolute inset-x-0 top-[18%] bottom-0 overflow-hidden rounded-2xl border border-white/15 bg-neutral-950/85 text-white shadow-2xl backdrop-blur-xl">
-        <div className="flex items-center gap-2 border-b border-white/10 px-5 py-4">
-          <span className="size-2 rounded-full bg-white/25" />
-          <span className="size-2 rounded-full bg-white/15" />
-          <span className="ml-2 text-xs text-white/40">deployment.log</span>
-        </div>
-
-        <div className="space-y-3 p-5 font-mono text-xs">
-          <LogLine prefix="01" text="Building production bundle" />
-          <LogLine prefix="02" text="Running validation checks" />
-          <LogLine prefix="03" text="Publishing edge functions" />
-          <LogLine prefix="04" text="Deployment completed" active />
+      <div className="flex items-center border-b pb-4">
+        <span className="text-xs font-medium">Shared workflow</span>
+        <div className="ml-auto flex -space-x-1.5">
+          {['A', 'B', 'C'].map((initial) => (
+            <span
+              key={initial}
+              className="grid size-6 place-items-center rounded-full border-2 border-background bg-muted text-[8px] text-muted-foreground"
+            >
+              {initial}
+            </span>
+          ))}
         </div>
       </div>
 
-      <div className="absolute top-0 right-0 w-[72%] rounded-2xl border border-white/15 bg-neutral-900/95 p-5 text-white shadow-2xl backdrop-blur-xl">
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <p className="text-xs text-white/45">Release</p>
-            <p className="mt-1 text-sm font-medium">Version 2.4.0</p>
-          </div>
+      <div className="relative mt-4">
+        <div className="absolute top-5 bottom-5 left-[17px] w-px bg-border" />
 
-          <span className="rounded-full bg-emerald-400/10 px-2.5 py-1 text-[11px] text-emerald-300">
-            Ready
-          </span>
-        </div>
-
-        <div className="mt-5 grid grid-cols-3 gap-2">
-          {['Preview', 'Staging', 'Production'].map((environment, index) => (
+        <div className="space-y-2">
+          {stages.map((stage, index) => (
             <div
-              key={environment}
-              className="rounded-lg border border-white/10 bg-white/[0.035] px-2 py-2.5 text-center"
+              key={stage.label}
+              className={cn(
+                'relative flex items-center gap-3 rounded-xl border p-3',
+                stage.active ? 'bg-primary/[0.06]' : 'bg-card',
+              )}
             >
               <span
                 className={cn(
-                  'mx-auto block size-1.5 rounded-full',
-                  index === 2 ? 'bg-emerald-400' : 'bg-white/35',
+                  'relative z-10 grid size-9 place-items-center rounded-full border text-[10px] font-medium',
+                  stage.complete
+                    ? 'bg-primary text-primary-foreground'
+                    : stage.active
+                      ? 'border-primary bg-background text-primary'
+                      : 'bg-background text-muted-foreground',
                 )}
-              />
-              <span className="mt-2 block text-[9px] text-white/45 sm:text-[10px]">
-                {environment}
+              >
+                {stage.complete ? '✓' : index + 1}
+              </span>
+              <span className="text-xs font-medium">{stage.label}</span>
+              <span
+                className={cn(
+                  'ml-auto rounded-full px-2 py-1 text-[9px]',
+                  stage.active ? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground',
+                )}
+              >
+                {stage.state}
               </span>
             </div>
           ))}
@@ -431,41 +430,46 @@ export function IllustrationThree({ className }: FeatureIllustrationProps) {
   )
 }
 
-function MemberNode({
-  initials,
-  label,
-  className,
-}: {
-  initials: string
-  label: string
-  className?: string
-}) {
+/**
+ * Release
+ * Shows the final path through checks and environments.
+ */
+export function IllustrationThree({ className }: FeatureIllustrationProps) {
   return (
-    <div className={cn('absolute z-10 text-center', className)}>
-      <span className="mx-auto grid size-9 place-items-center rounded-full border border-white/15 bg-neutral-900 text-[11px] font-medium shadow-lg">
-        {initials}
-      </span>
-      <span className="mt-1.5 block text-[10px] text-white/45">{label}</span>
-    </div>
-  )
-}
+    <div
+      aria-hidden="true"
+      className={cn(
+        'w-[88%] max-w-md rounded-2xl border bg-background/90 p-5 text-foreground shadow-2xl backdrop-blur-xl',
+        className,
+      )}
+    >
+      <div className="flex items-center border-b pb-4">
+        <span className="text-xs font-medium">Release</span>
+        <span className="ml-auto flex items-center gap-1.5 rounded-full bg-primary/10 px-2.5 py-1 text-[10px] text-primary">
+          <span className="size-1.5 rounded-full bg-primary" />
+          Live
+        </span>
+      </div>
 
-function LogLine({
-  prefix,
-  text,
-  active = false,
-}: {
-  prefix: string
-  text: string
-  active?: boolean
-}) {
-  return (
-    <div className="flex items-center gap-3">
-      <span className="text-white/20">{prefix}</span>
+      <div className="grid place-items-center py-8 text-center">
+        <span className="grid size-14 place-items-center rounded-full bg-primary text-xl text-primary-foreground shadow-sm">
+          ✓
+        </span>
+        <p className="mt-4 text-sm font-medium">Published successfully</p>
+        <p className="mt-1 text-[10px] text-muted-foreground">Your latest changes are live.</p>
+      </div>
 
-      <span className={active ? 'text-emerald-300' : 'text-white/45'}>
-        {active ? '✓' : '>'} {text}
-      </span>
+      <div className="flex items-center gap-3 rounded-xl border bg-muted/30 p-3">
+        <div className="min-w-0 flex-1">
+          <div className="flex justify-between text-[9px] text-muted-foreground">
+            <span>Progress</span>
+            <span>100%</span>
+          </div>
+          <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-muted">
+            <div className="h-full w-full rounded-full bg-primary" />
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

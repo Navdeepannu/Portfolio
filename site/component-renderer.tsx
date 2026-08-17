@@ -7,7 +7,7 @@ import {
   readProjectSourceFile,
   type LoadedBlockSourceFile,
 } from '@/lib/block-source'
-import { getComponentShowcase } from '@/registry/component-entries'
+import { getComponentExamples, getComponentShowcase } from '@/registry/component-entries'
 import BlockCode from '@/site/block-code'
 import ComponentTabs, { ComponentPreview } from '@/site/component-tabs'
 import ComponentInstall from '@/site/component-install'
@@ -68,10 +68,17 @@ export default async function ComponentRenderer({
 
   const demoSpecs = component.sourceFiles.filter((spec) => spec.filename === 'demo.tsx')
   const componentSpecs = component.sourceFiles.filter((spec) => spec.filename !== 'demo.tsx')
+  const secondaryExamples = getComponentExamples(component.slug)
 
-  const [componentFiles, demoFiles] = await Promise.all([
+  const [componentFiles, demoFiles, exampleDocs] = await Promise.all([
     loadBlockCodeFiles({ ...component, sourceFiles: componentSpecs }),
     loadBlockCodeFiles({ ...component, sourceFiles: demoSpecs }),
+    Promise.all(
+      secondaryExamples.map(async (example) => ({
+        example,
+        files: await loadBlockCodeFiles({ ...component, sourceFiles: example.sourceFiles }),
+      })),
+    ),
   ])
 
   let utilsFiles: LoadedBlockSourceFile[] = []
@@ -151,6 +158,38 @@ export default async function ComponentRenderer({
           utilsCode={<BlockCode key="utils-source-code" files={utilsFiles} />}
         />
       </section>
+
+      {exampleDocs.length > 0 ? (
+        <section aria-labelledby="examples" className="flex flex-col gap-6">
+          <SectionHeading id="examples">Examples</SectionHeading>
+
+          <div className="flex flex-col gap-10">
+            {exampleDocs.map(({ example, files }) => (
+              <div key={example.id} className="flex flex-col gap-3">
+                <div className="flex flex-col gap-1.5">
+                  <h3
+                    id={`example-${example.id}`}
+                    className="scroll-mt-24 text-base font-semibold text-foreground"
+                  >
+                    {example.title}
+                  </h3>
+
+                  {example.description ? (
+                    <p className="max-w-2xl text-sm text-muted-foreground">{example.description}</p>
+                  ) : null}
+                </div>
+
+                <ComponentTabs
+                  slug={component.slug}
+                  exampleId={example.id}
+                  preview={<ComponentPreview slug={component.slug} exampleId={example.id} />}
+                  code={<BlockCode files={files} />}
+                />
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       {component.api && component.api.length > 0 ? (
         <section className="flex flex-col gap-4">
