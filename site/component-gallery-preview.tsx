@@ -21,6 +21,7 @@ const galleryPreviewBySlug = {
   'proximity-nav': dynamic(() => import('@/components/showcase/proximity-nav')),
   'package-manager-command': dynamic(() => import('@/components/showcase/package-manager-command')),
   'contribution-graph': dynamic(() => import('@/components/showcase/contribution-graph')),
+  'keyboard-shortcut': dynamic(() => import('@/components/showcase/keyboard-shortcut')),
 } satisfies Record<string, React.ComponentType<ComponentGalleryPreviewProps>>
 
 const heightClassNames: Record<ComponentGalleryHeight, string> = {

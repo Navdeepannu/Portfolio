@@ -6,24 +6,29 @@ import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { PackageManagerCommand } from '@/components/ui/components/package-manager-command'
 import { cn } from '@/lib/utils'
-import { getComponentShowcase } from '@/registry/component-entries'
+import { getComponentExample, getComponentShowcase } from '@/registry/component-entries'
 import { getInstallCommands } from '@/site/block-install-commands'
 import { blockShowcaseCodeViewportClassName } from '@/site/block-showcase-viewport'
 import { CodeXml, Maximize, RotateCcw, ScanEye } from 'lucide-react'
 import Link from 'next/link'
 
-export function ComponentPreview({ slug }: { slug: string }) {
-  const Showcase = getComponentShowcase(slug)
+export function ComponentPreview({ slug, exampleId }: { slug: string; exampleId?: string }) {
+  const Showcase = exampleId
+    ? getComponentExample(slug, exampleId)?.Showcase
+    : getComponentShowcase(slug)
+
   if (!Showcase) return null
   return createElement(Showcase)
 }
 
 export default function ComponentTabs({
   slug,
+  exampleId,
   preview,
   code,
 }: {
   slug: string
+  exampleId?: string
   preview: ReactNode
   code: ReactNode
 }) {
@@ -31,6 +36,9 @@ export default function ComponentTabs({
 
   // Install commands use the official @navui registry namespace.
   const commands = useMemo(() => getInstallCommands(slug), [slug])
+  const previewHref = exampleId
+    ? `/preview/${slug}?example=${encodeURIComponent(exampleId)}`
+    : `/preview/${slug}`
 
   return (
     <Tabs defaultValue="preview" className="flex w-full flex-col gap-0">
@@ -62,7 +70,7 @@ export default function ComponentTabs({
               aria-label="Open preview in new tab"
               title="Open in new tab"
             >
-              <Link href={`/preview/${slug}`} target="_blank" rel="noopener noreferrer">
+              <Link href={previewHref} target="_blank" rel="noopener noreferrer">
                 <Maximize className="size-4" />
               </Link>
             </Button>

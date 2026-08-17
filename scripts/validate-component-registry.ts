@@ -14,6 +14,7 @@
  *   7. `registry.dependencies` and `registry.registryDependencies` are arrays (may be empty).
  *   8. Every documented component has a matching item in root `registry.json`
  *      (run `bun run sync:components` to generate it).
+ *   9. Secondary examples have unique IDs, titles, and source files that exist.
  *
  * Run via `bun run validate:components` (also chained before `registry:build`).
  */
@@ -70,7 +71,7 @@ async function main() {
 
   const seenSlugs = new Set<string>()
 
-  for (const { definition } of componentRegistryEntries) {
+  for (const { definition, examples } of componentRegistryEntries) {
     const slug = definition.slug || '(missing slug)'
     const label = `[${slug}]`
 
@@ -118,9 +119,7 @@ async function main() {
     // 5. (warn) Demo file lives at the conventional path.
     const expectedDemoPath = `${SHOWCASE_DIR}/${definition.slug}.tsx`
     if (demoSpecs.length === 1 && demoSpecs[0].path !== expectedDemoPath) {
-      warn(
-        `${label} Demo file is at "${demoSpecs[0].path}"; convention is "${expectedDemoPath}".`,
-      )
+      warn(`${label} Demo file is at "${demoSpecs[0].path}"; convention is "${expectedDemoPath}".`)
     }
 
     // 6. (warn) Real reusable component file lives at the conventional path.
@@ -147,6 +146,36 @@ async function main() {
         `${label} No matching item in registry.json — run \`bun run sync:components\` ` +
           `so the install command for /r/${definition.slug}.json resolves.`,
       )
+    }
+
+    // 9. Secondary examples are valid and their source files exist.
+    const seenExampleIds = new Set<string>()
+    for (const example of examples) {
+      const exampleLabel = `${label}[example:${example.id || 'missing id'}]`
+
+      if (!example.id) {
+        fail(`${exampleLabel} Missing required field: id`)
+      } else if (seenExampleIds.has(example.id)) {
+        fail(`${exampleLabel} Duplicate example id — example IDs must be unique per component.`)
+      } else {
+        seenExampleIds.add(example.id)
+      }
+
+      if (!example.title) fail(`${exampleLabel} Missing required field: title`)
+      if (!Array.isArray(example.sourceFiles) || example.sourceFiles.length === 0) {
+        fail(`${exampleLabel} Missing required field: sourceFiles (must be a non-empty array)`)
+        continue
+      }
+
+      for (const spec of example.sourceFiles) {
+        if (!spec.path) {
+          fail(`${exampleLabel} A sourceFiles entry is missing a "path".`)
+          continue
+        }
+        if (!(await pathExists(spec.path))) {
+          fail(`${exampleLabel} sourceFiles path does not exist on disk: ${spec.path}`)
+        }
+      }
     }
   }
 
