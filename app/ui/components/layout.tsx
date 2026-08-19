@@ -17,8 +17,9 @@ export default function Layout({ children }: { children: ReactNode }) {
       <div className="mx-auto flex min-h-screen w-full max-w-360 flex-col">
         <UiLibraryNavbar fullWidth className="border-x border-border" />
         <div className="flex min-h-screen flex-col border-x border-border">
-          <div className="inset-x-0 mt-1.5 h-12 w-full bg-[repeating-linear-gradient(to_bottom,var(--color-border)_0,var(--color-border)_1px,transparent_1px,transparent_0.4rem)] mask-b-from-10% dark:bg-[repeating-linear-gradient(to_bottom,var(--color-border)_0,var(--color-border)_1px,transparent_1px,transparent_0.4rem)]" />
-          <section className="w-full min-w-0 font-geist dark:bg-zinc-950">{children}</section>
+          <section className="w-full min-w-0 flex-1 font-geist dark:bg-zinc-950">
+            {children}
+          </section>
         </div>
       </div>
     </main>

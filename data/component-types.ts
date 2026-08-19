@@ -26,7 +26,7 @@ export type ComponentBentoSpan = {
 }
 
 export type ComponentGallerySize = 'compact' | 'standard' | 'wide' | 'feature'
-export type ComponentGalleryHeight = 'sm' | 'md' | 'lg'
+export type ComponentGalleryHeight = 'sm' | 'md' | 'lg' | 'xl' | 'stacked'
 export type ComponentGalleryTreatment = 'default' | 'muted' | 'contrast'
 
 /** Layout and presentation metadata for the live `/components` gallery. */
