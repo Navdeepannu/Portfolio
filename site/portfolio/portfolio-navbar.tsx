@@ -131,7 +131,7 @@ export function PortfolioNavbar({
               className="px-6 gap-1 text-muted-foreground hover:bg-muted/80 hover:text-foreground"
             >
               <Command aria-hidden="true" className="size-3.5" />
-              <Kbd>k</Kbd>
+              <Kbd>K</Kbd>
             </Button>
 
             <LandingThemeToggle />

@@ -14,9 +14,9 @@ export type ComponentGalleryPreviewProps = {
 const galleryPreviewBySlug = {
   'segment-spotlight': dynamic(() => import('@/components/showcase/segment-spotlight')),
   'magnetic-button': dynamic(() => import('@/components/showcase/magnetic-button')),
-  'animated-tabs': dynamic(() => import('@/components/showcase/gallery/animated-tabs')),
+  'animated-tabs': dynamic(() => import('@/components/showcase/animated-tabs')),
   'animated-numbers': dynamic(() => import('@/components/showcase/animated-numbers')),
-  'expandable-card': dynamic(() => import('@/components/showcase/gallery/expandable-card')),
+  'expandable-card': dynamic(() => import('@/components/showcase/expandable-card')),
   'rail-nav': dynamic(() => import('@/components/showcase/gallery/rail-nav')),
   'proximity-nav': dynamic(() => import('@/components/showcase/proximity-nav')),
   'package-manager-command': dynamic(() => import('@/components/showcase/package-manager-command')),
@@ -25,9 +25,11 @@ const galleryPreviewBySlug = {
 } satisfies Record<string, React.ComponentType<ComponentGalleryPreviewProps>>
 
 const heightClassNames: Record<ComponentGalleryHeight, string> = {
-  sm: 'min-h-64 sm:min-h-72',
-  md: 'min-h-80 sm:min-h-88',
-  lg: 'min-h-96 sm:min-h-108',
+  sm: 'h-60',
+  md: 'h-72 sm:h-80',
+  lg: 'h-96 sm:h-112',
+  xl: 'h-128 sm:h-144',
+  stacked: 'min-h-344 sm:min-h-232 lg:h-144 lg:min-h-0',
 }
 
 const treatmentClassNames: Record<ComponentGalleryTreatment, string> = {
@@ -42,12 +44,14 @@ export function ComponentGalleryPreview({
   height,
   treatment = 'default',
   label,
+  embedded = false,
 }: {
   slug: string
   title: string
   height: ComponentGalleryHeight
   treatment?: ComponentGalleryTreatment
   label?: string
+  embedded?: boolean
 }) {
   const boundaryRef = useRef<HTMLDivElement>(null)
   const [portalContainer, setPortalContainer] = useState<HTMLDivElement | null>(null)
@@ -67,7 +71,8 @@ export function ComponentGalleryPreview({
       aria-busy={!isInView}
       data-gallery-preview={slug}
       className={cn(
-        'relative isolate flex w-full items-center justify-center overflow-hidden rounded-xl border border-border/70 p-2 contain-[layout_paint]',
+        'relative isolate flex w-full items-center justify-center overflow-hidden contain-[layout_paint]',
+        embedded ? 'p-3 sm:p-4' : 'rounded-xl border border-border/70 p-2',
         heightClassNames[height],
         treatmentClassNames[treatment],
       )}

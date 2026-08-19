@@ -34,11 +34,11 @@ function ComponentNotes({ notes }: { notes?: string[] }) {
   return (
     <aside
       aria-label="Component notes"
-      className="flex max-w-2xl items-start gap-2 rounded-lg border border-border bg-muted/30 px-3 py-2 text-xs text-muted-foreground"
+      className="flex w-fit max-w-xl items-start gap-2 rounded-md bg-muted/50 px-3 py-2 text-xs leading-5 text-muted-foreground"
     >
       <Info className="mt-0.5 size-3.5 shrink-0" aria-hidden />
 
-      <div className="flex flex-col gap-1 leading-5">
+      <div className="flex flex-col gap-1">
         {notes.map((note) => (
           <p key={note}>{note}</p>
         ))}

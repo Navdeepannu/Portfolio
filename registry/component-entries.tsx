@@ -53,8 +53,7 @@ export const componentRegistryEntries: ComponentRegistryEntry[] = [
       bento: { size: 'lg' },
       gallery: {
         size: 'feature',
-        height: 'lg',
-        tabletSpan: 2,
+        height: 'xl',
         label: 'Segment Spotlight interactive toolbar preview',
       },
       useCases: [
@@ -169,7 +168,7 @@ export function Example() {
       category: 'buttons',
       tags: ['interactive', 'motion', 'cursor', 'animation'],
       bento: { size: 'md' },
-      gallery: { size: 'compact', height: 'sm', treatment: 'muted' },
+      gallery: { size: 'standard', height: 'sm', treatment: 'muted' },
       sourceFiles: [
         {
           path: 'components/ui/components/magnetic-button.tsx',
@@ -235,7 +234,7 @@ export function Example() {
       category: 'interactive',
       tags: ['interactive', 'motion', 'animation', 'tabs', 'accessibility'],
       bento: { size: 'lg' },
-      gallery: { size: 'wide', height: 'lg' },
+      gallery: { size: 'feature', height: 'xl' },
       sourceFiles: [
         { path: 'components/ui/components/animated-tabs.tsx', language: 'tsx' },
         {
@@ -321,7 +320,7 @@ export function Example() {
       category: 'interactive',
       tags: ['animation', 'motion', 'numbers', 'statistics', 'accessibility'],
       bento: { size: 'md' },
-      gallery: { size: 'compact', height: 'sm', treatment: 'muted' },
+      gallery: { size: 'standard', height: 'sm', treatment: 'muted' },
       useCases: [
         'Dashboard metrics',
         'Statistics sections',
@@ -329,7 +328,6 @@ export function Example() {
         'Fundraising totals',
         'Performance summaries',
       ],
-      notes: ['Reduced motion shows the final value immediately.'],
       sourceFiles: [
         { path: 'components/ui/components/animated-numbers.tsx', language: 'tsx' },
         {
@@ -413,7 +411,7 @@ export function Example() {
       category: 'interactive',
       tags: ['interactive', 'motion', 'animation', 'card', 'accessibility'],
       bento: { size: 'lg' },
-      gallery: { size: 'wide', height: 'lg', treatment: 'muted' },
+      gallery: { size: 'feature', height: 'stacked', treatment: 'muted' },
       useCases: [
         'FAQ cards',
         'Product feature cards',
@@ -537,7 +535,7 @@ export function Example() {
       category: 'interactive',
       tags: ['interactive', 'navigation', 'docs', 'motion', 'accessibility'],
       bento: { size: 'lg' },
-      gallery: { size: 'standard', height: 'lg' },
+      gallery: { size: 'wide', height: 'md' },
       useCases: [
         'Documentation pages',
         'Long-form case studies',
@@ -634,17 +632,13 @@ export function Example() {
       category: 'interactive',
       tags: ['interactive', 'navigation', 'docs', 'motion', 'accessibility'],
       bento: { size: 'lg' },
-      gallery: { size: 'standard', height: 'md', treatment: 'muted' },
+      gallery: { size: 'compact', height: 'md', treatment: 'muted' },
       useCases: [
         'Documentation sidebars',
         'Settings navigation',
         'Account and workspace pages',
         'Dashboard sections',
         'Multi-page guides',
-      ],
-      notes: [
-        'Uses the current pathname unless activeHref is provided.',
-        'Use preventNavigation in demos and embedded previews.',
       ],
       sourceFiles: [
         { path: 'components/ui/components/proximity-nav.tsx', language: 'tsx' },
@@ -733,9 +727,8 @@ export function DocsSidebar() {
       tags: ['interactive', 'installation', 'clipboard', 'docs', 'accessibility'],
       bento: { size: 'lg' },
       gallery: {
-        size: 'wide',
+        size: 'standard',
         height: 'md',
-        tabletSpan: 2,
         treatment: 'muted',
       },
       useCases: [
@@ -744,7 +737,6 @@ export function DocsSidebar() {
         'Developer onboarding',
         'Copyable code snippets',
       ],
-      notes: ['Only configured package managers appear.'],
       sourceFiles: [
         { path: 'components/ui/components/package-manager-command.tsx', language: 'tsx' },
         {
@@ -825,9 +817,8 @@ export function Example() {
       tags: ['data display', 'analytics', 'github', 'accessibility', 'responsive'],
       bento: { size: 'lg' },
       gallery: {
-        size: 'wide',
+        size: 'feature',
         height: 'md',
-        tabletSpan: 2,
         treatment: 'muted',
         label: 'Contribution graph example',
       },
@@ -837,11 +828,7 @@ export function Example() {
         'Habit and activity tracking',
         'Release or publishing calendars',
       ],
-      notes: [
-        'Fetch your API on the server and map each result to { date, count }; the component fills missing dates and calculates intensity for you.',
-        'Every square has a readable date and count, so activity is understandable without relying on color.',
-        'The latest days stay visible on narrow screens; keyboard users can move between days with the arrow keys.',
-      ],
+      notes: ['Pass { date, count }; missing days and intensity are filled automatically.'],
       sourceFiles: [
         { path: 'components/ui/components/contribution-graph.tsx', language: 'tsx' },
         {
@@ -923,21 +910,16 @@ export default async function Example() {
       tags: ['keyboard', 'shortcut', 'command menu', 'interaction', 'accessibility'],
       bento: { size: 'md' },
       gallery: {
-        size: 'wide',
-        height: 'lg',
-        tabletSpan: 2,
+        size: 'standard',
+        height: 'md',
         treatment: 'muted',
-        label: 'Keyboard shortcut examples with silent and sound-enabled styles',
+        label: 'Keyboard shortcut command-menu trigger preview',
       },
       useCases: [
         'Navbar command-menu triggers',
         'Search and command palettes',
         'Editor and dashboard shortcuts',
         'Keyboard-driven onboarding',
-      ],
-      notes: [
-        'The default presentation keeps the installed shadcn Kbd size; use keyClassName for larger keys or custom shadows.',
-        'Sound is optional and plays for each matching key press. Pass a browser-readable audio URL when enabling it.',
       ],
       sourceFiles: [
         { path: 'components/ui/components/keyboard-shortcut.tsx', language: 'tsx' },

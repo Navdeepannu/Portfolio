@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils'
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog'
 import { Kbd, KbdGroup } from '@/components/ui/kbd'
 import type { SearchGroup, SearchItem } from '@/lib/search-data'
+import Logo from '../ui-library/ui-library-logo'
 
 type CommandMenuProps = {
   site: 'portfolio' | 'ui'
@@ -25,7 +26,7 @@ const sharedShortcuts = [
 
 const siteShortcuts = {
   portfolio: [...sharedShortcuts, { label: 'Previous or next image (viewer)', keys: ['←', '→'] }],
-  ui: [...sharedShortcuts, { label: 'Toggle sidebar (component pages)', keys: ['⌘', 'B'] }],
+  ui: [...sharedShortcuts],
 } as const
 
 export function CommandMenu({ site, groups, open, onOpenChange }: CommandMenuProps) {
@@ -145,10 +146,6 @@ function CommandShortcuts({ site }: { site: CommandMenuProps['site'] }) {
   )
 }
 
-/* ------------------------------------------------------------------ */
-/* Sub-components                                                      */
-/* ------------------------------------------------------------------ */
-
 function CommandSearch({
   value,
   onValueChange,
@@ -167,7 +164,7 @@ function CommandSearch({
         className={cn(
           'flex h-6 w-full min-w-0 bg-transparent text-[15px] tracking-tight text-foreground',
           'placeholder:font-normal placeholder:text-muted-foreground/70',
-          'outline-none focus-visible:ring-2 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50',
+          'outline-none disabled:cursor-not-allowed disabled:opacity-50',
         )}
       />
     </div>
@@ -269,7 +266,7 @@ function CommandEmpty({ query, site }: { query: string; site: CommandMenuProps['
         {query
           ? `Nothing matched “${query}”. Try a different query.`
           : site === 'ui'
-            ? 'Try searching for a page, block or component.'
+            ? 'Try searching for a block or component.'
             : 'Try searching for a project, page or profile.'}
       </p>
     </div>
@@ -284,7 +281,7 @@ function CommandFooter() {
         'bg-background/40 dark:bg-background/20',
       )}
     >
-      <BrandDot />
+      <Logo />
       <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
         <span>Go to Page</span>
         <Kbd className="bg-popover shadow-sm dark:bg-background/40">
@@ -292,18 +289,5 @@ function CommandFooter() {
         </Kbd>
       </div>
     </div>
-  )
-}
-
-function BrandDot() {
-  return (
-    <span
-      aria-hidden="true"
-      className={cn(
-        'inline-block size-4 rounded-full',
-        'bg-linear-to-b from-black via-emerald-700 to-neutral-50',
-        'shadow-sm shadow-black/40',
-      )}
-    />
   )
 }

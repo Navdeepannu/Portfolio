@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Command, Menu, Moon, Sun, X } from 'lucide-react'
+import { ArrowUpRight, Command, Menu, Moon, Sun, X } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
 import { useEffect, useState, useSyncExternalStore } from 'react'
 import { useTheme } from 'next-themes'
@@ -17,13 +17,13 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import { GitHubStars } from './github-stars'
 import LogoMark from './ui-library-logo'
 
-const menuItems = [
+const primaryMenuItems = [
   { name: 'Components', href: '/components' },
   { name: 'Blocks', href: '/blocks' },
   { name: 'Illustrations', href: '/illustrations' },
-  { name: 'Pages', href: '/pages' },
-  { name: 'Portfolio', href: SITE_ORIGINS.portfolio, external: true },
 ] as const
+
+const portfolioItem = { name: 'Portfolio', href: SITE_ORIGINS.portfolio } as const
 
 const commandGroups = getSearchGroups()
 
@@ -102,31 +102,21 @@ export function UiLibraryNavbar({
 
           <div className="flex-1" />
 
-          <div className="flex items-center justify-between gap-4">
-            <Button
-              variant="ghost"
-              className="hover:bg-muted/40"
-              onClick={() => setCommandOpen(true)}
-              aria-label="Open command menu (Command K)"
-            >
-              <Command aria-hidden="true" className="size-4" />
-              <Kbd className="hidden sm:inline-flex">K</Kbd>
-            </Button>
-
-            <ul className="hidden items-center gap-6 md:flex">
-              {menuItems.map((item) => {
+          <div className="hidden items-center md:flex">
+            <ul className="flex items-center gap-0.5">
+              {primaryMenuItems.map((item) => {
                 const isActive = isNavItemActive(pathname, item.href)
 
                 return (
                   <li key={item.name}>
                     <Link
                       href={item.href}
-                      target={'external' in item && item.external ? '_blank' : undefined}
-                      rel={'external' in item && item.external ? 'noopener noreferrer' : undefined}
                       aria-current={isActive ? 'page' : undefined}
                       className={cn(
-                        'text-sm transition-colors hover:text-foreground',
-                        isActive ? 'text-foreground' : 'text-muted-foreground',
+                        'inline-flex h-8 items-center rounded-lg px-2.5 text-sm transition-colors duration-150 outline-none focus-visible:ring-2 focus-visible:ring-ring/50',
+                        isActive
+                          ? 'bg-muted/70 text-foreground font-medium'
+                          : 'text-muted-foreground hover:text-foreground',
                       )}
                     >
                       {item.name}
@@ -136,7 +126,29 @@ export function UiLibraryNavbar({
               })}
             </ul>
 
-            <span className="hidden h-4 w-px bg-border md:block" />
+            <span className="mx-3 h-4 w-px bg-border" />
+
+            <Link
+              href={portfolioItem.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-8 items-center gap-1 rounded-lg px-2 text-xs font-medium text-muted-foreground transition-colors duration-150 outline-none hover:bg-muted/45 hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50"
+            >
+              Portfolio
+              <ArrowUpRight className="size-3" aria-hidden="true" />
+            </Link>
+          </div>
+
+          <div className="ml-2 flex items-center gap-1 sm:ml-3">
+            <Button
+              variant="ghost"
+              className="text-muted-foreground hover:bg-muted/45 hover:text-foreground"
+              onClick={() => setCommandOpen(true)}
+              aria-label="Open command menu (Command K)"
+            >
+              <Command aria-hidden="true" className="size-4" />
+              <Kbd className="hidden sm:inline-flex">K</Kbd>
+            </Button>
 
             <GitHubStars repo="navdeepannu/portfolio" stargazersCount={stargazersCount} />
 
@@ -153,8 +165,8 @@ export function UiLibraryNavbar({
               </TooltipTrigger>
 
               <TooltipContent side="bottom" align="center">
-                  <span>Toggle theme</span>
-                  <kbd>D</kbd>
+                <span>Toggle theme</span>
+                <kbd>D</kbd>
               </TooltipContent>
             </Tooltip>
 
@@ -217,7 +229,7 @@ export function UiLibraryNavbar({
               </div>
 
               <nav aria-label="Mobile navigation links" className="flex flex-1 flex-col gap-1.5">
-                {menuItems.map((item) => {
+                {primaryMenuItems.map((item) => {
                   const isActive = isNavItemActive(pathname, item.href)
 
                   return (
@@ -232,10 +244,6 @@ export function UiLibraryNavbar({
                     >
                       <Link
                         href={item.href}
-                        target={'external' in item && item.external ? '_blank' : undefined}
-                        rel={
-                          'external' in item && item.external ? 'noopener noreferrer' : undefined
-                        }
                         aria-current={isActive ? 'page' : undefined}
                         onClick={() => setMobileMenuOpen(false)}
                       >
@@ -244,6 +252,24 @@ export function UiLibraryNavbar({
                     </Button>
                   )
                 })}
+
+                <div className="mt-auto border-t border-border pt-4">
+                  <Button
+                    variant="ghost"
+                    className="font-geist-sans h-11 w-full justify-between rounded-lg px-3 text-base font-normal text-muted-foreground"
+                    asChild
+                  >
+                    <Link
+                      href={portfolioItem.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Portfolio
+                      <ArrowUpRight className="size-4" aria-hidden="true" />
+                    </Link>
+                  </Button>
+                </div>
               </nav>
             </motion.aside>
           </>
