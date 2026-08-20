@@ -91,15 +91,19 @@ No credential uses a `NEXT_PUBLIC_` prefix. The public analytics section remains
 credentials are absent or the provider fails, and `/api/public-insights` returns only allowlisted
 aggregate fields.
 
-## Checks
+## Repository checks
+
+Bun is the only package manager used by this repository. Install dependencies and run the full
+validation baseline with:
 
 ```bash
-bun run lint
-bunx tsc --noEmit
-bun test
-bun run registry:build
+bun install
+bun run check
 bun run build
 ```
+
+Dependency changes must include the updated `bun.lock`. Do not introduce `package-lock.json`,
+`pnpm-lock.yaml`, or `yarn.lock`.
 
 ## License
 

@@ -8,7 +8,7 @@ const metrics = [
 
 export default function AnimatedNumbersShowcase() {
   return (
-    <dl className="grid w-full max-w-3xl gap-px overflow-hidden rounded-xl border bg-border grid-cols-2 sm:grid-cols-3">
+    <dl className="grid w-full max-w-3xl grid-cols-2 gap-px overflow-hidden rounded-xl border bg-border sm:grid-cols-3">
       {metrics.map(({ label, ...metric }) => (
         <div key={label} className="flex min-w-0 flex-col bg-background p-5 sm:p-6">
           <dd className="text-2xl font-semibold tracking-tight sm:text-3xl">

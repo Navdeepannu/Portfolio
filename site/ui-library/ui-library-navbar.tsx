@@ -115,7 +115,7 @@ export function UiLibraryNavbar({
                       className={cn(
                         'inline-flex h-8 items-center rounded-lg px-2.5 text-sm transition-colors duration-150 outline-none focus-visible:ring-2 focus-visible:ring-ring/50',
                         isActive
-                          ? 'bg-muted/70 text-foreground font-medium'
+                          ? 'bg-muted/70 font-medium text-foreground'
                           : 'text-muted-foreground hover:text-foreground',
                       )}
                     >

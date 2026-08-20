@@ -56,7 +56,13 @@ type RootRegistry = {
 }
 
 /** Build a single shadcn registry item from a component definition. */
-function buildItem(slug: string, title: string, description: string, deps: string[], registryDeps: string[]): RegistryItem {
+function buildItem(
+  slug: string,
+  title: string,
+  description: string,
+  deps: string[],
+  registryDeps: string[],
+): RegistryItem {
   const item: RegistryItem = {
     $schema: ITEM_SCHEMA,
     name: slug,
@@ -93,10 +99,7 @@ async function main() {
     const deps = definition.registry?.dependencies ?? []
     const registryDeps = definition.registry?.registryDependencies ?? []
     const description = definition.registryDescription ?? definition.description
-    generatedBySlug.set(
-      slug,
-      buildItem(slug, definition.title, description, deps, registryDeps),
-    )
+    generatedBySlug.set(slug, buildItem(slug, definition.title, description, deps, registryDeps))
   }
 
   const usedSlugs = new Set<string>()

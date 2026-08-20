@@ -4,10 +4,7 @@
 
 import { cn } from '@/lib/utils'
 
-import {
-  type PreviewViewport,
-  usePagePreview,
-} from './page-preview-provider'
+import { type PreviewViewport, usePagePreview } from './page-preview-provider'
 
 type PageFrameProps = {
   src: string
@@ -20,10 +17,7 @@ const viewportWidths: Record<PreviewViewport, string> = {
   mobile: 'w-[390px] max-w-full',
 }
 
-export function PageFrame({
-  src,
-  title,
-}: PageFrameProps) {
+export function PageFrame({ src, title }: PageFrameProps) {
   const { viewport } = usePagePreview()
 
   return (

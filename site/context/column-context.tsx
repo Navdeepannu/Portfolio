@@ -15,9 +15,7 @@ export function ColumnsProvider({ children }: { children: React.ReactNode }) {
   const [columns, setColumns] = useState<Columns>(3)
 
   return (
-    <ColumnsContext.Provider value={{ columns, setColumns }}>
-      {children}
-    </ColumnsContext.Provider>
+    <ColumnsContext.Provider value={{ columns, setColumns }}>{children}</ColumnsContext.Provider>
   )
 }
 

@@ -9,7 +9,7 @@ export function FlowDeskPage() {
       <main className="min-h-screen bg-background text-foreground">
         <FlowDeskNavbar />
         <FlowDeskHero />
-        <FlowDeskLogoCloud/>
+        <FlowDeskLogoCloud />
       </main>
     </FlowDeskTheme>
   )

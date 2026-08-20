@@ -7,8 +7,7 @@ export function ProjectsHero() {
           Project archive
         </h1>
         <p className="mt-3 max-w-[65ch] text-sm leading-6 text-muted-foreground md:text-base md:leading-7">
-          Selected open-source systems, production client work, and independent product
-          engineering.
+          Selected open-source systems, production client work, and independent product engineering.
         </p>
       </div>
     </header>

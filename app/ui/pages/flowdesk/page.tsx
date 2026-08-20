@@ -17,9 +17,7 @@ type FlowDeskRouteProps = {
   }>
 }
 
-export default async function FlowDeskRoute({
-  searchParams,
-}: FlowDeskRouteProps) {
+export default async function FlowDeskRoute({ searchParams }: FlowDeskRouteProps) {
   const { embed } = await searchParams
 
   if (embed === '1') {

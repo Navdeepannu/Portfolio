@@ -19,12 +19,7 @@ export type RegistryFileEntry = {
   path: string
   /** Destination path consumers get after `shadcn add` (often mirrors `path`). */
   target: string
-  type?:
-    | 'registry:component'
-    | 'registry:block'
-    | 'registry:lib'
-    | 'registry:hook'
-    | 'registry:ui'
+  type?: 'registry:component' | 'registry:block' | 'registry:lib' | 'registry:hook' | 'registry:ui'
 }
 
 /** Metadata aligned with shadcn registry items for future CLI / JSON export. */

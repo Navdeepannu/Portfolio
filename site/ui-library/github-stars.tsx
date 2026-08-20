@@ -32,9 +32,7 @@ export function GitHubStars({
         .format(stargazersCount)
         .toLowerCase()
     : null
-  const formattedStars = hasCount
-    ? new Intl.NumberFormat('en-US').format(stargazersCount)
-    : null
+  const formattedStars = hasCount ? new Intl.NumberFormat('en-US').format(stargazersCount) : null
   const starLabel = stargazersCount === 1 ? 'star' : 'stars'
 
   const link = (

@@ -20,7 +20,9 @@ export default function ErrorPage({
     <main className="grid min-h-svh place-items-center bg-background px-6 py-20 text-foreground">
       <section className="max-w-md text-center">
         <p className="text-sm font-medium text-muted-foreground">Something went wrong</p>
-        <h1 className="mt-3 text-3xl font-semibold tracking-tight">This page could not be loaded</h1>
+        <h1 className="mt-3 text-3xl font-semibold tracking-tight">
+          This page could not be loaded
+        </h1>
         <p className="mt-4 text-sm leading-6 text-muted-foreground">
           The issue may be temporary. Try loading this section again, or return to the portfolio.
         </p>

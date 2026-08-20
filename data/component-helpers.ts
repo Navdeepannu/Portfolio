@@ -21,9 +21,7 @@ export function getComponentCategoryById(categoryId: string): ComponentCategory 
   return componentCategories.find((category) => category.id === categoryId)
 }
 
-export function isValidComponentCategoryId(
-  categoryId: string,
-): categoryId is ComponentCategoryId {
+export function isValidComponentCategoryId(categoryId: string): categoryId is ComponentCategoryId {
   return componentCategories.some((category) => category.id === categoryId)
 }
 
@@ -36,16 +34,16 @@ export function getDefaultComponentCategory(): ComponentCategory {
 }
 
 export function getComponentCategoryHref(categoryId: ComponentCategoryId): string {
-  return categoryId === DEFAULT_COMPONENT_CATEGORY_ID
-    ? '/components'
-    : `/components/${categoryId}`
+  return categoryId === DEFAULT_COMPONENT_CATEGORY_ID ? '/components' : `/components/${categoryId}`
 }
 
 export function getComponentHref(slug: string): string {
   return `/components/${slug}`
 }
 
-export function resolveComponentsRouteParam(param: string):
+export function resolveComponentsRouteParam(
+  param: string,
+):
   | { type: 'category'; category: ComponentCategory }
   | { type: 'component'; component: ComponentDefinition }
   | null {

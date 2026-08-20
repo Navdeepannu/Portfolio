@@ -49,7 +49,7 @@ export function PortfolioSnapshot() {
 
           <div className="overflow-hidden">
             <div className="bg-foreground/4 p-2 dark:bg-neutral-800/30">
-              <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:auto-rows-48 lg:grid-cols-3">
+              <div className="lg:auto-rows-48 grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
                 {/* Top row */}
                 <BentoCard
                   className="lg:row-span-2"

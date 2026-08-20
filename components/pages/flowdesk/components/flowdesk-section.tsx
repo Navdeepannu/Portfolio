@@ -18,16 +18,8 @@ export function FlowDeskSection({
   withBorder = true,
 }: FlowDeskSectionProps) {
   return (
-    <section
-      className={cn(
-        'relative',
-        withBorder && 'border-t border-border',
-        className
-      )}
-    >
-      <FlowDeskContainer
-        className={cn('py-24 md:py-28 lg:py-32', containerClassName)}
-      >
+    <section className={cn('relative', withBorder && 'border-t border-border', className)}>
+      <FlowDeskContainer className={cn('py-24 md:py-28 lg:py-32', containerClassName)}>
         {children}
       </FlowDeskContainer>
     </section>

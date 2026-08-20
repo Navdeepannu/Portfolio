@@ -18,8 +18,7 @@ const CATEGORY_META: Record<string, { name: string; description?: string }> = {
   },
   buttons: {
     name: 'Buttons',
-    description:
-      'Drop-in button components with polished hover, focus, and press interactions.',
+    description: 'Drop-in button components with polished hover, focus, and press interactions.',
   },
 }
 

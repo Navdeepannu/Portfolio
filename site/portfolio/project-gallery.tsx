@@ -248,7 +248,7 @@ export function ProjectGallery({ projects, showDetails = true }: ProjectGalleryP
               role="region"
               aria-label={`${project.title} media gallery`}
               tabIndex={0}
-              className="mt-5 -mr-5 touch-pan-x scroll-px-1 [scrollbar-width:none] overflow-x-auto overscroll-x-contain rounded-xl pt-1 pr-5 pb-2 pl-1 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground sm:-mr-8 sm:pr-8 lg:mr-0 lg:w-[calc(50vw+25.5rem)] lg:pr-0 lg:pb-3 [&::-webkit-scrollbar]:hidden"
+              className="mt-5 -mr-5 touch-pan-x scroll-px-1 overflow-x-auto overscroll-x-contain rounded-xl pt-1 pr-5 pb-2 pl-1 [scrollbar-width:none] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground sm:-mr-8 sm:pr-8 lg:mr-0 lg:w-[calc(50vw+25.5rem)] lg:pr-0 lg:pb-3 [&::-webkit-scrollbar]:hidden"
             >
               <div className="flex w-max snap-x snap-mandatory gap-4 lg:gap-5">
                 {project.images.map((image, imageIndex) => (
@@ -298,9 +298,7 @@ export function ProjectGallery({ projects, showDetails = true }: ProjectGalleryP
                 stack={project.stack}
                 shouldReduceMotion={shouldReduceMotion}
               />
-              <p className="text-xs leading-5 text-muted-foreground">
-                {project.stack.join(' · ')}
-              </p>
+              <p className="text-xs leading-5 text-muted-foreground">{project.stack.join(' · ')}</p>
             </div>
           </article>
         ))}

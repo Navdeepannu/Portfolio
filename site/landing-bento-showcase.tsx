@@ -39,6 +39,7 @@ export function LandingBentoGrid({
           unoptimized={process.env.NODE_ENV === 'development'}
           className="h-auto w-full object-cover dark:hidden"
           sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
+          loading="eager"
         />
         <Image
           src={imageDark}
@@ -48,6 +49,7 @@ export function LandingBentoGrid({
           unoptimized={process.env.NODE_ENV === 'development'}
           className="hidden h-auto w-full object-cover dark:block"
           sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
+          loading="eager"
         />
       </div>
       <div className="px-1 pt-2">
