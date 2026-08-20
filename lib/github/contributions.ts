@@ -26,7 +26,11 @@ const GITHUB_CONTRIBUTIONS_QUERY = `
 `
 
 type GithubContributionLevel =
-  'NONE' | 'FIRST_QUARTILE' | 'SECOND_QUARTILE' | 'THIRD_QUARTILE' | 'FOURTH_QUARTILE'
+  | 'NONE'
+  | 'FIRST_QUARTILE'
+  | 'SECOND_QUARTILE'
+  | 'THIRD_QUARTILE'
+  | 'FOURTH_QUARTILE'
 
 type GithubContributionsResponse = {
   data?: {

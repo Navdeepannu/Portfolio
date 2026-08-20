@@ -10,7 +10,7 @@ export function FlowDeskHero() {
     <FlowDeskSection withBorder={false} containerClassName="pt-28 pb-0 lg:pt-40">
       <div className="flex flex-col">
         <div className="max-w-5xl">
-          <h1 className="md:max-w-4xl max-w-3xl text-4xl font-semibold tracking-[-0.065em] text-foreground md:text-7xl lg:text-8xl">
+          <h1 className="max-w-3xl text-4xl font-semibold tracking-[-0.065em] text-foreground md:max-w-4xl md:text-7xl lg:text-8xl">
             <span className="text-muted-foreground">Simpler operations </span>
             for teams that move fast.
           </h1>

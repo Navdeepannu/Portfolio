@@ -94,7 +94,7 @@ export default function PreviewShell({
     <div className="min-h-screen">
       <PreviewNavbar name={name} fallbackHref={fallbackHref} />
 
-      <div >{children}</div>
+      <div>{children}</div>
     </div>
   )
 }

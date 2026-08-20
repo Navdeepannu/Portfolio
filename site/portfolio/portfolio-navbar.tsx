@@ -128,7 +128,7 @@ export function PortfolioNavbar({
               size="icon-sm"
               onClick={() => setCommandOpen(true)}
               aria-label="Open command menu (Command K)"
-              className="px-6 gap-1 text-muted-foreground hover:bg-muted/80 hover:text-foreground"
+              className="gap-1 px-6 text-muted-foreground hover:bg-muted/80 hover:text-foreground"
             >
               <Command aria-hidden="true" className="size-3.5" />
               <Kbd>K</Kbd>

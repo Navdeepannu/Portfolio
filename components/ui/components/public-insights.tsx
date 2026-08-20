@@ -58,13 +58,7 @@ function defaultFormatDate(date: string) {
   return defaultDateFormatter.format(new Date(`${date}T00:00:00Z`))
 }
 
-function formatNumber(
-  value: number,
-  locale: string,
-  decimalPlaces = 0,
-  prefix = '',
-  suffix = '',
-) {
+function formatNumber(value: number, locale: string, decimalPlaces = 0, prefix = '', suffix = '') {
   return `${prefix}${new Intl.NumberFormat(locale, {
     minimumFractionDigits: decimalPlaces,
     maximumFractionDigits: decimalPlaces,
@@ -137,13 +131,7 @@ export function PublicInsights({
     if (typeof metric.value !== 'number') return metric.value
 
     if (!animateMetrics) {
-      return formatNumber(
-        metric.value,
-        locale,
-        metric.decimalPlaces,
-        metric.prefix,
-        metric.suffix,
-      )
+      return formatNumber(metric.value, locale, metric.decimalPlaces, metric.prefix, metric.suffix)
     }
 
     return (

@@ -21,9 +21,7 @@ export function clampBlockPreviewHeightPx(contentHeightPx: number): number {
   return Math.max(total, BLOCK_PREVIEW_MIN_HEIGHT_PX)
 }
 
-export function isBlockPreviewHeightPayload(
-  data: unknown,
-): data is BlockPreviewHeightPayload {
+export function isBlockPreviewHeightPayload(data: unknown): data is BlockPreviewHeightPayload {
   if (!data || typeof data !== 'object') return false
   const payload = data as BlockPreviewHeightPayload
   return (

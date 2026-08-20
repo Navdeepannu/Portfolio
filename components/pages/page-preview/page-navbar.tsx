@@ -13,10 +13,7 @@ import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
-import {
-  type PreviewViewport,
-  usePagePreview,
-} from './page-preview-provider'
+import { type PreviewViewport, usePagePreview } from './page-preview-provider'
 
 const viewportOptions = [
   {
@@ -66,26 +63,23 @@ export function PageNavbar() {
           aria-label="Preview viewport"
           className="flex items-center rounded-full bg-muted p-1"
         >
-          {viewportOptions.map(
-            ({ value, label, icon: Icon }) => (
-              <Button
-                key={value}
-                type="button"
-                variant="ghost"
-                size="icon"
-                aria-label={`${label} viewport`}
-                aria-pressed={viewport === value}
-                onClick={() => setViewport(value)}
-                className={cn(
-                  'size-9 rounded-full text-muted-foreground',
-                  viewport === value &&
-                    'bg-background text-foreground shadow-sm',
-                )}
-              >
-                <Icon className="size-4" />
-              </Button>
-            ),
-          )}
+          {viewportOptions.map(({ value, label, icon: Icon }) => (
+            <Button
+              key={value}
+              type="button"
+              variant="ghost"
+              size="icon"
+              aria-label={`${label} viewport`}
+              aria-pressed={viewport === value}
+              onClick={() => setViewport(value)}
+              className={cn(
+                'size-9 rounded-full text-muted-foreground',
+                viewport === value && 'bg-background text-foreground shadow-sm',
+              )}
+            >
+              <Icon className="size-4" />
+            </Button>
+          ))}
         </div>
       </div>
     </nav>

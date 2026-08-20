@@ -25,9 +25,7 @@ export default function BlockPreviewResizeReporter() {
     const root = document.querySelector('[data-block-root]') as HTMLElement | null
 
     const report = () => {
-      const height = Math.ceil(
-        root?.scrollHeight ?? document.documentElement.scrollHeight ?? 0,
-      )
+      const height = Math.ceil(root?.scrollHeight ?? document.documentElement.scrollHeight ?? 0)
       if (height <= 0) return
 
       window.parent.postMessage(

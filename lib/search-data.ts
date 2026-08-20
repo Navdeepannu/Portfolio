@@ -11,7 +11,14 @@ import { SITE_ORIGINS } from '@/lib/sites'
 export type SearchIcon = ComponentType<SVGProps<SVGSVGElement>>
 
 export type SearchItemType =
-  'navigation' | 'portfolio' | 'block' | 'component' | 'page' | 'blog' | 'social' | 'action'
+  | 'navigation'
+  | 'portfolio'
+  | 'block'
+  | 'component'
+  | 'page'
+  | 'blog'
+  | 'social'
+  | 'action'
 
 export type SearchItem = {
   id: string
