@@ -20,8 +20,12 @@
       "target": "@components/blocks/pricing/pricing-section-one.tsx"
     }
   ],
-  "categories": [
-    "pricing"
-  ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "block",
+      "category": "pricing"
+    }
+  },
   "type": "registry:block"
 }

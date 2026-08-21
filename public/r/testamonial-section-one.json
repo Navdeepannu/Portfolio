@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "testamonial-section-one",
   "title": "Testamonial Section One",
-  "description": "Testamonial Section One — Testamonials block.",
+  "description": "A customer-story hero with proof badges, a featured quote, and success-story action.",
   "dependencies": [
     "@tabler/icons-react"
   ],
@@ -18,8 +18,12 @@
       "target": "@components/blocks/testamonials/testamonial-section-one.tsx"
     }
   ],
-  "categories": [
-    "testimonials"
-  ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "block",
+      "category": "testimonials"
+    }
+  },
   "type": "registry:block"
 }

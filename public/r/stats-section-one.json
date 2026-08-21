@@ -20,8 +20,12 @@
       "target": "@components/blocks/stats/stats-section-one.tsx"
     }
   ],
-  "categories": [
-    "stats"
-  ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "block",
+      "category": "stats"
+    }
+  },
   "type": "registry:block"
 }

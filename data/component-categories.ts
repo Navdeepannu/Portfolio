@@ -42,7 +42,7 @@ function categoryFromId(id: ComponentCategoryId): ComponentCategory {
 export function buildComponentCategories(
   definitions: typeof componentDefinitions,
 ): ComponentCategory[] {
-  const ids = new Set<ComponentCategoryId>(CATEGORY_ORDER)
+  const ids = new Set<ComponentCategoryId>([DEFAULT_COMPONENT_CATEGORY_ID])
   for (const def of definitions) ids.add(def.category)
 
   const ordered: ComponentCategory[] = []

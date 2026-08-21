@@ -125,18 +125,7 @@ export function UiLibraryNavbar({
                 )
               })}
             </ul>
-
             <span className="mx-3 h-4 w-px bg-border" />
-
-            <Link
-              href={portfolioItem.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex h-8 items-center gap-1 rounded-lg px-2 text-xs font-medium text-muted-foreground transition-colors duration-150 outline-none hover:bg-muted/45 hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50"
-            >
-              Portfolio
-              <ArrowUpRight className="size-3" aria-hidden="true" />
-            </Link>
           </div>
 
           <div className="ml-2 flex items-center gap-1 sm:ml-3">

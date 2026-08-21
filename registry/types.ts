@@ -3,9 +3,23 @@ import type { BundledLanguage } from 'shiki'
 
 import type { BlockCategoryId } from '@/data/types'
 
-/** One on-disk file whose contents are shown in the code tab and exported to a registry. */
+export const REGISTRY_ITEM_STATUSES = ['draft', 'published', 'archived'] as const
+export type RegistryItemStatus = (typeof REGISTRY_ITEM_STATUSES)[number]
+
+export const REGISTRY_ITEM_TYPES = [
+  'registry:block',
+  'registry:component',
+  'registry:ui',
+  'registry:lib',
+  'registry:hook',
+] as const
+export type NavUIRegistryItemType = (typeof REGISTRY_ITEM_TYPES)[number]
+
+export type RegistryItemKind = 'block' | 'component' | 'illustration' | 'support'
+
+/** One on-disk file displayed by the code viewer and, unless noted, installed by shadcn. */
 export type BlockSourceFileSpec = {
-  /** Path relative to the project root (e.g. `components/blocks/hero.tsx`). */
+  /** Path relative to the project root. */
   path: string
   /** Shiki language for syntax highlighting. */
   language: BundledLanguage
@@ -13,33 +27,56 @@ export type BlockSourceFileSpec = {
   filename?: string
 }
 
-/** Maps to shadcn registry `files[]` entries (content is read at export time). */
-export type RegistryFileEntry = {
-  /** Source path under the repo (same convention as `BlockSourceFileSpec.path`). */
-  path: string
-  /** Destination path consumers get after `shadcn add` (often mirrors `path`). */
-  target: string
-  type?: 'registry:component' | 'registry:block' | 'registry:lib' | 'registry:hook' | 'registry:ui'
+/** Static preview metadata used to generate runtime imports. */
+export type RegistryPreviewSpec = {
+  /** Alias-based module path suitable for a static TypeScript import. */
+  module: string
+  /** Export to import; omitted for a default export. */
+  exportName?: string
+  /** Preview/demo-only sources. These are never installed. */
+  sourceFiles?: BlockSourceFileSpec[]
 }
 
-/** Metadata aligned with shadcn registry items for future CLI / JSON export. */
+/** Maps one canonical source file to a shadcn registry file and install target. */
+export type RegistryFileEntry = {
+  /** Source path under the repository root. */
+  path: string
+  /** Destination path consumers receive after `shadcn add`. */
+  target: string
+  type: Exclude<NavUIRegistryItemType, 'registry:block'>
+  /** Allows multiple items to install the exact same source at the exact same target. */
+  shared?: boolean
+}
+
+/** The shadcn-compatible portion of one canonical NavUI item. */
 export type BlockRegistryMeta = {
   name: string
-  type: 'registry:block' | 'registry:component'
-  dependencies?: string[]
-  registryDependencies?: string[]
+  type: NavUIRegistryItemType
+  dependencies: string[]
+  registryDependencies: string[]
   files: RegistryFileEntry[]
 }
 
-export type BlockDefinition = {
+/** Common typed model used by blocks, components, illustrations, and support items. */
+export type RegistryItemDefinitionBase = {
+  /** Public registry identifier and website slug. */
   slug: string
   title: string
   description: string
-  category: BlockCategoryId
+  category: string
   tags: string[]
-  /** Filesystem source of truth for raw code (preview code tab + registry export). */
+  kind: RegistryItemKind
+  status: RegistryItemStatus
   sourceFiles: BlockSourceFileSpec[]
   registry: BlockRegistryMeta
+  preview?: RegistryPreviewSpec
+  /** Archived compatibility items may remain installable without re-entering the website catalog. */
+  compatibilityOutput?: boolean
+}
+
+export type BlockDefinition = RegistryItemDefinitionBase & {
+  kind: 'block'
+  category: BlockCategoryId
   /** Install command shown in the UI; optional override. */
   cli?: string
 }
@@ -48,3 +85,23 @@ export type BlockRegistryEntry = {
   definition: BlockDefinition
   Component: ComponentType
 }
+
+export type IllustrationSize = 'sm' | 'md' | 'wide' | 'tall' | 'hero'
+
+export type IllustrationDefinition = RegistryItemDefinitionBase & {
+  kind: 'illustration'
+  category: 'illustrations'
+  size: IllustrationSize
+  previewClassName?: string
+}
+
+export type SupportDefinition = RegistryItemDefinitionBase & {
+  kind: 'support'
+  category: 'support'
+}
+
+export type NavUIRegistryItem =
+  | BlockDefinition
+  | IllustrationDefinition
+  | SupportDefinition
+  | import('@/data/component-types').ComponentDefinition

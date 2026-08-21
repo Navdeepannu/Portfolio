@@ -119,7 +119,7 @@ function categoryFromId(id: BlockCategoryId): BlockCategory {
 }
 
 export function buildBlockCategories(definitions: BlockDefinition[]): BlockCategory[] {
-  const ids = new Set<BlockCategoryId>(CATEGORY_ORDER)
+  const ids = new Set<BlockCategoryId>([DEFAULT_CATEGORY_ID])
   for (const def of definitions) ids.add(def.category)
 
   const ordered: BlockCategory[] = []

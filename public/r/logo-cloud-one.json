@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "logo-cloud-one",
   "title": "Logo Cloud One",
-  "description": "Logo Cloud One — Logo Cloud block.",
+  "description": "A compact monochrome logo strip for customer or partner proof.",
   "files": [
     {
       "path": "components/blocks/logo-cloud/logo-cloud-one.tsx",
@@ -11,8 +11,12 @@
       "target": "@components/blocks/logo-cloud/logo-cloud-one.tsx"
     }
   ],
-  "categories": [
-    "logo-cloud"
-  ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "block",
+      "category": "logo-cloud"
+    }
+  },
   "type": "registry:block"
 }

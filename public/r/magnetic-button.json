@@ -17,5 +17,12 @@
       "target": "@components/magnetic-button.tsx"
     }
   ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "component",
+      "category": "buttons"
+    }
+  },
   "type": "registry:ui"
 }

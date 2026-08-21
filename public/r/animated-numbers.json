@@ -14,5 +14,12 @@
       "target": "@components/animated-numbers.tsx"
     }
   ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "component",
+      "category": "interactive"
+    }
+  },
   "type": "registry:ui"
 }

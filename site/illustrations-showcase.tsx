@@ -9,31 +9,15 @@ import { motion, useReducedMotion } from 'motion/react'
 import { Button } from '@/components/ui/button'
 import { CopyButton } from '@/components/ui/components/copy-button'
 import { CodeBlockCommand } from '@/components/ui/components/code-block-command'
-import ApprovalPanelIllustration from '@/components/illustrations/approval-panel'
-import DesignedForFocusIllustration from '@/components/illustrations/DesignedForFocusIllustration'
-import FastByDefaultIllustration from '@/components/illustrations/FastByDefaultIllustration'
-import FlexibleAtScaleIllustration from '@/components/illustrations/FlexibleAtScaleIllustration'
-import MatchingPanelIllustration from '@/components/illustrations/matching-panel'
-import PaymentCardIllustration from '@/components/illustrations/payment-card'
-import ReceiptPanelIllustration from '@/components/illustrations/receipt-panel'
-import ReleaseWorkflowIllustration from '@/components/illustrations/ReleaseWorkflowIllustration'
-import ReportPanelIllustration from '@/components/illustrations/report-panel'
-import RevisionCyclesIllustration from '@/components/illustrations/RevisionCyclesIllustration'
-import WorkflowDeskIllustration from '@/components/illustrations/workflow-desk'
 import { cn } from '@/lib/utils'
+import { illustrationPreviewComponents } from '@/registry/generated/illustration-previews.generated'
+import { illustrationItems } from '@/registry/items/illustrations'
 import { getInstallCommands } from '@/site/block-install-commands'
 import BlockCode from '@/site/block-code'
 
-type IllustrationSize = 'sm' | 'md' | 'wide' | 'tall' | 'hero'
+type IllustrationSize = (typeof illustrationItems)[number]['size']
 
-type IllustrationItem = {
-  slug: string
-  name: string
-  registrySlug: string
-  size: IllustrationSize
-  previewClassName?: string
-  Component: ComponentType
-}
+type IllustrationItem = (typeof illustrationItems)[number] & { Component: ComponentType }
 
 type IllustrationSourceFile = {
   filename: string
@@ -51,88 +35,9 @@ const sizeClassName: Record<IllustrationSize, string> = {
   hero: 'min-h-128 md:col-span-2 lg:col-span-2 lg:row-span-2',
 }
 
-const illustrations: IllustrationItem[] = [
-  {
-    slug: 'payment-card',
-    name: 'Payment Card',
-    registrySlug: 'payment-card',
-    size: 'tall',
-    Component: PaymentCardIllustration,
-  },
-  {
-    slug: 'workflow-desk',
-    name: 'Workflow Desk',
-    registrySlug: 'workflow-desk',
-    size: 'hero',
-    previewClassName: 'scale-90',
-    Component: WorkflowDeskIllustration,
-  },
-  {
-    slug: 'receipt-panel',
-    name: 'Receipt Panel',
-    registrySlug: 'receipt-panel',
-    size: 'sm',
-    Component: ReceiptPanelIllustration,
-  },
-  {
-    slug: 'matching-panel',
-    name: 'Matching Panel',
-    registrySlug: 'matching-panel',
-    size: 'sm',
-    Component: MatchingPanelIllustration,
-  },
-  {
-    slug: 'report-panel',
-    name: 'Report Panel',
-    registrySlug: 'report-panel',
-    size: 'sm',
-    Component: ReportPanelIllustration,
-  },
-  {
-    slug: 'approval-panel',
-    name: 'Approval Panel',
-    registrySlug: 'approval-panel',
-    size: 'wide',
-    Component: ApprovalPanelIllustration,
-  },
-  {
-    slug: 'fast-by-default-illustration',
-    name: 'Fast by Default',
-    registrySlug: 'fast-by-default-illustration',
-    size: 'sm',
-    Component: FastByDefaultIllustration,
-  },
-  {
-    slug: 'designed-for-focus-illustration',
-    name: 'Designed for Focus',
-    registrySlug: 'designed-for-focus-illustration',
-    size: 'sm',
-    Component: DesignedForFocusIllustration,
-  },
-  {
-    slug: 'flexible-at-scale-illustration',
-    name: 'Flexible at Scale',
-    registrySlug: 'flexible-at-scale-illustration',
-    size: 'sm',
-    Component: FlexibleAtScaleIllustration,
-  },
-  {
-    slug: 'release-workflow-illustration',
-    name: 'Release Workflow',
-    registrySlug: 'release-workflow-illustration',
-    size: 'wide',
-    previewClassName: 'w-full max-w-lg',
-    Component: ReleaseWorkflowIllustration,
-  },
-  {
-    slug: 'revision-cycles-illustration',
-    name: 'Revision Cycles',
-    registrySlug: 'revision-cycles-illustration',
-    size: 'wide',
-    previewClassName: 'w-full max-w-xl',
-    Component: RevisionCyclesIllustration,
-  },
-]
+const illustrations: IllustrationItem[] = illustrationItems
+  .filter((item) => item.status === 'published')
+  .map((item) => ({ ...item, Component: illustrationPreviewComponents[item.slug] }))
 
 function IllustrationTile({
   item,
@@ -141,7 +46,7 @@ function IllustrationTile({
   item: IllustrationItem
   onCode: (item: IllustrationItem) => void
 }) {
-  const installCommand = getInstallCommands(item.registrySlug).npm
+  const installCommand = getInstallCommands(item.slug).npm
   const Preview = item.Component
 
   return (
@@ -178,7 +83,7 @@ function IllustrationTile({
           text={installCommand}
           idleIcon={<Terminal className="size-3.5" />}
           className="h-8 gap-1.5 rounded-md border border-border/70 bg-background/90 px-2.5 text-xs shadow-sm backdrop-blur"
-          aria-label={`Copy install command for ${item.name}`}
+          aria-label={`Copy install command for ${item.title}`}
         >
           Install
         </CopyButton>
@@ -219,8 +124,8 @@ function CodeDrawer({
   onClose: () => void
 }) {
   const installCommands = useMemo(() => {
-    return getInstallCommands(item?.registrySlug ?? 'payment-card')
-  }, [item?.registrySlug])
+    return getInstallCommands(item?.slug ?? 'payment-card')
+  }, [item?.slug])
 
   const sourceFiles = useMemo(() => {
     if (!item) return []
@@ -246,7 +151,7 @@ function CodeDrawer({
               <div className="flex items-start justify-between gap-6">
                 <div className="min-w-0">
                   <Drawer.Title className="text-2xl font-semibold tracking-tight text-foreground">
-                    {item?.name ?? 'Illustration'}
+                    {item?.title ?? 'Illustration'}
                   </Drawer.Title>
                   <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
                     Install with the shadcn CLI or copy the complete illustration source into your

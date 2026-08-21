@@ -14,5 +14,12 @@
       "target": "@components/animated-group.tsx"
     }
   ],
+  "meta": {
+    "navui": {
+      "status": "archived",
+      "kind": "support",
+      "category": "support"
+    }
+  },
   "type": "registry:ui"
 }

@@ -2,15 +2,15 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "hero-section-one",
   "title": "Hero Section One",
-  "description": "Hero Section One — Hero Section block.",
+  "description": "A dark product hero with badges, dual actions, and the matching responsive header.",
   "dependencies": [
     "@tabler/icons-react",
     "lucide-react"
   ],
   "registryDependencies": [
+    "https://ui.navdeepsingh.dev/r/header-one.json",
     "badge",
-    "button",
-    "https://ui.navdeepsingh.dev/r/header-one.json"
+    "button"
   ],
   "files": [
     {
@@ -20,8 +20,12 @@
       "target": "@components/blocks/hero-section/hero-section-one.tsx"
     }
   ],
-  "categories": [
-    "hero"
-  ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "block",
+      "category": "hero"
+    }
+  },
   "type": "registry:block"
 }

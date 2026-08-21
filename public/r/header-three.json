@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "header-three",
   "title": "Header Three",
-  "description": "Header Three — Header block.",
+  "description": "A payment-product header with grouped navigation menus and a responsive mobile drawer.",
   "dependencies": [
     "lucide-react"
   ],
@@ -18,8 +18,12 @@
       "target": "@components/blocks/header/header-three.tsx"
     }
   ],
-  "categories": [
-    "header"
-  ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "block",
+      "category": "header"
+    }
+  },
   "type": "registry:block"
 }

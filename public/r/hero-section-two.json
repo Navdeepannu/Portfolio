@@ -2,13 +2,13 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "hero-section-two",
   "title": "Hero Section Two",
-  "description": "Hero Section Two — Hero Section block.",
+  "description": "A motion-led hero with animated copy, grouped reveals, and its matching header.",
   "dependencies": [
     "motion"
   ],
   "registryDependencies": [
-    "https://ui.navdeepsingh.dev/r/header-two.json",
     "https://ui.navdeepsingh.dev/r/animated-group.json",
+    "https://ui.navdeepsingh.dev/r/header-two.json",
     "https://ui.navdeepsingh.dev/r/text-effect.json"
   ],
   "files": [
@@ -19,8 +19,12 @@
       "target": "@components/blocks/hero-section/hero-section-two.tsx"
     }
   ],
-  "categories": [
-    "hero"
-  ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "block",
+      "category": "hero"
+    }
+  },
   "type": "registry:block"
 }

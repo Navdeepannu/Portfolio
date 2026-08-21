@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "faqs-section-two",
   "title": "FAQs Section Two",
-  "description": "FAQs Section Two — FAQs block.",
+  "description": "A centered FAQ section with accessible accordions and a follow-up contact link.",
   "registryDependencies": [
     "accordion"
   ],
@@ -14,8 +14,12 @@
       "target": "@components/blocks/faqs/faqs-section-two.tsx"
     }
   ],
-  "categories": [
-    "faqs"
-  ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "block",
+      "category": "faqs"
+    }
+  },
   "type": "registry:block"
 }

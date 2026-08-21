@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "footer-section-one",
   "title": "Footer Section One",
-  "description": "Footer Section One — Footer block.",
+  "description": "A multi-column product footer with social links and an email newsletter form.",
   "dependencies": [
     "@tabler/icons-react"
   ],
@@ -17,8 +17,12 @@
       "target": "@components/blocks/footer/footer-section-one.tsx"
     }
   ],
-  "categories": [
-    "footer"
-  ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "block",
+      "category": "footer"
+    }
+  },
   "type": "registry:block"
 }

@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "faq-section-three",
   "title": "FAQ Section Three",
-  "description": "FAQ Section Three — FAQs block.",
+  "description": "An editorial FAQ section with a large introduction and accessible accordion rows.",
   "registryDependencies": [
     "accordion"
   ],
@@ -14,8 +14,12 @@
       "target": "@components/blocks/faqs/faq-section-three.tsx"
     }
   ],
-  "categories": [
-    "faqs"
-  ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "block",
+      "category": "faqs"
+    }
+  },
   "type": "registry:block"
 }

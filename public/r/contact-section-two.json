@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "contact-section-two",
   "title": "Contact Section Two",
-  "description": "Contact Section Two — Contact block.",
+  "description": "A split contact section with a consultation summary and detailed project inquiry form.",
   "files": [
     {
       "path": "components/blocks/contact/contact-section-two.tsx",
@@ -11,8 +11,12 @@
       "target": "@components/blocks/contact/contact-section-two.tsx"
     }
   ],
-  "categories": [
-    "contact"
-  ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "block",
+      "category": "contact"
+    }
+  },
   "type": "registry:block"
 }

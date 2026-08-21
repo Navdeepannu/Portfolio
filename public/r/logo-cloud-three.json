@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "logo-cloud-three",
   "title": "Logo Cloud Three",
-  "description": "Logo Cloud Three — Logo Cloud block.",
+  "description": "A horizontally framed customer logo strip with restrained typography.",
   "files": [
     {
       "path": "components/blocks/logo-cloud/logo-cloud-three.tsx",
@@ -11,8 +11,12 @@
       "target": "@components/blocks/logo-cloud/logo-cloud-three.tsx"
     }
   ],
-  "categories": [
-    "logo-cloud"
-  ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "block",
+      "category": "logo-cloud"
+    }
+  },
   "type": "registry:block"
 }

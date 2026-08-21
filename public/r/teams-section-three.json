@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "teams-section-three",
   "title": "Teams Section Three",
-  "description": "Teams Section Three — Teams block.",
+  "description": "A centered team directory with portrait cards, roles, and profile links.",
   "files": [
     {
       "path": "components/blocks/teams/teams-section-three.tsx",
@@ -11,8 +11,12 @@
       "target": "@components/blocks/teams/teams-section-three.tsx"
     }
   ],
-  "categories": [
-    "teams"
-  ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "block",
+      "category": "teams"
+    }
+  },
   "type": "registry:block"
 }

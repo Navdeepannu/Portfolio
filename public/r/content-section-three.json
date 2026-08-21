@@ -18,8 +18,12 @@
       "target": "@components/blocks/content/content-section-three.tsx"
     }
   ],
-  "categories": [
-    "content"
-  ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "block",
+      "category": "content"
+    }
+  },
   "type": "registry:block"
 }

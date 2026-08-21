@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "teams-section-two",
   "title": "Teams Section Two",
-  "description": "Teams Section Two — Teams block.",
+  "description": "A simple responsive team grid with names, roles, and portrait imagery.",
   "files": [
     {
       "path": "components/blocks/teams/teams-section-two.tsx",
@@ -11,8 +11,12 @@
       "target": "@components/blocks/teams/teams-section-two.tsx"
     }
   ],
-  "categories": [
-    "teams"
-  ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "block",
+      "category": "teams"
+    }
+  },
   "type": "registry:block"
 }

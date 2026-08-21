@@ -20,7 +20,7 @@
  * lives in `lib/sites.ts`, never localhost, so generated dependency URLs always
  * resolve after deployment.
  *
- * Run via `bun scripts/finalize-registry.ts` (chained after `shadcn build`).
+ * Run via `bun scripts/registry/finalize-registry.ts` (chained after `shadcn build`).
  */
 import { promises as fs } from 'node:fs'
 import path from 'node:path'
@@ -91,6 +91,20 @@ function rewriteRegistryDeps(node: unknown, namespacePrefix: string, baseUrl: st
   return count
 }
 
+function removeArchivedCatalogItems(node: unknown): number {
+  if (!node || typeof node !== 'object') return 0
+  const registry = node as { items?: unknown[] }
+  if (!Array.isArray(registry.items)) return 0
+
+  const originalLength = registry.items.length
+  registry.items = registry.items.filter((item) => {
+    if (!item || typeof item !== 'object') return true
+    const meta = (item as { meta?: { navui?: { status?: unknown } } }).meta
+    return meta?.navui?.status !== 'archived'
+  })
+  return originalLength - registry.items.length
+}
+
 async function main() {
   const rootRegistry = await readJson<{ name?: string; homepage?: string }>(REGISTRY_JSON_PATH)
 
@@ -119,21 +133,24 @@ async function main() {
 
   let filesTouched = 0
   let totalRewrites = 0
+  let archivedCatalogItemsRemoved = 0
 
-  for (const entry of entries) {
+  for (const entry of entries.sort((a, b) => a.localeCompare(b))) {
     if (!entry.endsWith('.json')) continue
     const filePath = path.join(OUT_DIR, entry)
     const data = await readJson(filePath)
     const rewrites = rewriteRegistryDeps(data, namespacePrefix, resolvedBase)
-    if (rewrites > 0) {
+    const archivedRemoved = entry === 'registry.json' ? removeArchivedCatalogItems(data) : 0
+    if (rewrites > 0 || archivedRemoved > 0) {
       await writeJson(filePath, data)
       filesTouched += 1
       totalRewrites += rewrites
+      archivedCatalogItemsRemoved += archivedRemoved
     }
   }
 
   console.log(
-    `[finalize:registry] base=${resolvedBase} — rewrote ${totalRewrites} ${namespacePrefix}* dep(s) across ${filesTouched} file(s).`,
+    `[finalize:registry] base=${resolvedBase} — rewrote ${totalRewrites} ${namespacePrefix}* dep(s), removed ${archivedCatalogItemsRemoved} archived catalog item(s), touched ${filesTouched} file(s).`,
   )
 }
 

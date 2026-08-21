@@ -7,8 +7,8 @@
     "motion"
   ],
   "registryDependencies": [
-    "https://ui.navdeepsingh.dev/r/fast-by-default-illustration.json",
     "https://ui.navdeepsingh.dev/r/designed-for-focus-illustration.json",
+    "https://ui.navdeepsingh.dev/r/fast-by-default-illustration.json",
     "https://ui.navdeepsingh.dev/r/flexible-at-scale-illustration.json"
   ],
   "files": [
@@ -19,8 +19,12 @@
       "target": "@components/blocks/content/content-section-one.tsx"
     }
   ],
-  "categories": [
-    "content"
-  ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "block",
+      "category": "content"
+    }
+  },
   "type": "registry:block"
 }

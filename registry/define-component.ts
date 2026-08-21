@@ -1,33 +1,45 @@
-import type { BlockRegistryMeta, RegistryFileEntry } from './types'
 import type { ComponentDefinition } from '@/data/component-types'
 
-type DefineComponentInput = Omit<ComponentDefinition, 'registry'> & {
-  registry?: Partial<Omit<BlockRegistryMeta, 'files'>> & {
+import type { BlockRegistryMeta, RegistryFileEntry } from './types'
+
+type DefineComponentInput = Omit<ComponentDefinition, 'kind' | 'registry' | 'preview'> & {
+  registry?: Partial<Omit<BlockRegistryMeta, 'name' | 'files' | 'type'>> & {
     files?: RegistryFileEntry[]
   }
 }
 
 /**
- * Normalizes component metadata and fills in shadcn-oriented `registry.files` from
- * `sourceFiles` when not overridden.
+ * Normalizes one component item and separates demo-only files from the files
+ * displayed in the primary code tab and installed by shadcn.
  */
 export function defineComponent(input: DefineComponentInput): ComponentDefinition {
-  const { registry: registryPartial, ...rest } = input
+  const { registry: registryPartial, sourceFiles, ...rest } = input
+  const previewSourceFiles = sourceFiles.filter((sourceFile) => sourceFile.filename === 'demo.tsx')
+  const installSourceFiles = sourceFiles.filter((sourceFile) => sourceFile.filename !== 'demo.tsx')
   const files: RegistryFileEntry[] =
     registryPartial?.files ??
-    rest.sourceFiles.map((sf) => ({
-      path: sf.path,
-      target: sf.path,
-      type: 'registry:component' as const,
+    installSourceFiles.map((sourceFile) => ({
+      path: sourceFile.path,
+      target: `@components/${sourceFile.path.split('/').at(-1) ?? rest.slug}`,
+      type: 'registry:ui' as const,
     }))
 
   return {
     ...rest,
+    kind: 'component',
+    sourceFiles: installSourceFiles,
+    preview:
+      previewSourceFiles.length > 0
+        ? {
+            module: '',
+            sourceFiles: previewSourceFiles,
+          }
+        : undefined,
     registry: {
-      name: registryPartial?.name ?? rest.slug,
-      type: registryPartial?.type ?? 'registry:component',
-      dependencies: registryPartial?.dependencies,
-      registryDependencies: registryPartial?.registryDependencies,
+      name: rest.slug,
+      type: 'registry:ui',
+      dependencies: registryPartial?.dependencies ?? [],
+      registryDependencies: registryPartial?.registryDependencies ?? [],
       files,
     },
   }

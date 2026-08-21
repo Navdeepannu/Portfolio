@@ -67,11 +67,15 @@ Install a registry item with the official `@navui` namespace:
 bunx shadcn@latest add @navui/animated-tabs
 ```
 
-Build and validate all registry artifacts:
+Generate and validate all registry artifacts:
 
 ```bash
-bun run registry:build
+bun run registry:generate
+bun run registry:validate
 ```
+
+Canonical item metadata lives in `registry/items`. See
+[`docs/navui-registry.md`](./docs/navui-registry.md) before adding or publishing an item.
 
 The reusable `ContributionGraph` and `PublicInsights` components contain presentation only. Their
 portfolio data adapters remain server-only and are not included in registry installs.

@@ -14,8 +14,12 @@
       "target": "@components/blocks/blog/blog-section-one.tsx"
     }
   ],
-  "categories": [
-    "blog"
-  ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "block",
+      "category": "blog"
+    }
+  },
   "type": "registry:block"
 }

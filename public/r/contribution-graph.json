@@ -11,5 +11,12 @@
       "target": "@components/contribution-graph.tsx"
     }
   ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "component",
+      "category": "data-display"
+    }
+  },
   "type": "registry:ui"
 }

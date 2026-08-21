@@ -4,8 +4,8 @@
   "title": "Package Manager Command",
   "description": "Accessible package-manager selector and copy command bar for npm, pnpm, yarn, and Bun.",
   "dependencies": [
-    "lucide-react",
-    "@radix-ui/react-use-controllable-state"
+    "@radix-ui/react-use-controllable-state",
+    "lucide-react"
   ],
   "registryDependencies": [
     "button",
@@ -19,5 +19,12 @@
       "target": "@components/package-manager-command.tsx"
     }
   ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "component",
+      "category": "interactive"
+    }
+  },
   "type": "registry:ui"
 }
