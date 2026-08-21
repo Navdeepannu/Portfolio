@@ -7,5 +7,5 @@
   "bracketSpacing": true,
   "plugins": ["prettier-plugin-tailwindcss"],
   "tailwindFunctions": ["clsx", "cn", "cva"],
-  "tailwindStylesheet": "./app/globals.css"
+  "tailwindStylesheet": "./src/app/globals.css"
 }

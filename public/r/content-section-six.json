@@ -8,8 +8,8 @@
   ],
   "files": [
     {
-      "path": "components/blocks/blog/content-section-six.tsx",
-      "content": "/**\n * Compatibility entry for the former public name. New usage should import\n * `blog-section-one`; this file keeps existing shadcn installs source-backed.\n */\nexport {\n  default,\n  default as ContentSectionSix,\n  type BlogSectionSixContent as ContentSectionSixContent,\n  type BlogSectionSixProps as ContentSectionSixProps,\n  type WritingArchiveGroup,\n  type WritingArchiveItem,\n} from './blog-section-one'\n",
+      "path": "src/registry/blocks/blog/content-section-six/content-section-six.tsx",
+      "content": "/**\n * Compatibility entry for the former public name. New usage should import\n * `blog-section-one`; this file keeps existing shadcn installs source-backed.\n */\nexport {\n  default,\n  default as ContentSectionSix,\n  type BlogSectionSixContent as ContentSectionSixContent,\n  type BlogSectionSixProps as ContentSectionSixProps,\n  type WritingArchiveGroup,\n  type WritingArchiveItem,\n} from '@/components/blocks/blog/blog-section-one'\n",
       "type": "registry:component",
       "target": "@components/blocks/blog/content-section-six.tsx"
     }

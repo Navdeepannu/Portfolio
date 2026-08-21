@@ -17,7 +17,7 @@
  *   3. `PRODUCTION_FALLBACK_BASE_URL` below
  *
  * All three resolve to the public UI-library origin — the canonical default
- * lives in `lib/sites.ts`, never localhost, so generated dependency URLs always
+ * lives in `src/config/site-origins.ts`, never localhost, so generated dependency URLs always
  * resolve after deployment.
  *
  * Run via `bun scripts/registry/finalize-registry.ts` (chained after `shadcn build`).
@@ -25,7 +25,7 @@
 import { promises as fs } from 'node:fs'
 import path from 'node:path'
 
-import { SITE_ORIGINS } from '@/lib/sites'
+import { SITE_ORIGINS } from '@/config/site-origins'
 
 type Json = unknown
 

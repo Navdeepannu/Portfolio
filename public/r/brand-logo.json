@@ -8,7 +8,7 @@
   ],
   "files": [
     {
-      "path": "components/brand-logo.tsx",
+      "path": "src/registry/components/brand-logo/brand-logo.tsx",
       "content": "import { Hexagon } from 'lucide-react'\n\nimport { cn } from '@/lib/utils'\n\nexport function Logo({ className }: { className?: string }) {\n  return (\n    <Hexagon\n      className={cn('size-8 stroke-current stroke-2', className)}\n      aria-hidden\n    />\n  )\n}\n",
       "type": "registry:component",
       "target": "@components/brand-logo.tsx"

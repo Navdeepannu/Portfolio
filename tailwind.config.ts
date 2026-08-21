@@ -2,7 +2,7 @@ import type { Config } from 'tailwindcss'
 import scrollbar from 'tailwind-scrollbar'
 
 const config: Config = {
-  content: ['./app/**/*.{ts,tsx}', './components/**/*.{ts,tsx}', './site/**/*.{ts,tsx}'],
+  content: ['./src/**/*.{ts,tsx}'],
   theme: {
     extend: {},
   },

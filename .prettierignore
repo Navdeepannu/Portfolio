@@ -16,10 +16,10 @@ yarn.lock
 next-env.d.ts
 *.tsbuildinfo
 registry.json
-registry/block-registry.generated.tsx
+src/registry/generated
 AGENTS.md
 
 
-components/brand-logo.tsx
-components/blocks/content/content-section-one.tsx
-components/blocks/header/header-three.tsx
+src/registry/components/brand-logo/brand-logo.tsx
+src/registry/blocks/content/content-section-one/content-section-one.tsx
+src/registry/blocks/header/header-three/header-three.tsx

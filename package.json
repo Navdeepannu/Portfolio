@@ -10,6 +10,7 @@
     "registry:validate": "bun scripts/registry/validate.ts",
     "registry:check": "bun run registry:validate",
     "registry:build": "bun run registry:generate",
+    "architecture:validate": "bun scripts/architecture/validate.ts",
     "predev": "bun run registry:check",
     "prebuild": "bun run registry:check",
     "dev": "next dev",
@@ -20,7 +21,7 @@
     "test": "bun test",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "check": "bun run lint && bun run typecheck && bun run test && bun run format:check && bun run registry:check"
+    "check": "bun run lint && bun run typecheck && bun run test && bun run architecture:validate && bun run format:check && bun run registry:check"
   },
   "dependencies": {
     "@radix-ui/react-use-controllable-state": "^1.2.2",

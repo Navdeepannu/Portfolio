@@ -1,0 +1,87 @@
+'use client'
+
+import type { ComponentProps, ReactNode } from 'react'
+import { motion } from 'motion/react'
+
+import { cn } from '@/lib/utils'
+import type { CopyState } from '@/lib/hooks/use-copy-to-clipboard'
+import { useCopyToClipboard } from '@/lib/hooks/use-copy-to-clipboard'
+import { Button } from '@/components/ui/button'
+import { CopyIcon, CheckIcon, CircleXIcon } from 'lucide-react'
+import { IconSwap, IconSwapItem } from './icon-swap'
+
+export type CopyStateIconProps = {
+  state: CopyState
+  /** Custom icon for idle state. */
+  idleIcon?: React.ReactNode
+  /** Custom icon for done state. */
+  doneIcon?: React.ReactNode
+  /** Custom icon for error state. */
+  errorIcon?: React.ReactNode
+}
+
+export function CopyStateIcon({ state, idleIcon, doneIcon, errorIcon }: CopyStateIconProps) {
+  return (
+    <IconSwap>
+      <IconSwapItem key={state} as={motion.span}>
+        {state === 'idle' && (idleIcon ?? <CopyIcon data-slot="idle-icon" />)}
+
+        {state === 'done' && (doneIcon ?? <CheckIcon data-slot="done-icon" />)}
+
+        {state === 'error' && (errorIcon ?? <CircleXIcon data-slot="error-icon" />)}
+      </IconSwapItem>
+    </IconSwap>
+  )
+}
+
+export type CopyButtonProps = Omit<ComponentProps<typeof Button>, 'children'> & {
+  /** The text to copy, or a function that returns the text. */
+  text: string | (() => string)
+  children?: ReactNode | ((state: CopyState) => ReactNode)
+  doneLabel?: string
+  errorLabel?: string
+  /** Called with the copied text on successful copy. */
+  onCopySuccess?: (text: string) => void
+  /** Called with the error if the copy operation fails. */
+  onCopyError?: (error: Error) => void
+} & Omit<CopyStateIconProps, 'state'>
+
+export function CopyButton({
+  className,
+  size = 'icon',
+  children,
+  text,
+  idleIcon,
+  doneIcon,
+  errorIcon,
+  onClick,
+  onCopySuccess,
+  onCopyError,
+  doneLabel = 'Copied',
+  errorLabel = 'Copy failed',
+  ...props
+}: CopyButtonProps) {
+  const { state, copy } = useCopyToClipboard({
+    onCopySuccess,
+    onCopyError,
+  })
+
+  return (
+    <Button
+      className={cn('will-change-transform', className)}
+      size={size}
+      onClick={(e) => {
+        onClick?.(e)
+        if (!e.defaultPrevented) void copy(text)
+      }}
+      aria-label="Copy"
+      {...props}
+    >
+      <CopyStateIcon state={state} idleIcon={idleIcon} doneIcon={doneIcon} errorIcon={errorIcon} />
+      {typeof children === 'function' ? children(state) : children}
+      <span role="status" aria-live="polite" className="sr-only">
+        {state === 'done' ? doneLabel : state === 'error' ? errorLabel : ''}
+      </span>
+    </Button>
+  )
+}

@@ -1,34 +1,38 @@
 # NavUI registry contributor guide
 
-`registry/items` is the only hand-edited registry catalog. The TypeScript definitions there control
-the website catalog, preview imports, code tabs, `registry.json`, `public/r`, and shadcn installs.
-Category-level `registry.json` files and filename scanning are intentionally not used.
+`src/registry/items` is the only collection consumed by registry generation and validation. Its
+aggregators explicitly import the colocated `*.item.ts` definitions under `src/registry`; filename
+scanning and category-level registry JSON files are not used.
 
 ## Add or update an item
 
-1. Put the reusable implementation in its current source area:
-   - blocks: `components/blocks/<category>/`
-   - components: `components/ui/components/`
-   - component demos: `components/showcase/`
-   - illustrations: `components/illustrations/`
-2. Add exactly one typed definition in `registry/items/blocks.ts`, `components.ts`,
-   `illustrations.ts`, or `support.ts`.
-3. Set `status` explicitly:
-   - `published` is installable and visible in the matching website catalog;
-   - `draft` remains in source but is excluded from every public registry output;
-   - `archived` is excluded from visual catalogs and may set `compatibilityOutput: true` only when
-     an existing install dependency must remain available.
-4. Declare every implementation and supporting file. Each source needs a shadcn file `type` and an
-   install `target`. Mark an identical shared source/target with `shared: true` in every claiming
-   item.
-5. Declare npm packages in `dependencies`. Declare shadcn primitives or other NavUI items in
-   `registryDependencies`; local items use `@navdeep-singh/<name>`.
-6. Keep demo-only files in component preview metadata. They are never added to the install file
-   list.
+1. Create an item directory in the matching boundary:
+   - block: `src/registry/blocks/<category>/<slug>/`;
+   - component: `src/registry/components/<slug>/`;
+   - illustration: `src/registry/illustrations/<slug>/`.
+2. Keep the implementation, `*.item.ts`, `*.demo.tsx`, and item-specific tests together. An
+   implementation must never import its demo.
+3. Export the definition from the matching explicit aggregator in `src/registry/items`.
+4. Set `status` to `published`, `draft`, or `archived`. Draft items have no public output; archived
+   items require `compatibilityOutput: true` to remain installable.
+5. Declare every implementation/supporting file, npm dependency, registry dependency, and consumer
+   target in the item definition. Shared files must use the same path and target with `shared: true`.
+6. Keep demo files in preview metadata only; demos are never installed.
 
-`hero-section-four` in `registry/items/blocks.ts` is the real multi-file example: its definition
-lists the hero and its local illustration, plus `header-three` and `logo-cloud-five` as registry
-dependencies. Those same two files power its code viewer and public install artifact.
+Internal source and consumer targets are separate contracts. For example:
+
+```ts
+{
+  path: 'src/registry/blocks/header/header-one/header-one.tsx',
+  target: '@components/blocks/header/header-one.tsx',
+  type: 'registry:component',
+}
+```
+
+Moving the internal file must not change the target or the public `@navui/<name>` command.
+`hero-section-four` is the multi-file reference item. The historical public
+`testamonial-section-one` name and target remain compatibility contracts even though its internal
+directory and filename use `testimonial`.
 
 ## Generate and check
 
@@ -38,18 +42,16 @@ bun run registry:validate
 bun run registry:check
 ```
 
-`registry:generate` writes the source registry and static preview maps, safely removes only JSON
-owned by `public/r`, runs `shadcn build`, rewrites local NavUI dependencies to public URLs, and
-validates the result. `registry:check` is read-only and fails on source, preview-map, or public-output
-drift. It is part of the normal repository check and CI.
+`registry:generate` writes `registry.json`, the static maps in `src/registry/generated`, and the
+shadcn JSON under `public/r`. It then rewrites local NavUI registry dependencies to public URLs and
+validates source, preview, code-tab, and installed content consistency.
 
-Do not edit these generated files:
+Never edit these generated files manually:
 
-- `registry.json`
-- `registry/generated/*.generated.tsx`
-- `public/r/*.json`
+- `registry.json`;
+- `src/registry/generated/*.generated.tsx`;
+- `public/r/*.json`.
 
-Legacy names are explicit. `content-section-four` and `process-section-one` remain separate public
-items with separate sources. Compatibility-only dependencies and the source-backed
-`content-section-six` → `blog-section-one` alias live in `support.ts`. Removed orphaned names and
-their reasons live in `retired.ts`; they must not reappear as stale `public/r` files.
+Compatibility-only items, including `content-section-six` → `blog-section-one`, are explicitly
+aggregated by `src/registry/items/support.ts`. Retired names live in
+`src/registry/items/retired.ts` and must not reappear in `public/r`.

@@ -1,122 +1,97 @@
-# NavUI target architecture
+# NavUI repository architecture
 
-This document describes the intended end state. Phase 2 implements the canonical registry model and
-generation boundary only; it does not authorize the source-layout, portability, design-kit, page, or
-template migrations described below.
+Phase 3 implements the repository source layout around the Phase 2 canonical registry. The
+portfolio and NavUI still run as one Next.js application and deployment; the layout makes a future
+NavUI extraction possible without changing public routes or registry contracts.
 
-## Current Phase 2 boundary
-
-The portfolio and NavUI remain one Next.js application. Canonical typed definitions live in
-`registry/items`, reusable source remains in the existing `components` folders, and generated
-registry artifacts live in `registry/generated`, `registry.json`, and `public/r`.
-
-One item definition now owns its public name, lifecycle status, category, description, npm and
-registry dependencies, implementation/supporting files, install targets, and preview entry. Runtime
-catalog adapters may add React component references, but they do not redefine item metadata.
-
-## Proposed later structure
+## Implemented structure
 
 ```text
 src/
-  app/                         # Next.js routes and host-specific application shells
+  app/                         # Next.js routes, metadata, handlers, and route shells
   components/
-    ui/                        # Local primitive wrappers
-    shared/                    # Portable application-neutral components
+    ui/                        # shadcn-style primitives only
+    shared/                    # UI shared by the portfolio and NavUI websites
+  config/                      # host origins and site metadata
   features/
     navui/
-      catalog/                 # Public catalog queries and presentation
-      navigation/              # Catalog navigation
-      previews/                # Website-only demos and preview shells
-      search/                  # Catalog search
+      catalog/                 # catalog adapters and presentation
+      code/                    # code viewers and copy controls
+      landing/                 # NavUI landing-page composition
+      previews/                # preview shells and website-only page demos
+      search/                  # NavUI search data
     portfolio/
+      analytics/
       blog/
+      contact/
+      content/
+      navigation/
       projects/
       sections/
-      content/
+  lib/                         # application-neutral logic and hooks
   registry/
     blocks/
     components/
     illustrations/
-    pages/
-    themes/
-    generated/                 # Machine-written runtime maps only
-  lib/
-  config/
+    generated/                 # machine-written preview maps
+    items/                     # explicit canonical aggregators
 
 scripts/
-  registry/                    # Generate, clean, validate, and drift-check tooling
-
+  architecture/
+  registry/
 tests/
-  registry/                    # Focused registry invariants
-
-fixtures/                      # Portable consumer/install fixtures
-
-public/
-  r/                           # Generated shadcn JSON only
+  architecture/
+  fixtures/
+  registry/
+public/r/                      # generated public shadcn JSON
 ```
 
-A mature item should eventually be colocated:
+Root package manifests, framework/tooling configuration, `registry.json`, documentation, CI, and
+public assets remain at the repository root. `src/proxy.ts` stays beside `src/app`, as required by
+the installed Next.js version.
+
+## Responsibilities
+
+- `src/app` owns routes, layouts, route handlers, metadata, loading/error boundaries, and small
+  route-specific composition. Feature implementations belong outside the route tree.
+- `src/features/navui` owns the NavUI website. `src/features/portfolio` owns the personal site.
+  Neither feature may use the other website's internals.
+- `src/components/ui` contains low-level shadcn-style primitives. It never contains NavUI registry
+  products.
+- `src/components/shared` contains application UI genuinely used by both websites.
+- `src/registry` contains distributable source. Registry implementations may use declared packages,
+  primitives, other declared registry items, and portable `src/lib` utilities; they may not import
+  `src/app` or `src/features`.
+- `*.demo.tsx` owns sample composition, `*.item.ts` owns canonical metadata, and
+  `src/registry/generated` owns machine-written runtime maps.
+
+`bun run architecture:validate` enforces the deprecated-directory, import-direction, demo, app,
+feature, and generated-file boundaries. It is part of `bun run check`.
+
+## Source paths and install targets
+
+Canonical metadata records both the repository source and the consumer destination. They are
+intentionally different:
 
 ```text
-src/registry/blocks/header/header-mega-menu/
-  header-mega-menu.tsx
-  header-mega-menu.demo.tsx
-  header-mega-menu.item.ts
-  header-mega-menu.test.tsx
+src/registry/blocks/header/header-one/header-one.tsx
+  -> components/blocks/header/header-one.tsx in a consumer
 ```
 
-Phase 3 should perform that move with `git mv`, legacy aliases, and focused compatibility checks.
-Phase 2 keeps centralized item modules to avoid mixing a repository-wide path migration into the
-source-of-truth correction.
+The Phase 2 generator continues to own `registry.json`, public JSON, preview maps, and validation.
+No filename discovery or second catalog was introduced.
 
-## Responsibilities and boundaries
+Internal folders and TypeScript filenames use kebab-case. The old public
+`testamonial-section-one` identifier, exported component symbol, and install target remain stable;
+only its internal directory and filename use the corrected `testimonial` spelling. The existing
+`content-section-six` compatibility alias also remains explicit.
 
-- Registry implementation files contain distributable code. They may import React, declared npm
-  dependencies, local shadcn-compatible wrappers, declared registry items, and portable utilities
-  such as `cn`.
-- Registry implementations must not import routes, portfolio features, preview infrastructure,
-  website-only catalog components, or server-only application code.
-- Demo files own sample content and website presentation. Item files own install metadata. Generated
-  files own static import maps and shadcn output, and are never edited by hand.
-- Application features may consume registry items. Registry items must not depend on application
-  features.
-
-These boundaries should become enforceable import checks in Phase 4. Existing Next.js coupling is
-not expanded in Phase 2 and should be reduced only during the planned portability work.
-
-## Naming
-
-- Public names and paths use kebab-case.
-- New names describe the UI purpose rather than only a sequence number when that improves clarity.
-- Existing public identifiers remain stable or receive an explicit compatibility migration.
-- The historical `testamonial` spelling remains unchanged until the Phase 3 naming migration.
-- Registry dependencies use `@navdeep-singh/<name>` in canonical metadata and become public URLs in
-  generated output.
-
-## Product types
-
-- **Components** are small reusable interactive elements or primitives.
-- **Blocks** are complete reusable sections and may contain multiple files or depend on components.
-- **Illustrations** are installable visual components used independently or by blocks.
-- **Pages** compose canonical blocks and components; they must not duplicate those implementations.
-- **Themes/design kits** define coherent tokens and design rules rather than per-block themes.
-- **Templates** are complete runnable products. Paid template source belongs in future private
-  repositories, not this public portfolio repository.
+Flowdesk has no canonical `registry:page` item, so it remains a website-only page preview under
+`src/features/navui/previews/pages`. No downloadable registry page was added in Phase 3.
 
 ## Later phases
 
-1. Phase 3: kebab-case source layout, colocated item/demo/test files, spelling migration, and legacy
-   aliases.
-2. Phase 4: enforced dependency boundaries, reduced Next.js coupling, adapters, and portable
-   fixtures.
-3. Phase 5: a small Radix, Base UI, and React Aria compatibility pilot behind stable local wrappers.
-4. Phase 6: focused typed content APIs for suitable blocks without a universal schema.
-5. Phases 7–10: catalog quality audit, composed downloadable pages, additional React framework
-   outputs, and coherent NavUI design kits.
-6. Phase 11: private template repositories, licensing/distribution, and only then a possible NavUI
-   repository/deployment split.
-
-Because the canonical model stores portable source paths, targets, dependencies, preview boundaries,
-and statuses without importing the portfolio application, a future NavUI extraction can move the
-registry folders and tooling together. The shadcn contract and item internals do not need to be
-rewritten when the deployment or repository boundary changes.
+Phase 4 may reduce remaining Next.js coupling inside otherwise reusable source, add portable
+consumer fixtures/adapters, and expand clean-install checks. Framework compatibility layers,
+design-kit work, downloadable pages, paid templates, repository splitting, and deployment changes
+remain out of scope for Phase 3.

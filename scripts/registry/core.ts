@@ -2,11 +2,11 @@ import type { NavUIRegistryItem, RegistryPreviewSpec } from '@/registry/types'
 import type { ComponentItemEntry } from '@/registry/items/components'
 
 export const ROOT_REGISTRY_PATH = 'registry.json'
-export const GENERATED_BLOCK_PREVIEWS_PATH = 'registry/generated/block-previews.generated.tsx'
+export const GENERATED_BLOCK_PREVIEWS_PATH = 'src/registry/generated/block-previews.generated.tsx'
 export const GENERATED_COMPONENT_PREVIEWS_PATH =
-  'registry/generated/component-previews.generated.tsx'
+  'src/registry/generated/component-previews.generated.tsx'
 export const GENERATED_ILLUSTRATION_PREVIEWS_PATH =
-  'registry/generated/illustration-previews.generated.tsx'
+  'src/registry/generated/illustration-previews.generated.tsx'
 export const PUBLIC_REGISTRY_DIR = 'public/r'
 export const REGISTRY_SCHEMA = 'https://ui.shadcn.com/schema/registry.json'
 export const REGISTRY_ITEM_SCHEMA = 'https://ui.shadcn.com/schema/registry-item.json'

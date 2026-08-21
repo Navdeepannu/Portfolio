@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./app/icon.svg" alt="Navdeep Singh and NavUI logo" width="72" height="72" />
+  <img src="./src/app/icon.svg" alt="Navdeep Singh and NavUI logo" width="72" height="72" />
 
   <h1>Portfolio & NavUI</h1>
 
@@ -41,7 +41,7 @@ Both sites are served from one Next.js application and Vercel project:
 
 - `navdeepsingh.dev` serves the portfolio.
 - `ui.navdeepsingh.dev` serves NavUI from the internal `/ui` route tree.
-- `proxy.ts` handles hostname routing while keeping `/ui` out of public canonical URLs.
+- `src/proxy.ts` handles hostname routing while keeping `/ui` out of public canonical URLs.
 - Registry artifacts are published from `public/r` and can be installed with the shadcn CLI.
 
 Built with Next.js 16, React 19, TypeScript, Tailwind CSS v4, shadcn/ui, Motion, and Bun.
@@ -74,7 +74,8 @@ bun run registry:generate
 bun run registry:validate
 ```
 
-Canonical item metadata lives in `registry/items`. See
+Canonical item metadata is colocated under `src/registry`, with explicit aggregators in
+`src/registry/items`. See
 [`docs/navui-registry.md`](./docs/navui-registry.md) before adding or publishing an item.
 
 The reusable `ContributionGraph` and `PublicInsights` components contain presentation only. Their
