@@ -4,10 +4,10 @@
   "title": "Expandable Card",
   "description": "Composable card-dialog primitives with accessible modal behavior, controlled state, shared media motion, and custom actions.",
   "dependencies": [
-    "motion",
+    "@radix-ui/react-use-controllable-state",
     "lucide-react",
-    "radix-ui",
-    "@radix-ui/react-use-controllable-state"
+    "motion",
+    "radix-ui"
   ],
   "registryDependencies": [
     "button"
@@ -20,5 +20,12 @@
       "target": "@components/expandable-card.tsx"
     }
   ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "component",
+      "category": "interactive"
+    }
+  },
   "type": "registry:ui"
 }

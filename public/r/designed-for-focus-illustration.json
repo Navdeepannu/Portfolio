@@ -14,5 +14,12 @@
       "target": "@components/illustrations/DesignedForFocusIllustration.tsx"
     }
   ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "illustration",
+      "category": "illustrations"
+    }
+  },
   "type": "registry:component"
 }

@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "contact-section-three",
   "title": "Contact Section Three",
-  "description": "Contact Section Three — Contact block.",
+  "description": "A compact project contact form paired with a concise service introduction.",
   "files": [
     {
       "path": "components/blocks/contact/contact-section-three.tsx",
@@ -11,8 +11,12 @@
       "target": "@components/blocks/contact/contact-section-three.tsx"
     }
   ],
-  "categories": [
-    "contact"
-  ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "block",
+      "category": "contact"
+    }
+  },
   "type": "registry:block"
 }

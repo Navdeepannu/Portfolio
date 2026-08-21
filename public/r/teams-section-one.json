@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "teams-section-one",
   "title": "Teams Section One",
-  "description": "Teams Section One — Teams block.",
+  "description": "A grouped leadership and team directory with social links and empty-state handling.",
   "dependencies": [
     "@tabler/icons-react"
   ],
@@ -14,8 +14,12 @@
       "target": "@components/blocks/teams/teams-section-one.tsx"
     }
   ],
-  "categories": [
-    "teams"
-  ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "block",
+      "category": "teams"
+    }
+  },
   "type": "registry:block"
 }

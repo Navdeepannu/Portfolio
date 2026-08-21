@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "teams-section-four",
   "title": "Teams Section Four",
-  "description": "Teams Section Four — Teams block.",
+  "description": "A global-team recruiting section with portrait cards and role badges.",
   "registryDependencies": [
     "badge"
   ],
@@ -14,8 +14,12 @@
       "target": "@components/blocks/teams/teams-section-four.tsx"
     }
   ],
-  "categories": [
-    "teams"
-  ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "block",
+      "category": "teams"
+    }
+  },
   "type": "registry:block"
 }

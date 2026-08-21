@@ -15,5 +15,12 @@
       "target": "@components/illustrations/ReleaseWorkflowIllustration.tsx"
     }
   ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "illustration",
+      "category": "illustrations"
+    }
+  },
   "type": "registry:component"
 }

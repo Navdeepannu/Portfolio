@@ -4,8 +4,8 @@
   "title": "Rail Nav",
   "description": "Motion rail navigation with the original line-to-link reveal, controlled expansion, flexible links, and optional scroll tracking.",
   "dependencies": [
-    "motion",
-    "@radix-ui/react-use-controllable-state"
+    "@radix-ui/react-use-controllable-state",
+    "motion"
   ],
   "files": [
     {
@@ -15,5 +15,12 @@
       "target": "@components/rail-nav.tsx"
     }
   ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "component",
+      "category": "interactive"
+    }
+  },
   "type": "registry:ui"
 }

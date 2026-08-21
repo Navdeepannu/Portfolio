@@ -1,32 +1,41 @@
-import type { BlockDefinition, BlockRegistryMeta, RegistryFileEntry } from './types'
+import type {
+  BlockDefinition,
+  BlockRegistryMeta,
+  RegistryFileEntry,
+  RegistryPreviewSpec,
+} from './types'
 
-type DefineBlockInput = Omit<BlockDefinition, 'registry'> & {
-  registry?: Partial<Omit<BlockRegistryMeta, 'files'>> & {
+type DefineBlockInput = Omit<BlockDefinition, 'kind' | 'registry' | 'preview'> & {
+  preview?: Partial<RegistryPreviewSpec>
+  registry?: Partial<Omit<BlockRegistryMeta, 'name' | 'files'>> & {
     files?: RegistryFileEntry[]
   }
 }
 
-/**
- * Normalizes block metadata and fills in shadcn-oriented `registry.files` from
- * `sourceFiles` when not overridden (single source of truth for on-disk paths).
- */
+/** Normalizes one explicit canonical block item. */
 export function defineBlock(input: DefineBlockInput): BlockDefinition {
-  const { registry: registryPartial, ...rest } = input
+  const { registry: registryPartial, preview: previewPartial, ...rest } = input
   const files: RegistryFileEntry[] =
     registryPartial?.files ??
-    rest.sourceFiles.map((sf) => ({
-      path: sf.path,
-      target: sf.path,
+    rest.sourceFiles.map((sourceFile) => ({
+      path: sourceFile.path,
+      target: sourceFile.path,
       type: 'registry:component' as const,
     }))
 
   return {
     ...rest,
+    kind: 'block',
+    preview: {
+      module: previewPartial?.module ?? `@/${rest.sourceFiles[0]?.path.replace(/\.tsx$/, '')}`,
+      exportName: previewPartial?.exportName,
+      sourceFiles: previewPartial?.sourceFiles,
+    },
     registry: {
-      name: registryPartial?.name ?? rest.slug,
+      name: rest.slug,
       type: registryPartial?.type ?? 'registry:block',
-      dependencies: registryPartial?.dependencies,
-      registryDependencies: registryPartial?.registryDependencies,
+      dependencies: registryPartial?.dependencies ?? [],
+      registryDependencies: registryPartial?.registryDependencies ?? [],
       files,
     },
   }

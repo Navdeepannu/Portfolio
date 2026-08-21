@@ -2,17 +2,17 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "sign-up-two",
   "title": "Sign Up Two",
-  "description": "Sign Up Two — Sign Up block.",
+  "description": "A split-screen account creation flow with social sign-in, product benefits, and an animated visual.",
   "dependencies": [
     "lucide-react",
     "react-icons",
     "shaders"
   ],
   "registryDependencies": [
+    "https://ui.navdeepsingh.dev/r/brand-logo.json",
     "button",
     "input",
-    "label",
-    "https://ui.navdeepsingh.dev/r/brand-logo.json"
+    "label"
   ],
   "files": [
     {
@@ -22,8 +22,12 @@
       "target": "@components/blocks/auth/sign-up-two.tsx"
     }
   ],
-  "categories": [
-    "sign-up"
-  ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "block",
+      "category": "sign-up"
+    }
+  },
   "type": "registry:block"
 }

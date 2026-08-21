@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "header-two",
   "title": "Header Two",
-  "description": "Header Two — Header block.",
+  "description": "A responsive marketing header with a bordered shell and animated mobile menu.",
   "dependencies": [
     "lucide-react",
     "motion"
@@ -18,8 +18,12 @@
       "target": "@components/blocks/header/header-two.tsx"
     }
   ],
-  "categories": [
-    "header"
-  ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "block",
+      "category": "header"
+    }
+  },
   "type": "registry:block"
 }

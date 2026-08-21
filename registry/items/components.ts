@@ -1,47 +1,46 @@
-import type { ComponentType } from 'react'
+const SegmentSpotlightShowcase = '@/components/showcase/segment-spotlight'
+const MagneticButtonShowcase = '@/components/showcase/magnetic-button'
+const AnimatedTabsShowcase = '@/components/showcase/animated-tabs'
+const AnimatedNumbersShowcase = '@/components/showcase/animated-numbers'
+const ExpandableCardShowcase = '@/components/showcase/expandable-card'
+const RailNavShowcase = '@/components/showcase/rail-nav'
+const ProximityNavShowcase = '@/components/showcase/proximity-nav'
+const PackageManagerCommandShowcase = '@/components/showcase/package-manager-command'
+const ContributionGraphShowcase = '@/components/showcase/contribution-graph'
+const KeyboardShortcutShowcase = '@/components/showcase/keyboard-shortcut'
+const KeyboardShortcutWithSoundShowcase = '@/components/showcase/keyboard-shortcut-with-sound'
 
-import SegmentSpotlightShowcase from '@/components/showcase/segment-spotlight'
-import MagneticButtonShowcase from '@/components/showcase/magnetic-button'
-import AnimatedTabsShowcase from '@/components/showcase/animated-tabs'
-import AnimatedNumbersShowcase from '@/components/showcase/animated-numbers'
-import ExpandableCardShowcase from '@/components/showcase/expandable-card'
-import RailNavShowcase from '@/components/showcase/rail-nav'
-import ProximityNavShowcase from '@/components/showcase/proximity-nav'
-import PackageManagerCommandShowcase from '@/components/showcase/package-manager-command'
-import ContributionGraphShowcase from '@/components/showcase/contribution-graph'
-import KeyboardShortcutShowcase from '@/components/showcase/keyboard-shortcut'
-import KeyboardShortcutWithSoundShowcase from '@/components/showcase/keyboard-shortcut-with-sound'
-
-import { defineComponent } from './define-component'
+import { defineComponent } from '../define-component'
 import type { ComponentDefinition } from '@/data/component-types'
-import type { BlockSourceFileSpec } from './types'
+import type { BlockSourceFileSpec } from '../types'
 
-export type ComponentExampleRegistryEntry = {
+export type ComponentExampleItem = {
   id: string
   title: string
   description?: string
   sourceFiles: BlockSourceFileSpec[]
-  Showcase: ComponentType
+  previewModule: string
 }
 
-export type ComponentRegistryEntry = {
+export type ComponentItemEntry = {
   definition: ComponentDefinition
-  Showcase: ComponentType
-  examples: ComponentExampleRegistryEntry[]
+  examples: ComponentExampleItem[]
 }
 
 function entry(
   definition: ComponentDefinition,
-  Showcase: ComponentType,
-  examples: ComponentExampleRegistryEntry[] = [],
-): ComponentRegistryEntry {
-  return { definition, Showcase, examples }
+  previewModule: string,
+  examples: ComponentExampleItem[] = [],
+): ComponentItemEntry {
+  definition.preview = { ...definition.preview, module: previewModule }
+  return { definition, examples }
 }
 
-export const componentRegistryEntries: ComponentRegistryEntry[] = [
+export const componentItemEntries: ComponentItemEntry[] = [
   entry(
     defineComponent({
       slug: 'segment-spotlight',
+      status: 'published',
       title: 'Segment Spotlight',
       image: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlHuf7vDqHjv3VPCtBSMksEJOn7pmfxyc9IoU5',
       description:
@@ -161,6 +160,7 @@ export function Example() {
   entry(
     defineComponent({
       slug: 'magnetic-button',
+      status: 'published',
       title: 'Magnetic Button',
       image: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlXH1ynpA2u3zKHak0FTUAL7ZrsNJE5jQiOYwt',
       description:
@@ -228,6 +228,7 @@ export function Example() {
   entry(
     defineComponent({
       slug: 'animated-tabs',
+      status: 'published',
       title: 'Animated Tabs',
       image: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlX3opSU2u3zKHak0FTUAL7ZrsNJE5jQiOYwtd',
       description: 'A tab component with a moving active pill and directional content transitions.',
@@ -311,6 +312,7 @@ export function Example() {
   entry(
     defineComponent({
       slug: 'animated-numbers',
+      status: 'published',
       title: 'Animated Numbers',
       image: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlh4xqmP80RlaETPbLcZQjyfg2StNvuB13w8rI',
       description:
@@ -402,6 +404,7 @@ export function Example() {
   entry(
     defineComponent({
       slug: 'expandable-card',
+      status: 'published',
       title: 'Expandable Card',
       image: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlSoC1OywE8Bm2KWO3IgkTqwviNajx6JyfGHAQ',
       description:
@@ -526,6 +529,7 @@ export function Example() {
   entry(
     defineComponent({
       slug: 'rail-nav',
+      status: 'published',
       title: 'Rail Nav',
       image: 'https://assets.navdeepsingh.dev/rail-nav-light.png',
       description:
@@ -623,6 +627,7 @@ export function Example() {
   entry(
     defineComponent({
       slug: 'proximity-nav',
+      status: 'published',
       title: 'Proximity Nav',
       image: 'https://assets.navdeepsingh.dev/proxomity-nav-light.png',
       description:
@@ -717,6 +722,7 @@ export function DocsSidebar() {
   entry(
     defineComponent({
       slug: 'package-manager-command',
+      status: 'published',
       title: 'Package Manager Command',
       image: 'https://assets.navdeepsingh.dev/package-manager-light.png',
       description:
@@ -807,6 +813,7 @@ export function Example() {
   entry(
     defineComponent({
       slug: 'contribution-graph',
+      status: 'published',
       title: 'Contribution Graph',
       image: '/component-previews/contribution-graph.svg',
       description:
@@ -900,6 +907,7 @@ export default async function Example() {
   entry(
     defineComponent({
       slug: 'keyboard-shortcut',
+      status: 'published',
       title: 'Keyboard Shortcut',
       image: '/component-previews/keyboard-shortcut.svg',
       description:
@@ -1032,38 +1040,29 @@ export function RaisedShortcut() {
             filename: 'with-sound.tsx',
           },
         ],
-        Showcase: KeyboardShortcutWithSoundShowcase,
+        previewModule: KeyboardShortcutWithSoundShowcase,
       },
     ],
   ),
 ]
 
-export const componentDefinitions: ComponentDefinition[] = componentRegistryEntries.map(
+export const componentDefinitions: ComponentDefinition[] = componentItemEntries.map(
   (entry) => entry.definition,
 )
 
-const showcaseBySlug = new Map(
-  componentRegistryEntries.map((entry) => [entry.definition.slug, entry.Showcase] as const),
-)
-
-export function getComponentEntry(slug: string): ComponentRegistryEntry | undefined {
-  return componentRegistryEntries.find((entry) => entry.definition.slug === slug)
-}
-
-/** Resolve the showcase/demo component for a slug (docs + preview rendering). */
-export function getComponentShowcase(slug: string): ComponentType | undefined {
-  return showcaseBySlug.get(slug)
-}
-
 /** Resolve the secondary documentation examples registered for a component. */
-export function getComponentExamples(slug: string): ComponentExampleRegistryEntry[] {
-  return getComponentEntry(slug)?.examples ?? []
+export function getComponentItemEntry(slug: string): ComponentItemEntry | undefined {
+  return componentItemEntries.find((entry) => entry.definition.slug === slug)
+}
+
+export function getComponentExamples(slug: string): ComponentExampleItem[] {
+  return getComponentItemEntry(slug)?.examples ?? []
 }
 
 /** Resolve one secondary documentation example by its stable id. */
 export function getComponentExample(
   slug: string,
   exampleId: string,
-): ComponentExampleRegistryEntry | undefined {
+): ComponentExampleItem | undefined {
   return getComponentExamples(slug).find((example) => example.id === exampleId)
 }

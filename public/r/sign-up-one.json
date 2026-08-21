@@ -2,15 +2,15 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "sign-up-one",
   "title": "Sign Up One",
-  "description": "Sign Up One — Sign Up block.",
+  "description": "A detailed account creation form with identity, password, consent, and sign-in actions.",
   "dependencies": [
     "lucide-react"
   ],
   "registryDependencies": [
+    "https://ui.navdeepsingh.dev/r/brand-logo.json",
     "button",
     "input",
-    "label",
-    "https://ui.navdeepsingh.dev/r/brand-logo.json"
+    "label"
   ],
   "files": [
     {
@@ -20,8 +20,12 @@
       "target": "@components/blocks/auth/sign-up-one.tsx"
     }
   ],
-  "categories": [
-    "sign-up"
-  ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "block",
+      "category": "sign-up"
+    }
+  },
   "type": "registry:block"
 }

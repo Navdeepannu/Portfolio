@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "contact-section-one",
   "title": "Contact Section One",
-  "description": "Contact Section One — Contact block.",
+  "description": "A contact directory that routes visitors to sales, support, community, documentation, and developer resources.",
   "dependencies": [
     "lucide-react"
   ],
@@ -14,8 +14,12 @@
       "target": "@components/blocks/contact/contact-section-one.tsx"
     }
   ],
-  "categories": [
-    "contact"
-  ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "block",
+      "category": "contact"
+    }
+  },
   "type": "registry:block"
 }

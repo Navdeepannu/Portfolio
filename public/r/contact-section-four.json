@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "contact-section-four",
   "title": "Contact Section Four",
-  "description": "Contact Section Four — Contact block.",
+  "description": "A focused project-inquiry form with contact details and a large editorial heading.",
   "registryDependencies": [
     "button",
     "input",
@@ -17,8 +17,12 @@
       "target": "@components/blocks/contact/contact-section-four.tsx"
     }
   ],
-  "categories": [
-    "contact"
-  ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "block",
+      "category": "contact"
+    }
+  },
   "type": "registry:block"
 }

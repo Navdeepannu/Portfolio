@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "hero-section-three",
   "title": "Hero Section Three",
-  "description": "Hero Section Three — Hero Section block.",
+  "description": "An art-directed hero with shader-backed visuals and a focused primary action.",
   "dependencies": [
     "@tabler/icons-react",
     "shaders"
@@ -18,8 +18,12 @@
       "target": "@components/blocks/hero-section/hero-section-three.tsx"
     }
   ],
-  "categories": [
-    "hero"
-  ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "block",
+      "category": "hero"
+    }
+  },
   "type": "registry:block"
 }

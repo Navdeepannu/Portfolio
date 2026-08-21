@@ -1,18 +1,24 @@
 import type { ComponentType } from 'react'
 
-import { blockRegistryEntries } from './block-registry.generated'
+import { blockPreviewComponents } from './generated/block-previews.generated'
+import { blockItems } from './items'
 import type { BlockDefinition, BlockRegistryEntry } from './types'
 
-export { blockRegistryEntries } from './block-registry.generated'
+export const blockDefinitions: BlockDefinition[] = blockItems.filter(
+  (item) => item.status === 'published',
+)
 
-export const blockDefinitions: BlockDefinition[] = blockRegistryEntries.map((e) => e.definition)
+export const blockRegistryEntries: BlockRegistryEntry[] = blockDefinitions.map((definition) => ({
+  definition,
+  Component: blockPreviewComponents[definition.slug] as ComponentType,
+}))
 
 const componentBySlug = new Map(
-  blockRegistryEntries.map((e) => [e.definition.slug, e.Component] as const),
+  blockRegistryEntries.map((entry) => [entry.definition.slug, entry.Component] as const),
 )
 
 export function getBlockEntry(slug: string): BlockRegistryEntry | undefined {
-  return blockRegistryEntries.find((e) => e.definition.slug === slug)
+  return blockRegistryEntries.find((entry) => entry.definition.slug === slug)
 }
 
 export function getBlockComponent(slug: string): ComponentType | undefined {

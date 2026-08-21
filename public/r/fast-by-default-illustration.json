@@ -14,5 +14,12 @@
       "target": "@components/illustrations/FastByDefaultIllustration.tsx"
     }
   ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "illustration",
+      "category": "illustrations"
+    }
+  },
   "type": "registry:component"
 }

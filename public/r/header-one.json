@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "header-one",
   "title": "Header One",
-  "description": "Header One — Header block.",
+  "description": "A responsive marketing header with animated mobile navigation and account actions.",
   "dependencies": [
     "lucide-react",
     "motion"
@@ -18,8 +18,12 @@
       "target": "@components/blocks/header/header-one.tsx"
     }
   ],
-  "categories": [
-    "header"
-  ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "block",
+      "category": "header"
+    }
+  },
   "type": "registry:block"
 }

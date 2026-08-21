@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "header-four",
   "title": "Header Four",
-  "description": "Header Four — Responsive header with animated navigation menus.",
+  "description": "A responsive header with animated multi-level desktop and mobile navigation menus.",
   "dependencies": [
     "lucide-react",
     "motion"
@@ -19,8 +19,12 @@
       "target": "@components/blocks/header/header-four.tsx"
     }
   ],
-  "categories": [
-    "header"
-  ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "block",
+      "category": "header"
+    }
+  },
   "type": "registry:block"
 }

@@ -66,13 +66,10 @@ export default async function ComponentRenderer({
     )
   }
 
-  const demoSpecs = component.sourceFiles.filter((spec) => spec.filename === 'demo.tsx')
-  const componentSpecs = component.sourceFiles.filter((spec) => spec.filename !== 'demo.tsx')
   const secondaryExamples = getComponentExamples(component.slug)
 
-  const [componentFiles, demoFiles, exampleDocs] = await Promise.all([
-    loadBlockCodeFiles({ ...component, sourceFiles: componentSpecs }),
-    loadBlockCodeFiles({ ...component, sourceFiles: demoSpecs }),
+  const [componentFiles, exampleDocs] = await Promise.all([
+    loadBlockCodeFiles(component),
     Promise.all(
       secondaryExamples.map(async (example) => ({
         example,
@@ -89,9 +86,6 @@ export default async function ComponentRenderer({
   } catch {
     utilsFiles = []
   }
-
-  // The demo usage powers the top Code tab. Fall back to source if absent.
-  const codeTabFiles = demoFiles.length > 0 ? demoFiles : componentFiles
 
   const deps = component.registry.dependencies ?? []
   const registryDeps = component.registry.registryDependencies ?? []
@@ -141,7 +135,7 @@ export default async function ComponentRenderer({
         <ComponentTabs
           slug={component.slug}
           preview={<ComponentPreview slug={component.slug} />}
-          code={<BlockCode files={codeTabFiles} />}
+          code={<BlockCode files={componentFiles} />}
         />
 
         <ComponentNotes notes={component.notes} />

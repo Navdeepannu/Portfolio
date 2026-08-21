@@ -10,5 +10,10 @@ export type {
   BlockRegistryEntry,
   BlockRegistryMeta,
   BlockSourceFileSpec,
+  IllustrationDefinition,
+  NavUIRegistryItem,
+  RegistryItemStatus,
   RegistryFileEntry,
+  RegistryPreviewSpec,
+  SupportDefinition,
 } from './types'

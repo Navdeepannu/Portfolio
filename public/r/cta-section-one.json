@@ -17,8 +17,12 @@
       "target": "@components/blocks/cta/cta-section-one.tsx"
     }
   ],
-  "categories": [
-    "cta"
-  ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "block",
+      "category": "cta"
+    }
+  },
   "type": "registry:block"
 }

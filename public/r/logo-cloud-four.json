@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "logo-cloud-four",
   "title": "Logo Cloud Four",
-  "description": "Logo Cloud Four — Logo Cloud block.",
+  "description": "A large animated company grid with a prominent trust statement.",
   "dependencies": [
     "motion"
   ],
@@ -14,8 +14,12 @@
       "target": "@components/blocks/logo-cloud/logo-cloud-four.tsx"
     }
   ],
-  "categories": [
-    "logo-cloud"
-  ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "block",
+      "category": "logo-cloud"
+    }
+  },
   "type": "registry:block"
 }

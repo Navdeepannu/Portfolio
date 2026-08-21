@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "teams-section-five",
   "title": "Teams Section Five",
-  "description": "Teams Section Five — Teams block.",
+  "description": "A dark editorial team grid with role badges and portrait-led member cards.",
   "registryDependencies": [
     "badge"
   ],
@@ -14,8 +14,12 @@
       "target": "@components/blocks/teams/teams-section-five.tsx"
     }
   ],
-  "categories": [
-    "teams"
-  ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "block",
+      "category": "teams"
+    }
+  },
   "type": "registry:block"
 }

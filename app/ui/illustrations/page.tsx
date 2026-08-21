@@ -1,36 +1,23 @@
 import IllustrationsShowcase from '@/site/illustrations-showcase'
 import { readProjectSourceFile } from '@/lib/block-source'
-
-const SHARED_ILLUSTRATION_SOURCE = 'components/illustrations/_expense-workflow-parts.tsx'
-
-const illustrationSourcePaths = {
-  'payment-card': ['components/illustrations/payment-card.tsx', SHARED_ILLUSTRATION_SOURCE],
-  'workflow-desk': ['components/illustrations/workflow-desk.tsx', SHARED_ILLUSTRATION_SOURCE],
-  'receipt-panel': ['components/illustrations/receipt-panel.tsx', SHARED_ILLUSTRATION_SOURCE],
-  'matching-panel': ['components/illustrations/matching-panel.tsx', SHARED_ILLUSTRATION_SOURCE],
-  'report-panel': ['components/illustrations/report-panel.tsx', SHARED_ILLUSTRATION_SOURCE],
-  'approval-panel': ['components/illustrations/approval-panel.tsx', SHARED_ILLUSTRATION_SOURCE],
-  'fast-by-default-illustration': ['components/illustrations/FastByDefaultIllustration.tsx'],
-  'designed-for-focus-illustration': ['components/illustrations/DesignedForFocusIllustration.tsx'],
-  'flexible-at-scale-illustration': ['components/illustrations/FlexibleAtScaleIllustration.tsx'],
-  'release-workflow-illustration': ['components/illustrations/ReleaseWorkflowIllustration.tsx'],
-  'revision-cycles-illustration': ['components/illustrations/RevisionCyclesIllustration.tsx'],
-} as const
+import { illustrationItems } from '@/registry/items/illustrations'
 
 export default async function IllustrationsPage() {
   const illustrationSources = Object.fromEntries(
     await Promise.all(
-      Object.entries(illustrationSourcePaths).map(async ([slug, sourcePaths]) => {
-        const files = await Promise.all(
-          sourcePaths.map(async (sourcePath) => ({
-            filename: sourcePath.split('/').at(-1) ?? sourcePath,
-            language: 'tsx' as const,
-            code: await readProjectSourceFile(sourcePath),
-          })),
-        )
+      illustrationItems
+        .filter((item) => item.status === 'published')
+        .map(async (item) => {
+          const files = await Promise.all(
+            item.sourceFiles.map(async (sourceFile) => ({
+              filename: sourceFile.filename ?? sourceFile.path.split('/').at(-1) ?? sourceFile.path,
+              language: sourceFile.language,
+              code: await readProjectSourceFile(sourceFile.path),
+            })),
+          )
 
-        return [slug, files]
-      }),
+          return [item.slug, files]
+        }),
     ),
   )
 

@@ -4,9 +4,9 @@
   "title": "Segment Spotlight",
   "description": "Composable spotlight primitives with controlled state, animated segments, arbitrary controls, and hover or click activation.",
   "dependencies": [
+    "@radix-ui/react-use-controllable-state",
     "motion",
-    "radix-ui",
-    "@radix-ui/react-use-controllable-state"
+    "radix-ui"
   ],
   "files": [
     {
@@ -16,5 +16,12 @@
       "target": "@components/segment-spotlight.tsx"
     }
   ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "component",
+      "category": "interactive"
+    }
+  },
   "type": "registry:ui"
 }
