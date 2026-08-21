@@ -9,7 +9,7 @@ import {
   expectedPublicOutputNames,
   renderRootRegistry,
   toShadcnRegistryItem,
-} from '@/scripts/registry/core'
+} from '../../scripts/registry/core'
 
 function expect<T>(actual: T) {
   return {
@@ -149,10 +149,10 @@ describe('canonical registry validation', () => {
     const process = blockItems.find((item) => item.slug === 'process-section-one')
 
     expect(content?.registry.files[0]?.path).toBe(
-      'components/blocks/content/content-section-four.tsx',
+      'src/registry/blocks/content/content-section-four/content-section-four.tsx',
     )
     expect(process?.registry.files[0]?.path).toBe(
-      'components/blocks/process/process-section-one.tsx',
+      'src/registry/blocks/process/process-section-one/process-section-one.tsx',
     )
     expect(content?.registry.files[0]?.path).not.toBe(process?.registry.files[0]?.path)
   })
