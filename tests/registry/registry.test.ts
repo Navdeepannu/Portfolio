@@ -134,13 +134,15 @@ describe('canonical registry validation', () => {
 
   test('generates the installable default design-system contract', () => {
     const generated = toShadcnRegistryItem(navuiDefaultDesignSystem)
+    const css = renderDefaultDesignSystemCss([navuiDefaultDesignSystem])
 
     expect(generated.type).toBe('registry:style')
     expect(generated.cssVars).toEqual(navuiDefaultDesignSystem.registry.cssVars)
-    assert.match(
-      renderDefaultDesignSystemCss([navuiDefaultDesignSystem]),
-      /--navui-container: 72rem/,
-    )
+    assert.match(css, /--background: oklch\(0\.99 0\.002 264\)/)
+    assert.match(css, /--navui-container-wide: 80rem/)
+    assert.match(css, /--navui-container: 72rem/)
+    assert.match(css, /\.dark \{/)
+    assert.match(css, /--background: oklch\(0\.18 0\.006 264\)/)
   })
 
   test('rejects multiple published default design systems', async () => {
