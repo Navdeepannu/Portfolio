@@ -45,7 +45,7 @@ export const uiSiteConfig = {
   url: SITE_ORIGINS.ui,
   title: 'NavUI · Blocks · Components · Templates',
   description:
-    'A shadcn-compatible design-engineering library of React components, production-ready blocks, interface illustrations, and full-page templates.',
+    'A shadcn-compatible design-engineering library of React components, production-ready blocks, and templates.',
   keywords: [
     'Nav UI',
     'shadcn registry',
@@ -72,11 +72,12 @@ const portfolioOgImage = {
   alt: 'Navdeep Singh logo',
 } as const
 
-const uiOgImage = {
-  url: '/icon.svg',
-  width: 400,
-  height: 400,
-  alt: 'Nav UI logo',
+export const uiSocialImage = {
+  url: '/og-image.png',
+  width: 1200,
+  height: 630,
+  alt: 'NavUI component, block, and template showcase',
+  type: 'image/png',
 } as const
 
 const searchEngineRobots = {
@@ -149,13 +150,13 @@ export const uiMetadata: Metadata = {
     siteName: uiSiteConfig.name,
     title: uiSiteConfig.title,
     description: uiSiteConfig.description,
-    images: [uiOgImage],
+    images: [uiSocialImage],
   },
   twitter: {
-    card: 'summary',
+    card: 'summary_large_image',
     title: uiSiteConfig.title,
     description: uiSiteConfig.description,
-    images: [uiOgImage.url],
+    images: [uiSocialImage],
     creator: uiSiteConfig.author.twitterHandle,
   },
   robots: searchEngineRobots,
