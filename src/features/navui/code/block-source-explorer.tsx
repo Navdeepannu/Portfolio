@@ -11,6 +11,11 @@ import {
   CodeBlockCopyButton,
   CodeBlockHeader,
   CodeBlockItem,
+  CodeBlockSelect,
+  CodeBlockSelectContent,
+  CodeBlockSelectItem,
+  CodeBlockSelectTrigger,
+  CodeBlockSelectValue,
 } from '@/features/navui/code/code-block'
 import type { LoadedRegistrySourceFile } from '@/features/navui/code/source-loader'
 import {
@@ -210,21 +215,58 @@ export default function BlockSourceExplorer({ files }: { files: LoadedRegistrySo
               {hasFileTree ? (
                 <>
                   <div className="min-w-0 flex-1 md:hidden">
-                    <select
-                      aria-label="Select source file"
-                      className="h-8 w-full max-w-full truncate rounded-lg border-none bg-transparent px-2 font-mono text-xs text-muted-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring/50 dark:bg-input/30"
-                      value={selectedPath}
-                      onChange={(event) => selectFile(event.target.value)}
-                    >
-                      {data.map((item) => (
-                        <option key={item.filename} value={item.filename}>
-                          {item.filename}
-                          {fileDetails.get(item.filename)?.relationship === 'registry-dependency'
-                            ? ` — dependency: ${fileDetails.get(item.filename)?.ownerTitle}`
-                            : ''}
-                        </option>
-                      ))}
-                    </select>
+                    <CodeBlockSelect>
+                      <CodeBlockSelectTrigger
+                        aria-label="Select source file"
+                        className="h-8 w-full max-w-full min-w-0 justify-between border-border/70 bg-background px-2 font-mono text-xs shadow-none"
+                      >
+                        <CodeBlockSelectValue className="min-w-0 flex-1">
+                          <span className="block min-w-0 truncate text-left" title={selectedPath}>
+                            {selectedPath}
+                          </span>
+                        </CodeBlockSelectValue>
+                      </CodeBlockSelectTrigger>
+
+                      <CodeBlockSelectContent
+                        position="popper"
+                        align="start"
+                        sideOffset={4}
+                        collisionPadding={12}
+                        className="w-[var(--radix-select-trigger-width)] max-w-[calc(100vw-1.5rem)]"
+                      >
+                        {(item) => {
+                          const file = fileDetails.get(item.filename)
+                          const isDependency = file?.relationship === 'registry-dependency'
+                          const dependencyLabel = isDependency
+                            ? ` — Dependency · ${file.ownerTitle}`
+                            : ''
+                          const label = `${item.filename}${dependencyLabel}`
+                          const filename = item.filename.split('/').pop() ?? item.filename
+
+                          return (
+                            <CodeBlockSelectItem
+                              key={item.filename}
+                              value={item.filename}
+                              aria-label={label}
+                              className="w-full max-w-full min-w-0 overflow-hidden pr-7 font-mono text-xs [&>span:last-child]:min-w-0 [&>span:last-child]:flex-1"
+                              title={label}
+                            >
+                              <span className="flex w-full min-w-0 items-center gap-2 p-1.5">
+                                <span className="min-w-0 flex-1 truncate">{filename}</span>
+                                {isDependency ? (
+                                  <span
+                                    aria-hidden="true"
+                                    className="shrink-0 rounded-sm bg-muted px-1 py-0.5 font-sans text-[9px] leading-none text-muted-foreground uppercase"
+                                  >
+                                    dep
+                                  </span>
+                                ) : null}
+                              </span>
+                            </CodeBlockSelectItem>
+                          )
+                        }}
+                      </CodeBlockSelectContent>
+                    </CodeBlockSelect>
                   </div>
                   <span
                     className="hidden min-w-0 flex-1 truncate font-mono text-xs text-muted-foreground md:block"
