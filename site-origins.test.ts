@@ -9,7 +9,7 @@ import { GET as getUiManifest } from '@/app/ui/manifest.webmanifest/route'
 import { GET as getUiRobots } from '@/app/ui/robots.txt/route'
 import uiSitemap from '@/app/ui/sitemap'
 import { getDirectInstallCommands, getRegistryItemUrl } from '@/lib/registry'
-import { portfolioMetadata, uiMetadata, uiSiteConfig } from '@/lib/site'
+import { portfolioMetadata, uiMetadata, uiSiteConfig, uiSocialImage } from '@/lib/site'
 import { SITE_ORIGINS } from '@/lib/sites'
 import { getInstallCommands } from '@/site/block-install-commands'
 
@@ -17,6 +17,14 @@ describe('site-specific metadata origins', () => {
   test('uses independent metadata bases and sitemap origins', () => {
     assert.equal(portfolioMetadata.metadataBase?.toString(), `${SITE_ORIGINS.portfolio}/`)
     assert.equal(uiMetadata.metadataBase?.toString(), `${SITE_ORIGINS.ui}/`)
+    assert.equal(
+      new URL(uiSocialImage.url, SITE_ORIGINS.ui).toString(),
+      `${SITE_ORIGINS.ui}/og-image.png`,
+    )
+    assert.deepEqual(uiMetadata.openGraph?.images, [uiSocialImage])
+    assert.ok(uiMetadata.twitter && 'card' in uiMetadata.twitter)
+    assert.equal(uiMetadata.twitter.card, 'summary_large_image')
+    assert.deepEqual(uiMetadata.twitter.images, [uiSocialImage])
 
     const portfolioUrls = portfolioSitemap().map((entry) => entry.url)
     const uiUrls = uiSitemap().map((entry) => entry.url)
