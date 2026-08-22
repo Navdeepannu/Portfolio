@@ -21,8 +21,6 @@ export type PackageManagerCommandProps = {
   value?: PackageManagerId
   defaultValue?: PackageManagerId
   onValueChange?: (value: PackageManagerId) => void
-  /** @deprecated Use defaultValue instead. */
-  defaultPackageManager?: PackageManagerId
   className?: string
   commandClassName?: string
   align?: 'start' | 'center' | 'end'
@@ -103,9 +101,8 @@ export function getAvailablePackageManagers(commands: PackageManagerCommands) {
 export function PackageManagerCommand({
   commands,
   value: valueProp,
-  defaultValue,
+  defaultValue = 'npm',
   onValueChange,
-  defaultPackageManager = 'npm',
   className,
   commandClassName,
   align = 'end',
@@ -118,7 +115,7 @@ export function PackageManagerCommand({
   const fallbackPackageManager = availablePackageManagers[0] ?? PACKAGE_MANAGERS[0]
   const [selectedValue = fallbackPackageManager.id, setSelectedValue] = useControllableState({
     prop: valueProp,
-    defaultProp: defaultValue ?? defaultPackageManager,
+    defaultProp: defaultValue,
     onChange: onValueChange,
   })
   const selectedPackageManager =

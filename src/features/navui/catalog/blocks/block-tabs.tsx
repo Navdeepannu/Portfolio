@@ -2,18 +2,31 @@
 
 import Link from 'next/link'
 import { useMemo, useState, type ReactNode } from 'react'
+import { LuMonitor, LuSmartphone, LuTablet } from 'react-icons/lu'
 
 import { Button } from '@/components/ui/button'
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { cn } from '@/lib/utils'
-import BlockIframe from '@/features/navui/previews/block-iframe'
+import BlockIframe, { type BlockPreviewWidth } from '@/features/navui/previews/block-iframe'
 import { getInstallCommands } from '@/features/navui/catalog/install-commands-display'
 import { blockShowcaseCodeViewportClassName } from '@/features/navui/previews/block-showcase-viewport'
 import { CodeXml, Maximize, RotateCcw, ScanEye } from 'lucide-react'
 
 import { PackageManagerCommand } from '@/components/package-manager-command'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+
+type BlockTab = 'preview' | 'code'
+
+const previewWidthOptions = [
+  { value: 'full', label: 'Desktop', icon: LuMonitor },
+  { value: 768, label: 'Tablet', icon: LuTablet },
+  { value: 390, label: 'Mobile', icon: LuSmartphone },
+] satisfies Array<{
+  value: BlockPreviewWidth
+  label: string
+  icon: typeof LuMonitor
+}>
 
 export default function BlockTabs({
   slug,
@@ -25,14 +38,26 @@ export default function BlockTabs({
   code: ReactNode
 }) {
   const [reloadKey, setReloadKey] = useState(0)
+  const [activeTab, setActiveTab] = useState<BlockTab>('preview')
+  const [previewWidth, setPreviewWidth] = useState<BlockPreviewWidth>('full')
 
   const commands = useMemo(() => getInstallCommands(slug), [slug])
 
   const onReload = () => setReloadKey((key) => key + 1)
+
+  const onPreviewWidthChange = (width: BlockPreviewWidth) => {
+    setPreviewWidth(width)
+    setActiveTab('preview')
+  }
+
   return (
-    <Tabs defaultValue="preview" className="flex w-full flex-col gap-0">
+    <Tabs
+      value={activeTab}
+      onValueChange={(value) => setActiveTab(value as BlockTab)}
+      className="flex w-full flex-col gap-0"
+    >
       <div className="mb-3 flex min-h-9 w-full min-w-0 flex-col justify-between gap-3 sm:gap-4 md:flex-row md:items-center">
-        <div className="flex min-w-0 flex-1 items-center gap-2">
+        <div className="flex min-w-0 flex-1 flex-wrap items-center gap-2">
           <TabsList className="rounded-lg p-1">
             <TabsTrigger value="preview" aria-label="Preview" title="Preview">
               <ScanEye />
@@ -43,10 +68,39 @@ export default function BlockTabs({
               <span className="inline">Code</span>
             </TabsTrigger>
           </TabsList>
+
+          <div
+            role="group"
+            aria-label="Preview width"
+            className="flex h-9 items-center gap-1 rounded-lg bg-muted p-1"
+          >
+            {previewWidthOptions.map(({ value, label, icon: Icon }) => {
+              const isActive = previewWidth === value
+
+              return (
+                <Button
+                  key={label}
+                  type="button"
+                  variant="ghost"
+                  size="icon-sm"
+                  className={cn(
+                    'rounded-md text-muted-foreground',
+                    isActive && 'bg-background text-foreground shadow-sm hover:bg-background/80',
+                  )}
+                  aria-label={`${label} preview`}
+                  aria-pressed={isActive}
+                  title={`${label} preview`}
+                  onClick={() => onPreviewWidthChange(value)}
+                >
+                  <Icon className="size-3.5" aria-hidden="true" />
+                </Button>
+              )
+            })}
+          </div>
         </div>
 
         <div className="flex min-h-9 shrink-0 items-center gap-2">
-          <PackageManagerCommand commands={commands} defaultPackageManager="npm" />
+          <PackageManagerCommand commands={commands} defaultValue="npm" />
 
           <div className="flex h-9 items-center gap-1 rounded-lg bg-muted p-1">
             <Tooltip>
@@ -55,7 +109,7 @@ export default function BlockTabs({
                   asChild
                   variant="ghost"
                   size="sm"
-                  className="rounded-md bg-background shadow-xs"
+                  className="rounded-md bg-background shadow-sm hover:bg-background/80"
                   aria-label="Open preview in new tab"
                   title="Open in new tab"
                 >
@@ -78,7 +132,7 @@ export default function BlockTabs({
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="rounded-md bg-background shadow-xs"
+                  className="rounded-md bg-background shadow-sm hover:bg-background/80"
                   onClick={onReload}
                   aria-label="Reload preview"
                   title="Reload preview"
@@ -103,7 +157,7 @@ export default function BlockTabs({
           value="preview"
           className="mt-0 flex min-w-0 flex-col outline-none data-[state=inactive]:hidden"
         >
-          <BlockIframe slug={slug} title={title} reloadKey={reloadKey} />
+          <BlockIframe slug={slug} title={title} reloadKey={reloadKey} width={previewWidth} />
         </TabsContent>
         <TabsContent
           value="code"

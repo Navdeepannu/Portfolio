@@ -1,7 +1,8 @@
 'use client'
 
-import { ChevronRight, FileCode2, Folder, FolderOpen } from 'lucide-react'
 import { useMemo, useState } from 'react'
+import { FaReact } from 'react-icons/fa'
+import { LuChevronRight, LuFolder, LuFolderOpen } from 'react-icons/lu'
 
 import type { BundledLanguage } from '@/features/navui/code/code-block'
 import {
@@ -56,12 +57,12 @@ function FileTree({
             <li key={node.path}>
               <button
                 type="button"
-                className="flex h-8 w-full items-center gap-1.5 rounded-md pr-2 text-left text-xs text-muted-foreground transition-colors outline-none hover:bg-muted hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/60 motion-reduce:transition-none"
+                className="flex h-8 w-full items-center gap-1.5 rounded-lg pr-2 text-left text-xs text-muted-foreground transition-colors outline-none hover:bg-background/70 hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/60 motion-reduce:transition-none"
                 style={{ paddingInlineStart }}
                 aria-expanded={isExpanded}
                 onClick={() => onToggleDirectory(node.path)}
               >
-                <ChevronRight
+                <LuChevronRight
                   className={cn(
                     'size-3.5 shrink-0 transition-transform motion-reduce:transition-none',
                     isExpanded && 'rotate-90',
@@ -69,9 +70,15 @@ function FileTree({
                   aria-hidden="true"
                 />
                 {isExpanded ? (
-                  <FolderOpen className="size-3.5 shrink-0" aria-hidden="true" />
+                  <LuFolderOpen
+                    className="size-3.5 shrink-0 text-muted-foreground/80"
+                    aria-hidden="true"
+                  />
                 ) : (
-                  <Folder className="size-3.5 shrink-0" aria-hidden="true" />
+                  <LuFolder
+                    className="size-3.5 shrink-0 text-muted-foreground/80"
+                    aria-hidden="true"
+                  />
                 )}
                 <span className="truncate">{node.name}</span>
               </button>
@@ -100,31 +107,38 @@ function FileTree({
             <button
               type="button"
               className={cn(
-                'flex h-8 w-full items-center gap-1.5 rounded-md pr-2 text-left font-mono text-xs transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring/60 motion-reduce:transition-none',
+                'flex h-8 w-full items-center rounded-lg pr-2 text-left font-mono text-xs transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring/60 motion-reduce:transition-none',
                 isSelected
-                  ? 'bg-accent text-accent-foreground'
-                  : 'text-muted-foreground hover:bg-muted hover:text-foreground',
+                  ? 'text-foreground'
+                  : 'text-muted-foreground hover:bg-background/70 hover:text-foreground',
               )}
-              style={{ paddingInlineStart: paddingInlineStart + 18 }}
+              style={{ paddingInlineStart: paddingInlineStart + 10 }}
               aria-current={isSelected ? 'page' : undefined}
               title={
                 isDependency ? `${node.path} — installed through ${file.ownerTitle}` : node.path
               }
               onClick={() => onSelect(node.path)}
             >
-              <FileCode2 className="size-3.5 shrink-0" aria-hidden="true" />
-              <span className="truncate">{node.name}</span>
-              {isDependency ? (
-                <span
-                  className="ml-auto shrink-0 rounded-sm bg-muted px-1 py-0.5 font-sans text-[9px] leading-none text-muted-foreground uppercase"
-                  aria-hidden="true"
-                >
-                  dep
-                </span>
-              ) : null}
-              {isDependency ? (
-                <span className="sr-only">Registry dependency from {file.ownerTitle}</span>
-              ) : null}
+              <span
+                className={cn(
+                  'flex w-fit max-w-full min-w-0 items-center gap-1.5 rounded-lg px-2 py-1',
+                  isSelected && 'bg-background shadow-sm',
+                )}
+              >
+                <FaReact className="size-3.5 shrink-0 text-sky-500/80!" aria-hidden="true" />
+                <span className="min-w-0 truncate">{node.name}</span>
+                {isDependency ? (
+                  <span
+                    className="shrink-0 rounded-sm bg-foreground/5 px-1 py-0.5 font-sans text-[9px] leading-none text-muted-foreground uppercase"
+                    aria-hidden="true"
+                  >
+                    dep
+                  </span>
+                ) : null}
+                {isDependency ? (
+                  <span className="sr-only">Registry dependency from {file.ownerTitle}</span>
+                ) : null}
+              </span>
             </button>
           </li>
         )
@@ -190,11 +204,17 @@ export default function BlockSourceExplorer({ files }: { files: LoadedRegistrySo
         )}
       >
         {hasFileTree ? (
-          <aside className="hidden min-h-0 min-w-0 flex-col border-r border-border/70 md:flex">
-            <div className="flex h-11 shrink-0 items-center border-b border-border/70 px-3 text-[11px] font-medium tracking-[0.12em] text-muted-foreground uppercase">
+          <aside className="hidden min-h-0 min-w-0 flex-col border-r border-border/60 bg-muted/35 md:flex">
+            <div className="flex h-11 shrink-0 items-center px-3 text-[11px] font-medium tracking-[0.12em] text-muted-foreground uppercase">
               Files
+              <span className="ml-auto rounded-full bg-background/80 px-1.5 py-0.5 font-mono text-[9px] leading-none tracking-normal text-muted-foreground shadow-sm">
+                {data.length}
+              </span>
             </div>
-            <nav aria-label="Source files" className="min-h-0 flex-1 overflow-y-auto p-2">
+            <nav
+              aria-label="Source files"
+              className="min-h-0 flex-1 overflow-y-auto border-t border-border/50 p-2.5"
+            >
               <FileTree
                 nodes={tree}
                 selectedPath={selectedPath}
@@ -210,7 +230,7 @@ export default function BlockSourceExplorer({ files }: { files: LoadedRegistrySo
         <section aria-label="Selected source file" className="flex min-h-0 min-w-0 flex-col">
           <CodeBlockHeader className="min-h-11 shrink-0 border-b border-border/70 bg-background px-2 py-1.5">
             <div className="flex min-w-0 flex-1 items-center gap-2">
-              <FileCode2 className="size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
+              <FaReact className="size-4 shrink-0 text-sky-500/80!" aria-hidden="true" />
 
               {hasFileTree ? (
                 <>
@@ -252,6 +272,10 @@ export default function BlockSourceExplorer({ files }: { files: LoadedRegistrySo
                               title={label}
                             >
                               <span className="flex w-full min-w-0 items-center gap-2 p-1.5">
+                                <FaReact
+                                  className="size-3.5 shrink-0 text-sky-500/80!"
+                                  aria-hidden="true"
+                                />
                                 <span className="min-w-0 flex-1 truncate">{filename}</span>
                                 {isDependency ? (
                                   <span
