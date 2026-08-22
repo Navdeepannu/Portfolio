@@ -9,14 +9,15 @@ import { validatePublicArtifacts, validateRegistryDefinitions } from '@/registry
 import {
   GENERATED_BLOCK_PREVIEWS_PATH,
   GENERATED_COMPONENT_PREVIEWS_PATH,
+  GENERATED_DEFAULT_DESIGN_SYSTEM_CSS_PATH,
   GENERATED_ILLUSTRATION_PREVIEWS_PATH,
   PUBLIC_REGISTRY_DIR,
   ROOT_REGISTRY_PATH,
   renderBlockPreviewModule,
   renderComponentPreviewModule,
+  renderDefaultDesignSystemCss,
   renderIllustrationPreviewModule,
   renderRootRegistry,
-  isCatalogItem,
 } from './core'
 
 const ROOT = process.cwd()
@@ -40,6 +41,7 @@ async function main() {
   const expectedGenerated = new Map<string, string>([
     [ROOT_REGISTRY_PATH, renderRootRegistry(registryItems)],
     [GENERATED_BLOCK_PREVIEWS_PATH, renderBlockPreviewModule(registryItems)],
+    [GENERATED_DEFAULT_DESIGN_SYSTEM_CSS_PATH, renderDefaultDesignSystemCss(registryItems)],
     [
       GENERATED_COMPONENT_PREVIEWS_PATH,
       renderComponentPreviewModule(registryItems, componentItemEntries),
@@ -120,7 +122,7 @@ async function main() {
   )
 
   const expectedCatalogNames = registryItems
-    .filter(isCatalogItem)
+    .filter((item) => item.status === 'published')
     .map((item) => item.slug)
     .sort((a, b) => a.localeCompare(b))
   if (JSON.stringify(publicCatalogNames) !== JSON.stringify(expectedCatalogNames)) {

@@ -9,7 +9,8 @@ scanning and category-level registry JSON files are not used.
 1. Create an item directory in the matching boundary:
    - block: `src/registry/blocks/<category>/<slug>/`;
    - component: `src/registry/components/<slug>/`;
-   - illustration: `src/registry/illustrations/<slug>/`.
+   - illustration: `src/registry/illustrations/<slug>/`;
+   - design system: `src/registry/design-systems/`.
 2. Keep the implementation, `*.item.ts`, `*.demo.tsx`, and item-specific tests together. An
    implementation must never import its demo.
 3. Export the definition from the matching explicit aggregator in `src/registry/items`.
@@ -42,14 +43,15 @@ bun run registry:validate
 bun run registry:check
 ```
 
-`registry:generate` writes `registry.json`, the static maps in `src/registry/generated`, and the
-shadcn JSON under `public/r`. It then rewrites local NavUI registry dependencies to public URLs and
-validates source, preview, code-tab, and installed content consistency.
+`registry:generate` writes `registry.json`, the static maps and design-system CSS in
+`src/registry/generated`, and the shadcn JSON under `public/r`. It then rewrites local NavUI
+registry dependencies to public URLs and validates source, preview, code-tab, and installed content
+consistency. See [the design-system contract](./navui-design-system.md) for the token boundary.
 
 Never edit these generated files manually:
 
 - `registry.json`;
-- `src/registry/generated/*.generated.tsx`;
+- `src/registry/generated/*.generated.*`;
 - `public/r/*.json`.
 
 ## Block source explorer

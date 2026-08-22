@@ -2,6 +2,7 @@ import assert from 'node:assert/strict'
 import { describe, test } from 'node:test'
 
 import { blockItems } from '@/registry/items/blocks'
+import { navuiDefaultDesignSystem } from '@/registry/design-systems/navui-default.item'
 import { registryItems } from '@/registry/items'
 import {
   loadRegistryCodeFiles,
@@ -12,6 +13,7 @@ import { validatePublicArtifacts, validateRegistryDefinitions } from '@/registry
 import {
   createRootRegistry,
   expectedPublicOutputNames,
+  renderDefaultDesignSystemCss,
   renderRootRegistry,
   toShadcnRegistryItem,
 } from '../../scripts/registry/core'
@@ -128,6 +130,31 @@ describe('canonical registry validation', () => {
       'components/multi-file-support.tsx',
       'components/multi-file.tsx',
     ])
+  })
+
+  test('generates the installable default design-system contract', () => {
+    const generated = toShadcnRegistryItem(navuiDefaultDesignSystem)
+
+    expect(generated.type).toBe('registry:style')
+    expect(generated.cssVars).toEqual(navuiDefaultDesignSystem.registry.cssVars)
+    assert.match(
+      renderDefaultDesignSystemCss([navuiDefaultDesignSystem]),
+      /--navui-container: 72rem/,
+    )
+  })
+
+  test('rejects multiple published default design systems', async () => {
+    const secondDefault = {
+      ...navuiDefaultDesignSystem,
+      slug: 'navui-default-two',
+      registry: {
+        ...navuiDefaultDesignSystem.registry,
+        name: 'navui-default-two',
+      },
+    }
+
+    const errors = await validateRegistryDefinitions([navuiDefaultDesignSystem, secondDefault])
+    expect(errors.some((error) => error.includes('Multiple published defaults'))).toBe(true)
   })
 
   test('drives the block source explorer from direct files and resolved local dependencies', async () => {

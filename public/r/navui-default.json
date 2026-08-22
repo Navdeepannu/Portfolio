@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "navui-default",
+  "title": "NavUI Default",
+  "description": "The optional default NavUI visual foundations for consistent block typography and layout.",
+  "files": [],
+  "cssVars": {
+    "light": {
+      "navui-container": "72rem",
+      "navui-content": "48rem",
+      "navui-content-narrow": "36rem",
+      "navui-font-display": "var(--font-sans)",
+      "navui-gutter": "1.5rem",
+      "navui-section-space": "5rem",
+      "navui-section-space-lg": "7rem"
+    }
+  },
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "design-system",
+      "category": "design-system"
+    }
+  },
+  "type": "registry:style"
+}
