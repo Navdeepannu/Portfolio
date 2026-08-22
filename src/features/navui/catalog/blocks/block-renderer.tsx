@@ -1,8 +1,9 @@
 import type { BlockDefinition } from '@/registry/types'
 import { getBlockComponent } from '@/features/navui/catalog/blocks/block-entries'
-import { loadBlockCodeFiles } from '@/features/navui/code/source-loader'
-import BlockCode from '@/features/navui/code/block-code'
+import { loadRegistryCodeFiles } from '@/features/navui/code/source-loader'
+import BlockSourceExplorer from '@/features/navui/code/block-source-explorer'
 import BlockTabs from '@/features/navui/catalog/blocks/block-tabs'
+import { registryItems } from '@/registry/items'
 
 export default async function BlockRenderer({ block }: { block: BlockDefinition }) {
   if (!getBlockComponent(block.slug)) {
@@ -14,11 +15,15 @@ export default async function BlockRenderer({ block }: { block: BlockDefinition 
     )
   }
 
-  const files = await loadBlockCodeFiles(block)
+  const files = await loadRegistryCodeFiles(block, registryItems)
 
   return (
     <article className="flex scroll-mt-24 flex-col gap-4" id={block.slug}>
-      <BlockTabs slug={block.slug} title={block.title} code={<BlockCode files={files} />} />
+      <BlockTabs
+        slug={block.slug}
+        title={block.title}
+        code={<BlockSourceExplorer files={files} />}
+      />
     </article>
   )
 }

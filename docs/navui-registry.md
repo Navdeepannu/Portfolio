@@ -52,6 +52,25 @@ Never edit these generated files manually:
 - `src/registry/generated/*.generated.tsx`;
 - `public/r/*.json`.
 
+## Block source explorer
+
+The block Code tab loads `item.registry.files` on the server. Each entry's repository `path` is
+used only to read the real source, while its portable shadcn `target` produces the consumer-facing
+file tree and selected path. The browser receives source for the current catalog block plus the
+small amount of state needed to select files; it does not receive a second website-authored file
+manifest.
+
+The explorer recursively includes NavUI-owned dependencies such as
+`@navdeep-singh/header-three`, while preserving their owning item and labeling their files as
+dependencies rather than direct block files. Generic shadcn dependencies such as `button`,
+`label`, and `navigation-menu` remain installer-managed and are not presented as NavUI-owned
+source.
+
+Source imports stay canonical. During installation, shadcn rewrites imports between registry items
+to the consumer's `components.json` aliases. Manual copying therefore works with the conventional
+`@/components` layout when every displayed NavUI file is copied to its shown path; consumers with
+custom aliases should use the install command so shadcn can perform the alias rewrite.
+
 Compatibility-only items, including `content-section-six` → `blog-section-one`, are explicitly
 aggregated by `src/registry/items/support.ts`. Retired names live in
 `src/registry/items/retired.ts` and must not reappear in `public/r`.

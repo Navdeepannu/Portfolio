@@ -452,23 +452,55 @@ export const CodeBlockCopyButton = ({
     data.find((item) => item.filename === value)?.code ??
     data.find((item) => item.language === value)?.code
 
-  const copyToClipboard = () => {
-    if (typeof window === 'undefined' || !navigator.clipboard.writeText || !code) {
+  const copyWithDocument = (content: string) => {
+    const textarea = document.createElement('textarea')
+
+    textarea.value = content
+    textarea.readOnly = true
+    textarea.style.position = 'fixed'
+    textarea.style.opacity = '0'
+    document.body.append(textarea)
+
+    try {
+      textarea.select()
+
+      if (!document.execCommand('copy')) {
+        throw new Error('The browser did not copy the selected source file.')
+      }
+    } finally {
+      textarea.remove()
+    }
+  }
+
+  const copyToClipboard = async () => {
+    if (typeof window === 'undefined' || !code) {
       return
     }
 
-    navigator.clipboard.writeText(code).then(() => {
+    try {
+      if (navigator.clipboard?.writeText) {
+        try {
+          await navigator.clipboard.writeText(code)
+        } catch {
+          copyWithDocument(code)
+        }
+      } else {
+        copyWithDocument(code)
+      }
+
       setIsCopied(true)
       onCopy?.()
 
       setTimeout(() => setIsCopied(false), timeout)
-    }, onError)
+    } catch (error) {
+      onError?.(error instanceof Error ? error : new Error('Unable to copy source code.'))
+    }
   }
 
   if (asChild) {
     return cloneElement(children as ReactElement, {
       // @ts-expect-error - we know this is a button
-      onClick: copyToClipboard,
+      onClick: () => void copyToClipboard(),
     })
   }
 
@@ -477,7 +509,7 @@ export const CodeBlockCopyButton = ({
   return (
     <Button
       className={cn('shrink-0', className)}
-      onClick={copyToClipboard}
+      onClick={() => void copyToClipboard()}
       size="icon"
       variant="ghost"
       {...props}

@@ -2,6 +2,11 @@ import assert from 'node:assert/strict'
 import { describe, test } from 'node:test'
 
 import { blockItems } from '@/registry/items/blocks'
+import { registryItems } from '@/registry/items'
+import {
+  loadRegistryCodeFiles,
+  resolveLocalRegistryDependencyItems,
+} from '@/features/navui/code/source-loader'
 import type { NavUIRegistryItem, RegistryItemStatus } from '@/registry/types'
 import { validatePublicArtifacts, validateRegistryDefinitions } from '@/registry/validation'
 import {
@@ -123,6 +128,63 @@ describe('canonical registry validation', () => {
       'components/multi-file-support.tsx',
       'components/multi-file.tsx',
     ])
+  })
+
+  test('drives the block source explorer from direct files and resolved local dependencies', async () => {
+    const multiFile = blockItems.find((item) => item.slug === 'hero-section-four')
+    const singleFile = blockItems.find((item) => item.slug === 'hero-section-three')
+
+    assert.ok(multiFile)
+    assert.ok(singleFile)
+
+    const multiFileSources = await loadRegistryCodeFiles(multiFile, registryItems)
+    const singleFileSources = await loadRegistryCodeFiles(singleFile, registryItems)
+    const directSources = multiFileSources.filter((file) => file.relationship === 'direct')
+    const dependencySources = multiFileSources.filter(
+      (file) => file.relationship === 'registry-dependency',
+    )
+
+    assert.deepEqual(
+      directSources.map((file) => file.target),
+      multiFile.registry.files.map((file) => file.target),
+    )
+    assert.deepEqual(
+      directSources.map((file) => file.displayPath),
+      [
+        'components/blocks/hero-section/hero-section-four.tsx',
+        'components/blocks/hero-section/hero-section-four-illustration.tsx',
+      ],
+    )
+    assert.deepEqual(
+      dependencySources.map((file) => [file.ownerSlug, file.displayPath]),
+      [
+        ['header-three', 'components/blocks/header/header-three.tsx'],
+        ['logo-cloud-five', 'components/blocks/logo-cloud/logo-cloud-five.tsx'],
+      ],
+    )
+
+    const mainSource = directSources.find((file) => file.ownerSlug === 'hero-section-four')
+    assert.ok(mainSource)
+    assert.match(mainSource.code, /from '@\/components\/blocks\/header\/header-three'/)
+    assert.match(mainSource.code, /from '@\/components\/blocks\/logo-cloud\/logo-cloud-five'/)
+
+    assert.equal(singleFileSources.length, 1)
+    assert.equal(singleFileSources[0]?.target, singleFile.registry.files[0]?.target)
+  })
+
+  test('recursively resolves local registry dependencies without duplicating owners', () => {
+    const leaf = fixtureItem('leaf')
+    const child = fixtureItem('child', {
+      registryDependencies: ['@navdeep-singh/leaf'],
+    })
+    const parent = fixtureItem('parent', {
+      registryDependencies: ['@navdeep-singh/child', '@navdeep-singh/leaf'],
+    })
+
+    assert.deepEqual(
+      resolveLocalRegistryDependencyItems(parent, [parent, child, leaf]).map((item) => item.slug),
+      ['child', 'leaf'],
+    )
   })
 
   test('resolves local registry dependencies and reports missing ones', async () => {
