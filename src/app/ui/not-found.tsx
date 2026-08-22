@@ -15,7 +15,7 @@ export default function NotFound() {
           <h1 className="mt-6 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
             UI page not found
           </h1>
-          <p className="mt-3 text-sm leading-6 text-muted-foreground sm:text-base">
+          <p className="mt-3 text-sm leading-6 text-balance text-muted-foreground sm:text-base">
             This component, block, illustration, or template may have moved.
           </p>
           <Button asChild className="mt-8">
