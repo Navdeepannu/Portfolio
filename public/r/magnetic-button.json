@@ -11,11 +11,18 @@
   ],
   "files": [
     {
-      "path": "components/ui/components/magnetic-button.tsx",
+      "path": "src/registry/components/magnetic-button/magnetic-button.tsx",
       "content": "'use client'\n\nimport * as React from 'react'\nimport {\n  motion,\n  useMotionValue,\n  useReducedMotion,\n  useSpring,\n  type SpringOptions,\n} from 'motion/react'\n\nimport { Button } from '@/components/ui/button'\nimport { cn } from '@/lib/utils'\n\ntype MagneticButtonProps = React.ComponentProps<typeof Button> & {\n  movement?: number\n  wrapperClassName?: string\n  springOptions?: SpringOptions\n}\n\nconst defaultSpringOptions: SpringOptions = {\n  stiffness: 180,\n  damping: 10,\n  mass: 0.5,\n}\n\nfunction MagneticButton({\n  children,\n  className,\n  wrapperClassName,\n  movement = 6,\n  springOptions = defaultSpringOptions,\n  disabled,\n  onPointerMove,\n  onPointerLeave,\n  onPointerCancel,\n  ...props\n}: MagneticButtonProps) {\n  const prefersReducedMotion = useReducedMotion()\n  const x = useMotionValue(0)\n  const y = useMotionValue(0)\n  const springX = useSpring(x, springOptions)\n  const springY = useSpring(y, springOptions)\n\n  function resetPosition() {\n    x.set(0)\n    y.set(0)\n  }\n\n  function handlePointerMove(event: React.PointerEvent<HTMLButtonElement>) {\n    onPointerMove?.(event)\n\n    if (\n      event.defaultPrevented ||\n      disabled ||\n      prefersReducedMotion ||\n      event.pointerType !== 'mouse'\n    ) {\n      return\n    }\n\n    const rect = event.currentTarget.getBoundingClientRect()\n    const centerX = rect.width / 2\n    const centerY = rect.height / 2\n    const pointerX = event.clientX - rect.left\n    const pointerY = event.clientY - rect.top\n\n    x.set(((pointerX - centerX) / centerX) * movement)\n    y.set(((pointerY - centerY) / centerY) * movement)\n  }\n\n  function handlePointerLeave(event: React.PointerEvent<HTMLButtonElement>) {\n    onPointerLeave?.(event)\n\n    if (!event.defaultPrevented) resetPosition()\n  }\n\n  function handlePointerCancel(event: React.PointerEvent<HTMLButtonElement>) {\n    onPointerCancel?.(event)\n\n    if (!event.defaultPrevented) resetPosition()\n  }\n\n  return (\n    <motion.span\n      data-slot=\"magnetic-button-wrapper\"\n      style={{ x: springX, y: springY }}\n      whileTap={disabled || prefersReducedMotion ? undefined : { scale: 0.98 }}\n      className={cn(\n        'inline-flex will-change-transform motion-reduce:transform-none',\n        wrapperClassName,\n      )}\n    >\n      <Button\n        data-slot=\"magnetic-button\"\n        disabled={disabled}\n        onPointerMove={handlePointerMove}\n        onPointerLeave={handlePointerLeave}\n        onPointerCancel={handlePointerCancel}\n        className={cn(\n          'relative isolate overflow-hidden transition-shadow duration-300 ease-out hover:shadow-md motion-reduce:transition-none',\n          className,\n        )}\n        {...props}\n      >\n        {children}\n      </Button>\n    </motion.span>\n  )\n}\n\nexport { MagneticButton, type MagneticButtonProps }\n",
       "type": "registry:ui",
       "target": "@components/magnetic-button.tsx"
     }
   ],
+  "meta": {
+    "navui": {
+      "status": "published",
+      "kind": "component",
+      "category": "buttons"
+    }
+  },
   "type": "registry:ui"
 }

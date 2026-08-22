@@ -5,728 +5,116 @@
   "items": [
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "brand-logo",
-      "title": "Brand Logo",
-      "description": "Shared brand mark used across auth and marketing blocks.",
+      "name": "animated-numbers",
+      "type": "registry:ui",
+      "title": "Animated Numbers",
+      "description": "Accessible in-view number counter with locale-aware formatting and reduced-motion support.",
       "dependencies": [
-        "lucide-react"
+        "motion"
       ],
       "files": [
         {
-          "path": "components/brand-logo.tsx",
-          "type": "registry:component",
-          "target": "@components/brand-logo.tsx"
+          "path": "src/registry/components/animated-numbers/animated-numbers.tsx",
+          "target": "@components/animated-numbers.tsx",
+          "type": "registry:ui"
         }
       ],
-      "type": "registry:component"
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "component",
+          "category": "interactive"
+        }
+      }
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "forgot-password-one",
-      "title": "Forgot Password One",
-      "description": "Forgot Password One — Forgot Password block.",
+      "name": "animated-tabs",
+      "type": "registry:ui",
+      "title": "Animated Tabs",
+      "description": "A tab component with a moving active pill and directional content transitions.",
       "dependencies": [
-        "@tabler/icons-react"
+        "@radix-ui/react-use-controllable-state",
+        "motion"
       ],
       "registryDependencies": [
-        "button",
-        "input",
-        "label"
+        "tabs"
       ],
       "files": [
         {
-          "path": "components/blocks/auth/forgot-password-one.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/auth/forgot-password-one.tsx"
+          "path": "src/registry/components/animated-tabs/animated-tabs.tsx",
+          "target": "@components/animated-tabs.tsx",
+          "type": "registry:ui"
         }
       ],
-      "categories": [
-        "forgot-password"
-      ],
-      "type": "registry:block"
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "component",
+          "category": "interactive"
+        }
+      }
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "forgot-password-three",
-      "title": "Forgot Password Three",
-      "description": "Forgot Password Three — Forgot Password block.",
-      "dependencies": [
-        "@tabler/icons-react"
-      ],
-      "registryDependencies": [
-        "button",
-        "input",
-        "label"
-      ],
-      "files": [
-        {
-          "path": "components/blocks/auth/forgot-password-three.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/auth/forgot-password-three.tsx"
-        }
-      ],
-      "categories": [
-        "forgot-password"
-      ],
-      "type": "registry:block"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "forgot-password-two",
-      "title": "Forgot Password Two",
-      "description": "Forgot Password Two — Forgot Password block.",
-      "dependencies": [
-        "@tabler/icons-react"
-      ],
-      "registryDependencies": [
-        "button",
-        "input",
-        "label"
-      ],
-      "files": [
-        {
-          "path": "components/blocks/auth/forgot-password-two.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/auth/forgot-password-two.tsx"
-        }
-      ],
-      "categories": [
-        "forgot-password"
-      ],
-      "type": "registry:block"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "sign-up-one",
-      "title": "Sign Up One",
-      "description": "Sign Up One — Sign Up block.",
-      "dependencies": [
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "button",
-        "input",
-        "label",
-        "https://ui.navdeepsingh.dev/r/brand-logo.json"
-      ],
-      "files": [
-        {
-          "path": "components/blocks/auth/sign-up-one.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/auth/sign-up-one.tsx"
-        }
-      ],
-      "categories": [
-        "sign-up"
-      ],
-      "type": "registry:block"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "sign-up-two",
-      "title": "Sign Up Two",
-      "description": "Sign Up Two — Sign Up block.",
-      "dependencies": [
-        "lucide-react",
-        "react-icons",
-        "shaders"
-      ],
-      "registryDependencies": [
-        "button",
-        "input",
-        "label",
-        "https://ui.navdeepsingh.dev/r/brand-logo.json"
-      ],
-      "files": [
-        {
-          "path": "components/blocks/auth/sign-up-two.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/auth/sign-up-two.tsx"
-        }
-      ],
-      "categories": [
-        "sign-up"
-      ],
-      "type": "registry:block"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "footer-section-one",
-      "title": "Footer Section One",
-      "description": "Footer Section One — Footer block.",
-      "dependencies": [
-        "@tabler/icons-react"
-      ],
-      "registryDependencies": [
-        "button"
-      ],
-      "files": [
-        {
-          "path": "components/blocks/footer/footer-section-one.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/footer/footer-section-one.tsx"
-        }
-      ],
-      "categories": [
-        "footer"
-      ],
-      "type": "registry:block"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "footer-section-two",
-      "title": "Footer Section Two",
-      "description": "Footer Section Two — Footer block.",
-      "dependencies": [
-        "@tabler/icons-react"
-      ],
-      "files": [
-        {
-          "path": "components/blocks/footer/footer-section-two.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/footer/footer-section-two.tsx"
-        }
-      ],
-      "categories": [
-        "footer"
-      ],
-      "type": "registry:block"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "header-one",
-      "title": "Header One",
-      "description": "Header One — Header block.",
+      "name": "approval-panel",
+      "type": "registry:component",
+      "title": "Approval Panel Illustration",
+      "description": "An approval routing panel illustration.",
       "dependencies": [
         "lucide-react",
         "motion"
       ],
-      "registryDependencies": [
-        "button"
-      ],
       "files": [
         {
-          "path": "components/blocks/header/header-one.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/header/header-one.tsx"
-        }
-      ],
-      "categories": [
-        "header"
-      ],
-      "type": "registry:block"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "header-two",
-      "title": "Header Two",
-      "description": "Header Two — Header block.",
-      "dependencies": [
-        "lucide-react",
-        "motion"
-      ],
-      "registryDependencies": [
-        "button"
-      ],
-      "files": [
-        {
-          "path": "components/blocks/header/header-two.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/header/header-two.tsx"
-        }
-      ],
-      "categories": [
-        "header"
-      ],
-      "type": "registry:block"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "header-three",
-      "title": "Header Three",
-      "description": "Header Three — Header block.",
-      "dependencies": [
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "button",
-        "navigation-menu"
-      ],
-      "files": [
-        {
-          "path": "components/blocks/header/header-three.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/header/header-three.tsx"
-        }
-      ],
-      "categories": [
-        "header"
-      ],
-      "type": "registry:block"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "header-four",
-      "title": "Header Four",
-      "description": "Header Four — Responsive header with animated navigation menus.",
-      "dependencies": [
-        "lucide-react",
-        "motion"
-      ],
-      "registryDependencies": [
-        "button",
-        "navigation-menu"
-      ],
-      "files": [
-        {
-          "path": "components/blocks/header/header-four.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/header/header-four.tsx"
-        }
-      ],
-      "categories": [
-        "header"
-      ],
-      "type": "registry:block"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "hero-section-four",
-      "title": "Hero Section Four",
-      "description": "Hero Section Four — Hero Section block.",
-      "dependencies": [
-        "lucide-react",
-        "motion"
-      ],
-      "registryDependencies": [
-        "button",
-        "label",
-        "https://ui.navdeepsingh.dev/r/header-three.json",
-        "https://ui.navdeepsingh.dev/r/logo-cloud-five.json"
-      ],
-      "files": [
-        {
-          "path": "components/blocks/hero-section/hero-section-four.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/hero-section/hero-section-four.tsx"
+          "path": "src/registry/illustrations/expense-workflow/expense-workflow-parts.tsx",
+          "target": "@components/illustrations/_expense-workflow-parts.tsx",
+          "type": "registry:component"
         },
         {
-          "path": "components/blocks/hero-section/hero-section-four-illustration.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/hero-section/hero-section-four-illustration.tsx"
+          "path": "src/registry/illustrations/approval-panel/approval-panel.tsx",
+          "target": "@components/illustrations/approval-panel.tsx",
+          "type": "registry:component"
         }
       ],
-      "categories": [
-        "hero"
-      ],
-      "type": "registry:block"
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "illustration",
+          "category": "illustrations"
+        }
+      }
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "hero-section-one",
-      "title": "Hero Section One",
-      "description": "Hero Section One — Hero Section block.",
-      "dependencies": [
-        "@tabler/icons-react",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "badge",
-        "button",
-        "https://ui.navdeepsingh.dev/r/header-one.json"
-      ],
-      "files": [
-        {
-          "path": "components/blocks/hero-section/hero-section-one.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/hero-section/hero-section-one.tsx"
-        }
-      ],
-      "categories": [
-        "hero"
-      ],
-      "type": "registry:block"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "hero-section-three",
-      "title": "Hero Section Three",
-      "description": "Hero Section Three — Hero Section block.",
-      "dependencies": [
-        "@tabler/icons-react",
-        "shaders"
-      ],
-      "registryDependencies": [
-        "button"
-      ],
-      "files": [
-        {
-          "path": "components/blocks/hero-section/hero-section-three.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/hero-section/hero-section-three.tsx"
-        }
-      ],
-      "categories": [
-        "hero"
-      ],
-      "type": "registry:block"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "hero-section-two",
-      "title": "Hero Section Two",
-      "description": "Hero Section Two — Hero Section block.",
-      "dependencies": [
-        "motion"
-      ],
-      "registryDependencies": [
-        "https://ui.navdeepsingh.dev/r/header-two.json",
-        "https://ui.navdeepsingh.dev/r/animated-group.json",
-        "https://ui.navdeepsingh.dev/r/text-effect.json"
-      ],
-      "files": [
-        {
-          "path": "components/blocks/hero-section/hero-section-two.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/hero-section/hero-section-two.tsx"
-        }
-      ],
-      "categories": [
-        "hero"
-      ],
-      "type": "registry:block"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "logo-cloud-one",
-      "title": "Logo Cloud One",
-      "description": "Logo Cloud One — Logo Cloud block.",
-      "files": [
-        {
-          "path": "components/blocks/logo-cloud/logo-cloud-one.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/logo-cloud/logo-cloud-one.tsx"
-        }
-      ],
-      "categories": [
-        "logo-cloud"
-      ],
-      "type": "registry:block"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "logo-cloud-three",
-      "title": "Logo Cloud Three",
-      "description": "Logo Cloud Three — Logo Cloud block.",
-      "files": [
-        {
-          "path": "components/blocks/logo-cloud/logo-cloud-three.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/logo-cloud/logo-cloud-three.tsx"
-        }
-      ],
-      "categories": [
-        "logo-cloud"
-      ],
-      "type": "registry:block"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "logo-cloud-two",
-      "title": "Logo Cloud Two",
-      "description": "Logo Cloud Two — Logo Cloud block.",
-      "dependencies": [
-        "@tabler/icons-react"
-      ],
-      "files": [
-        {
-          "path": "components/blocks/logo-cloud/logo-cloud-two.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/logo-cloud/logo-cloud-two.tsx"
-        }
-      ],
-      "categories": [
-        "logo-cloud"
-      ],
-      "type": "registry:block"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "logo-cloud-four",
-      "title": "Logo Cloud Four",
-      "description": "Logo Cloud Four — Logo Cloud block.",
-      "dependencies": [
-        "motion"
-      ],
-      "files": [
-        {
-          "path": "components/blocks/logo-cloud/logo-cloud-four.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/logo-cloud/logo-cloud-four.tsx"
-        }
-      ],
-      "categories": [
-        "logo-cloud"
-      ],
-      "type": "registry:block"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "logo-cloud-five",
-      "title": "Logo Cloud Five",
-      "description": "Logo Cloud Five — Logo Cloud block.",
-      "dependencies": [
-        "motion"
-      ],
-      "files": [
-        {
-          "path": "components/blocks/logo-cloud/logo-cloud-five.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/logo-cloud/logo-cloud-five.tsx"
-        }
-      ],
-      "categories": [
-        "logo-cloud"
-      ],
-      "type": "registry:block"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "teams-section-five",
-      "title": "Teams Section Five",
-      "description": "Teams Section Five — Teams block.",
-      "registryDependencies": [
-        "badge"
-      ],
-      "files": [
-        {
-          "path": "components/blocks/teams/teams-section-five.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/teams/teams-section-five.tsx"
-        }
-      ],
-      "categories": [
-        "teams"
-      ],
-      "type": "registry:block"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "teams-section-four",
-      "title": "Teams Section Four",
-      "description": "Teams Section Four — Teams block.",
-      "registryDependencies": [
-        "badge"
-      ],
-      "files": [
-        {
-          "path": "components/blocks/teams/teams-section-four.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/teams/teams-section-four.tsx"
-        }
-      ],
-      "categories": [
-        "teams"
-      ],
-      "type": "registry:block"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "teams-section-one",
-      "title": "Teams Section One",
-      "description": "Teams Section One — Teams block.",
-      "dependencies": [
-        "@tabler/icons-react"
-      ],
-      "files": [
-        {
-          "path": "components/blocks/teams/teams-section-one.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/teams/teams-section-one.tsx"
-        }
-      ],
-      "categories": [
-        "teams"
-      ],
-      "type": "registry:block"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "teams-section-three",
-      "title": "Teams Section Three",
-      "description": "Teams Section Three — Teams block.",
-      "files": [
-        {
-          "path": "components/blocks/teams/teams-section-three.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/teams/teams-section-three.tsx"
-        }
-      ],
-      "categories": [
-        "teams"
-      ],
-      "type": "registry:block"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "teams-section-two",
-      "title": "Teams Section Two",
-      "description": "Teams Section Two — Teams block.",
-      "files": [
-        {
-          "path": "components/blocks/teams/teams-section-two.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/teams/teams-section-two.tsx"
-        }
-      ],
-      "categories": [
-        "teams"
-      ],
-      "type": "registry:block"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "testamonial-section-one",
-      "title": "Testamonial Section One",
-      "description": "Testamonial Section One — Testamonials block.",
-      "dependencies": [
-        "@tabler/icons-react"
-      ],
-      "registryDependencies": [
-        "badge",
-        "button"
-      ],
-      "files": [
-        {
-          "path": "components/blocks/testamonials/testamonial-section-one.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/testamonials/testamonial-section-one.tsx"
-        }
-      ],
-      "categories": [
-        "testimonials"
-      ],
-      "type": "registry:block"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "faq-section-one",
-      "title": "FAQ Section One",
-      "description": "FAQ Section One — FAQs block.",
-      "registryDependencies": [
-        "accordion"
-      ],
-      "files": [
-        {
-          "path": "components/blocks/faqs/faq-section-one.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/faqs/faq-section-one.tsx"
-        }
-      ],
-      "categories": [
-        "faqs"
-      ],
-      "type": "registry:block"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "faqs-section-two",
-      "title": "FAQs Section Two",
-      "description": "FAQs Section Two — FAQs block.",
-      "registryDependencies": [
-        "accordion"
-      ],
-      "files": [
-        {
-          "path": "components/blocks/faqs/faqs-section-two.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/faqs/faqs-section-two.tsx"
-        }
-      ],
-      "categories": [
-        "faqs"
-      ],
-      "type": "registry:block"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "faq-section-three",
-      "title": "FAQ Section Three",
-      "description": "FAQ Section Three — FAQs block.",
-      "registryDependencies": [
-        "accordion"
-      ],
-      "files": [
-        {
-          "path": "components/blocks/faqs/faq-section-three.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/faqs/faq-section-three.tsx"
-        }
-      ],
-      "categories": [
-        "faqs"
-      ],
-      "type": "registry:block"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "contact-section-one",
-      "title": "Contact Section One",
-      "description": "Contact Section One — Contact block.",
+      "name": "blog-section-one",
+      "type": "registry:block",
+      "title": "Blog Section One",
+      "description": "A semantic blog archive grouped by year, with aligned dates, useful metadata, and accessible row links.",
       "dependencies": [
         "lucide-react"
       ],
       "files": [
         {
-          "path": "components/blocks/contact/contact-section-one.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/contact/contact-section-one.tsx"
+          "path": "src/registry/blocks/blog/blog-section-one/blog-section-one.tsx",
+          "target": "@components/blocks/blog/blog-section-one.tsx",
+          "type": "registry:component"
         }
       ],
-      "categories": [
-        "contact"
-      ],
-      "type": "registry:block"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "contact-section-two",
-      "title": "Contact Section Two",
-      "description": "Contact Section Two — Contact block.",
-      "files": [
-        {
-          "path": "components/blocks/contact/contact-section-two.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/contact/contact-section-two.tsx"
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "blog"
         }
-      ],
-      "categories": [
-        "contact"
-      ],
-      "type": "registry:block"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "contact-section-three",
-      "title": "Contact Section Three",
-      "description": "Contact Section Three — Contact block.",
-      "files": [
-        {
-          "path": "components/blocks/contact/contact-section-three.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/contact/contact-section-three.tsx"
-        }
-      ],
-      "categories": [
-        "contact"
-      ],
-      "type": "registry:block"
+      }
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "contact-section-four",
+      "type": "registry:block",
       "title": "Contact Section Four",
-      "description": "Contact Section Four — Contact block.",
+      "description": "A focused project-inquiry form with contact details and a large editorial heading.",
       "registryDependencies": [
         "button",
         "input",
@@ -735,64 +123,146 @@
       ],
       "files": [
         {
-          "path": "components/blocks/contact/contact-section-four.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/contact/contact-section-four.tsx"
+          "path": "src/registry/blocks/contact/contact-section-four/contact-section-four.tsx",
+          "target": "@components/blocks/contact/contact-section-four.tsx",
+          "type": "registry:component"
         }
       ],
-      "categories": [
-        "contact"
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "contact"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "contact-section-one",
+      "type": "registry:block",
+      "title": "Contact Section One",
+      "description": "A contact directory that routes visitors to sales, support, community, documentation, and developer resources.",
+      "dependencies": [
+        "lucide-react"
       ],
-      "type": "registry:block"
+      "files": [
+        {
+          "path": "src/registry/blocks/contact/contact-section-one/contact-section-one.tsx",
+          "target": "@components/blocks/contact/contact-section-one.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "contact"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "contact-section-three",
+      "type": "registry:block",
+      "title": "Contact Section Three",
+      "description": "A compact project contact form paired with a concise service introduction.",
+      "files": [
+        {
+          "path": "src/registry/blocks/contact/contact-section-three/contact-section-three.tsx",
+          "target": "@components/blocks/contact/contact-section-three.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "contact"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "contact-section-two",
+      "type": "registry:block",
+      "title": "Contact Section Two",
+      "description": "A split contact section with a consultation summary and detailed project inquiry form.",
+      "files": [
+        {
+          "path": "src/registry/blocks/contact/contact-section-two/contact-section-two.tsx",
+          "target": "@components/blocks/contact/contact-section-two.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "contact"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "content-section-four",
+      "type": "registry:block",
+      "title": "Content Section Four",
+      "description": "A connected-publishing story with an animated revision metric, trend visualization, and output checklist.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.navdeepsingh.dev/r/revision-cycles-illustration.json"
+      ],
+      "files": [
+        {
+          "path": "src/registry/blocks/content/content-section-four/content-section-four.tsx",
+          "target": "@components/blocks/content/content-section-four.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "content"
+        }
+      }
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "content-section-one",
+      "type": "registry:block",
       "title": "Content Section One",
       "description": "A restrained principles section with a clear introduction and a responsive set of supporting ideas.",
       "dependencies": [
         "motion"
       ],
       "registryDependencies": [
-        "https://ui.navdeepsingh.dev/r/fast-by-default-illustration.json",
         "https://ui.navdeepsingh.dev/r/designed-for-focus-illustration.json",
+        "https://ui.navdeepsingh.dev/r/fast-by-default-illustration.json",
         "https://ui.navdeepsingh.dev/r/flexible-at-scale-illustration.json"
       ],
       "files": [
         {
-          "path": "components/blocks/content/content-section-one.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/content/content-section-one.tsx"
+          "path": "src/registry/blocks/content/content-section-one/content-section-one.tsx",
+          "target": "@components/blocks/content/content-section-one.tsx",
+          "type": "registry:component"
         }
       ],
-      "categories": [
-        "content"
-      ],
-      "type": "registry:block"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "content-section-two",
-      "title": "Content Section Two",
-      "description": "An editorial product story with balanced copy, configurable local media, and optional caption metadata.",
-      "dependencies": [
-        "lucide-react"
-      ],
-      "files": [
-        {
-          "path": "components/blocks/content/content-section-two.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/content/content-section-two.tsx"
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "content"
         }
-      ],
-      "categories": [
-        "content"
-      ],
-      "type": "registry:block"
+      }
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "content-section-three",
+      "type": "registry:block",
       "title": "Content Section Three",
       "description": "A structured feature grid with one dominant narrative and two focused supporting ideas.",
       "dependencies": [
@@ -804,65 +274,917 @@
       ],
       "files": [
         {
-          "path": "components/blocks/content/content-section-three.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/content/content-section-three.tsx"
+          "path": "src/registry/blocks/content/content-section-three/content-section-three.tsx",
+          "target": "@components/blocks/content/content-section-three.tsx",
+          "type": "registry:component"
         }
       ],
-      "categories": [
-        "content"
-      ],
-      "type": "registry:block"
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "content"
+        }
+      }
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "blog-section-one",
-      "title": "Blog Section One",
-      "description": "A semantic blog archive grouped by year, with aligned dates, useful metadata, and accessible row links.",
+      "name": "content-section-two",
+      "type": "registry:block",
+      "title": "Content Section Two",
+      "description": "An editorial product story with balanced copy, configurable local media, and optional caption metadata.",
       "dependencies": [
         "lucide-react"
       ],
       "files": [
         {
-          "path": "components/blocks/blog/blog-section-one.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/blog/blog-section-one.tsx"
+          "path": "src/registry/blocks/content/content-section-two/content-section-two.tsx",
+          "target": "@components/blocks/content/content-section-two.tsx",
+          "type": "registry:component"
         }
       ],
-      "categories": [
-        "blog"
-      ],
-      "type": "registry:block"
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "content"
+        }
+      }
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "stats-section-one",
-      "title": "Stats Section One",
-      "description": "A business results section that combines measurable outcomes with a customer proof point.",
+      "name": "contribution-graph",
+      "type": "registry:ui",
+      "title": "Contribution Graph",
+      "description": "Clean contribution calendar with built-in normalization, keyboard navigation, and responsive latest-day visibility.",
+      "files": [
+        {
+          "path": "src/registry/components/contribution-graph/contribution-graph.tsx",
+          "target": "@components/contribution-graph.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "component",
+          "category": "data-display"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "cta-section-one",
+      "type": "registry:block",
+      "title": "CTA Section One",
+      "description": "A polished call to action with primary and secondary links for clear next steps.",
       "dependencies": [
         "lucide-react"
       ],
       "registryDependencies": [
-        "badge",
-        "button",
-        "card",
-        "separator"
+        "button"
       ],
       "files": [
         {
-          "path": "components/blocks/stats/stats-section-one.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/stats/stats-section-one.tsx"
+          "path": "src/registry/blocks/cta/cta-section-one/cta-section-one.tsx",
+          "target": "@components/blocks/cta/cta-section-one.tsx",
+          "type": "registry:component"
         }
       ],
-      "categories": [
-        "stats"
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "cta"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "designed-for-focus-illustration",
+      "type": "registry:component",
+      "title": "Designed for Focus Illustration",
+      "description": "An interactive focus illustration with concentric motion and reduced-motion support.",
+      "dependencies": [
+        "motion"
       ],
-      "type": "registry:block"
+      "files": [
+        {
+          "path": "src/registry/illustrations/designed-for-focus-illustration/designed-for-focus-illustration.tsx",
+          "target": "@components/illustrations/DesignedForFocusIllustration.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "illustration",
+          "category": "illustrations"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "expandable-card",
+      "type": "registry:ui",
+      "title": "Expandable Card",
+      "description": "Composable card-dialog primitives with accessible modal behavior, controlled state, shared media motion, and custom actions.",
+      "dependencies": [
+        "@radix-ui/react-use-controllable-state",
+        "lucide-react",
+        "motion",
+        "radix-ui"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "src/registry/components/expandable-card/expandable-card.tsx",
+          "target": "@components/expandable-card.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "component",
+          "category": "interactive"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "faq-section-one",
+      "type": "registry:block",
+      "title": "FAQ Section One",
+      "description": "A two-column FAQ layout with accessible accordion answers and a support prompt.",
+      "registryDependencies": [
+        "accordion"
+      ],
+      "files": [
+        {
+          "path": "src/registry/blocks/faq/faq-section-one/faq-section-one.tsx",
+          "target": "@components/blocks/faqs/faq-section-one.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "faqs"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "faq-section-three",
+      "type": "registry:block",
+      "title": "FAQ Section Three",
+      "description": "An editorial FAQ section with a large introduction and accessible accordion rows.",
+      "registryDependencies": [
+        "accordion"
+      ],
+      "files": [
+        {
+          "path": "src/registry/blocks/faq/faq-section-three/faq-section-three.tsx",
+          "target": "@components/blocks/faqs/faq-section-three.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "faqs"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "faqs-section-two",
+      "type": "registry:block",
+      "title": "FAQs Section Two",
+      "description": "A centered FAQ section with accessible accordions and a follow-up contact link.",
+      "registryDependencies": [
+        "accordion"
+      ],
+      "files": [
+        {
+          "path": "src/registry/blocks/faq/faqs-section-two/faqs-section-two.tsx",
+          "target": "@components/blocks/faqs/faqs-section-two.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "faqs"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "fast-by-default-illustration",
+      "type": "registry:component",
+      "title": "Fast by Default Illustration",
+      "description": "An interactive field of animated speed lines with reduced-motion support.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "src/registry/illustrations/fast-by-default-illustration/fast-by-default-illustration.tsx",
+          "target": "@components/illustrations/FastByDefaultIllustration.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "illustration",
+          "category": "illustrations"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "flexible-at-scale-illustration",
+      "type": "registry:component",
+      "title": "Flexible at Scale Illustration",
+      "description": "An interactive spring-based line field that responds to pointer movement.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "src/registry/illustrations/flexible-at-scale-illustration/flexible-at-scale-illustration.tsx",
+          "target": "@components/illustrations/FlexibleAtScaleIllustration.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "illustration",
+          "category": "illustrations"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "footer-section-one",
+      "type": "registry:block",
+      "title": "Footer Section One",
+      "description": "A multi-column product footer with social links and an email newsletter form.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "src/registry/blocks/footer/footer-section-one/footer-section-one.tsx",
+          "target": "@components/blocks/footer/footer-section-one.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/registry/components/ui-library-logo/ui-library-logo.tsx",
+          "target": "@components/ui-library-logo.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "footer"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "footer-section-two",
+      "type": "registry:block",
+      "title": "Footer Section Two",
+      "description": "A compact navigation footer with product links, social actions, and legal copy.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "files": [
+        {
+          "path": "src/registry/blocks/footer/footer-section-two/footer-section-two.tsx",
+          "target": "@components/blocks/footer/footer-section-two.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/registry/components/ui-library-logo/ui-library-logo.tsx",
+          "target": "@components/ui-library-logo.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "footer"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "forgot-password-one",
+      "type": "registry:block",
+      "title": "Forgot Password One",
+      "description": "A compact password-recovery card with email input, submit action, and return link.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "input",
+        "label"
+      ],
+      "files": [
+        {
+          "path": "src/registry/blocks/forgot-password/forgot-password-one/forgot-password-one.tsx",
+          "target": "@components/blocks/auth/forgot-password-one.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "forgot-password"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "forgot-password-three",
+      "type": "registry:block",
+      "title": "Forgot Password Three",
+      "description": "A left-aligned password-recovery form with concise guidance and navigation back.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "input",
+        "label"
+      ],
+      "files": [
+        {
+          "path": "src/registry/blocks/forgot-password/forgot-password-three/forgot-password-three.tsx",
+          "target": "@components/blocks/auth/forgot-password-three.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "forgot-password"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "forgot-password-two",
+      "type": "registry:block",
+      "title": "Forgot Password Two",
+      "description": "A centered password-recovery form with a prominent heading and return action.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "input",
+        "label"
+      ],
+      "files": [
+        {
+          "path": "src/registry/blocks/forgot-password/forgot-password-two/forgot-password-two.tsx",
+          "target": "@components/blocks/auth/forgot-password-two.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "forgot-password"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "header-four",
+      "type": "registry:block",
+      "title": "Header Four",
+      "description": "A responsive header with animated multi-level desktop and mobile navigation menus.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "button",
+        "navigation-menu"
+      ],
+      "files": [
+        {
+          "path": "src/registry/blocks/header/header-four/header-four.tsx",
+          "target": "@components/blocks/header/header-four.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "header"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "header-one",
+      "type": "registry:block",
+      "title": "Header One",
+      "description": "A responsive marketing header with animated mobile navigation and account actions.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "src/registry/blocks/header/header-one/header-one.tsx",
+          "target": "@components/blocks/header/header-one.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/registry/components/ui-library-logo/ui-library-logo.tsx",
+          "target": "@components/ui-library-logo.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "header"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "header-three",
+      "type": "registry:block",
+      "title": "Header Three",
+      "description": "A payment-product header with grouped navigation menus and a responsive mobile drawer.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "navigation-menu"
+      ],
+      "files": [
+        {
+          "path": "src/registry/blocks/header/header-three/header-three.tsx",
+          "target": "@components/blocks/header/header-three.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "header"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "header-two",
+      "type": "registry:block",
+      "title": "Header Two",
+      "description": "A responsive marketing header with a bordered shell and animated mobile menu.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "src/registry/blocks/header/header-two/header-two.tsx",
+          "target": "@components/blocks/header/header-two.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/registry/components/ui-library-logo/ui-library-logo.tsx",
+          "target": "@components/ui-library-logo.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "header"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "hero-section-four",
+      "type": "registry:block",
+      "title": "Hero Section Four",
+      "description": "A complete expense-workflow hero with responsive header, lead form, logo cloud, and supporting illustrations.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.navdeepsingh.dev/r/header-three.json",
+        "https://ui.navdeepsingh.dev/r/logo-cloud-five.json",
+        "button",
+        "label"
+      ],
+      "files": [
+        {
+          "path": "src/registry/blocks/hero/hero-section-four/hero-section-four-illustration.tsx",
+          "target": "@components/blocks/hero-section/hero-section-four-illustration.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/registry/blocks/hero/hero-section-four/hero-section-four.tsx",
+          "target": "@components/blocks/hero-section/hero-section-four.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "hero"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "hero-section-one",
+      "type": "registry:block",
+      "title": "Hero Section One",
+      "description": "A dark product hero with badges, dual actions, and the matching responsive header.",
+      "dependencies": [
+        "@tabler/icons-react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.navdeepsingh.dev/r/header-one.json",
+        "badge",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "src/registry/blocks/hero/hero-section-one/hero-section-one.tsx",
+          "target": "@components/blocks/hero-section/hero-section-one.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "hero"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "hero-section-three",
+      "type": "registry:block",
+      "title": "Hero Section Three",
+      "description": "An art-directed hero with shader-backed visuals and a focused primary action.",
+      "dependencies": [
+        "@tabler/icons-react",
+        "shaders"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "src/registry/blocks/hero/hero-section-three/hero-section-three.tsx",
+          "target": "@components/blocks/hero-section/hero-section-three.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "hero"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "hero-section-two",
+      "type": "registry:block",
+      "title": "Hero Section Two",
+      "description": "A motion-led hero with animated copy, grouped reveals, and its matching header.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.navdeepsingh.dev/r/animated-group.json",
+        "https://ui.navdeepsingh.dev/r/header-two.json",
+        "https://ui.navdeepsingh.dev/r/text-effect.json"
+      ],
+      "files": [
+        {
+          "path": "src/registry/blocks/hero/hero-section-two/hero-section-two.tsx",
+          "target": "@components/blocks/hero-section/hero-section-two.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "hero"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "keyboard-shortcut",
+      "type": "registry:ui",
+      "title": "Keyboard Shortcut",
+      "description": "Interactive keyboard shortcut display with pressed-key feedback, callback handling, optional sound, and shadcn Kbd styling.",
+      "registryDependencies": [
+        "kbd"
+      ],
+      "files": [
+        {
+          "path": "src/registry/components/keyboard-shortcut/keyboard-shortcut.tsx",
+          "target": "@components/keyboard-shortcut.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "component",
+          "category": "interactive"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "logo-cloud-five",
+      "type": "registry:block",
+      "title": "Logo Cloud Five",
+      "description": "A headline-led animated logo cloud with responsive brand cards.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "src/registry/blocks/logo-cloud/logo-cloud-five/logo-cloud-five.tsx",
+          "target": "@components/blocks/logo-cloud/logo-cloud-five.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "logo-cloud"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "logo-cloud-four",
+      "type": "registry:block",
+      "title": "Logo Cloud Four",
+      "description": "A large animated company grid with a prominent trust statement.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "src/registry/blocks/logo-cloud/logo-cloud-four/logo-cloud-four.tsx",
+          "target": "@components/blocks/logo-cloud/logo-cloud-four.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "logo-cloud"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "logo-cloud-one",
+      "type": "registry:block",
+      "title": "Logo Cloud One",
+      "description": "A compact monochrome logo strip for customer or partner proof.",
+      "files": [
+        {
+          "path": "src/registry/blocks/logo-cloud/logo-cloud-one/logo-cloud-one.tsx",
+          "target": "@components/blocks/logo-cloud/logo-cloud-one.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "logo-cloud"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "logo-cloud-three",
+      "type": "registry:block",
+      "title": "Logo Cloud Three",
+      "description": "A horizontally framed customer logo strip with restrained typography.",
+      "files": [
+        {
+          "path": "src/registry/blocks/logo-cloud/logo-cloud-three/logo-cloud-three.tsx",
+          "target": "@components/blocks/logo-cloud/logo-cloud-three.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "logo-cloud"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "logo-cloud-two",
+      "type": "registry:block",
+      "title": "Logo Cloud Two",
+      "description": "A compact partner logo strip using a mixed icon and wordmark collection.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "files": [
+        {
+          "path": "src/registry/blocks/logo-cloud/logo-cloud-two/logo-cloud-two.tsx",
+          "target": "@components/blocks/logo-cloud/logo-cloud-two.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "logo-cloud"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "magnetic-button",
+      "type": "registry:ui",
+      "title": "Magnetic Button",
+      "description": "A shadcn-compatible button that subtly follows the cursor using spring-based motion.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "src/registry/components/magnetic-button/magnetic-button.tsx",
+          "target": "@components/magnetic-button.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "component",
+          "category": "buttons"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "matching-panel",
+      "type": "registry:component",
+      "title": "Matching Panel Illustration",
+      "description": "A policy matching panel illustration.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "src/registry/illustrations/expense-workflow/expense-workflow-parts.tsx",
+          "target": "@components/illustrations/_expense-workflow-parts.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/registry/illustrations/matching-panel/matching-panel.tsx",
+          "target": "@components/illustrations/matching-panel.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "illustration",
+          "category": "illustrations"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "package-manager-command",
+      "type": "registry:ui",
+      "title": "Package Manager Command",
+      "description": "Accessible package-manager selector and copy command bar for npm, pnpm, yarn, and Bun.",
+      "dependencies": [
+        "@radix-ui/react-use-controllable-state",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "dropdown-menu"
+      ],
+      "files": [
+        {
+          "path": "src/registry/components/package-manager-command/package-manager-command.tsx",
+          "target": "@components/package-manager-command.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "component",
+          "category": "interactive"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "payment-card",
+      "type": "registry:component",
+      "title": "Payment Card Illustration",
+      "description": "A motion-ready payment card illustration.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "src/registry/illustrations/expense-workflow/expense-workflow-parts.tsx",
+          "target": "@components/illustrations/_expense-workflow-parts.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/registry/illustrations/payment-card/payment-card.tsx",
+          "target": "@components/illustrations/payment-card.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "illustration",
+          "category": "illustrations"
+        }
+      }
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "pricing-section-one",
+      "type": "registry:block",
       "title": "Pricing Section One",
       "description": "A responsive three-tier pricing section with a monthly and yearly billing switcher.",
       "dependencies": [
@@ -876,108 +1198,96 @@
       ],
       "files": [
         {
-          "path": "components/blocks/pricing/pricing-section-one.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/pricing/pricing-section-one.tsx"
+          "path": "src/registry/blocks/pricing/pricing-section-one/pricing-section-one.tsx",
+          "target": "@components/blocks/pricing/pricing-section-one.tsx",
+          "type": "registry:component"
         }
       ],
-      "categories": [
-        "pricing"
-      ],
-      "type": "registry:block"
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "pricing"
+        }
+      }
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "content-section-four",
-      "title": "Content Section Four",
+      "name": "process-section-one",
+      "type": "registry:block",
+      "title": "Process Section One",
       "description": "A sticky how-it-works narrative with a normal mobile flow and a sequence of image-led process panels.",
       "dependencies": [
         "lucide-react"
       ],
       "files": [
         {
-          "path": "components/blocks/process/process-section-one.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/process/process-section-one.tsx"
+          "path": "src/registry/blocks/process/process-section-one/process-section-one.tsx",
+          "target": "@components/blocks/process/process-section-one.tsx",
+          "type": "registry:component"
         }
       ],
-      "categories": [
-        "process"
-      ],
-      "type": "registry:block"
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "process"
+        }
+      }
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "cta-section-one",
-      "title": "CTA Section One",
-      "description": "A polished call to action with primary and secondary links for clear next steps.",
+      "name": "proximity-nav",
+      "type": "registry:ui",
+      "title": "Proximity Nav",
+      "description": "Route-aware sidebar navigation with pointer-responsive guide lines, controlled active state, and a navigation-free preview mode.",
       "dependencies": [
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "button"
-      ],
-      "files": [
-        {
-          "path": "components/blocks/cta/cta-section-one.tsx",
-          "type": "registry:component",
-          "target": "@components/blocks/cta/cta-section-one.tsx"
-        }
-      ],
-      "categories": [
-        "cta"
-      ],
-      "type": "registry:block"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "payment-card",
-      "title": "Payment Card Illustration",
-      "description": "A motion-ready payment card illustration.",
-      "dependencies": [
-        "lucide-react",
         "motion"
       ],
       "files": [
         {
-          "path": "components/illustrations/payment-card.tsx",
-          "type": "registry:component",
-          "target": "@components/illustrations/payment-card.tsx"
-        },
-        {
-          "path": "components/illustrations/_expense-workflow-parts.tsx",
-          "type": "registry:component",
-          "target": "@components/illustrations/_expense-workflow-parts.tsx"
+          "path": "src/registry/components/proximity-nav/proximity-nav.tsx",
+          "target": "@components/proximity-nav.tsx",
+          "type": "registry:ui"
         }
       ],
-      "type": "registry:component"
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "component",
+          "category": "interactive"
+        }
+      }
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "workflow-desk",
-      "title": "Workflow Desk Illustration",
-      "description": "A combined expense workflow illustration with a payment card and four process panels.",
+      "name": "rail-nav",
+      "type": "registry:ui",
+      "title": "Rail Nav",
+      "description": "Motion rail navigation with the original line-to-link reveal, controlled expansion, flexible links, and optional scroll tracking.",
       "dependencies": [
-        "lucide-react",
+        "@radix-ui/react-use-controllable-state",
         "motion"
       ],
       "files": [
         {
-          "path": "components/illustrations/workflow-desk.tsx",
-          "type": "registry:component",
-          "target": "@components/illustrations/workflow-desk.tsx"
-        },
-        {
-          "path": "components/illustrations/_expense-workflow-parts.tsx",
-          "type": "registry:component",
-          "target": "@components/illustrations/_expense-workflow-parts.tsx"
+          "path": "src/registry/components/rail-nav/rail-nav.tsx",
+          "target": "@components/rail-nav.tsx",
+          "type": "registry:ui"
         }
       ],
-      "type": "registry:component"
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "component",
+          "category": "interactive"
+        }
+      }
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "receipt-panel",
+      "type": "registry:component",
       "title": "Receipt Panel Illustration",
       "description": "A receipt capture panel illustration.",
       "dependencies": [
@@ -986,141 +1296,28 @@
       ],
       "files": [
         {
-          "path": "components/illustrations/receipt-panel.tsx",
-          "type": "registry:component",
-          "target": "@components/illustrations/receipt-panel.tsx"
+          "path": "src/registry/illustrations/expense-workflow/expense-workflow-parts.tsx",
+          "target": "@components/illustrations/_expense-workflow-parts.tsx",
+          "type": "registry:component"
         },
         {
-          "path": "components/illustrations/_expense-workflow-parts.tsx",
-          "type": "registry:component",
-          "target": "@components/illustrations/_expense-workflow-parts.tsx"
+          "path": "src/registry/illustrations/receipt-panel/receipt-panel.tsx",
+          "target": "@components/illustrations/receipt-panel.tsx",
+          "type": "registry:component"
         }
       ],
-      "type": "registry:component"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "matching-panel",
-      "title": "Matching Panel Illustration",
-      "description": "A policy matching panel illustration.",
-      "dependencies": [
-        "lucide-react",
-        "motion"
-      ],
-      "files": [
-        {
-          "path": "components/illustrations/matching-panel.tsx",
-          "type": "registry:component",
-          "target": "@components/illustrations/matching-panel.tsx"
-        },
-        {
-          "path": "components/illustrations/_expense-workflow-parts.tsx",
-          "type": "registry:component",
-          "target": "@components/illustrations/_expense-workflow-parts.tsx"
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "illustration",
+          "category": "illustrations"
         }
-      ],
-      "type": "registry:component"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "report-panel",
-      "title": "Report Panel Illustration",
-      "description": "A report fetching panel illustration.",
-      "dependencies": [
-        "lucide-react",
-        "motion"
-      ],
-      "files": [
-        {
-          "path": "components/illustrations/report-panel.tsx",
-          "type": "registry:component",
-          "target": "@components/illustrations/report-panel.tsx"
-        },
-        {
-          "path": "components/illustrations/_expense-workflow-parts.tsx",
-          "type": "registry:component",
-          "target": "@components/illustrations/_expense-workflow-parts.tsx"
-        }
-      ],
-      "type": "registry:component"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "approval-panel",
-      "title": "Approval Panel Illustration",
-      "description": "An approval routing panel illustration.",
-      "dependencies": [
-        "lucide-react",
-        "motion"
-      ],
-      "files": [
-        {
-          "path": "components/illustrations/approval-panel.tsx",
-          "type": "registry:component",
-          "target": "@components/illustrations/approval-panel.tsx"
-        },
-        {
-          "path": "components/illustrations/_expense-workflow-parts.tsx",
-          "type": "registry:component",
-          "target": "@components/illustrations/_expense-workflow-parts.tsx"
-        }
-      ],
-      "type": "registry:component"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "fast-by-default-illustration",
-      "title": "Fast by Default Illustration",
-      "description": "An interactive field of animated speed lines with reduced-motion support.",
-      "dependencies": [
-        "motion"
-      ],
-      "files": [
-        {
-          "path": "components/illustrations/FastByDefaultIllustration.tsx",
-          "type": "registry:component",
-          "target": "@components/illustrations/FastByDefaultIllustration.tsx"
-        }
-      ],
-      "type": "registry:component"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "designed-for-focus-illustration",
-      "title": "Designed for Focus Illustration",
-      "description": "An interactive focus illustration with concentric motion and reduced-motion support.",
-      "dependencies": [
-        "motion"
-      ],
-      "files": [
-        {
-          "path": "components/illustrations/DesignedForFocusIllustration.tsx",
-          "type": "registry:component",
-          "target": "@components/illustrations/DesignedForFocusIllustration.tsx"
-        }
-      ],
-      "type": "registry:component"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "flexible-at-scale-illustration",
-      "title": "Flexible at Scale Illustration",
-      "description": "An interactive spring-based line field that responds to pointer movement.",
-      "dependencies": [
-        "motion"
-      ],
-      "files": [
-        {
-          "path": "components/illustrations/FlexibleAtScaleIllustration.tsx",
-          "type": "registry:component",
-          "target": "@components/illustrations/FlexibleAtScaleIllustration.tsx"
-        }
-      ],
-      "type": "registry:component"
+      }
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "release-workflow-illustration",
+      "type": "registry:component",
       "title": "Release Workflow Illustration",
       "description": "An interactive release tracker with configurable workflow data and autoplay.",
       "dependencies": [
@@ -1129,16 +1326,53 @@
       ],
       "files": [
         {
-          "path": "components/illustrations/ReleaseWorkflowIllustration.tsx",
-          "type": "registry:component",
-          "target": "@components/illustrations/ReleaseWorkflowIllustration.tsx"
+          "path": "src/registry/illustrations/release-workflow-illustration/release-workflow-illustration.tsx",
+          "target": "@components/illustrations/ReleaseWorkflowIllustration.tsx",
+          "type": "registry:component"
         }
       ],
-      "type": "registry:component"
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "illustration",
+          "category": "illustrations"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "report-panel",
+      "type": "registry:component",
+      "title": "Report Panel Illustration",
+      "description": "A report fetching panel illustration.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "src/registry/illustrations/expense-workflow/expense-workflow-parts.tsx",
+          "target": "@components/illustrations/_expense-workflow-parts.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/registry/illustrations/report-panel/report-panel.tsx",
+          "target": "@components/illustrations/report-panel.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "illustration",
+          "category": "illustrations"
+        }
+      }
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "revision-cycles-illustration",
+      "type": "registry:component",
       "title": "Revision Cycles Illustration",
       "description": "An interactive comparison of eliminated and remaining revision rounds.",
       "dependencies": [
@@ -1146,234 +1380,308 @@
       ],
       "files": [
         {
-          "path": "components/illustrations/RevisionCyclesIllustration.tsx",
-          "type": "registry:component",
-          "target": "@components/illustrations/RevisionCyclesIllustration.tsx"
+          "path": "src/registry/illustrations/revision-cycles-illustration/revision-cycles-illustration.tsx",
+          "target": "@components/illustrations/RevisionCyclesIllustration.tsx",
+          "type": "registry:component"
         }
       ],
-      "type": "registry:component"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "animated-group",
-      "title": "Animated Group",
-      "description": "Motion-powered staggered animation container.",
-      "dependencies": [
-        "motion"
-      ],
-      "files": [
-        {
-          "path": "components/ui/components/animated-group.tsx",
-          "type": "registry:ui",
-          "target": "@components/animated-group.tsx"
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "illustration",
+          "category": "illustrations"
         }
-      ],
-      "type": "registry:ui"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "text-effect",
-      "title": "Text Effect",
-      "description": "Motion-based per-character / per-word text animation.",
-      "dependencies": [
-        "motion"
-      ],
-      "files": [
-        {
-          "path": "components/ui/components/text-effect.tsx",
-          "type": "registry:ui",
-          "target": "@components/text-effect.tsx"
-        }
-      ],
-      "type": "registry:ui"
+      }
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "segment-spotlight",
+      "type": "registry:ui",
       "title": "Segment Spotlight",
       "description": "Composable spotlight primitives with controlled state, animated segments, arbitrary controls, and hover or click activation.",
       "dependencies": [
+        "@radix-ui/react-use-controllable-state",
         "motion",
-        "radix-ui",
-        "@radix-ui/react-use-controllable-state"
+        "radix-ui"
       ],
       "files": [
         {
-          "path": "components/ui/components/segment-spotlight.tsx",
-          "type": "registry:ui",
-          "target": "@components/segment-spotlight.tsx"
+          "path": "src/registry/components/segment-spotlight/segment-spotlight.tsx",
+          "target": "@components/segment-spotlight.tsx",
+          "type": "registry:ui"
         }
       ],
-      "type": "registry:ui"
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "component",
+          "category": "interactive"
+        }
+      }
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "magnetic-button",
-      "title": "Magnetic Button",
-      "description": "A shadcn-compatible button that subtly follows the cursor using spring-based motion.",
+      "name": "sign-up-one",
+      "type": "registry:block",
+      "title": "Sign Up One",
+      "description": "A detailed account creation form with identity, password, consent, and sign-in actions.",
       "dependencies": [
-        "motion"
+        "lucide-react"
       ],
       "registryDependencies": [
-        "button"
-      ],
-      "files": [
-        {
-          "path": "components/ui/components/magnetic-button.tsx",
-          "type": "registry:ui",
-          "target": "@components/magnetic-button.tsx"
-        }
-      ],
-      "type": "registry:ui"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "animated-tabs",
-      "title": "Animated Tabs",
-      "description": "A tab component with a moving active pill and directional content transitions.",
-      "dependencies": [
-        "motion",
-        "@radix-ui/react-use-controllable-state"
-      ],
-      "registryDependencies": [
-        "tabs"
-      ],
-      "files": [
-        {
-          "path": "components/ui/components/animated-tabs.tsx",
-          "type": "registry:ui",
-          "target": "@components/animated-tabs.tsx"
-        }
-      ],
-      "type": "registry:ui"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "expandable-card",
-      "title": "Expandable Card",
-      "description": "Composable card-dialog primitives with accessible modal behavior, controlled state, shared media motion, and custom actions.",
-      "dependencies": [
-        "motion",
-        "lucide-react",
-        "radix-ui",
-        "@radix-ui/react-use-controllable-state"
-      ],
-      "registryDependencies": [
-        "button"
-      ],
-      "files": [
-        {
-          "path": "components/ui/components/expandable-card.tsx",
-          "type": "registry:ui",
-          "target": "@components/expandable-card.tsx"
-        }
-      ],
-      "type": "registry:ui"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "rail-nav",
-      "title": "Rail Nav",
-      "description": "Motion rail navigation with the original line-to-link reveal, controlled expansion, flexible links, and optional scroll tracking.",
-      "dependencies": [
-        "motion",
-        "@radix-ui/react-use-controllable-state"
-      ],
-      "files": [
-        {
-          "path": "components/ui/components/rail-nav.tsx",
-          "type": "registry:ui",
-          "target": "@components/rail-nav.tsx"
-        }
-      ],
-      "type": "registry:ui"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "animated-numbers",
-      "title": "Animated Numbers",
-      "description": "Accessible in-view number counter with locale-aware formatting and reduced-motion support.",
-      "dependencies": [
-        "motion"
-      ],
-      "files": [
-        {
-          "path": "components/ui/components/animated-numbers.tsx",
-          "type": "registry:ui",
-          "target": "@components/animated-numbers.tsx"
-        }
-      ],
-      "type": "registry:ui"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "proximity-nav",
-      "title": "Proximity Nav",
-      "description": "Route-aware sidebar navigation with pointer-responsive guide lines, controlled active state, and a navigation-free preview mode.",
-      "dependencies": [
-        "motion"
-      ],
-      "files": [
-        {
-          "path": "components/ui/components/proximity-nav.tsx",
-          "type": "registry:ui",
-          "target": "@components/proximity-nav.tsx"
-        }
-      ],
-      "type": "registry:ui"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "package-manager-command",
-      "title": "Package Manager Command",
-      "description": "Accessible package-manager selector and copy command bar for npm, pnpm, yarn, and Bun.",
-      "dependencies": [
-        "lucide-react",
-        "@radix-ui/react-use-controllable-state"
-      ],
-      "registryDependencies": [
+        "https://ui.navdeepsingh.dev/r/brand-logo.json",
         "button",
-        "dropdown-menu"
+        "input",
+        "label"
       ],
       "files": [
         {
-          "path": "components/ui/components/package-manager-command.tsx",
-          "type": "registry:ui",
-          "target": "@components/package-manager-command.tsx"
+          "path": "src/registry/blocks/sign-up/sign-up-one/sign-up-one.tsx",
+          "target": "@components/blocks/auth/sign-up-one.tsx",
+          "type": "registry:component"
         }
       ],
-      "type": "registry:ui"
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "sign-up"
+        }
+      }
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "contribution-graph",
-      "title": "Contribution Graph",
-      "description": "Clean contribution calendar with built-in normalization, keyboard navigation, and responsive latest-day visibility.",
-      "files": [
-        {
-          "path": "components/ui/components/contribution-graph.tsx",
-          "type": "registry:ui",
-          "target": "@components/contribution-graph.tsx"
-        }
+      "name": "sign-up-two",
+      "type": "registry:block",
+      "title": "Sign Up Two",
+      "description": "A split-screen account creation flow with social sign-in, product benefits, and an animated visual.",
+      "dependencies": [
+        "lucide-react",
+        "react-icons",
+        "shaders"
       ],
-      "type": "registry:ui"
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "keyboard-shortcut",
-      "title": "Keyboard Shortcut",
-      "description": "Interactive keyboard shortcut display with pressed-key feedback, callback handling, optional sound, and shadcn Kbd styling.",
       "registryDependencies": [
-        "kbd"
+        "https://ui.navdeepsingh.dev/r/brand-logo.json",
+        "button",
+        "input",
+        "label"
       ],
       "files": [
         {
-          "path": "components/ui/components/keyboard-shortcut.tsx",
-          "type": "registry:ui",
-          "target": "@components/keyboard-shortcut.tsx"
+          "path": "src/registry/blocks/sign-up/sign-up-two/sign-up-two.tsx",
+          "target": "@components/blocks/auth/sign-up-two.tsx",
+          "type": "registry:component"
         }
       ],
-      "type": "registry:ui"
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "sign-up"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "stats-section-one",
+      "type": "registry:block",
+      "title": "Stats Section One",
+      "description": "A business results section that combines measurable outcomes with a customer proof point.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "badge",
+        "button",
+        "card",
+        "separator"
+      ],
+      "files": [
+        {
+          "path": "src/registry/blocks/stats/stats-section-one/stats-section-one.tsx",
+          "target": "@components/blocks/stats/stats-section-one.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "stats"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "teams-section-five",
+      "type": "registry:block",
+      "title": "Teams Section Five",
+      "description": "A dark editorial team grid with role badges and portrait-led member cards.",
+      "registryDependencies": [
+        "badge"
+      ],
+      "files": [
+        {
+          "path": "src/registry/blocks/team/teams-section-five/teams-section-five.tsx",
+          "target": "@components/blocks/teams/teams-section-five.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "teams"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "teams-section-four",
+      "type": "registry:block",
+      "title": "Teams Section Four",
+      "description": "A global-team recruiting section with portrait cards and role badges.",
+      "registryDependencies": [
+        "badge"
+      ],
+      "files": [
+        {
+          "path": "src/registry/blocks/team/teams-section-four/teams-section-four.tsx",
+          "target": "@components/blocks/teams/teams-section-four.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "teams"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "teams-section-one",
+      "type": "registry:block",
+      "title": "Teams Section One",
+      "description": "A grouped leadership and team directory with social links and empty-state handling.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "files": [
+        {
+          "path": "src/registry/blocks/team/teams-section-one/teams-section-one.tsx",
+          "target": "@components/blocks/teams/teams-section-one.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "teams"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "teams-section-three",
+      "type": "registry:block",
+      "title": "Teams Section Three",
+      "description": "A centered team directory with portrait cards, roles, and profile links.",
+      "files": [
+        {
+          "path": "src/registry/blocks/team/teams-section-three/teams-section-three.tsx",
+          "target": "@components/blocks/teams/teams-section-three.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "teams"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "teams-section-two",
+      "type": "registry:block",
+      "title": "Teams Section Two",
+      "description": "A simple responsive team grid with names, roles, and portrait imagery.",
+      "files": [
+        {
+          "path": "src/registry/blocks/team/teams-section-two/teams-section-two.tsx",
+          "target": "@components/blocks/teams/teams-section-two.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "teams"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "testamonial-section-one",
+      "type": "registry:block",
+      "title": "Testamonial Section One",
+      "description": "A customer-story hero with proof badges, a featured quote, and success-story action.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "badge",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "src/registry/blocks/testimonial/testimonial-section-one/testimonial-section-one.tsx",
+          "target": "@components/blocks/testamonials/testamonial-section-one.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "testimonials"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "workflow-desk",
+      "type": "registry:component",
+      "title": "Workflow Desk Illustration",
+      "description": "A combined expense workflow illustration with a payment card and four process panels.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "src/registry/illustrations/expense-workflow/expense-workflow-parts.tsx",
+          "target": "@components/illustrations/_expense-workflow-parts.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/registry/illustrations/workflow-desk/workflow-desk.tsx",
+          "target": "@components/illustrations/workflow-desk.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "illustration",
+          "category": "illustrations"
+        }
+      }
     }
   ]
 }

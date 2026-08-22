@@ -18,14 +18,106 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/components/ui/*": ["./src/components/ui/*"],
+      "@/components/shared/*": ["./src/components/shared/*"],
+      "@/components/illustrations/DesignedForFocusIllustration": [
+        "./src/registry/illustrations/designed-for-focus-illustration/designed-for-focus-illustration.tsx"
+      ],
+      "@/components/illustrations/FastByDefaultIllustration": [
+        "./src/registry/illustrations/fast-by-default-illustration/fast-by-default-illustration.tsx"
+      ],
+      "@/components/illustrations/FlexibleAtScaleIllustration": [
+        "./src/registry/illustrations/flexible-at-scale-illustration/flexible-at-scale-illustration.tsx"
+      ],
+      "@/components/illustrations/ReleaseWorkflowIllustration": [
+        "./src/registry/illustrations/release-workflow-illustration/release-workflow-illustration.tsx"
+      ],
+      "@/components/illustrations/RevisionCyclesIllustration": [
+        "./src/registry/illustrations/revision-cycles-illustration/revision-cycles-illustration.tsx"
+      ],
+      "@/components/illustrations/_expense-workflow-parts": [
+        "./src/registry/illustrations/expense-workflow/expense-workflow-parts.tsx"
+      ],
+      "@/components/illustrations/approval-panel": [
+        "./src/registry/illustrations/approval-panel/approval-panel.tsx"
+      ],
+      "@/components/illustrations/matching-panel": [
+        "./src/registry/illustrations/matching-panel/matching-panel.tsx"
+      ],
+      "@/components/illustrations/payment-card": [
+        "./src/registry/illustrations/payment-card/payment-card.tsx"
+      ],
+      "@/components/illustrations/receipt-panel": [
+        "./src/registry/illustrations/receipt-panel/receipt-panel.tsx"
+      ],
+      "@/components/illustrations/report-panel": [
+        "./src/registry/illustrations/report-panel/report-panel.tsx"
+      ],
+      "@/components/illustrations/workflow-desk": [
+        "./src/registry/illustrations/workflow-desk/workflow-desk.tsx"
+      ],
+      "@/components/ui-library-logo": [
+        "./src/registry/components/ui-library-logo/ui-library-logo.tsx"
+      ],
+      "@/components/blocks/blog/blog-section-one": [
+        "./src/registry/blocks/blog/blog-section-one/blog-section-one.tsx"
+      ],
+      "@/components/blocks/header/header-one": [
+        "./src/registry/blocks/header/header-one/header-one.tsx"
+      ],
+      "@/components/blocks/header/header-two": [
+        "./src/registry/blocks/header/header-two/header-two.tsx"
+      ],
+      "@/components/blocks/header/header-three": [
+        "./src/registry/blocks/header/header-three/header-three.tsx"
+      ],
+      "@/components/blocks/logo-cloud/logo-cloud-five": [
+        "./src/registry/blocks/logo-cloud/logo-cloud-five/logo-cloud-five.tsx"
+      ],
+      "@/components/animated-group": [
+        "./src/registry/components/animated-group/animated-group.tsx"
+      ],
+      "@/components/animated-numbers": [
+        "./src/registry/components/animated-numbers/animated-numbers.tsx"
+      ],
+      "@/components/animated-tabs": ["./src/registry/components/animated-tabs/animated-tabs.tsx"],
+      "@/components/brand-logo": ["./src/registry/components/brand-logo/brand-logo.tsx"],
+      "@/components/contribution-graph": [
+        "./src/registry/components/contribution-graph/contribution-graph.tsx"
+      ],
+      "@/components/expandable-card": [
+        "./src/registry/components/expandable-card/expandable-card.tsx"
+      ],
+      "@/components/keyboard-shortcut": [
+        "./src/registry/components/keyboard-shortcut/keyboard-shortcut.tsx"
+      ],
+      "@/components/magnetic-button": [
+        "./src/registry/components/magnetic-button/magnetic-button.tsx"
+      ],
+      "@/components/magnetic-cards": [
+        "./src/registry/components/magnetic-cards/magnetic-cards.tsx"
+      ],
+      "@/components/package-manager-command": [
+        "./src/registry/components/package-manager-command/package-manager-command.tsx"
+      ],
+      "@/components/proximity-nav": ["./src/registry/components/proximity-nav/proximity-nav.tsx"],
+      "@/components/rail-nav": ["./src/registry/components/rail-nav/rail-nav.tsx"],
+      "@/components/segment-spotlight": [
+        "./src/registry/components/segment-spotlight/segment-spotlight.tsx"
+      ],
+      "@/components/text-effect": ["./src/registry/components/text-effect/text-effect.tsx"],
+      "@/*": ["./src/*"]
     }
   },
   "include": [
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "scripts/**/*.ts",
+    "tests/**/*.ts",
+    "*.ts",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
