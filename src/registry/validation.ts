@@ -2,6 +2,7 @@ import {
   REGISTRY_ITEM_STATUSES,
   REGISTRY_ITEM_TYPES,
   type NavUIRegistryItem,
+  type RegistryCssVars,
   type RegistryFileEntry,
 } from './types'
 
@@ -21,6 +22,19 @@ function canGenerateOutput(item: NavUIRegistryItem): boolean {
   return item.status === 'published' || Boolean(item.compatibilityOutput)
 }
 
+function normalizeCssVars(cssVars: RegistryCssVars | undefined): RegistryCssVars {
+  const sorted = (values: Record<string, string> | undefined) =>
+    values
+      ? Object.fromEntries(Object.entries(values).sort(([a], [b]) => a.localeCompare(b)))
+      : undefined
+
+  return {
+    ...(cssVars?.theme ? { theme: sorted(cssVars.theme) } : {}),
+    ...(cssVars?.light ? { light: sorted(cssVars.light) } : {}),
+    ...(cssVars?.dark ? { dark: sorted(cssVars.dark) } : {}),
+  }
+}
+
 export async function validateRegistryDefinitions(
   items: NavUIRegistryItem[],
   options: RegistryValidationOptions = {},
@@ -28,6 +42,17 @@ export async function validateRegistryDefinitions(
   const errors: string[] = []
   const byName = new Map<string, NavUIRegistryItem>()
   const targetClaims = new Map<string, { item: string; file: RegistryFileEntry }>()
+  const defaultDesignSystems = items.filter(
+    (item) => item.kind === 'design-system' && item.default && item.status === 'published',
+  )
+
+  if (defaultDesignSystems.length > 1) {
+    errors.push(
+      `[design-system] Multiple published defaults: ${defaultDesignSystems
+        .map((item) => item.slug)
+        .join(', ')}.`,
+    )
+  }
 
   for (const item of items) {
     const label = `[${item.slug || '(missing name)'}]`
@@ -65,14 +90,26 @@ export async function validateRegistryDefinitions(
     if (!Array.isArray(item.registry.registryDependencies)) {
       errors.push(`${label} registry dependencies must be an array.`)
     }
-    if (item.status === 'published' && item.kind !== 'support' && !item.preview?.module) {
+    if (
+      item.status === 'published' &&
+      (item.kind === 'block' || item.kind === 'component' || item.kind === 'illustration') &&
+      !item.preview?.module
+    ) {
       errors.push(`${label} Published catalog item is missing a preview entry.`)
     }
     if (item.preview && !item.preview.module) {
       errors.push(`${label} Preview entry has no static module path.`)
     }
-    if (canGenerateOutput(item) && item.registry.files.length === 0) {
+    const hasCssVars = item.registry.cssVars
+      ? Object.values(item.registry.cssVars).some(
+          (values) => values && Object.keys(values).length > 0,
+        )
+      : false
+    if (canGenerateOutput(item) && item.registry.files.length === 0 && !hasCssVars) {
       errors.push(`${label} Public item has no generated output files.`)
+    }
+    if (item.kind === 'design-system' && item.registry.type !== 'registry:style') {
+      errors.push(`${label} Design systems must use the shadcn registry:style type.`)
     }
 
     const sourcePaths = new Set(item.sourceFiles.map((file) => file.path))
@@ -160,6 +197,7 @@ export async function validateRegistryDefinitions(
 export type PublicArtifact = {
   name?: unknown
   files?: Array<{ path?: unknown; target?: unknown; content?: unknown }>
+  cssVars?: RegistryCssVars
 }
 
 export type PublicArtifactValidationOptions = {
@@ -195,6 +233,13 @@ export async function validatePublicArtifacts(
     }
     if (artifact.name !== name) {
       errors.push(`[${name}] Public artifact declares mismatched name "${String(artifact.name)}".`)
+    }
+    if (
+      item.kind === 'design-system' &&
+      JSON.stringify(normalizeCssVars(artifact.cssVars)) !==
+        JSON.stringify(normalizeCssVars(item.registry.cssVars))
+    ) {
+      errors.push(`[${name}] Public CSS variables differ from the canonical definition.`)
     }
 
     const publicFiles = Array.isArray(artifact.files) ? artifact.files : []
