@@ -39,8 +39,8 @@ export const metadata = portfolioMetadata
 export const viewport: Viewport = {
   colorScheme: 'light dark',
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#fdfdfc' },
-    { media: '(prefers-color-scheme: dark)', color: '#111110' },
+    { media: '(prefers-color-scheme: light)', color: '#fbfcfd' },
+    { media: '(prefers-color-scheme: dark)', color: '#101214' },
   ],
 }
 
@@ -54,7 +54,7 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning
       data-scroll-behavior="smooth"
-      className={`${geistSans.variable} dark:bg-[#111110] ${geistMono.variable} ${schibsted.variable} ${inter.variable} ${caveat.variable} h-full scroll-smooth antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${schibsted.variable} ${inter.variable} ${caveat.variable} h-full scroll-smooth bg-background antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <ThemeProvider>
