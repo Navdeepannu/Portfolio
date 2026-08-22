@@ -60,7 +60,7 @@ export default function ComponentTabs({
         <div className="flex min-h-9 shrink-0 items-center gap-2">
           <PackageManagerCommand
             commands={commands}
-            defaultPackageManager="bun"
+            defaultValue="bun"
             className="w-37 sm:w-88 sm:max-w-[calc(100vw-7rem)]"
           />
 
