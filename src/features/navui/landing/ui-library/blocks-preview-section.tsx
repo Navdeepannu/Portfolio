@@ -27,12 +27,12 @@ export default function BlocksPreviewSection() {
         </span>
         <div className="grid items-start gap-4 lg:grid-cols-2 lg:gap-12">
           <div className="max-w-md text-left text-balance">
-            <h2 className="font-times-heading font-normal tracking-tight text-foreground md:text-xl">
+            <h2 className="font-times-heading font-normal tracking-tight text-foreground md:text-2xl">
               {copy.title}
             </h2>
           </div>
 
-          <div className="mx-auto max-w-md pt-6 text-xs font-medium text-foreground/70">
+          <div className="mx-auto max-w-md pt-6 text-sm font-medium text-foreground/70">
             <p>{copy.description}</p>
 
             <Button

@@ -29,6 +29,7 @@
     "@shadcn/react": "^0.1.0",
     "@shikijs/transformers": "^4.0.2",
     "@tabler/icons-react": "^3.44.0",
+    "@vemetric/web": "^0.6.1",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
     "class-variance-authority": "^0.7.1",

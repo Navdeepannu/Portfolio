@@ -8,7 +8,7 @@ import { ComponentPreviewCard } from '@/features/navui/catalog/components/compon
 import { cn } from '@/lib/utils'
 
 const copy = {
-  eyebrow: 'Built to be used',
+  eyebrow: 'Components',
   title: 'Start with the interaction. Keep control of the code.',
   description:
     'Every component comes with a live preview, a documented API, and copy-paste source. Install one or take the pattern apart.',
@@ -27,12 +27,12 @@ export function ComponentsPreviewSection() {
         <span className="mb-4 block font-mono text-xs text-muted-foreground">{copy.eyebrow}</span>
         <div className="grid items-start gap-4 lg:grid-cols-2 lg:gap-12">
           <div className="max-w-md text-left text-balance">
-            <h2 className="font-times-heading font-normal tracking-tight text-foreground md:text-xl">
+            <h2 className="font-times-heading font-normal tracking-tight text-foreground md:text-2xl">
               {copy.title}
             </h2>
           </div>
 
-          <div className="mx-auto max-w-md pt-6 text-xs font-medium text-foreground/70">
+          <div className="mx-auto max-w-md pt-6 text-sm font-medium text-foreground/70">
             <p>{copy.description}</p>
 
             <Button
