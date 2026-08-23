@@ -9,8 +9,8 @@ export function UiLibraryPage() {
     <main className="flex flex-col">
       <UiLibraryHero />
       <ShowcaseSection />
-      <ComponentsPreviewSection />
       <BlocksPreviewSection />
+      <ComponentsPreviewSection />
       <UiLibraryFooter />
     </main>
   )
