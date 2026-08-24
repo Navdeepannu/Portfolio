@@ -8,7 +8,7 @@ import { Shader, Blob, FilmGrain, Swirl, TiltShift, WaveDistortion } from 'shade
 
 export default function HeroSectionThree() {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-white dark:bg-[#1a1a1a]">
+    <section className="relative min-h-screen overflow-hidden bg-background text-foreground">
       {/* Shader background */}
       <div className="pointer-events-none absolute inset-0 z-0 motion-reduce:hidden">
         {/* Oversized rotated canvas to avoid clipping */}
@@ -44,26 +44,26 @@ export default function HeroSectionThree() {
           </Shader>
         </div>
         {/* main horizontal fade */}
-        <div className="absolute inset-0 bg-linear-to-r from-white via-white/80 to-transparent dark:from-black dark:via-black/80 dark:to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-r from-background via-background/80 to-transparent" />
 
         {/* soft seam killer */}
-        <div className="absolute inset-0 bg-radial-[ellipse_at_left] from-white/40 via-white/10 to-transparent dark:from-black/40 dark:via-black/10" />
+        <div className="absolute inset-0 bg-radial-[ellipse_at_left] from-background/40 via-background/10 to-transparent" />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 mx-auto flex min-h-screen max-w-4xl flex-col justify-center gap-6 px-8 selection:bg-sky-500/80 md:px-16">
-        <h1 className="text-4xl font-medium tracking-tight text-neutral-800 md:text-6xl dark:text-neutral-100">
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-4xl flex-col justify-center gap-6 px-8 selection:bg-primary/80 selection:text-primary-foreground md:px-16">
+        <h1 className="text-4xl font-medium tracking-tight md:text-6xl">
           Exceptional product demos in minutes, not days
         </h1>
 
-        <p className="text-md leading-relaxed text-neutral-600 md:text-lg lg:text-xl dark:text-neutral-300">
+        <p className="text-md leading-relaxed text-muted-foreground md:text-lg lg:text-xl">
           AI-powered interactive demos that accelerate deals
         </p>
 
         <div className="mt-2 flex gap-4">
           <Button size="lg" className="rounded-full" asChild>
             <Link href="#presets">
-              Explore presents
+              Explore presets
               <IconArrowUpRight aria-hidden="true" data-icon="inline-end" />
             </Link>
           </Button>

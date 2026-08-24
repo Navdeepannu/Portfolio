@@ -6,12 +6,10 @@ import { componentItemEntries, registryItems } from '@/registry/items'
 import {
   GENERATED_BLOCK_PREVIEWS_PATH,
   GENERATED_COMPONENT_PREVIEWS_PATH,
-  GENERATED_DEFAULT_DESIGN_SYSTEM_CSS_PATH,
   GENERATED_ILLUSTRATION_PREVIEWS_PATH,
   ROOT_REGISTRY_PATH,
   renderBlockPreviewModule,
   renderComponentPreviewModule,
-  renderDefaultDesignSystemCss,
   renderIllustrationPreviewModule,
   renderRootRegistry,
 } from './core'
@@ -37,7 +35,6 @@ async function main() {
   const outputs = [
     [ROOT_REGISTRY_PATH, renderRootRegistry(registryItems)],
     [GENERATED_BLOCK_PREVIEWS_PATH, renderBlockPreviewModule(registryItems)],
-    [GENERATED_DEFAULT_DESIGN_SYSTEM_CSS_PATH, renderDefaultDesignSystemCss(registryItems)],
     [
       GENERATED_COMPONENT_PREVIEWS_PATH,
       renderComponentPreviewModule(registryItems, componentItemEntries),

@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 
 export default function BlogLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground dark:[--background:#101010]">
       <PortfolioNavbar />
       {children}
       <PortfolioFooter />

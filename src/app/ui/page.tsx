@@ -3,7 +3,7 @@ import { UiLibraryPage } from '@/features/navui/landing/ui-library/ui-library-pa
 
 export default function Page() {
   return (
-    <div>
+    <div className="min-h-screen bg-background dark:[--background:#101010]">
       <UiLibraryNavbar />
       <UiLibraryPage />
     </div>
