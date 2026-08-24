@@ -3,8 +3,22 @@ import path from 'node:path'
 
 import type { BundledLanguage } from 'shiki'
 
+import { DEFAULT_NAVUI_PRIMITIVE, primitiveConfig, type Primitive } from '@/config/navui-primitives'
 import { registryTargetToDisplayPath } from '@/features/navui/code/source-tree'
-import type { BlockDefinition, ComponentDefinition, NavUIRegistryItem } from '@/registry/types'
+import {
+  getPrimitiveComponentDefinition,
+  type PrimitiveComponentDefinition,
+} from '@/registry/primitives/definitions'
+import {
+  resolveBlockDefinition,
+  resolveRegistryItemForPrimitive,
+} from '@/registry/primitives/resolve'
+import type {
+  BlockDefinition,
+  ComponentDefinition,
+  NavUIRegistryItem,
+  ResolvedBlockDefinition,
+} from '@/registry/types'
 
 export type SourceDefinition = BlockDefinition | ComponentDefinition
 
@@ -22,7 +36,7 @@ export type LoadedRegistrySourceFile = LoadedBlockSourceFile & {
   /** Canonical item that owns this file. */
   ownerSlug: string
   ownerTitle: string
-  relationship: 'direct' | 'registry-dependency'
+  relationship: 'direct' | 'registry-dependency' | 'primitive-dependency'
 }
 
 const LOCAL_REGISTRY_DEPENDENCY_PREFIX = '@navdeep-singh/'
@@ -34,18 +48,19 @@ function localRegistryDependencyName(dependency: string): string | undefined {
 }
 
 /**
- * Resolves only NavUI-owned registry dependencies. Generic shadcn items such
- * as `button` remain installer-managed and are not presented as NavUI files.
+ * Resolves NavUI-owned registry dependencies. Supported generic primitive
+ * dependencies are resolved separately after this traversal.
  */
 export function resolveLocalRegistryDependencyItems(
   definition: NavUIRegistryItem,
   registryItems: NavUIRegistryItem[],
-): NavUIRegistryItem[] {
+  primitive: Primitive = DEFAULT_NAVUI_PRIMITIVE,
+): Array<NavUIRegistryItem | ResolvedBlockDefinition> {
   const bySlug = new Map(registryItems.map((item) => [item.slug, item]))
   const visited = new Set([definition.slug])
-  const resolved: NavUIRegistryItem[] = []
+  const resolved: Array<NavUIRegistryItem | ResolvedBlockDefinition> = []
 
-  const visit = (item: NavUIRegistryItem) => {
+  const visit = (item: NavUIRegistryItem | ResolvedBlockDefinition) => {
     for (const dependency of item.registry.registryDependencies) {
       const dependencyName = localRegistryDependencyName(dependency)
       if (!dependencyName || visited.has(dependencyName)) continue
@@ -54,12 +69,42 @@ export function resolveLocalRegistryDependencyItems(
       if (!dependencyItem) continue
 
       visited.add(dependencyName)
-      resolved.push(dependencyItem)
-      visit(dependencyItem)
+      const resolvedDependency = resolveRegistryItemForPrimitive(dependencyItem, primitive)
+      resolved.push(resolvedDependency)
+      visit(resolvedDependency)
     }
   }
 
   visit(definition)
+  return resolved
+}
+
+type PrimitiveDependencyResolution = {
+  definition: PrimitiveComponentDefinition
+  implementation: PrimitiveComponentDefinition['implementations'][Primitive]
+}
+
+function resolvePrimitiveComponentDependencies(
+  items: Array<NavUIRegistryItem | ResolvedBlockDefinition>,
+  primitive: Primitive,
+): PrimitiveDependencyResolution[] {
+  const pending = items.flatMap((item) => item.registry.registryDependencies)
+  const visited = new Set<string>()
+  const resolved: PrimitiveDependencyResolution[] = []
+
+  while (pending.length > 0) {
+    const name = pending.shift()
+    if (!name || visited.has(name) || localRegistryDependencyName(name)) continue
+
+    const definition = getPrimitiveComponentDefinition(name)
+    if (!definition) continue
+
+    visited.add(name)
+    const implementation = definition.implementations[primitive]
+    resolved.push({ definition, implementation })
+    pending.push(...implementation.registryDependencies)
+  }
+
   return resolved
 }
 
@@ -150,16 +195,24 @@ export async function loadBlockCodeFiles(
 export async function loadRegistryCodeFiles(
   definition: BlockDefinition,
   registryItems: NavUIRegistryItem[] = [],
+  primitive: Primitive = DEFAULT_NAVUI_PRIMITIVE,
 ): Promise<LoadedRegistrySourceFile[]> {
+  const resolvedDefinition = resolveBlockDefinition(definition, primitive)
   const owners = [
-    { item: definition, relationship: 'direct' as const },
-    ...resolveLocalRegistryDependencyItems(definition, registryItems).map((item) => ({
-      item,
-      relationship: 'registry-dependency' as const,
-    })),
+    { item: resolvedDefinition, relationship: 'direct' as const },
+    ...resolveLocalRegistryDependencyItems(resolvedDefinition, registryItems, primitive).map(
+      (item) => ({
+        item,
+        relationship: 'registry-dependency' as const,
+      }),
+    ),
   ]
+  const primitiveDependencies = resolvePrimitiveComponentDependencies(
+    owners.map(({ item }) => item),
+    primitive,
+  )
   const seenTargets = new Set<string>()
-  const files = owners.flatMap(({ item, relationship }) =>
+  const itemFiles = owners.flatMap(({ item, relationship }) =>
     item.registry.files.flatMap((file) => {
       if (seenTargets.has(file.target)) return []
       seenTargets.add(file.target)
@@ -167,6 +220,25 @@ export async function loadRegistryCodeFiles(
       return [{ file, item, relationship }]
     }),
   )
+  const primitiveFiles = primitiveDependencies.flatMap(
+    ({ definition: component, implementation }) =>
+      implementation.files.flatMap((file) => {
+        if (seenTargets.has(file.target)) return []
+        seenTargets.add(file.target)
+
+        return [
+          {
+            file,
+            item: {
+              slug: component.name,
+              title: `${primitiveConfig[primitive].label} ${component.title}`,
+            },
+            relationship: 'primitive-dependency' as const,
+          },
+        ]
+      }),
+  )
+  const files = [...itemFiles, ...primitiveFiles]
 
   return Promise.all(
     files.map(async ({ file, item, relationship }) => {
@@ -184,4 +256,26 @@ export async function loadRegistryCodeFiles(
       }
     }),
   )
+}
+
+export function resolveRegistryPackageDependencies(
+  definition: BlockDefinition,
+  registryItems: NavUIRegistryItem[] = [],
+  primitive: Primitive = DEFAULT_NAVUI_PRIMITIVE,
+): string[] {
+  const resolvedDefinition = resolveBlockDefinition(definition, primitive)
+  const dependencyItems = resolveLocalRegistryDependencyItems(
+    resolvedDefinition,
+    registryItems,
+    primitive,
+  )
+  const owners = [resolvedDefinition, ...dependencyItems]
+  const primitiveDependencies = resolvePrimitiveComponentDependencies(owners, primitive)
+
+  return [
+    ...new Set([
+      ...owners.flatMap((item) => item.registry.dependencies),
+      ...primitiveDependencies.flatMap(({ implementation }) => implementation.dependencies),
+    ]),
+  ].sort((a, b) => a.localeCompare(b))
 }

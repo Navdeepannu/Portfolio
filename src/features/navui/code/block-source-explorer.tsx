@@ -100,7 +100,7 @@ function FileTree({
 
         const isSelected = node.path === selectedPath
         const file = fileDetails.get(node.path)
-        const isDependency = file?.relationship === 'registry-dependency'
+        const isDependency = Boolean(file && file.relationship !== 'direct')
 
         return (
           <li key={node.path}>
@@ -115,7 +115,7 @@ function FileTree({
               style={{ paddingInlineStart: paddingInlineStart + 10 }}
               aria-current={isSelected ? 'page' : undefined}
               title={
-                isDependency ? `${node.path} — installed through ${file.ownerTitle}` : node.path
+                isDependency ? `${node.path} — installed through ${file?.ownerTitle}` : node.path
               }
               onClick={() => onSelect(node.path)}
             >
@@ -136,7 +136,7 @@ function FileTree({
                   </span>
                 ) : null}
                 {isDependency ? (
-                  <span className="sr-only">Registry dependency from {file.ownerTitle}</span>
+                  <span className="sr-only">Registry dependency from {file?.ownerTitle}</span>
                 ) : null}
               </span>
             </button>
@@ -256,9 +256,9 @@ export default function BlockSourceExplorer({ files }: { files: LoadedRegistrySo
                       >
                         {(item) => {
                           const file = fileDetails.get(item.filename)
-                          const isDependency = file?.relationship === 'registry-dependency'
+                          const isDependency = Boolean(file && file.relationship !== 'direct')
                           const dependencyLabel = isDependency
-                            ? ` — Dependency · ${file.ownerTitle}`
+                            ? ` — Dependency · ${file?.ownerTitle}`
                             : ''
                           const label = `${item.filename}${dependencyLabel}`
                           const filename = item.filename.split('/').pop() ?? item.filename

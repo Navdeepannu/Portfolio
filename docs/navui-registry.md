@@ -62,9 +62,11 @@ manifest.
 
 The explorer recursively includes NavUI-owned dependencies such as
 `@navdeep-singh/header-three`, while preserving their owning item and labeling their files as
-dependencies rather than direct block files. Generic shadcn dependencies such as `button`,
-`label`, and `navigation-menu` remain installer-managed and are not presented as NavUI-owned
-source.
+dependencies rather than direct block files. Generic shadcn dependencies remain installer-managed.
+When NavUI has an explicit primitive definition for one of them, currently `button`, the explorer
+also includes the Base UI, React Aria, or Radix source selected by the documentation preference.
+Unsupported generic dependencies such as `label` and `navigation-menu` remain omitted until they
+have canonical primitive definitions.
 
 Source imports stay canonical. During installation, shadcn rewrites imports between registry items
 to the consumer's `components.json` aliases. Manual copying therefore works with the conventional

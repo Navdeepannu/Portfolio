@@ -1,6 +1,8 @@
 import type { ComponentType } from 'react'
 import type { BundledLanguage } from 'shiki'
 
+import type { Primitive } from '@/config/navui-primitives'
+
 export const REGISTRY_ITEM_STATUSES = ['draft', 'published', 'archived'] as const
 export type RegistryItemStatus = (typeof REGISTRY_ITEM_STATUSES)[number]
 
@@ -93,6 +95,23 @@ export type BlockDefinition = RegistryItemDefinitionBase & {
   category: BlockCategoryId
   /** Install command shown in the UI; optional override. */
   cli?: string
+  /** Narrow per-base overrides for blocks whose primitive usage cannot stay shared. */
+  primitiveVariants?: Partial<Record<Primitive, BlockPrimitiveVariant>>
+}
+
+export type BlockPrimitiveVariant = {
+  sourceFiles?: BlockSourceFileSpec[]
+  preview?: RegistryPreviewSpec
+  registry?: Partial<Pick<BlockRegistryMeta, 'dependencies' | 'registryDependencies' | 'files'>>
+}
+
+export type ResolvedBlockDefinition = Omit<BlockDefinition, 'primitiveVariants'> & {
+  primitive: Primitive
+}
+
+export type BlockPreviewComponentSet = {
+  default: ComponentType
+  variants?: Partial<Record<Primitive, ComponentType>>
 }
 
 export type BlockRegistryEntry = {

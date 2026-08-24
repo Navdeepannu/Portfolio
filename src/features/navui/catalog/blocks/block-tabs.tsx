@@ -15,6 +15,8 @@ import { CodeXml, Maximize, RotateCcw, ScanEye } from 'lucide-react'
 
 import { PackageManagerCommand } from '@/components/package-manager-command'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import PrimitiveSelector from '@/features/navui/primitives/primitive-selector'
+import type { Primitive } from '@/config/navui-primitives'
 
 type BlockTab = 'preview' | 'code'
 
@@ -31,10 +33,12 @@ const previewWidthOptions = [
 export default function BlockTabs({
   slug,
   title,
+  primitive,
   code,
 }: {
   slug: string
   title: string
+  primitive: Primitive
   code: ReactNode
 }) {
   const [reloadKey, setReloadKey] = useState(0)
@@ -72,7 +76,7 @@ export default function BlockTabs({
           <div
             role="group"
             aria-label="Preview width"
-            className="flex h-9 items-center gap-1 rounded-lg bg-muted p-1"
+            className="hidden h-9 items-center gap-1 rounded-lg bg-muted p-1 sm:flex"
           >
             {previewWidthOptions.map(({ value, label, icon: Icon }) => {
               const isActive = previewWidth === value
@@ -97,6 +101,8 @@ export default function BlockTabs({
               )
             })}
           </div>
+
+          <PrimitiveSelector primitive={primitive} />
         </div>
 
         <div className="flex min-h-9 shrink-0 items-center gap-2">
@@ -157,7 +163,13 @@ export default function BlockTabs({
           value="preview"
           className="mt-0 flex min-w-0 flex-col outline-none data-[state=inactive]:hidden"
         >
-          <BlockIframe slug={slug} title={title} reloadKey={reloadKey} width={previewWidth} />
+          <BlockIframe
+            slug={slug}
+            title={title}
+            primitive={primitive}
+            reloadKey={reloadKey}
+            width={previewWidth}
+          />
         </TabsContent>
         <TabsContent
           value="code"
