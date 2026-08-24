@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <main className="min-h-screen bg-background font-schibsted text-foreground">
+    <main className="min-h-screen bg-background font-schibsted text-foreground dark:[--background:#101010]">
       <LandingNavbar />
       <section className="w-full min-w-0">{children}</section>
     </main>

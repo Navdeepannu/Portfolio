@@ -10,11 +10,10 @@ export const REGISTRY_ITEM_TYPES = [
   'registry:ui',
   'registry:lib',
   'registry:hook',
-  'registry:style',
 ] as const
 export type NavUIRegistryItemType = (typeof REGISTRY_ITEM_TYPES)[number]
 
-export type RegistryItemKind = 'block' | 'component' | 'illustration' | 'design-system' | 'support'
+export type RegistryItemKind = 'block' | 'component' | 'illustration' | 'support'
 
 export type BlockCategoryId = string
 
@@ -63,15 +62,6 @@ export type RegistryFileEntry = {
   shared?: boolean
 }
 
-export type RegistryCssVars = {
-  /** Tailwind v4 theme variables, without the leading `--`. */
-  theme?: Record<string, string>
-  /** Root CSS variables, without the leading `--`. */
-  light?: Record<string, string>
-  /** Dark-mode CSS variables, without the leading `--`. */
-  dark?: Record<string, string>
-}
-
 /** The shadcn-compatible portion of one canonical NavUI item. */
 export type BlockRegistryMeta = {
   name: string
@@ -79,7 +69,6 @@ export type BlockRegistryMeta = {
   dependencies: string[]
   registryDependencies: string[]
   files: RegistryFileEntry[]
-  cssVars?: RegistryCssVars
 }
 
 /** Common typed model used by blocks, components, illustrations, and support items. */
@@ -123,13 +112,6 @@ export type IllustrationDefinition = RegistryItemDefinitionBase & {
 export type SupportDefinition = RegistryItemDefinitionBase & {
   kind: 'support'
   category: 'support'
-}
-
-export type DesignSystemDefinition = RegistryItemDefinitionBase & {
-  kind: 'design-system'
-  category: 'design-system'
-  /** Exactly one published design system may be the NavUI default. */
-  default: boolean
 }
 
 export type ComponentBentoSize = 'sm' | 'md' | 'lg' | 'xl'
@@ -190,5 +172,4 @@ export type NavUIRegistryItem =
   | BlockDefinition
   | ComponentDefinition
   | IllustrationDefinition
-  | DesignSystemDefinition
   | SupportDefinition
