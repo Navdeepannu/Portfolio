@@ -16,6 +16,8 @@ import { getSearchGroups } from '@/features/navui/search/search-data'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { GitHubStars } from './github-stars'
 import LogoMark from '@/components/ui-library-logo'
+import { ANALYTICS_EVENTS } from '@/features/analytics/events'
+import { trackAnalyticsEvent } from '@/features/analytics/track'
 
 const primaryMenuItems = [
   { name: 'Components', href: '/components' },
@@ -62,7 +64,14 @@ export function UiLibraryNavbar({
   const isDark = theme === 'dark'
 
   const toggleTheme = () => {
-    setTheme(isDark ? 'light' : 'dark')
+    const from = isDark ? 'dark' : 'light'
+    const to = isDark ? 'light' : 'dark'
+    setTheme(to)
+    trackAnalyticsEvent(ANALYTICS_EVENTS.THEME_CHANGED, {
+      from,
+      to,
+      source: 'navui_navbar',
+    })
   }
 
   useEffect(() => {
@@ -139,13 +148,24 @@ export function UiLibraryNavbar({
               <Kbd className="hidden sm:inline-flex">K</Kbd>
             </Button>
 
-            <GitHubStars repo="navdeepannu/portfolio" stargazersCount={stargazersCount} />
+            <GitHubStars
+              repo="navdeepannu/portfolio"
+              stargazersCount={stargazersCount}
+              onClick={() =>
+                trackAnalyticsEvent(ANALYTICS_EVENTS.EXTERNAL_LINK_CLICKED, {
+                  destination_type: 'github',
+                  destination: 'https://github.com/navdeepannu/portfolio',
+                  source: 'navui_navbar',
+                })
+              }
+            />
 
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
                   variant="ghost"
                   size="icon-sm"
+                  className="ph-no-capture"
                   onClick={toggleTheme}
                   aria-label="Toggle theme"
                 >
@@ -250,9 +270,17 @@ export function UiLibraryNavbar({
                   >
                     <Link
                       href={portfolioItem.href}
+                      className="ph-no-capture"
                       target="_blank"
                       rel="noopener noreferrer"
-                      onClick={() => setMobileMenuOpen(false)}
+                      onClick={() => {
+                        setMobileMenuOpen(false)
+                        trackAnalyticsEvent(ANALYTICS_EVENTS.EXTERNAL_LINK_CLICKED, {
+                          destination_type: 'portfolio',
+                          destination: portfolioItem.href,
+                          source: 'navui_mobile_navbar',
+                        })
+                      }}
                     >
                       Portfolio
                       <ArrowUpRight className="size-4" aria-hidden="true" />

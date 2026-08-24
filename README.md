@@ -92,9 +92,9 @@ Copy `.env.example` to `.env.local` and add only the credentials you want to ena
   Vercel Web Analytics. Add `VERCEL_TEAM_ID` for a team-owned project. Current and previous 28-day
   ranges are queried separately and cached for six hours.
 
-No credential uses a `NEXT_PUBLIC_` prefix. The public analytics section remains hidden when Vercel
-credentials are absent or the provider fails, and `/api/public-insights` returns only allowlisted
-aggregate fields.
+Server credentials never use a `NEXT_PUBLIC_` prefix. Browser analytics project tokens are public
+identifiers by design. The public analytics section remains hidden when Vercel credentials are
+absent or the provider fails, and `/api/public-insights` returns only allowlisted aggregate fields.
 
 ## Repository checks
 

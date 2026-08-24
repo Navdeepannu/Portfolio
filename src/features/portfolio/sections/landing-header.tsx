@@ -1,9 +1,8 @@
-import Link from 'next/link'
-
 import { blockItems, componentDefinitions } from '@/registry/items'
 import { LandingTextLink } from '@/features/portfolio/sections/landing-link'
 import { landingPageContent } from '@/features/portfolio/content/landing-page.content'
 import { PortfolioNavbar } from '@/features/portfolio/sections/portfolio-navbar'
+import { ExternalAnalyticsLink } from '@/features/analytics/external-analytics-link'
 
 type LandingNavbarProps = {
   isHome?: boolean
@@ -39,14 +38,16 @@ export function LandingHeader() {
           <p className="mt-5 max-w-[66ch] text-sm leading-6 text-muted-foreground md:text-base md:leading-7">
             I build polished, accessible web interfaces and reusable UI systems with React, Next.js,
             and TypeScript. I&apos;m currently building{' '}
-            <Link
+            <ExternalAnalyticsLink
               href="https://ui.navdeepsingh.dev"
+              destinationType="project"
+              analyticsSource="portfolio_hero"
               target="_blank"
               rel="noopener noreferrer"
               className="rounded-sm font-medium text-foreground underline decoration-border underline-offset-4 transition-colors hover:decoration-foreground focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-ring"
             >
               NavUI<span className="sr-only"> (opens in a new tab)</span>
-            </Link>
+            </ExternalAnalyticsLink>
             , an open-source library of {componentCount} components and {blockCount} reusable
             blocks, while contributing frontend improvements to open-source products.
           </p>

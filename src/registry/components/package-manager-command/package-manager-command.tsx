@@ -26,7 +26,7 @@ export type PackageManagerCommandProps = {
   align?: 'start' | 'center' | 'end'
   copyLabel?: string
   resetDelay?: number
-  onCopySuccess?: (command: string) => void
+  onCopySuccess?: (command: string, packageManager: PackageManagerId) => void
   onCopyError?: (error: Error) => void
 }
 
@@ -132,7 +132,7 @@ export function PackageManagerCommand({
     try {
       await navigator.clipboard.writeText(command)
       setCopyState('done')
-      onCopySuccess?.(command)
+      onCopySuccess?.(command, selectedPm)
     } catch (error) {
       const copyError = error instanceof Error ? error : new Error('Copy failed')
       setCopyState('error')

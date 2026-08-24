@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
+import { trackAnalyticsException } from '@/features/analytics/track'
 
 export default function ErrorPage({
   error,
@@ -13,7 +14,7 @@ export default function ErrorPage({
   unstable_retry: () => void
 }) {
   useEffect(() => {
-    console.error(error)
+    trackAnalyticsException(error)
   }, [error])
 
   return (

@@ -25,6 +25,8 @@ import {
   type SourceTreeNode,
 } from '@/features/navui/code/source-tree'
 import { cn } from '@/lib/utils'
+import { ANALYTICS_EVENTS, type CodeCopyAnalyticsContext } from '@/features/analytics/events'
+import { trackAnalyticsEvent } from '@/features/analytics/track'
 
 type FileTreeProps = {
   nodes: SourceTreeNode[]
@@ -147,7 +149,13 @@ function FileTree({
   )
 }
 
-export default function BlockSourceExplorer({ files }: { files: LoadedRegistrySourceFile[] }) {
+export default function BlockSourceExplorer({
+  files,
+  analytics,
+}: {
+  files: LoadedRegistrySourceFile[]
+  analytics?: CodeCopyAnalyticsContext
+}) {
   const data = useMemo(
     () =>
       files.map((file) => ({
@@ -321,6 +329,9 @@ export default function BlockSourceExplorer({ files }: { files: LoadedRegistrySo
               aria-label="Copy selected file"
               title="Copy selected file"
               className="size-8"
+              onCopy={() => {
+                if (analytics) trackAnalyticsEvent(ANALYTICS_EVENTS.CODE_COPIED, analytics)
+              }}
             />
           </CodeBlockHeader>
 

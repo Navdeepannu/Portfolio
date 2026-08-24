@@ -1,3 +1,5 @@
+'use client'
+
 import type { ComponentProps } from 'react'
 import { IconBrandGithub } from '@tabler/icons-react'
 
@@ -15,6 +17,7 @@ export type GitHubStarsProps = {
   size?: ButtonProps['size']
   className?: string
   showTooltip?: boolean
+  onClick?: React.MouseEventHandler<HTMLAnchorElement>
 }
 
 export function GitHubStars({
@@ -25,6 +28,7 @@ export function GitHubStars({
   size = 'default',
   className,
   showTooltip = true,
+  onClick,
 }: GitHubStarsProps) {
   const hasCount = stargazersCount !== null
   const compactStars = hasCount
@@ -48,8 +52,10 @@ export function GitHubStars({
     >
       <a
         href={`https://github.com/${repo}`}
+        className="ph-no-capture"
         target="_blank"
         rel="noopener noreferrer"
+        onClick={onClick}
         aria-label={
           hasCount
             ? `${repo} on GitHub, ${formattedStars} ${starLabel} (opens in a new tab)`

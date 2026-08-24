@@ -141,7 +141,17 @@ export default async function ComponentRenderer({
         <ComponentTabs
           slug={component.slug}
           preview={<ComponentPreview slug={component.slug} />}
-          code={<BlockCode files={componentFiles} />}
+          code={
+            <BlockCode
+              files={componentFiles}
+              analytics={{
+                item_type: 'component',
+                item_slug: component.slug,
+                item_title: component.title,
+                source: 'component_detail',
+              }}
+            />
+          }
         />
 
         <ComponentNotes notes={component.notes} />
@@ -152,10 +162,34 @@ export default async function ComponentRenderer({
 
         <ComponentInstall
           slug={component.slug}
+          title={component.title}
           dependencies={deps}
           registryDependencies={registryDeps}
-          sourceCode={<BlockCode key="component-source-code" files={componentFiles} collapsible />}
-          utilsCode={<BlockCode key="utils-source-code" files={utilsFiles} />}
+          sourceCode={
+            <BlockCode
+              key="component-source-code"
+              files={componentFiles}
+              collapsible
+              analytics={{
+                item_type: 'component',
+                item_slug: component.slug,
+                item_title: component.title,
+                source: 'component_manual_install',
+              }}
+            />
+          }
+          utilsCode={
+            <BlockCode
+              key="utils-source-code"
+              files={utilsFiles}
+              analytics={{
+                item_type: 'component',
+                item_slug: component.slug,
+                item_title: component.title,
+                source: 'component_utility',
+              }}
+            />
+          }
         />
       </section>
 
@@ -183,7 +217,18 @@ export default async function ComponentRenderer({
                   slug={component.slug}
                   exampleId={example.id}
                   preview={<ComponentPreview slug={component.slug} exampleId={example.id} />}
-                  code={<BlockCode files={files} />}
+                  code={
+                    <BlockCode
+                      files={files}
+                      analytics={{
+                        item_type: 'component',
+                        item_slug: component.slug,
+                        item_title: component.title,
+                        example_id: example.id,
+                        source: 'component_example',
+                      }}
+                    />
+                  }
                 />
               </div>
             ))}

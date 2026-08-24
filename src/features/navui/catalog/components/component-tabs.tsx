@@ -14,6 +14,8 @@ import { getInstallCommands } from '@/features/navui/catalog/install-commands-di
 import { blockShowcaseCodeViewportClassName } from '@/features/navui/previews/block-showcase-viewport'
 import { CodeXml, Maximize, RotateCcw, ScanEye } from 'lucide-react'
 import Link from 'next/link'
+import { ANALYTICS_EVENTS } from '@/features/analytics/events'
+import { trackAnalyticsEvent } from '@/features/analytics/track'
 
 export function ComponentPreview({ slug, exampleId }: { slug: string; exampleId?: string }) {
   const Showcase = exampleId
@@ -61,7 +63,15 @@ export default function ComponentTabs({
           <PackageManagerCommand
             commands={commands}
             defaultValue="bun"
-            className="w-37 sm:w-88 sm:max-w-[calc(100vw-7rem)]"
+            className="ph-no-capture w-37 sm:w-88 sm:max-w-[calc(100vw-7rem)]"
+            onCopySuccess={(_command, packageManager) =>
+              trackAnalyticsEvent(ANALYTICS_EVENTS.CLI_COMMAND_COPIED, {
+                item_type: 'component',
+                item_slug: slug,
+                package_manager: packageManager,
+                source: 'component_detail_header',
+              })
+            }
           />
 
           <div className="flex h-9 items-center gap-1 rounded-md bg-muted px-1">

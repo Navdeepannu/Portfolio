@@ -6,6 +6,8 @@ import { Button } from '@/components/ui/button'
 import { getAllComponents } from '@/features/navui/catalog'
 import { ComponentPreviewCard } from '@/features/navui/catalog/components/component-preview-card'
 import { cn } from '@/lib/utils'
+import { ANALYTICS_EVENTS } from '@/features/analytics/events'
+import { trackAnalyticsEvent } from '@/features/analytics/track'
 
 const copy = {
   eyebrow: 'Components',
@@ -41,7 +43,19 @@ export function ComponentsPreviewSection() {
               size="sm"
               asChild
             >
-              <Link href={copy.cta.href}>{copy.cta.label}</Link>
+              <Link
+                href={copy.cta.href}
+                className="ph-no-capture"
+                onClick={() =>
+                  trackAnalyticsEvent(ANALYTICS_EVENTS.LANDING_CTA_CLICKED, {
+                    cta: 'browse_components',
+                    destination: copy.cta.href,
+                    location: 'components_section',
+                  })
+                }
+              >
+                {copy.cta.label}
+              </Link>
             </Button>
           </div>
         </div>

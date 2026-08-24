@@ -17,6 +17,8 @@ import { PackageManagerCommand } from '@/components/package-manager-command'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import PrimitiveSelector from '@/features/navui/primitives/primitive-selector'
 import type { Primitive } from '@/config/navui-primitives'
+import { ANALYTICS_EVENTS } from '@/features/analytics/events'
+import { trackAnalyticsEvent } from '@/features/analytics/track'
 
 type BlockTab = 'preview' | 'code'
 
@@ -102,11 +104,25 @@ export default function BlockTabs({
             })}
           </div>
 
-          <PrimitiveSelector primitive={primitive} />
+          <PrimitiveSelector itemSlug={slug} primitive={primitive} />
         </div>
 
         <div className="flex min-h-9 shrink-0 items-center gap-2">
-          <PackageManagerCommand commands={commands} defaultValue="npm" />
+          <PackageManagerCommand
+            commands={commands}
+            defaultValue="npm"
+            className="ph-no-capture"
+            onCopySuccess={(_command, packageManager) =>
+              trackAnalyticsEvent(ANALYTICS_EVENTS.CLI_COMMAND_COPIED, {
+                item_type: 'block',
+                item_slug: slug,
+                item_title: title,
+                package_manager: packageManager,
+                primitive,
+                source: 'block_detail',
+              })
+            }
+          />
 
           <div className="flex h-9 items-center gap-1 rounded-lg bg-muted p-1">
             <Tooltip>

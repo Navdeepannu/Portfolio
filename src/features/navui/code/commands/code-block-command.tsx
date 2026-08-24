@@ -14,6 +14,7 @@ export type PackageCommandTabsProps = {
   defaultPackageManager?: PackageManagerId
   className?: string
   showPromptSymbol?: boolean
+  onCopySuccess?: (packageManager: PackageManagerId) => void
 }
 
 const PACKAGE_MANAGERS: readonly {
@@ -85,6 +86,7 @@ export function CodeBlockCommand({
   defaultPackageManager = 'npm',
   className,
   showPromptSymbol = true,
+  onCopySuccess,
 }: PackageCommandTabsProps) {
   const [packageManager, setPackageManager] = useState<PackageManagerId>(defaultPackageManager)
 
@@ -134,12 +136,14 @@ export function CodeBlockCommand({
             size="icon"
             text={selectedCommand}
             className={cn(
+              'ph-no-capture',
               'absolute top-1/2 right-3 size-8 -translate-y-1/2 rounded-md text-muted-foreground',
               'hover:bg-muted hover:text-foreground dark:hover:bg-input/40',
               '[&_svg]:size-4',
             )}
             aria-label="Copy command"
             title="Copy command"
+            onCopySuccess={() => onCopySuccess?.(packageManager)}
           />
         </div>
 

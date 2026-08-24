@@ -38,6 +38,7 @@ function InfoCell({
       rel={isExternal ? 'noopener noreferrer' : undefined}
       className={cn(
         'group group/cell block rounded-sm bg-muted p-5 text-foreground',
+        link?.startsWith('mailto:') && 'ph-no-capture',
         'transition-all duration-300 ease-out',
         'hover:-translate-y-0.5 hover:text-white hover:shadow-sm',
         'focus-visible:ring-2 focus-visible:ring-foreground/20 focus-visible:outline-none',
@@ -106,7 +107,7 @@ function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="ph-no-capture space-y-4">
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-1.5">
           <Label htmlFor="contact-name" className="text-xs font-medium">
