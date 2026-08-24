@@ -204,6 +204,30 @@
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "content-section-five",
+      "type": "registry:block",
+      "title": "Content Section Five",
+      "description": "A sticky editorial narrative with a normal mobile flow and a sequence of image-led content panels.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/registry/blocks/content/content-section-five/content-section-five.tsx",
+          "target": "@components/blocks/content/content-section-five.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "navui": {
+          "status": "published",
+          "kind": "block",
+          "category": "content"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "content-section-four",
       "type": "registry:block",
       "title": "Content Section Four",
@@ -1213,30 +1237,6 @@
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "process-section-one",
-      "type": "registry:block",
-      "title": "Process Section One",
-      "description": "A sticky how-it-works narrative with a normal mobile flow and a sequence of image-led process panels.",
-      "dependencies": [
-        "lucide-react"
-      ],
-      "files": [
-        {
-          "path": "src/registry/blocks/process/process-section-one/process-section-one.tsx",
-          "target": "@components/blocks/process/process-section-one.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "meta": {
-        "navui": {
-          "status": "published",
-          "kind": "block",
-          "category": "process"
-        }
-      }
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "proximity-nav",
       "type": "registry:ui",
       "title": "Proximity Nav",
@@ -1622,34 +1622,6 @@
           "status": "published",
           "kind": "block",
           "category": "teams"
-        }
-      }
-    },
-    {
-      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "testamonial-section-one",
-      "type": "registry:block",
-      "title": "Testamonial Section One",
-      "description": "A customer-story hero with proof badges, a featured quote, and success-story action.",
-      "dependencies": [
-        "@tabler/icons-react"
-      ],
-      "registryDependencies": [
-        "badge",
-        "button"
-      ],
-      "files": [
-        {
-          "path": "src/registry/blocks/testimonial/testimonial-section-one/testimonial-section-one.tsx",
-          "target": "@components/blocks/testamonials/testamonial-section-one.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "meta": {
-        "navui": {
-          "status": "published",
-          "kind": "block",
-          "category": "testimonials"
         }
       }
     },

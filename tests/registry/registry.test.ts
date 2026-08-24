@@ -216,17 +216,18 @@ describe('canonical registry validation', () => {
     expect(renderRootRegistry([second, first])).toBe(renderRootRegistry([first, second]))
   })
 
-  test('keeps content and process identities mapped to their own source', () => {
-    const content = blockItems.find((item) => item.slug === 'content-section-four')
-    const process = blockItems.find((item) => item.slug === 'process-section-one')
+  test('keeps content identities mapped to their own source', () => {
+    const contentFour = blockItems.find((item) => item.slug === 'content-section-four')
+    const contentFive = blockItems.find((item) => item.slug === 'content-section-five')
 
-    expect(content?.registry.files[0]?.path).toBe(
+    expect(contentFour?.registry.files[0]?.path).toBe(
       'src/registry/blocks/content/content-section-four/content-section-four.tsx',
     )
-    expect(process?.registry.files[0]?.path).toBe(
-      'src/registry/blocks/process/process-section-one/process-section-one.tsx',
+    expect(contentFive?.registry.files[0]?.path).toBe(
+      'src/registry/blocks/content/content-section-five/content-section-five.tsx',
     )
-    expect(content?.registry.files[0]?.path).not.toBe(process?.registry.files[0]?.path)
+    expect(contentFive?.category).toBe('content')
+    expect(contentFour?.registry.files[0]?.path).not.toBe(contentFive?.registry.files[0]?.path)
   })
 
   test('compares preview/code source with generated install content', async () => {

@@ -15,4 +15,9 @@ export const retiredRegistryNames: RetiredRegistryName[] = [
     reason:
       'The source implementation was removed before Phase 2; only a stale generated payload remained.',
   },
+  {
+    name: 'process-section-one',
+    reason: 'Renamed and recategorized as a content block.',
+    replacement: 'content-section-five',
+  },
 ]

@@ -4,7 +4,7 @@ import { ArrowUpRight } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 
-export type ContentSectionFourContent = {
+export type ContentSectionFiveContent = {
   eyebrow: string
   heading: string
   description: string
@@ -14,7 +14,7 @@ export type ContentSectionFourContent = {
   }
 }
 
-export type ContentSectionFourPanel = {
+export type ContentSectionFivePanel = {
   title: string
   description: string
   image: {
@@ -24,13 +24,13 @@ export type ContentSectionFourPanel = {
   metadata?: string
 }
 
-export type ContentSectionFourProps = Omit<ComponentProps<'section'>, 'children' | 'content'> & {
-  content?: ContentSectionFourContent
-  panels?: readonly ContentSectionFourPanel[]
+export type ContentSectionFiveProps = Omit<ComponentProps<'section'>, 'children' | 'content'> & {
+  content?: ContentSectionFiveContent
+  panels?: readonly ContentSectionFivePanel[]
 }
 
-const defaultHowItWorksContent: ContentSectionFourContent = {
-  eyebrow: 'How it works',
+const defaultContent: ContentSectionFiveContent = {
+  eyebrow: 'Content',
   heading: 'Decisions stay connected from planning to release.',
   description:
     'Each stage builds on the last, keeping the original context visible throughout the work.',
@@ -40,14 +40,14 @@ const defaultHowItWorksContent: ContentSectionFourContent = {
   },
 }
 
-const defaultPanels: readonly ContentSectionFourPanel[] = [
+const defaultPanels: readonly ContentSectionFivePanel[] = [
   {
     title: 'Frame the outcome',
     description:
       'Define the customer problem, intended change, and constraints before the work begins.',
     image: {
-      src: '/projects/project-1.png',
-      alt: 'Project brief for a network infrastructure website',
+      src: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlh4cfuGJ0RlaETPbLcZQjyfg2StNvuB13w8rI',
+      alt: 'Design Image Phase 1',
     },
     metadata: 'Brief',
   },
@@ -56,8 +56,8 @@ const defaultPanels: readonly ContentSectionFourPanel[] = [
     description:
       'Give the team something concrete to review while decisions remain inexpensive to change.',
     image: {
-      src: '/sections/design1.png',
-      alt: 'Dark product landing page showing a mobile health interface',
+      src: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlBE1JQ6bM0rCoZtdKDAVO8yw7eSuvUb1LhYIJ',
+      alt: 'Design Image Phase 2',
     },
     metadata: 'Product review',
   },
@@ -66,22 +66,22 @@ const defaultPanels: readonly ContentSectionFourPanel[] = [
     description:
       'Carry the reason, impact, and essential details of the change into the final release.',
     image: {
-      src: '/sections/design4.png',
-      alt: 'Concise account recovery interface',
+      src: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTljn0lnIziS93GUAyT2Loud5qMEamYgj7C0BVN',
+      alt: 'Design Image Phase 3',
     },
     metadata: 'Release',
   },
 ]
 
-export default function ProcessSectionOne({
+export default function ContentSectionFive({
   className,
-  content = defaultHowItWorksContent,
+  content = defaultContent,
   panels = defaultPanels,
   ...props
-}: ContentSectionFourProps) {
+}: ContentSectionFiveProps) {
   return (
     <section
-      data-slot="content-section-four"
+      data-slot="content-section-five"
       className={cn('bg-background py-20 text-foreground sm:py-24 lg:py-28', className)}
       {...props}
     >
@@ -132,6 +132,7 @@ export default function ProcessSectionOne({
                         src={panel.image.src}
                         alt={panel.image.alt}
                         fill
+                        loading="eager"
                         className="object-cover object-top"
                         sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 1023px) calc(100vw - 64px), 700px"
                       />
