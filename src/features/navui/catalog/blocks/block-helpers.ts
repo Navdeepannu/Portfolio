@@ -16,13 +16,33 @@ export type BlockCategoryCard = {
   previewHeight: number
 }
 
+const FEATURED_BLOCK_SLUGS = [
+  'hero-section-four',
+  'content-section-one',
+  'sign-up-two',
+  'logo-cloud-five',
+  'pricing-section-one',
+  'stats-section-one',
+  'teams-section-five',
+  'contact-section-four',
+  'faq-section-three',
+  'cta-section-one',
+  'blog-section-one',
+  'footer-section-one',
+  'forgot-password-three',
+] as const
+
 /** Blocks shown on `/blocks` when no dedicated `featured` folder exists. */
 function getFeaturedBlocks(): BlockDefinition[] {
   const explicit = blocks.filter((block) => block.category === 'featured')
   if (explicit.length > 0) return explicit
 
-  const seen = new Set<BlockCategoryId>()
-  const curated: BlockDefinition[] = []
+  const blocksBySlug = new Map(blocks.map((block) => [block.slug, block] as const))
+  const curated = FEATURED_BLOCK_SLUGS.flatMap((slug) => {
+    const block = blocksBySlug.get(slug)
+    return block ? [block] : []
+  })
+  const seen = new Set<BlockCategoryId>(curated.map((block) => block.category))
 
   for (const block of blocks) {
     if (block.category === 'featured' || seen.has(block.category)) continue

@@ -12,7 +12,6 @@ const CATEGORY_ORDER: BlockCategoryId[] = [
   'features',
   'stats',
   'pricing',
-  'process',
   'forgot-password',
   'sign-up',
   'logo-cloud',
@@ -29,7 +28,7 @@ const CATEGORY_ORDER: BlockCategoryId[] = [
 const CATEGORY_META: Record<string, { name: string; description?: string }> = {
   featured: {
     name: 'Featured',
-    description: 'Hand-picked blocks to showcase first.',
+    description: 'A curated selection of standout, production-ready sections.',
   },
   hero: {
     name: 'Hero',
@@ -50,10 +49,6 @@ const CATEGORY_META: Record<string, { name: string; description?: string }> = {
   pricing: {
     name: 'Pricing',
     description: 'Plan comparisons and conversion-ready pricing layouts.',
-  },
-  process: {
-    name: 'How It Works',
-    description: 'Step-by-step product workflows and service delivery sections.',
   },
   'forgot-password': {
     name: 'Forgot Password',

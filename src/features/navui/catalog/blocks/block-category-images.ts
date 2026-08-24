@@ -48,12 +48,6 @@ const CATEGORY_IMAGE_MAP: Partial<Record<BlockCategoryId, BlockCategoryImageSet>
     width: 2940,
     height: 2036,
   },
-  process: {
-    light: asset('process-light.png'),
-    dark: asset('process-dark.png'),
-    width: 2940,
-    height: 4332,
-  },
   'forgot-password': {
     light: asset('forgot-password-light.png'),
     dark: asset('forgot-password-dark.png'),

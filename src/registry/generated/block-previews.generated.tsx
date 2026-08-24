@@ -7,6 +7,7 @@ import blockContactSectionFour from '@/registry/blocks/contact/contact-section-f
 import blockContactSectionOne from '@/registry/blocks/contact/contact-section-one/contact-section-one'
 import blockContactSectionThree from '@/registry/blocks/contact/contact-section-three/contact-section-three'
 import blockContactSectionTwo from '@/registry/blocks/contact/contact-section-two/contact-section-two'
+import blockContentSectionFive from '@/registry/blocks/content/content-section-five/content-section-five'
 import blockContentSectionFour from '@/registry/blocks/content/content-section-four/content-section-four'
 import blockContentSectionOne from '@/registry/blocks/content/content-section-one/content-section-one'
 import blockContentSectionThree from '@/registry/blocks/content/content-section-three/content-section-three'
@@ -34,7 +35,6 @@ import blockLogoCloudOne from '@/registry/blocks/logo-cloud/logo-cloud-one/logo-
 import blockLogoCloudThree from '@/registry/blocks/logo-cloud/logo-cloud-three/logo-cloud-three'
 import blockLogoCloudTwo from '@/registry/blocks/logo-cloud/logo-cloud-two/logo-cloud-two'
 import blockPricingSectionOne from '@/registry/blocks/pricing/pricing-section-one/pricing-section-one'
-import blockProcessSectionOne from '@/registry/blocks/process/process-section-one/process-section-one'
 import blockSignUpOne from '@/registry/blocks/sign-up/sign-up-one/sign-up-one'
 import blockSignUpTwo from '@/registry/blocks/sign-up/sign-up-two/sign-up-two'
 import blockStatsSectionOne from '@/registry/blocks/stats/stats-section-one/stats-section-one'
@@ -43,7 +43,6 @@ import blockTeamsSectionFour from '@/registry/blocks/team/teams-section-four/tea
 import blockTeamsSectionOne from '@/registry/blocks/team/teams-section-one/teams-section-one'
 import blockTeamsSectionThree from '@/registry/blocks/team/teams-section-three/teams-section-three'
 import blockTeamsSectionTwo from '@/registry/blocks/team/teams-section-two/teams-section-two'
-import blockTestamonialSectionOne from '@/registry/blocks/testimonial/testimonial-section-one/testimonial-section-one'
 
 export const blockPreviewComponents: Record<string, BlockPreviewComponentSet> = {
   'blog-section-one': {
@@ -60,6 +59,9 @@ export const blockPreviewComponents: Record<string, BlockPreviewComponentSet> = 
   },
   'contact-section-two': {
     default: blockContactSectionTwo,
+  },
+  'content-section-five': {
+    default: blockContentSectionFive,
   },
   'content-section-four': {
     default: blockContentSectionFour,
@@ -142,9 +144,6 @@ export const blockPreviewComponents: Record<string, BlockPreviewComponentSet> = 
   'pricing-section-one': {
     default: blockPricingSectionOne,
   },
-  'process-section-one': {
-    default: blockProcessSectionOne,
-  },
   'sign-up-one': {
     default: blockSignUpOne,
   },
@@ -168,8 +167,5 @@ export const blockPreviewComponents: Record<string, BlockPreviewComponentSet> = 
   },
   'teams-section-two': {
     default: blockTeamsSectionTwo,
-  },
-  'testamonial-section-one': {
-    default: blockTestamonialSectionOne,
   },
 }

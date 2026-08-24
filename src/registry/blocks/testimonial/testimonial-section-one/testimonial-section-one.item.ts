@@ -9,7 +9,7 @@ export const testimonialSectionOneItem = defineBlockItem({
   category: 'testimonials',
   source: 'src/registry/blocks/testimonial/testimonial-section-one/testimonial-section-one.tsx',
   target: '@components/blocks/testamonials/testamonial-section-one.tsx',
-  status: 'published',
+  status: 'archived',
   dependencies: ['@tabler/icons-react'],
   registryDependencies: ['badge', 'button'],
 })

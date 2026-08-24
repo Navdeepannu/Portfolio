@@ -4,6 +4,7 @@ import { contactSectionOneItem } from '@/registry/blocks/contact/contact-section
 import { contactSectionThreeItem } from '@/registry/blocks/contact/contact-section-three/contact-section-three.item'
 import { contactSectionTwoItem } from '@/registry/blocks/contact/contact-section-two/contact-section-two.item'
 import { contentSectionFourItem } from '@/registry/blocks/content/content-section-four/content-section-four.item'
+import { contentSectionFiveItem } from '@/registry/blocks/content/content-section-five/content-section-five.item'
 import { contentSectionOneItem } from '@/registry/blocks/content/content-section-one/content-section-one.item'
 import { contentSectionThreeItem } from '@/registry/blocks/content/content-section-three/content-section-three.item'
 import { contentSectionTwoItem } from '@/registry/blocks/content/content-section-two/content-section-two.item'
@@ -33,7 +34,6 @@ import { logoCloudOneItem } from '@/registry/blocks/logo-cloud/logo-cloud-one/lo
 import { logoCloudThreeItem } from '@/registry/blocks/logo-cloud/logo-cloud-three/logo-cloud-three.item'
 import { logoCloudTwoItem } from '@/registry/blocks/logo-cloud/logo-cloud-two/logo-cloud-two.item'
 import { pricingSectionOneItem } from '@/registry/blocks/pricing/pricing-section-one/pricing-section-one.item'
-import { processSectionOneItem } from '@/registry/blocks/process/process-section-one/process-section-one.item'
 import { signUpOneItem } from '@/registry/blocks/sign-up/sign-up-one/sign-up-one.item'
 import { signUpTwoItem } from '@/registry/blocks/sign-up/sign-up-two/sign-up-two.item'
 import { statsSectionOneItem } from '@/registry/blocks/stats/stats-section-one/stats-section-one.item'
@@ -53,6 +53,7 @@ export const blockItems: BlockDefinition[] = [
   contactSectionThreeItem,
   contactSectionTwoItem,
   contentSectionFourItem,
+  contentSectionFiveItem,
   contentSectionOneItem,
   contentSectionThreeItem,
   contentSectionTwoItem,
@@ -82,7 +83,6 @@ export const blockItems: BlockDefinition[] = [
   logoCloudThreeItem,
   logoCloudTwoItem,
   pricingSectionOneItem,
-  processSectionOneItem,
   signUpOneItem,
   signUpTwoItem,
   statsSectionOneItem,
