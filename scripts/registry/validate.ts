@@ -4,7 +4,12 @@ import path from 'node:path'
 import { registryItemSchema, registrySchema } from 'shadcn/schema'
 
 import { componentItemEntries, registryItems } from '@/registry/items'
-import { validatePublicArtifacts, validateRegistryDefinitions } from '@/registry/validation'
+import { primitiveComponentDefinitions } from '@/registry/primitives/definitions'
+import {
+  validatePrimitiveComponentDefinitions,
+  validatePublicArtifacts,
+  validateRegistryDefinitions,
+} from '@/registry/validation'
 
 import {
   GENERATED_BLOCK_PREVIEWS_PATH,
@@ -36,6 +41,11 @@ async function exists(relativePath: string): Promise<boolean> {
 
 async function main() {
   const errors = await validateRegistryDefinitions(registryItems, { sourceExists: exists })
+  errors.push(
+    ...(await validatePrimitiveComponentDefinitions(primitiveComponentDefinitions, {
+      sourceExists: exists,
+    })),
+  )
 
   const expectedGenerated = new Map<string, string>([
     [ROOT_REGISTRY_PATH, renderRootRegistry(registryItems)],
@@ -137,7 +147,7 @@ async function main() {
   }
 
   console.log(
-    `[registry:validate] OK — ${registryItems.length} canonical item(s), ${artifacts.size} public item(s), no drift.`,
+    `[registry:validate] OK — ${registryItems.length} canonical item(s), ${primitiveComponentDefinitions.length} primitive component(s), ${artifacts.size} public item(s), no drift.`,
   )
 }
 

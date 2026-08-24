@@ -10,11 +10,19 @@ import {
 import BlockPreviewBoundary from '@/features/navui/previews/block-preview-boundary'
 import { ComponentPreview } from '@/features/navui/catalog/components/component-tabs'
 import PreviewShell from '@/features/navui/previews/preview-navbar'
+import { getNavUIPrimitivePreference } from '@/features/navui/primitives/primitive-preference'
 
-export function RegistryPreviewPage({ slug, exampleId }: { slug: string; exampleId?: string }) {
+export async function RegistryPreviewPage({
+  slug,
+  exampleId,
+}: {
+  slug: string
+  exampleId?: string
+}) {
+  const primitive = await getNavUIPrimitivePreference()
   const block = blocks.find((b) => b.slug === slug)
   if (block) {
-    const blockComponent = getBlockComponent(block.slug)
+    const blockComponent = getBlockComponent(block.slug, primitive)
     if (!blockComponent) notFound()
 
     return (

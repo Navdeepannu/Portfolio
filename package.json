@@ -24,6 +24,7 @@
     "check": "bun run lint && bun run typecheck && bun run test && bun run architecture:validate && bun run format:check && bun run registry:check"
   },
   "dependencies": {
+    "@base-ui/react": "^1.6.0",
     "@radix-ui/react-use-controllable-state": "^1.2.2",
     "@rexa-developer/tiks": "^0.3.0",
     "@shadcn/react": "^0.1.0",
@@ -43,6 +44,7 @@
     "next-themes": "^0.4.6",
     "radix-ui": "^1.4.3",
     "react": "19.2.4",
+    "react-aria-components": "^1.20.0",
     "react-dom": "19.2.4",
     "react-icons": "^5.6.0",
     "react-use-measure": "^2.1.7",

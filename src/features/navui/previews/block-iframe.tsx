@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from 'react'
 
 import { cn } from '@/lib/utils'
+import type { Primitive } from '@/config/navui-primitives'
 import {
   BLOCK_PREVIEW_CHROME_PX,
   BLOCK_PREVIEW_MIN_HEIGHT_PX,
@@ -17,11 +18,13 @@ export default function BlockIframe({
   slug,
   reloadKey,
   title,
+  primitive,
   width,
 }: {
   slug: string
   reloadKey: number
   title: string
+  primitive: Primitive
   width: BlockPreviewWidth
 }) {
   const [frameHeightPx, setFrameHeightPx] = useState(BLOCK_PREVIEW_MIN_HEIGHT_PX)
@@ -57,7 +60,7 @@ export default function BlockIframe({
     >
       <div className="h-full overflow-hidden rounded-lg bg-white p-2 shadow-sm dark:bg-neutral-950">
         <iframe
-          key={`${slug}-${reloadKey}`}
+          key={`${slug}-${primitive}-${reloadKey}`}
           src={`/preview/${slug}`}
           title={title}
           loading="lazy"

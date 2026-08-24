@@ -168,8 +168,18 @@ describe('canonical registry validation', () => {
     assert.match(mainSource.code, /from '@\/components\/blocks\/header\/header-three'/)
     assert.match(mainSource.code, /from '@\/components\/blocks\/logo-cloud\/logo-cloud-five'/)
 
-    assert.equal(singleFileSources.length, 1)
-    assert.equal(singleFileSources[0]?.target, singleFile.registry.files[0]?.target)
+    const singleFileDirectSources = singleFileSources.filter(
+      (file) => file.relationship === 'direct',
+    )
+    const singleFilePrimitiveSources = singleFileSources.filter(
+      (file) => file.relationship === 'primitive-dependency',
+    )
+    assert.equal(singleFileDirectSources.length, 1)
+    assert.equal(singleFileDirectSources[0]?.target, singleFile.registry.files[0]?.target)
+    assert.deepEqual(
+      singleFilePrimitiveSources.map((file) => file.target),
+      ['@ui/button.tsx'],
+    )
   })
 
   test('recursively resolves local registry dependencies without duplicating owners', () => {

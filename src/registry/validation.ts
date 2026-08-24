@@ -4,9 +4,58 @@ import {
   type NavUIRegistryItem,
   type RegistryFileEntry,
 } from './types'
+import { primitives } from '@/config/navui-primitives'
+import type { PrimitiveComponentDefinition } from '@/registry/primitives/definitions'
 
 export type RegistryValidationOptions = {
   sourceExists?: (relativePath: string) => boolean | Promise<boolean>
+}
+
+export async function validatePrimitiveComponentDefinitions(
+  definitions: PrimitiveComponentDefinition[],
+  options: RegistryValidationOptions = {},
+): Promise<string[]> {
+  const errors: string[] = []
+  const names = new Set<string>()
+
+  for (const definition of definitions) {
+    const label = `[primitive:${definition.name || '(missing name)'}]`
+    if (!definition.name.trim()) errors.push(`${label} Missing component name.`)
+    if (names.has(definition.name)) errors.push(`${label} Duplicate primitive component name.`)
+    names.add(definition.name)
+
+    const expectedTargets = new Set<string>()
+    for (const primitive of primitives) {
+      const implementation = definition.implementations[primitive]
+      if (!implementation) {
+        errors.push(`${label} Missing ${primitive} implementation.`)
+        continue
+      }
+      if (!Array.isArray(implementation.dependencies)) {
+        errors.push(`${label} ${primitive} dependencies must be an array.`)
+      }
+      if (!Array.isArray(implementation.registryDependencies)) {
+        errors.push(`${label} ${primitive} registry dependencies must be an array.`)
+      }
+      if (implementation.files.length === 0) {
+        errors.push(`${label} ${primitive} implementation has no files.`)
+      }
+
+      for (const file of implementation.files) {
+        if (!file.target.trim()) errors.push(`${label} ${primitive} file has no install target.`)
+        expectedTargets.add(file.target)
+        if (options.sourceExists && !(await options.sourceExists(file.path))) {
+          errors.push(`${label} Missing ${primitive} source file: ${file.path}.`)
+        }
+      }
+    }
+
+    if (expectedTargets.size > 1) {
+      errors.push(`${label} Implementations must resolve to the same consumer target.`)
+    }
+  }
+
+  return errors
 }
 
 const LOCAL_DEPENDENCY_PREFIX = '@navdeep-singh/'
