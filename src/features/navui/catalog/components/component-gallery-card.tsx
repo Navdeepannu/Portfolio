@@ -56,7 +56,11 @@ export function ComponentGalleryCard({ component }: { component: ComponentDefini
         </h2>
 
         <div className="flex shrink-0 items-center gap-0.5 text-muted-foreground opacity-80 transition-opacity duration-150 group-focus-within/card:opacity-100 group-hover/card:opacity-100">
-          <ComponentInstallCopyButton title={component.title} command={installCommand} />
+          <ComponentInstallCopyButton
+            slug={component.slug}
+            title={component.title}
+            command={installCommand}
+          />
 
           <Button
             asChild

@@ -5,6 +5,8 @@ import { cn } from '@/lib/utils'
 import { getBlockCategories } from '@/features/navui/catalog'
 import Link from 'next/link'
 import { LandingBentoGrid } from '@/features/navui/landing/landing-bento-showcase'
+import { ANALYTICS_EVENTS } from '@/features/analytics/events'
+import { trackAnalyticsEvent } from '@/features/analytics/track'
 
 const copy = {
   eyebrow: 'Blocks',
@@ -41,7 +43,19 @@ export default function BlocksPreviewSection() {
               size="sm"
               asChild
             >
-              <Link href={copy.cta.href}>{copy.cta.label}</Link>
+              <Link
+                href={copy.cta.href}
+                className="ph-no-capture"
+                onClick={() =>
+                  trackAnalyticsEvent(ANALYTICS_EVENTS.LANDING_CTA_CLICKED, {
+                    cta: 'explore_blocks',
+                    destination: copy.cta.href,
+                    location: 'blocks_section',
+                  })
+                }
+              >
+                {copy.cta.label}
+              </Link>
             </Button>
           </div>
         </div>

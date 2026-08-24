@@ -2,6 +2,8 @@
 
 import * as React from 'react'
 import { ThemeProvider as NextThemesProvider, useTheme } from 'next-themes'
+import { ANALYTICS_EVENTS } from '@/features/analytics/events'
+import { trackAnalyticsEvent } from '@/features/analytics/track'
 
 function ThemeHotkey() {
   const { theme, setTheme } = useTheme()
@@ -24,7 +26,14 @@ function ThemeHotkey() {
       }
 
       event.preventDefault()
-      setTheme(theme === 'dark' ? 'light' : 'dark')
+      const from = theme === 'dark' ? 'dark' : 'light'
+      const to = from === 'dark' ? 'light' : 'dark'
+      setTheme(to)
+      trackAnalyticsEvent(ANALYTICS_EVENTS.THEME_CHANGED, {
+        from,
+        to,
+        source: 'keyboard',
+      })
     }
 
     document.addEventListener('keydown', onKeyDown)

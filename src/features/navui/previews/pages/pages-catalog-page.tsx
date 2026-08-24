@@ -1,6 +1,4 @@
-import { CopyButton } from '@/features/navui/code/copy-button/copy-button'
 import { UiLibraryNavbar } from '@/features/navui/landing/ui-library/ui-library-navbar-server'
-import { getInstallCommands } from '@/features/navui/catalog/install-commands-display'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -11,7 +9,6 @@ const templates = [
     description: 'A full-page operations workspace with navigation, data views, and product UI.',
     image: 'https://p1r7j2dwef.ufs.sh/f/nrPqHGLL1RTlUpuYbnXMcP1suvnB5JoeGFDfSm7wChl8LtpH',
     href: '/pages/flowdesk',
-    command: getInstallCommands('flowdesk').pnpm,
   },
 ] as const
 
@@ -57,18 +54,6 @@ export function PagesCatalogPage() {
                 <p className="mt-2 text-sm leading-5 text-muted-foreground">
                   {template.description}
                 </p>
-
-                <div className="mt-4 flex items-center gap-2 rounded-lg border bg-muted/50 p-1 pl-3">
-                  <code className="min-w-0 flex-1 truncate text-xs text-muted-foreground">
-                    {template.command}
-                  </code>
-                  <CopyButton
-                    text={template.command}
-                    variant="ghost"
-                    className="shrink-0"
-                    aria-label={`Copy ${template.title} install command`}
-                  />
-                </div>
               </div>
             </article>
           ))}

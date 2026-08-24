@@ -8,6 +8,8 @@ import {
   type PackageManagerId,
 } from '@/features/navui/catalog/install-commands-display'
 import { CodeBlockCommand } from '@/features/navui/code/commands/code-block-command'
+import { ANALYTICS_EVENTS } from '@/features/analytics/events'
+import { trackAnalyticsEvent } from '@/features/analytics/track'
 
 type PackageCommands = Record<PackageManagerId, string>
 
@@ -71,6 +73,7 @@ function Step({
 
 export default function ComponentInstall({
   slug,
+  title,
   dependencies,
   registryDependencies,
   sourceCode,
@@ -78,6 +81,7 @@ export default function ComponentInstall({
   showImportNote = true,
 }: {
   slug: string
+  title: string
   dependencies: string[]
   registryDependencies: string[]
   sourceCode: ReactNode
@@ -103,7 +107,18 @@ export default function ComponentInstall({
       </TabsList>
 
       <TabsContent value="command" className="mt-0 flex flex-col gap-4 outline-none">
-        <CodeBlockCommand commands={cliCommands} />
+        <CodeBlockCommand
+          commands={cliCommands}
+          onCopySuccess={(packageManager) =>
+            trackAnalyticsEvent(ANALYTICS_EVENTS.CLI_COMMAND_COPIED, {
+              item_type: 'component',
+              item_slug: slug,
+              item_title: title,
+              package_manager: packageManager,
+              source: 'component_installation',
+            })
+          }
+        />
       </TabsContent>
 
       <TabsContent value="manual" className="mt-0 flex flex-col outline-none">

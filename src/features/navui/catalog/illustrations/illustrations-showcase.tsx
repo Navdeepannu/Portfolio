@@ -14,6 +14,8 @@ import { illustrationPreviewComponents } from '@/registry/generated/illustration
 import { illustrationItems } from '@/registry/items/illustrations'
 import { getInstallCommands } from '@/features/navui/catalog/install-commands-display'
 import BlockCode from '@/features/navui/code/block-code'
+import { ANALYTICS_EVENTS } from '@/features/analytics/events'
+import { trackAnalyticsEvent } from '@/features/analytics/track'
 
 type IllustrationSize = (typeof illustrationItems)[number]['size']
 
@@ -82,8 +84,17 @@ function IllustrationTile({
           size="sm"
           text={installCommand}
           idleIcon={<Terminal className="size-3.5" />}
-          className="h-8 gap-1.5 rounded-md border border-border/70 bg-background/90 px-2.5 text-xs shadow-sm backdrop-blur"
+          className="ph-no-capture h-8 gap-1.5 rounded-md border border-border/70 bg-background/90 px-2.5 text-xs shadow-sm backdrop-blur"
           aria-label={`Copy install command for ${item.title}`}
+          onCopySuccess={() =>
+            trackAnalyticsEvent(ANALYTICS_EVENTS.CLI_COMMAND_COPIED, {
+              item_type: 'illustration',
+              item_slug: item.slug,
+              item_title: item.title,
+              package_manager: 'npm',
+              source: 'illustration_catalog',
+            })
+          }
         >
           Install
         </CopyButton>
@@ -183,7 +194,20 @@ function CodeDrawer({
                     </p>
                   </div>
 
-                  <CodeBlockCommand commands={installCommands} defaultPackageManager="npm" />
+                  <CodeBlockCommand
+                    commands={installCommands}
+                    defaultPackageManager="npm"
+                    onCopySuccess={(packageManager) => {
+                      if (!item) return
+                      trackAnalyticsEvent(ANALYTICS_EVENTS.CLI_COMMAND_COPIED, {
+                        item_type: 'illustration',
+                        item_slug: item.slug,
+                        item_title: item.title,
+                        package_manager: packageManager,
+                        source: 'illustration_detail',
+                      })
+                    }}
+                  />
                 </section>
 
                 <section className="flex min-h-0 flex-1 flex-col gap-4">
@@ -200,6 +224,16 @@ function CodeDrawer({
                       collapsible
                       collapsedMaxHeightClassName="max-h-76"
                       expandedMaxHeightClassName="max-h-none"
+                      analytics={
+                        item
+                          ? {
+                              item_type: 'illustration',
+                              item_slug: item.slug,
+                              item_title: item.title,
+                              source: 'illustration_detail',
+                            }
+                          : undefined
+                      }
                     />
                   </div>
                 </section>

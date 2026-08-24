@@ -18,6 +18,8 @@ import { portfolioSearchGroups } from '@/features/portfolio/navigation/search-da
 import { useCommandMenu } from '@/lib/hooks/use-command-menu'
 import { CommandMenu } from '@/components/shared/command-menu'
 import { Kbd } from '@/components/ui/kbd'
+import { ANALYTICS_EVENTS } from '@/features/analytics/events'
+import { trackAnalyticsEvent } from '@/features/analytics/track'
 
 export type PortfolioNavbarProps = {
   fullWidth?: boolean
@@ -94,8 +96,17 @@ export function PortfolioNavbar({
                   href={item.href}
                   target={item.external ? '_blank' : undefined}
                   rel={item.external ? 'noopener noreferrer' : undefined}
+                  onClick={() => {
+                    if (!item.external) return
+                    trackAnalyticsEvent(ANALYTICS_EVENTS.EXTERNAL_LINK_CLICKED, {
+                      destination_type: item.label === 'Resume' ? 'resume' : 'portfolio',
+                      destination: item.href,
+                      source: 'portfolio_navbar',
+                    })
+                  }}
                   aria-current={active ? 'page' : undefined}
                   className={cn(
+                    item.external && 'ph-no-capture',
                     'inline-flex min-h-11 items-center gap-0.5 px-2 text-sm transition-colors duration-150 hover:text-foreground focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground',
                     active ? 'text-foreground' : 'text-muted-foreground',
                   )}
@@ -115,8 +126,15 @@ export function PortfolioNavbar({
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() =>
+                  trackAnalyticsEvent(ANALYTICS_EVENTS.EXTERNAL_LINK_CLICKED, {
+                    destination_type: label === 'GitHub' ? 'github' : 'social',
+                    destination: href,
+                    source: 'portfolio_navbar',
+                  })
+                }
                 aria-label={`${label} (opens in a new tab)`}
-                className="hidden size-11 items-center justify-center rounded-full text-muted-foreground transition-colors duration-150 hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground md:inline-flex"
+                className="ph-no-capture hidden size-11 items-center justify-center rounded-full text-muted-foreground transition-colors duration-150 hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground md:inline-flex"
               >
                 <Icon aria-hidden="true" className="size-4" />
               </Link>
@@ -232,8 +250,19 @@ export function PortfolioNavbar({
                         href={item.href}
                         target={item.external ? '_blank' : undefined}
                         rel={item.external ? 'noopener noreferrer' : undefined}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="group/link flex min-h-14 items-center justify-between rounded-xl px-3 text-lg font-medium tracking-[-0.01em] text-foreground transition-colors duration-150 hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
+                        onClick={() => {
+                          setMobileMenuOpen(false)
+                          if (!item.external) return
+                          trackAnalyticsEvent(ANALYTICS_EVENTS.EXTERNAL_LINK_CLICKED, {
+                            destination_type: item.label === 'Resume' ? 'resume' : 'portfolio',
+                            destination: item.href,
+                            source: 'portfolio_mobile_navbar',
+                          })
+                        }}
+                        className={cn(
+                          'group/link flex min-h-14 items-center justify-between rounded-xl px-3 text-lg font-medium tracking-[-0.01em] text-foreground transition-colors duration-150 hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground',
+                          item.external && 'ph-no-capture',
+                        )}
                       >
                         <span>{item.label}</span>
                         {item.external ? (
@@ -256,8 +285,15 @@ export function PortfolioNavbar({
                         href={href}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() =>
+                          trackAnalyticsEvent(ANALYTICS_EVENTS.EXTERNAL_LINK_CLICKED, {
+                            destination_type: label === 'GitHub' ? 'github' : 'social',
+                            destination: href,
+                            source: 'portfolio_mobile_navbar',
+                          })
+                        }
                         aria-label={`${label} (opens in a new tab)`}
-                        className="inline-flex size-11 items-center justify-center rounded-full text-muted-foreground transition-colors duration-150 hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
+                        className="ph-no-capture inline-flex size-11 items-center justify-center rounded-full text-muted-foreground transition-colors duration-150 hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
                       >
                         <Icon aria-hidden="true" className="size-4.5" />
                       </Link>

@@ -10,6 +10,8 @@ import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/compone
 import { Kbd, KbdGroup } from '@/components/ui/kbd'
 import type { SearchGroup, SearchItem } from '@/lib/search'
 import Logo from '@/components/ui-library-logo'
+import { ANALYTICS_EVENTS } from '@/features/analytics/events'
+import { trackAnalyticsEvent } from '@/features/analytics/track'
 
 type CommandMenuProps = {
   site: 'portfolio' | 'ui'
@@ -44,6 +46,21 @@ export function CommandMenu({ site, groups, open, onOpenChange }: CommandMenuPro
   const handleSelect = React.useCallback(
     (item: SearchItem) => {
       handleOpenChange(false)
+
+      const itemSlug =
+        item.type === 'block' && item.id.startsWith('block-')
+          ? item.id.slice('block-'.length)
+          : item.type === 'component' && item.id.startsWith('component-')
+            ? item.id.slice('component-'.length)
+            : undefined
+
+      trackAnalyticsEvent(ANALYTICS_EVENTS.COMMAND_MENU_ITEM_SELECTED, {
+        site: site === 'ui' ? 'navui' : 'portfolio',
+        destination_type: item.type,
+        destination: item.href ?? item.id,
+        item_slug: itemSlug,
+      })
+
       if (item.onSelect) {
         item.onSelect()
         return
@@ -55,7 +72,7 @@ export function CommandMenu({ site, groups, open, onOpenChange }: CommandMenuPro
       }
       router.push(item.href)
     },
-    [handleOpenChange, router],
+    [handleOpenChange, router, site],
   )
 
   return (
@@ -162,6 +179,7 @@ function CommandSearch({
         onValueChange={onValueChange}
         placeholder="Type a command or search…"
         className={cn(
+          'ph-no-capture',
           'flex h-6 w-full min-w-0 bg-transparent text-[15px] tracking-tight text-foreground',
           'placeholder:font-normal placeholder:text-muted-foreground/70',
           'outline-none disabled:cursor-not-allowed disabled:opacity-50',
@@ -215,6 +233,7 @@ function CommandRow({
       value={value}
       onSelect={() => onSelect(item)}
       className={cn(
+        'ph-no-capture',
         'group relative flex cursor-default items-center gap-2.5 rounded-lg px-2.5 py-2',
         'text-sm text-foreground/75 transition-colors outline-none select-none focus-visible:ring-2 focus-visible:ring-ring/50',
         'data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50',
@@ -260,7 +279,7 @@ function CommandRow({
 
 function CommandEmpty({ query, site }: { query: string; site: CommandMenuProps['site'] }) {
   return (
-    <div className="flex flex-col items-center justify-center gap-1 px-4 py-12 text-center">
+    <div className="ph-no-capture flex flex-col items-center justify-center gap-1 px-4 py-12 text-center">
       <p className="text-sm font-medium text-foreground">No results found</p>
       <p className="max-w-xs text-xs text-muted-foreground">
         {query

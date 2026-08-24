@@ -81,7 +81,7 @@ export function Example() {
       },
       {
         prop: 'onCopySuccess / onCopyError',
-        type: '(command: string) => void / (error: Error) => void',
+        type: '(command: string, packageManager: PackageManagerId) => void / (error: Error) => void',
         default: '-',
         description: 'Optional callbacks for analytics or application-level clipboard handling.',
       },

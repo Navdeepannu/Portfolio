@@ -3,6 +3,7 @@ import { IconBrandGithub, IconBrandLinkedin, IconFileText, IconMail } from '@tab
 import { ArrowUpRight } from 'lucide-react'
 
 import type { LandingLink } from '@/features/portfolio/content/landing-page.content'
+import { ExternalAnalyticsLink } from '@/features/analytics/external-analytics-link'
 
 const linkIcons = {
   resume: IconFileText,
@@ -26,13 +27,8 @@ export function LandingTextLink({
 }: LandingTextLinkProps) {
   const Icon = icon ? linkIcons[icon] : null
 
-  return (
-    <Link
-      href={href}
-      target={external ? '_blank' : undefined}
-      rel={external ? 'noreferrer' : undefined}
-      className={`group/link inline-flex min-h-11 min-w-11 items-center justify-center gap-1.5 text-sm font-medium text-muted-foreground transition-[color,transform] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] hover:text-foreground focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground active:scale-[0.98] motion-reduce:transition-none ${className}`}
-    >
+  const content = (
+    <>
       {Icon ? <Icon aria-hidden="true" className="size-3.5" /> : null}
       <span className="border-b border-dotted border-current/55 pb-px transition-colors group-hover/link:border-foreground">
         {label}
@@ -44,6 +40,38 @@ export function LandingTextLink({
         />
       ) : null}
       {external ? <span className="sr-only"> (opens in a new tab)</span> : null}
+    </>
+  )
+
+  const linkClassName = `group/link inline-flex min-h-11 min-w-11 items-center justify-center gap-1.5 text-sm font-medium text-muted-foreground transition-[color,transform] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] hover:text-foreground focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground active:scale-[0.98] motion-reduce:transition-none ${href.startsWith('mailto:') ? 'ph-no-capture' : ''} ${className}`
+
+  if (external) {
+    const destinationType =
+      icon === 'resume'
+        ? 'resume'
+        : icon === 'github'
+          ? 'github'
+          : icon === 'linkedin'
+            ? 'social'
+            : 'project'
+
+    return (
+      <ExternalAnalyticsLink
+        href={href}
+        destinationType={destinationType}
+        analyticsSource="portfolio_content"
+        target="_blank"
+        rel="noreferrer"
+        className={linkClassName}
+      >
+        {content}
+      </ExternalAnalyticsLink>
+    )
+  }
+
+  return (
+    <Link href={href} className={linkClassName}>
+      {content}
     </Link>
   )
 }

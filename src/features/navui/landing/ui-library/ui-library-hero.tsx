@@ -1,22 +1,12 @@
-import Link from 'next/link'
-
-import { Button } from '@/components/ui/button'
 import { TextLoop } from '@/components/ui/text-loop'
 import { getGithubStars } from '@/features/portfolio/github/server/repo-stats'
 import Container from '@/features/navui/landing/container'
-import { GitHubStars } from './github-stars'
+import { UiLibraryHeroActions } from './ui-library-hero-actions'
 
 const hero = {
   roles: ['components.', 'blocks.', 'illustrations.', 'templates.'],
   description:
     'A shadcn-compatible collection of React interfaces built with TypeScript, Tailwind CSS, and thoughtful motion. Preview the source and add only what your project needs.',
-  primaryCTA: {
-    label: 'Explore Blocks',
-    href: '/blocks',
-  },
-  secondaryCTA: {
-    label: 'View on GitHub',
-  },
 }
 
 export async function UiLibraryHero() {
@@ -39,21 +29,7 @@ export async function UiLibraryHero() {
             {hero.description}
           </p>
 
-          <div className="mt-2 flex flex-wrap items-center gap-4">
-            <Button asChild variant="default" size="lg" className="rounded-md">
-              <Link href={hero.primaryCTA.href}>{hero.primaryCTA.label}</Link>
-            </Button>
-
-            <GitHubStars
-              repo="navdeepannu/portfolio"
-              stargazersCount={stargazersCount}
-              label={hero.secondaryCTA.label}
-              variant="outline"
-              size="lg"
-              className="rounded-md"
-              showTooltip={false}
-            />
-          </div>
+          <UiLibraryHeroActions stargazersCount={stargazersCount} />
         </div>
       </Container>
     </section>

@@ -18,6 +18,8 @@ import {
 } from '@/features/navui/code/code-block'
 import type { LoadedBlockSourceFile } from '@/features/navui/code/source-loader'
 import { cn } from '@/lib/utils'
+import { ANALYTICS_EVENTS, type CodeCopyAnalyticsContext } from '@/features/analytics/events'
+import { trackAnalyticsEvent } from '@/features/analytics/track'
 
 type BlockCodeProps = {
   files: LoadedBlockSourceFile[]
@@ -25,6 +27,7 @@ type BlockCodeProps = {
   collapsible?: boolean
   collapsedMaxHeightClassName?: string
   expandedMaxHeightClassName?: string
+  analytics?: CodeCopyAnalyticsContext
 }
 
 const ReactLogo = (className: { className: string }) => {
@@ -54,6 +57,7 @@ export default function BlockCode({
   collapsible = false,
   collapsedMaxHeightClassName = 'max-h-120',
   expandedMaxHeightClassName = 'max-h-1500',
+  analytics,
 }: BlockCodeProps) {
   const [expanded, setExpanded] = useState(false)
   const bodyId = useId()
@@ -107,7 +111,11 @@ export default function BlockCode({
               </span>
             )}
           </div>
-          <CodeBlockCopyButton />
+          <CodeBlockCopyButton
+            onCopy={() => {
+              if (analytics) trackAnalyticsEvent(ANALYTICS_EVENTS.CODE_COPIED, analytics)
+            }}
+          />
         </CodeBlockHeader>
 
         <div className="relative">
@@ -174,7 +182,11 @@ export default function BlockCode({
             </span>
           )}
         </div>
-        <CodeBlockCopyButton />
+        <CodeBlockCopyButton
+          onCopy={() => {
+            if (analytics) trackAnalyticsEvent(ANALYTICS_EVENTS.CODE_COPIED, analytics)
+          }}
+        />
       </CodeBlockHeader>
 
       <CodeBlockBody className="min-h-0 flex-1 overflow-y-auto overscroll-y-auto rounded-lg shadow-sm [-webkit-overflow-scrolling:touch]">

@@ -508,7 +508,7 @@ export const CodeBlockCopyButton = ({
 
   return (
     <Button
-      className={cn('shrink-0', className)}
+      className={cn('ph-no-capture shrink-0', className)}
       onClick={() => void copyToClipboard()}
       size="icon"
       variant="ghost"

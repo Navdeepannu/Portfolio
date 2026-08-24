@@ -6,6 +6,8 @@ import { ArrowLeft, Moon, Sun } from 'lucide-react'
 import { useTheme } from 'next-themes'
 
 import { Button } from '@/components/ui/button'
+import { ANALYTICS_EVENTS } from '@/features/analytics/events'
+import { trackAnalyticsEvent } from '@/features/analytics/track'
 
 const subscribeNoop = () => () => {}
 
@@ -31,13 +33,24 @@ function ThemeToggle() {
 
   const isDark = theme === 'dark'
 
+  const toggleTheme = () => {
+    const from = isDark ? 'dark' : 'light'
+    const to = isDark ? 'light' : 'dark'
+    setTheme(to)
+    trackAnalyticsEvent(ANALYTICS_EVENTS.THEME_CHANGED, {
+      from,
+      to,
+      source: 'preview_navbar',
+    })
+  }
+
   return (
     <Button
       variant="outline"
       size="icon-sm"
-      onClick={() => setTheme(isDark ? 'light' : 'dark')}
+      onClick={toggleTheme}
       aria-label="Toggle theme"
-      className="rounded-full"
+      className="ph-no-capture rounded-full"
     >
       {mounted && isDark ? <Sun className="size-4" /> : <Moon className="size-4" />}
     </Button>
